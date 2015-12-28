@@ -21,6 +21,7 @@ void setup()
 {
   Keyboard.begin();
   Serial.begin(baudRate);
+  modStartup();
   resetPins();
   // serial delay
   delay(2000);

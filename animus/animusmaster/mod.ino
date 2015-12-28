@@ -1,3 +1,8 @@
+void modStartup()
+{
+
+}
+
 void modLoop()
 {
 
