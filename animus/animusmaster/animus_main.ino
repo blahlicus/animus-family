@@ -1,6 +1,8 @@
+#define lay getLayEEPROM()
 // layering
 int keyLayer = 0;
 int tempLayer = 0;
+
 
 // key states
 int keyState[COL][ROW];
@@ -180,13 +182,13 @@ void switchLayer(boolean increment)
 	{
 		keyLayer--;
 	}
-	if (keyLayer >= LAY)
+	if (keyLayer >= lay)
 	{
 		keyLayer = 0;
 	}
 	else if (keyLayer < 0)
 	{
-		keyLayer = LAY - 1;
+		keyLayer = lay - 1;
 	}
 	releaseAllKey();
 }
