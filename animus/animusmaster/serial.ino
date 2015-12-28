@@ -27,6 +27,30 @@ void serialCommand(String input)
   {
     Serial.println(KBINFO);
   }
+  else if (input.startsWith("uniqueksetkey"))
+  {
+    input = input.substring(input.indexOf('(')+1);
+    byte x = input.substring(0, input.indexOf('(')).toInt();
+    input = input.substring(input.indexOf('(')+1);
+    byte y = input.substring(0, input.indexOf('(')).toInt();
+    input = input.substring(input.indexOf('(')+1);
+    byte z = input.substring(0, input.indexOf('(')).toInt();
+    input = input.substring(input.indexOf('(')+1);
+    byte val = input.substring(0, input.indexOf('(')).toInt();
+    input = input.substring(input.indexOf('(')+1);
+    byte type = input.toInt();
+    setEEPROM(x, y, z, val, type);
+    Serial.print("key set: ");
+    Serial.print(x);
+    Serial.print(", ");
+    Serial.print(y);
+    Serial.print(", ");
+    Serial.print(z);
+    Serial.print(", ");
+    Serial.print(val);
+    Serial.print(", ");
+    Serial.println(type);
+  }
 }
 
 // serial functions end
