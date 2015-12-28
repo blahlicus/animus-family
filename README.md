@@ -58,10 +58,10 @@ enter the following commands for varying uses
 * "uniquekgetlay ": returns number of layers
 
 ## Authors and Contributors
-This firmware is done entirely by @blahlicus for the purpose of using it for his [Unique Keyboards](http://uniquekeyboard.com/) (custom mech keyboards).
+This firmware is done entirely by blahlicus for the purpose of using it for his [Unique Keyboards](http://uniquekeyboard.com/) (custom mech keyboards).
 
 ## Support or Contact
-Contact @blahlicus at blahlicus@gmail.com
+Contact blahlicus at blahlicus@gmail.com
 
 ## Licenses
 This software is under a variant of the Apache License, see LICENSE.md for more detail
