@@ -11,8 +11,6 @@ boolean pressedKey = false;
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
-
   // main loop starts
   testSerial();
   keyScan();
@@ -39,7 +37,6 @@ void loop()
     }
   }
   // main loop ends
-
 
   modLoop();
   delay(refreshDelay);
