@@ -12,13 +12,13 @@ boolean pressedKey = false;
 
 
 // baud: dont change this it messes with the c#
-int bitRate = 19200;
+int baudRate = 19200;
 
 
 void setup()
 {
   Keyboard.begin();
-  Serial.begin(bitRate);
+  Serial.begin(baudRate);
   resetPins();
   // serial delay
   delay(2000);
