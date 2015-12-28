@@ -9,6 +9,21 @@ int previousState[COL][ROW];
 // spacefn keys
 boolean pressedKey = false;
 
+
+
+// baud: dont change this it messes with the c#
+int bitRate = 19200;
+
+
+void setup()
+{
+  Keyboard.begin();
+  Serial.begin(bitRate);
+  resetPins();
+  // serial delay
+  delay(2000);
+}
+
 void loop()
 {
   // main loop starts
@@ -224,34 +239,3 @@ void keyScan()
 
 
 // key press functions end
-
-// serial functions start
-
-void testSerial()
-{
-  if (Serial.available()>0)
-  {
-    char inputByte = (char)Serial.read();
-    String inputData;
-
-    if (inputByte != ' ')
-    {
-      inputData += inputByte;
-    }
-    else
-    {
-      serialCommand(inputData);
-      inputData = "";
-    }
-  }
-}
-
-void serialCommand(String input)
-{
-  if (input == "uniquekreqinfo")
-  {
-    Serial.println(KBINFO);
-  }
-}
-
-// serial functions end
