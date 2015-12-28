@@ -4,12 +4,12 @@ void modLoop()
 }
 
 
-void modKeyDown(key input)
+void modKeyDown(char val, byte type)
 {
 
 }
 
-void modKeyUp(key input)
+void modKeyUp(char val, byte type)
 {
 
 }

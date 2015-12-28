@@ -41,12 +41,8 @@ void setup()
   Keyboard.begin();
   Serial.begin(bitRate);
   resetPins();
-  inilayout2();
-  loadLayout();
+  //inilayout2();
+  //loadLayout();
   // serial delay
   delay(2000);
-  Keyboard.write('a');
-  Keyboard.write('b');
-  Keyboard.write(keyLayout[5][1][0].val);
-  Keyboard.write(keyLayout[5][0][0].val);
 }

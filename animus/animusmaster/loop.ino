@@ -24,13 +24,13 @@ void loop()
       {
         if (keyState[j][i] == HIGH)
         {
-          pressKey(keyLayout[j][i][tempLayer]);
-          modKeyDown(keyLayout[j][i][tempLayer]);
+          pressKey(getValEEPROM(j, i, tempLayer), getTypeEEPROM(j, i, tempLayer));
+          modKeyDown(getValEEPROM(j, i, tempLayer), getTypeEEPROM(j, i, tempLayer));
         }
         else
         {
-          releaseKey(keyLayout[j][i][tempLayer]);
-          modKeyUp(keyLayout[j][i][tempLayer]);
+          releaseKey(getValEEPROM(j, i, tempLayer), getTypeEEPROM(j, i, tempLayer));
+          modKeyUp(getValEEPROM(j, i, tempLayer), getTypeEEPROM(j, i, tempLayer));
         }
       }
 
@@ -48,100 +48,100 @@ void loop()
 
 // key press functions start
 
-void pressKey(key input)
+void pressKey(char val, byte type)
 {
   pressedKey = true;
 
-	if (input.type == 0)
+	if (type == 0)
 	{
-		Keyboard.press(input.val);
+		Keyboard.press(val);
 	}
-	else if (input.type == 1)
+	else if (type == 1)
 	{
-		tempLayer = input.val;
+		tempLayer = val;
 		releaseAllKey();
 	}
-  else if (input.type == 2)
+  else if (type == 2)
   {
     pressedKey = false;
-    tempLayer = input.val;
+    tempLayer = val;
     releaseAllKey();
   }
-	else if (input.type == 3)
+	else if (type == 3)
 	{
-    if (input.val == 0)
+    if (val == 0)
     {
   		switchLayer(true);
     }
-    else if (input.val == 1)
+    else if (val == 1)
     {
     	switchLayer(false);
     }
 	}
-	else if (input.type == 4)
+	else if (type == 4)
 	{
-    if (input.val = 0)
+    if (val = 0)
     {
   		Remote.increase();
       Remote.clear();
     }
-    else if (input.val == 1)
+    else if (val == 1)
     {
   		Remote.decrease();
       Remote.clear();
     }
-    else if (input.val == 2)
+    else if (val == 2)
     {
   		Remote.mute();
       Remote.clear();
     }
-    else if (input.val == 3)
+    else if (val == 3)
     {
   		Remote.play();
       Remote.clear();
     }
-    else if (input.val == 4)
+    else if (val == 4)
     {
   		Remote.pause();
       Remote.clear();
     }
-    else if (input.val == 5)
+    else if (val == 5)
     {
   		Remote.next();
       Remote.clear();
     }
-    else if (input.val == 6)
+    else if (val == 6)
     {
   		Remote.previous();
       Remote.clear();
     }
 	}
-	else if (input.type == 5)
+	else if (type == 5)
 	{
-    if (tempLayer == input.val)
+    if (tempLayer == val)
     {
       tempLayer = keyLayer;
     }
     else
     {
-      tempLayer = input.val;
+      tempLayer = val;
     }
     releaseAllKey();
 	}
 }
 
-void releaseKey(key input)
+void releaseKey(char val, byte type)
 {
-  if (input.type == 0)
+  if (type == 0)
 	{
-		Keyboard.release(input.val);
+		Keyboard.release(val);
 	}
-	else if (input.type == 1)
+	else if (type == 1)
 	{
 		tempLayer = keyLayer;
 		releaseAllKey();
 	}
-  else if (input.type == 2)
+  else if (type == 2)
   {
     if (pressedKey == false)
     {
