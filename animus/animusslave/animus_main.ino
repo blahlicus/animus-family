@@ -13,9 +13,9 @@ int previousState[COL][ROW];
 boolean pressedKey = false;
 
 // slave data
-byte slaveArray[30];
-byte slaveCount = 0;
-const byte MAX_SLAVE_COUNT = 30;
+byte slaveArray[31];
+byte slaveCount = 1;
+const byte MAX_SLAVE_COUNT = 31;
 
 // millis clock
 
@@ -66,9 +66,9 @@ void loop()
 
       }
     }
+
     // main loop ends
   }
-
 
   modLoop();
 }
@@ -84,9 +84,10 @@ void pressKey(char val, byte type)
     slaveCount++;
     slaveArray[slaveCount] = type;
     slaveCount++;
-    slaveArray[slaveCount] = true;
+    slaveArray[slaveCount] = 5;
     slaveCount++;
   }
+    Serial.println(slaveCount);
 }
 
 void releaseKey(char val, byte type)
@@ -97,7 +98,7 @@ void releaseKey(char val, byte type)
     slaveCount++;
     slaveArray[slaveCount] = type;
     slaveCount++;
-    slaveArray[slaveCount] = false;
+    slaveArray[slaveCount] = 1;
     slaveCount++;
   }
 }

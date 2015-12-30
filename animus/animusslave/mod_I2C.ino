@@ -4,7 +4,7 @@ void I2CStartup()
 {
   Wire.begin(8);
   Wire.onRequest(requestEvent);
-  Wire.onReceive(receiveEvent);
+  //Wire.onReceive(receiveEvent);
 }
 
 void I2CLoop()
@@ -19,15 +19,14 @@ void I2CLoop()
 
 void requestEvent()
 {
-  if (slaveCount>0)
-  {
-    Wire.write(1);
+    slaveArray[0] = slaveCount;
     Wire.write(slaveArray, slaveCount);
-  }
+    slaveCount = 1;
 }
 
 void receiveEvent(int numBytes)
 {
+
   byte type = Wire.read();
   if (type == 1)
   {

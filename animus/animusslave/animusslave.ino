@@ -1,11 +1,11 @@
 #include "EEPROM.h"
 
 // constants: change this only to edit keyboard info
-const int ROW = 4;
-const int COL = 6;
+const int ROW = 5;
+const int COL = 8;
 String KBINFO = "DivergeTM,Diverge TM,Animus,Diverge TM QWERTY";
-int vPins[ROW] = { A3, A2, 9, 16};
-int hPins[COL] = { 10, 8, 7, 6, 5, 4};
+int vPins[ROW] = { 5, 6, 7, 8, 9};
+int hPins[COL] = { A3, A2, A1, A0, 15, 14, 16, 10};
 
 int refreshDelay = 10;
 // constants end

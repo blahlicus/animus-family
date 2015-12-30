@@ -9,32 +9,30 @@ void I2CStartup()
 
 void I2CLoop()
 {
-
-
   if (checkMillis())
   {
-    Wire.requestFrom(8, 31);
-    {
-      while(Wire.available())
-      {
-        char cinput = Wire.read();
-        byte binput = Wire.read();
-        bool down = Wire.read();
-        if (down)
-        {
-          pressKey(cinput, binput);
-        }
-        else
-        {
-          releaseKey(cinput, binput);
-        }
-      }
+    byte slaveArray[31];
+    byte slaveCount = 0;
+    Wire.requestFrom(8, 31);    // request 6 bytes from slave device #8
+    while (Wire.available())
+    { // slave may send less than requested
+      byte out = Wire.read(); // receive a byte as character
+      slaveArray[slaveCount] = out;
+      slaveCount++;
     }
-
-    if (tempLayer != I2CLayer)
+    slaveCount = slaveArray[0];
+    for (int i = 1; i < slaveCount; i=i+3)
     {
-      I2CLayer = tempLayer;
-      I2CSelectLayer(tempLayer);
+      char cinput = slaveArray[i];
+      byte tinput = slaveArray[i+1];
+      if (slaveArray[i+2]>1)
+      {
+        pressKey(cinput, tinput);
+      }
+      else
+      {
+        releaseKey(cinput, tinput);
+      }
     }
   }
 

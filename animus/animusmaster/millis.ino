@@ -1,18 +1,22 @@
 
 unsigned long previousMillis = 0;
-
+unsigned long currentMillis = 0;
+boolean readyMillis = false;
 void millisLoop()
 {
-  unsigned long currentMillis = millis();
+  currentMillis = millis();
   if ((unsigned long)(currentMillis - previousMillis) >= refreshDelay)
   {
     previousMillis = currentMillis;
+    readyMillis = true;
+  }
+  else
+  {
+    readyMillis = false;
   }
 }
 
 boolean checkMillis()
 {
-  unsigned long currentMillis = millis();
-  boolean output = ((unsigned long)(currentMillis - previousMillis) >= refreshDelay);
-  return output;
+  return readyMillis;
 }

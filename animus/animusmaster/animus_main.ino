@@ -38,6 +38,7 @@ void loop()
 
   if (checkMillis())
   {
+    Serial.println("abc");
     // main loop starts
     keyScan();
     for (int i = 0; i < ROW; i++)
@@ -75,7 +76,7 @@ void loop()
 void pressKey(char val, byte type)
 {
   pressedKey = true;
-
+  Serial.println("lala");
 	if (type == 0)
 	{
 		Keyboard.press(val);
