@@ -5,10 +5,7 @@ void modStartup()
 
 void modLoop()
 {
-  if (checkMillis())
-  {
 
-  }
 }
 
 

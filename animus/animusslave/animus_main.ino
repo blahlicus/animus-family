@@ -1,6 +1,7 @@
 #define lay getLayEEPROM()
 
 // layering
+
 int keyLayer = 0;
 int tempLayer = 0;
 
@@ -12,8 +13,9 @@ int previousState[COL][ROW];
 // spacefn keys
 boolean pressedKey = false;
 
-
 // millis clock
+unsigned long previousMillis = 0;
+
 
 // baud: dont change this it messes with the c#
 int baudRate = 19200;
@@ -23,7 +25,6 @@ void setup()
 {
   Keyboard.begin();
   Serial.begin(baudRate);
-  modStartup();
   resetPins();
   // serial delay
   delay(2000);
@@ -31,14 +32,16 @@ void setup()
 
 void loop()
 {
-  // resets millis counter
-  millisLoop();
-  // checks serials
-  testSerial();
 
-  if (checkMillis())
+  // millis delay
+
+  unsigned long currentMillis = millis();
+
+  if ((unsignedlong)(currentMillis - previousMillis) >= refreshDelay)
   {
+
     // main loop starts
+    testSerial();
     keyScan();
     for (int i = 0; i < ROW; i++)
     {
@@ -63,10 +66,10 @@ void loop()
       }
     }
     // main loop ends
+
+
+    previousMillis = currentMillis;
   }
-
-
-  modLoop();
 }
 
 
