@@ -1,5 +1,7 @@
 #include "Wire.h"
 
+int I2CLayer = 0;
+
 void I2CStartup()
 {
   Wire.begin();
@@ -11,7 +13,7 @@ void I2CLoop()
 
   if (checkMillis())
   {
-    Wire.requestFrom(8, 30);
+    Wire.requestFrom(8, 31);
     {
       while(Wire.available())
       {
@@ -27,6 +29,12 @@ void I2CLoop()
           releaseKey(cinput, binput);
         }
       }
+    }
+
+    if (tempLayer != I2CLayer)
+    {
+      I2CLayer = tempLayer;
+      I2CSelectLayer(tempLayer);
     }
   }
 
