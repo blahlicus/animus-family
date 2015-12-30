@@ -56,14 +56,16 @@ void I2CSelectLayer(byte input)
 
 void I2CSetKey(byte x, byte y, byte z, char inputChar, byte inputType)
 {
+  byte type = 2;
   Wire.beginTransmission(8);
-  Wire.write(2);
+  Wire.write(type);
   Wire.write(x);
   Wire.write(y);
   Wire.write(z);
   Wire.write(inputChar);
   Wire.write(inputType);
   Wire.endTransmission();
+  Serial.println("set sub key stuff");
 }
 
 void I2CSetLayer(byte input)

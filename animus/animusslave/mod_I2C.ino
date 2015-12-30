@@ -4,7 +4,7 @@ void I2CStartup()
 {
   Wire.begin(8);
   Wire.onRequest(requestEvent);
-  //Wire.onReceive(receiveEvent);
+  Wire.onReceive(receiveEvent);
 }
 
 void I2CLoop()
@@ -40,6 +40,7 @@ void receiveEvent(int numBytes)
     byte z = Wire.read();
     char inputChar = Wire.read();
     byte inputType = Wire.read();
+    setEEPROM(x, y, z, inputChar, inputType);
   }
   else if (type == 3)
   {
