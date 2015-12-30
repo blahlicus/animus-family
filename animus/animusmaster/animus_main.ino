@@ -75,7 +75,6 @@ void loop()
 void pressKey(char val, byte type)
 {
   pressedKey = true;
-  Serial.println("lala");
 	if (type == 0)
 	{
 		Keyboard.press(val);

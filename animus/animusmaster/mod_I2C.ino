@@ -11,6 +11,13 @@ void I2CLoop()
 {
   if (checkMillis())
   {
+    if (tempLayer != I2CLayer)
+    {
+      I2CSelectLayer(tempLayer);
+      I2CLayer = tempLayer;
+    }
+
+
     byte slaveArray[31];
     byte slaveCount = 0;
     Wire.requestFrom(8, 31);    // request 6 bytes from slave device #8
@@ -65,7 +72,6 @@ void I2CSetKey(byte x, byte y, byte z, char inputChar, byte inputType)
   Wire.write(inputChar);
   Wire.write(inputType);
   Wire.endTransmission();
-  Serial.println("set sub key stuff");
 }
 
 void I2CSetLayer(byte input)
