@@ -6,6 +6,7 @@ This is an Arduino based firmware for use by devices compatible with the Arduino
 * 6KRO
 * live key layout editing (no need to reupload layout)
 * persistent key layout (keyboard layout is remembered across computers)
+* split keyboard compatible via I2C (works on stuff like ergodox/diverge)
 * up to 256 FN layers limited by EEPROM
 * up to 256 layers limited by EEPROM
 * FN keys, spaceFN, toggleFN
