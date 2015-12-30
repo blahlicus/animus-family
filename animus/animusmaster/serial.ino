@@ -89,6 +89,8 @@ void serialCommand(String input)
   {
     Serial.println(EEPROM.read(1023));
   }
+
+  modSerial(input);
 }
 
 // serial functions end

@@ -21,3 +21,8 @@ void modKeyUp(char val, byte type)
 {
 
 }
+
+void modSerial(String input)
+{
+
+}

@@ -1,5 +1,4 @@
 #include "EEPROM.h"
-#include "Wire.h"
 
 // constants: change this only to edit keyboard info
 const int ROW = 4;
