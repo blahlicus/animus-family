@@ -34,5 +34,8 @@ void modSerial(String input)
   }
   I2CSerial(input);
   mediaSerial(input);
-  Serial.print("\r\n");
+  if (input == "uniquekgetmods")
+  {
+    Serial.print("\r\n");
+  }
 }

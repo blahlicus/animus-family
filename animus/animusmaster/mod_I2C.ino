@@ -20,82 +20,37 @@ void I2CLoop()
 
     byte slaveArray[31];
     byte slaveCount = 0;
+    boolean slaveExists = false;
     Wire.requestFrom(8, 31);    // request 6 bytes from slave device #8
     while (Wire.available())
     { // slave may send less than requested
       byte out = Wire.read(); // receive a byte as character
       slaveArray[slaveCount] = out;
+      slaveExists = true;
       slaveCount++;
     }
-    slaveCount = slaveArray[0];
-    for (int i = 1; i < slaveCount; i=i+3)
+    if (slaveExists)
     {
-      char cinput = slaveArray[i];
-      byte tinput = slaveArray[i+1];
-      if (slaveArray[i+2]>1)
+      slaveCount = slaveArray[0];
+      for (int i = 1; i < slaveCount; i=i+3)
       {
-        pressKey(cinput, tinput);
-      }
-      else
-      {
-        releaseKey(cinput, tinput);
+        char cinput = slaveArray[i];
+        byte tinput = slaveArray[i+1];
+        if (slaveArray[i+2]>1)
+        {
+          pressKey(cinput, tinput);
+        }
+        else
+        {
+          releaseKey(cinput, tinput);
+        }
       }
     }
+
   }
 
 }
 
-/* references
-1: layer
-2: rebind
-3: set layer
-4: set EEPROM
-*/
-
-void I2CSelectLayer(byte input)
-{
-  Wire.beginTransmission(8);
-  Wire.write(1);
-  Wire.write(input);
-  Wire.endTransmission();
-}
-
-
-void I2CSetKey(byte x, byte y, byte z, char inputChar, byte inputType)
-{
-  byte type = 2;
-  Wire.beginTransmission(8);
-  Wire.write(type);
-  Wire.write(x);
-  Wire.write(y);
-  Wire.write(z);
-  Wire.write(inputChar);
-  Wire.write(inputType);
-  Wire.endTransmission();
-}
-
-void I2CSetLayer(byte input)
-{
-  Wire.beginTransmission(8);
-  Wire.write(3);
-  Wire.write(input);
-  Wire.endTransmission();
-}
-
-void I2CSetEEPROM(int addr, byte val)
-{
-
-  Wire.beginTransmission(8);
-  Wire.write(4);
-  Wire.write(val);
-  while (addr >255)
-  {
-    Wire.write(255);
-    addr = addr - 255;
-  }
-  Wire.write(addr);
-  Wire.endTransmission();
-}
 
 void I2CKeyDown(char val, byte type)
 {
@@ -167,3 +122,61 @@ void I2CSerial(String input)
     Serial.print("I2C");
   }
 }
+
+
+
+/* references
+1: layer
+2: rebind
+3: set layer
+4: set EEPROM
+*/
+void I2CSelectLayer(byte input)
+{
+  Wire.beginTransmission(8);
+  Wire.write(1);
+  Wire.write(input);
+  Wire.endTransmission();
+}
+
+
+void I2CSetKey(byte x, byte y, byte z, char inputChar, byte inputType)
+{
+  byte type = 2;
+  Wire.beginTransmission(8);
+  Wire.write(type);
+  Wire.write(x);
+  Wire.write(y);
+  Wire.write(z);
+  Wire.write(inputChar);
+  Wire.write(inputType);
+  Wire.endTransmission();
+}
+
+void I2CSetLayer(byte input)
+{
+  Wire.beginTransmission(8);
+  Wire.write(3);
+  Wire.write(input);
+  Wire.endTransmission();
+}
+
+void I2CSetEEPROM(int addr, byte val)
+{
+
+  Wire.beginTransmission(8);
+  Wire.write(4);
+  Wire.write(val);
+  while (addr >255)
+  {
+    Wire.write(255);
+    addr = addr - 255;
+  }
+  Wire.write(addr);
+  Wire.endTransmission();
+}
+
+
+
+// TODO
+// bool I2CDetectDevice(byte addr)

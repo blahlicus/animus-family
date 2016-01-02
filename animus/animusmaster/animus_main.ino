@@ -25,6 +25,7 @@ void setup()
   Serial.begin(baudRate);
   modStartup();
   resetPins();
+
   // serial delay
   delay(2000);
 }
