@@ -162,4 +162,8 @@ void I2CSerial(String input)
     }
 
   }
+  else if (input.startsWith("uniquekgetmods"))
+  {
+    Serial.print("I2C");
+  }
 }

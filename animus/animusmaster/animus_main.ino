@@ -1,5 +1,6 @@
 #define lay getLayEEPROM()
 
+
 // layering
 int keyLayer = 0;
 int tempLayer = 0;
@@ -9,11 +10,10 @@ int tempLayer = 0;
 int keyState[COL][ROW];
 int previousState[COL][ROW];
 
+
 // spacefn keys
 boolean pressedKey = false;
 
-
-// millis clock
 
 // baud: dont change this it messes with the c#
 int baudRate = 19200;
@@ -99,44 +99,6 @@ void pressKey(char val, byte type)
     else if (val == 1)
     {
     	switchLayer(false);
-    }
-	}
-	else if (type == 4)
-	{
-    if (val = 0)
-    {
-  		Remote.increase();
-      Remote.clear();
-    }
-    else if (val == 1)
-    {
-  		Remote.decrease();
-      Remote.clear();
-    }
-    else if (val == 2)
-    {
-  		Remote.mute();
-      Remote.clear();
-    }
-    else if (val == 3)
-    {
-  		Remote.play();
-      Remote.clear();
-    }
-    else if (val == 4)
-    {
-  		Remote.pause();
-      Remote.clear();
-    }
-    else if (val == 5)
-    {
-  		Remote.next();
-      Remote.clear();
-    }
-    else if (val == 6)
-    {
-  		Remote.previous();
-      Remote.clear();
     }
 	}
 	else if (type == 5)
