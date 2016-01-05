@@ -104,6 +104,14 @@ void serialCommand(String input)
     Serial.print("(");
     Serial.println(outType);
   }
+  else if (input.startsWith("uniquekgetrow"))
+  {
+    Serial.println(ROW);
+  }
+  else if (input.startsWith("uniquekgetcol"))
+  {
+    Serial.println(COL);
+  }
 
   modSerial(input);
 }
