@@ -13,42 +13,45 @@ void mediaLoop()
 
 void mediaKeyDown(char val, byte type)
 {
-  if (type == 4)
+  if (IS_MASTER)
   {
-    if (val == 0)
+    if (type == 4)
     {
-      Remote.increase();
-      Remote.clear();
-    }
-    else if (val == 1)
-    {
-      Remote.decrease();
-      Remote.clear();
-    }
-    else if (val == 2)
-    {
-      Remote.mute();
-      Remote.clear();
-    }
-    else if (val == 3)
-    {
-      Remote.play();
-      Remote.clear();
-    }
-    else if (val == 4)
-    {
-      Remote.pause();
-      Remote.clear();
-    }
-    else if (val == 5)
-    {
-      Remote.next();
-      Remote.clear();
-    }
-    else if (val == 6)
-    {
-      Remote.previous();
-      Remote.clear();
+      if (val == 0)
+      {
+        Remote.increase();
+        Remote.clear();
+      }
+      else if (val == 1)
+      {
+        Remote.decrease();
+        Remote.clear();
+      }
+      else if (val == 2)
+      {
+        Remote.mute();
+        Remote.clear();
+      }
+      else if (val == 3)
+      {
+        Remote.play();
+        Remote.clear();
+      }
+      else if (val == 4)
+      {
+        Remote.pause();
+        Remote.clear();
+      }
+      else if (val == 5)
+      {
+        Remote.next();
+        Remote.clear();
+      }
+      else if (val == 6)
+      {
+        Remote.previous();
+        Remote.clear();
+      }
     }
   }
 }

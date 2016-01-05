@@ -1,21 +1,20 @@
 #define lay getLayEEPROM()
 
-
 // layering
 int keyLayer = 0;
 int tempLayer = 0;
-
 
 // key states
 int keyState[COL][ROW];
 int previousState[COL][ROW];
 
+// slave states
+boolean IS_MASTER = true;
 
 // spacefn keys
 boolean pressedKey = false;
 
-
-// baud: dont change this it messes with the c#
+// baud: dont change this it messes with the GUI interface
 int baudRate = 19200;
 
 
