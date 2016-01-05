@@ -1,6 +1,6 @@
 void modStartup()
 {
-  I2CSlaveStartup();
+  mediaStartup();
 }
 
 void modLoop()
@@ -8,18 +8,18 @@ void modLoop()
   if (checkMillis())
   {
   }
-  I2CSlaveLoop();
+  mediaLoop();
 }
 
 
 void modKeyDown(char val, byte type)
 {
-  I2CSlaveKeyDown(val, type);
+  mediaKeyDown(val, type);
 }
 
 void modKeyUp(char val, byte type)
 {
-  I2CSlaveKeyUp(val, type);
+  mediaKeyUp(val, type);
 }
 
 void modSerial(String input)
@@ -28,7 +28,7 @@ void modSerial(String input)
   {
     Serial.print("get mods(");
   }
-  I2CSlaveSerial(input);
+  mediaSerial(input);
   if (input == "uniquekgetmods")
   {
     Serial.print("\r\n");

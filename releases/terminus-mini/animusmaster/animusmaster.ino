@@ -3,7 +3,7 @@
 // constants: change this only to edit keyboard info
 
 // diverge ii
-//*
+/*
 const int ROW = 5;
 const int COL = 8;
 String KBINFO = "Diverge II,Diverge II,Animus,Diverge II OEM";
@@ -16,8 +16,8 @@ int refreshDelay = 10;
 
 // constants end
 
-// diverge ii
-/*
+// terminus mini
+//*
 const int ROW = 4;
 const int COL = 12;
 String KBINFO = "Terminus Mini,Terminus Mini,Animus,Terminus Mini OEM";

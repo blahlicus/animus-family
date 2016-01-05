@@ -1,13 +1,13 @@
 #include "Wire.h"
 
-void I2CStartup()
+void I2CSlaveStartup()
 {
   Wire.begin(8);
   Wire.onRequest(requestEvent);
   Wire.onReceive(receiveEvent);
 }
 
-void I2CLoop()
+void I2CSlaveLoop()
 {
 
 
@@ -66,17 +66,20 @@ void receiveEvent(int numBytes)
 4: set EEPROM
 */
 
-void I2CKeyDown(char val, byte type)
+void I2CSlaveKeyDown(char val, byte type)
 {
 
 }
 
-void I2CKeyUp(char val, byte type)
+void I2CSlaveKeyUp(char val, byte type)
 {
 
 }
 
-void I2CSerial(String input)
+void I2CSlaveSerial(String input)
 {
-
+  if (input.startsWith("uniquekgetmods"))
+  {
+    Serial.print("I2C");
+  }
 }
