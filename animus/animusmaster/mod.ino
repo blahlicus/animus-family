@@ -1,7 +1,16 @@
+#define builder_mstartup// I2CStartup(); mediaStartup();
+
+#define builder_mloop// I2CLoop(); mediaLoop();
+#define builder_mloop_milis
+
+#define builder_mkeydown// I2CKeyDown(val, type); mediaKeyDown(val, type);
+
+#define builder_mkeyup// I2CKeyUp(val, type); mediaKeyUp(val, type);
+
+#define builder_mserial// I2CSerial(input); mediaSerial(input);
 void modStartup()
 {
-  I2CStartup();
-  mediaStartup();
+  builder_mstartup
 }
 
 void modLoop()
@@ -9,21 +18,18 @@ void modLoop()
   if (checkMillis())
   {
   }
-  I2CLoop();
-  mediaLoop();
+  builder_mloop
 }
 
 
 void modKeyDown(char val, byte type)
 {
-  I2CKeyDown(val, type);
-  mediaKeyDown(val, type);
+  builder_mkeydown
 }
 
 void modKeyUp(char val, byte type)
 {
-  I2CKeyUp(val, type);
-  mediaKeyUp(val, type);
+  builder_mkeyup
 }
 
 void modSerial(String input)
@@ -32,8 +38,7 @@ void modSerial(String input)
   {
     Serial.print("get mods(");
   }
-  I2CSerial(input);
-  mediaSerial(input);
+  builder_mserial
   if (input == "uniquekgetmods")
   {
     Serial.print("\r\n");

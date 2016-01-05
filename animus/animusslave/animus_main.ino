@@ -12,10 +12,7 @@ int previousState[COL][ROW];
 // spacefn keys
 boolean pressedKey = false;
 
-// slave data
-byte slaveArray[31];
-byte slaveCount = 1;
-const byte MAX_SLAVE_COUNT = 31;
+
 
 // millis clock
 

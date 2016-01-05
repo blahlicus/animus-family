@@ -1,9 +1,25 @@
+#define builder_row 5
+#define builder_col 8
+#define builder_kbinfo "Diverge II,Diverge II,Animus,Diverge II OEM"
+#define builder_vpins 5, 6, 7, 8, 9
+#define builder_hpins A3, A2, A1, A0, 15, 14, 16, 10
+#define builder_refresh 10
+#define builder_ismaster true
 #include "EEPROM.h"
 
 // constants: change this only to edit keyboard info
 
+const int ROW = builder_row;
+const int COL = builder_col;
+boolean IS_MASTER = builder_ismaster;
+String KBINFO = builder_kbinfo;
+int vPins[ROW] = {builder_vpins};
+int hPins[COL] = {builder_hpins};
+
+int refreshDelay = builder_refresh;
+
 // diverge ii
-//*
+/*
 const int ROW = 5;
 const int COL = 8;
 String KBINFO = "Diverge II,Diverge II,Animus,Diverge II OEM";

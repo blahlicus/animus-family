@@ -74,67 +74,75 @@ void loop()
 void pressKey(char val, byte type)
 {
   pressedKey = true;
-	if (type == 0)
-	{
-		Keyboard.press(val);
-	}
-	else if (type == 1)
-	{
-		tempLayer = val;
-		releaseAllKey();
-	}
-  else if (type == 2)
+  if (IS_MASTER)
   {
-    pressedKey = false;
-    tempLayer = val;
-    releaseAllKey();
-  }
-	else if (type == 3)
-	{
-    if (val == 0)
+    if (type == 0)
+  	{
+  		Keyboard.press(val);
+  	}
+  	else if (type == 1)
+  	{
+  		tempLayer = val;
+  		releaseAllKey();
+  	}
+    else if (type == 2)
     {
-  		switchLayer(true);
-    }
-    else if (val == 1)
-    {
-    	switchLayer(false);
-    }
-	}
-	else if (type == 5)
-	{
-    if (tempLayer == val)
-    {
-      tempLayer = keyLayer;
-    }
-    else
-    {
+      pressedKey = false;
       tempLayer = val;
+      releaseAllKey();
     }
-    releaseAllKey();
-	}
+  	else if (type == 3)
+  	{
+      if (val == 0)
+      {
+    		switchLayer(true);
+      }
+      else if (val == 1)
+      {
+      	switchLayer(false);
+      }
+  	}
+  	else if (type == 5)
+  	{
+      if (tempLayer == val)
+      {
+        tempLayer = keyLayer;
+      }
+      else
+      {
+        tempLayer = val;
+      }
+      releaseAllKey();
+  	}
+  }
+
   modKeyDown(val, type);
 }
 
 void releaseKey(char val, byte type)
 {
-  if (type == 0)
-	{
-		Keyboard.release(val);
-	}
-	else if (type == 1)
-	{
-		tempLayer = keyLayer;
-		releaseAllKey();
-	}
-  else if (type == 2)
+  if (IS_MASTER)
   {
-    if (pressedKey == false)
+    if (type == 0)
+  	{
+  		Keyboard.release(val);
+  	}
+  	else if (type == 1)
+  	{
+  		tempLayer = keyLayer;
+  		releaseAllKey();
+  	}
+    else if (type == 2)
     {
-      Keyboard.write(' ');
+      if (pressedKey == false)
+      {
+        Keyboard.write(' ');
+      }
+    	tempLayer = keyLayer;
+      releaseAllKey();
     }
-  	tempLayer = keyLayer;
-    releaseAllKey();
   }
+
   modKeyUp(val, type);
 }
 

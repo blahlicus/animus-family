@@ -1,8 +1,14 @@
 #include "Wire.h"
 
+// slave data
+byte slaveCount = 1;
+const byte MAX_SLAVE_COUNT = 31;
+byte slaveArray[MAX_SLAVE_COUNT];
+
 void I2CSlaveStartup()
 {
   Wire.begin(8);
+  IS_MASTER = false;
   Wire.onRequest(requestEvent);
   Wire.onReceive(receiveEvent);
 }
@@ -68,18 +74,34 @@ void receiveEvent(int numBytes)
 
 void I2CSlaveKeyDown(char val, byte type)
 {
-
+  if (slaveCount < MAX_SLAVE_COUNT)
+  {
+    slaveArray[slaveCount] = val;
+    slaveCount++;
+    slaveArray[slaveCount] = type;
+    slaveCount++;
+    slaveArray[slaveCount] = 5;
+    slaveCount++;
+  }
 }
 
 void I2CSlaveKeyUp(char val, byte type)
 {
-
+  if (slaveCount < MAX_SLAVE_COUNT)
+  {
+    slaveArray[slaveCount] = val;
+    slaveCount++;
+    slaveArray[slaveCount] = type;
+    slaveCount++;
+    slaveArray[slaveCount] = 1;
+    slaveCount++;
+  }
 }
 
 void I2CSlaveSerial(String input)
 {
   if (input.startsWith("uniquekgetmods"))
   {
-    Serial.print("I2C");
+    Serial.print("I2CSlave");
   }
 }
