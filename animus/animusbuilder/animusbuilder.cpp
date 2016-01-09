@@ -3,9 +3,10 @@
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
+#include <fstream>
 
 #ifdef _WIN32
-   #include <windows.h>
+   //#include <windows.h>
 #else
   //define it for a Unix machine
 #endif
@@ -162,19 +163,19 @@ inline std::string GetPathFromCin()
 }
 
 
-std::string GetDirectoryFromPathname (const std::string& str)
+std::string GetDirectoryFromPathname (std::string input)
 {
   size_t found;
-  found=str.find_last_of("/\\");
-  return str.substr(0,found);
+  found=input.find_last_of("/\\");
+  return input.substr(0,found);
 }
 
 void DirectoryCreate(std::string input)
 {
   #ifdef _WIN32
-    system("mkdir " + strPath);
+    system(("mkdir " + input).c_str());
   #else
-    system("mkdir -p " + strPath);
+    system(("mkdir -p " + input).c_str());
   #endif
 }
 
@@ -182,7 +183,7 @@ void FileCopy(std::string input, std::string output)
 {
   DirectoryCreate(GetDirectoryFromPathname(output));
   std::ifstream src(input, std::ios::binary);
-  std::ofstream src(output, std::ios::binary);
+  std::ofstream dst(output, std::ios::binary);
   dst << src.rdbuf();
 }
 
@@ -264,7 +265,7 @@ int main(int argc, char* argv[])
 
   	for (int i = 0; i < checkerSize ; i++)
   	{
-  		if (FileOrDirectoryExists(inputPath + checker[i]))
+  		if (FileOrDirectoryExists(animus_path + checker[i]))
   		{
   			std::cout << checker[i] << " OK!" << std::endl;
   		}
@@ -367,8 +368,10 @@ int main(int argc, char* argv[])
       std::string modname = temp.substr(4, temp.find('.'));
       #ifdef _WIN32
       arr[i] = mod_path + "\\" + temp.substr(0, temp.find('.') + 4);
+      std::string outputfile = output_path + "\\" + temp.substr(0, temp.find('.') + 4);
       #else
       arr[i] = mod_path + "/" + temp.substr(0, temp.find('.') + 4);
+      std::string outputfile = output_path + "/" + temp.substr(0, temp.find('.') + 4);
       #endif
       temp = temp.substr(temp.find('.') + 4);
       if (!FileOrDirectoryExists(arr[i]))
@@ -378,7 +381,7 @@ int main(int argc, char* argv[])
       }
       else
       {
-        FileCopy();
+        FileCopy(arr[i],outputfile);
       }
     }
 
