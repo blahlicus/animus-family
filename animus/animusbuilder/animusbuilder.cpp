@@ -134,10 +134,25 @@ void SetFileAttribute(std::string file, std::string attr, std::string val)
 {
   std::vector<std::string> output;
   std::ifstream src(file.c_str());
-  std::copy(std::istream_iterator<std::string>(src), std::istream_iterator<std::string>(), std::back_inserter(output));
-  for(size_t i = 0; i < output.size(); i++)
+  std::string temp;
+
+
+  if (!src)
   {
-    std::cout << output.at(i) << std::endl;
+    return;
+  }
+
+  while (std::getline(src, temp))
+  {
+    output.push_back(temp);
+  }
+  for (int i = 0; i < output.size(); i++)
+  {
+    if (output[i].find("#define " + attr) == 0)
+    {
+      output[i] = "#define " + attr + " " + val;
+    }
+    std::cout << output[i] << std::endl;
   }
 }
 
@@ -230,13 +245,16 @@ int main(int argc, char* argv[])
   std::string builder_kbdriver_build;
   std::string mod_path;
   std::string builder_modlist;
-  std:: string builder_kbinfo;
+  std::string builder_kbinfo;
+
+  std::string mainfile_path;
+  std::string modfile_path;
 
   if (argc < 7)
   {
     if (argc == 1)
     {
-      SetFileAttribute("\\animusmaster\\animus_main.ino", "abc", "def")
+      SetFileAttribute("C:\\Users\\blahlicus\\Documents\\GitHub\\animus-family\\animus\\animusmaster\\animusmaster.ino", "builder_kbinfo", "blahblah");
     }
     if (argc == 2)
     {
@@ -310,6 +328,12 @@ int main(int argc, char* argv[])
   	}
 
     DirectoryCopy(animus_path, output_path);
+    mainfile_path = output_path + maindriver + ".ino";
+    #ifdef _WIN32
+    modfile_path = output_path + "\\mod.ino";
+    #else
+    modfile_path = output_path + "/mod.ino";
+    #endif
     if (!IsNumeric(builder_row))
     {
       std:: cout << "Error: builder row: " << builder_row << " is not numeric!" << std::endl;
@@ -318,6 +342,7 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder row OK!" << std::endl;
+      SetFileAttribute(mainfile_path, "builder_row", builder_row);
     }
 
     if (!IsNumeric(builder_col))
@@ -328,6 +353,7 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder col OK!" << std::endl;
+      SetFileAttribute(mainfile_path, "builder_col", builder_col);
     }
 
     if (!IsArray(builder_vpins))
@@ -338,6 +364,7 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder vpins OK!" << std::endl;
+      SetFileAttribute(mainfile_path, "builder_vpins", builder_vpins);
     }
 
     if (!IsArray(builder_hpins))
@@ -348,6 +375,7 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder hpins OK!" << std::endl;
+      SetFileAttribute(mainfile_path, "builder_hpins", builder_hpins);
     }
   }
   if (argc > 7)
@@ -361,6 +389,7 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder refresh rate OK!" << std::endl;
+      SetFileAttribute(mainfile_path, "builder_refresh", builder_refresh);
     }
   }
   if (argc > 10)
@@ -438,11 +467,24 @@ int main(int argc, char* argv[])
     }
     std::string arr [counter];
     temp = builder_modlist;
+    std::string builder_mstartup = "";
+    std::string builder_mloop = "";
+    std::string builder_mkeydown = "";
+    std::string builder_mkeyup = "";
+    std::string builder_mserial = "";
     for (int i = 0; i < counter; i++)
     {
       std::string modfilename = temp.substr(0, temp.find('.') + 4);
       std::cout << modfilename << std::endl;
       std::string modname = temp.substr(4, temp.find('.'));
+
+      builder_mstartup = builder_mstartup + modname + "Startup(); ";
+      builder_mloop = builder_mloop + modname + "Loop(); ";
+      builder_mkeydown = builder_mkeydown + modname + "KeyDown(val, type); ";
+      builder_mkeyup = builder_mkeyup + modname + "KeyUp(val, type); ";
+      builder_mserial = builder_mserial + modname + "Serial(input); ";
+
+
       #ifdef _WIN32
       arr[i] = mod_path + "\\" + temp.substr(0, temp.find('.') + 4);
       std::string outputfile = output_path + "\\" + temp.substr(0, temp.find('.') + 4);
@@ -463,6 +505,7 @@ int main(int argc, char* argv[])
       }
       else
       {
+        std:: cout << "Adding mod: " << modname << std::endl;
         FileCopy(arr[i],outputfile);
       }
     }
