@@ -203,7 +203,7 @@ std::string GetDirectoryFromPathname (std::string input)
 void DirectoryCopy(std::string input, std::string output)
 {
   #ifdef _WIN32
-    system(("xcopy " + input + " " + output + " /E /H").c_str());
+    system(("xcopy " + input + " " + output + " /E /H /I /Y").c_str());
   #else
     system(("cp -rf " + input + " " + output).c_str());
   #endif
@@ -462,8 +462,6 @@ int main(int argc, char* argv[])
     {
       counter++;
       temp.erase(temp.find('.'), 1);
-      std::cout << temp << std::endl;
-      std::cout << "lala" << std::endl;
     }
     std::string arr [counter];
     temp = builder_modlist;
@@ -475,8 +473,8 @@ int main(int argc, char* argv[])
     for (int i = 0; i < counter; i++)
     {
       std::string modfilename = temp.substr(0, temp.find('.') + 4);
-      std::cout << modfilename << std::endl;
-      std::string modname = temp.substr(4, temp.find('.'));
+      std::string modname = temp.substr(4, temp.find('.')-4);
+      std::cout << modname << std::endl;
 
       builder_mstartup = builder_mstartup + modname + "Startup(); ";
       builder_mloop = builder_mloop + modname + "Loop(); ";
@@ -506,6 +504,12 @@ int main(int argc, char* argv[])
       else
       {
         std:: cout << "Adding mod: " << modname << std::endl;
+        SetFileAttribute(modfile_path, "builder_mstartup", builder_mstartup)
+        SetFileAttribute(modfile_path, "builder_mloop", builder_mloop)
+        SetFileAttribute(modfile_path, "builder_mkeydown", builder_mkeydown)
+        SetFileAttribute(modfile_path, "builder_mkeyup", builder_mkeyup)
+        SetFileAttribute(modfile_path, "builder_mserial", builder_mserial)
+
         FileCopy(arr[i],outputfile);
       }
     }
