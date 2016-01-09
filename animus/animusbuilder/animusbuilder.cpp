@@ -44,7 +44,7 @@ bool IsArray(std::string input)
 
   while (input.front() == ' ')
   {
-    input.erase(0);
+    input.erase(0, 1);
   }
 
   while (input.back() == ' ')
@@ -60,21 +60,23 @@ bool IsArray(std::string input)
   while (input.find(',') != std::string::npos && input.find_first_of(',') != 0)
   {
     std::cout << input.find(',');
-    while (input[input.find(',')-1] == ' ')
+    while (input[input.find(',')-1] == ' ' && input.find(',')-1 != -1)
     {
-      input.erase(input.find(',')-1);
+      input.erase(input.find(',')-1, 1);
     }
-    while (input[input.find(',')+1] == ' ')
+    while (input[input.find(',')+1] == ' ' && input.find(',')+1 != -1)
     {
-      input.erase(input.find(',')-1);
+      input.erase(input.find(',')+1, 1);
     }
 
     if (input[input.find(',') + 1] == ',')
     {
       return false;
     }
-
-    input.erase(input.find(','));
+    if (input.find(',') != std::string::npos)
+    {
+      input.erase(input.find(','), 1);
+    }
   }
 
   if (input.find(' ') != -1)
@@ -91,7 +93,7 @@ bool IsModArray(std::string input)
   {
     while (input.find(' ') != -1)
     {
-      input.erase(input.find(' '));
+      input.erase(input.find(' '), 1);
     }
     std::string temp = input;
     int counter = 0;
@@ -102,7 +104,7 @@ bool IsModArray(std::string input)
     while (temp.find('.'))
     {
       counter++;
-      temp.erase(temp.find('.'));
+      temp.erase(temp.find('.'), 1);
     }
     std::string arr [counter];
     temp = input;
@@ -170,13 +172,26 @@ std::string GetDirectoryFromPathname (std::string input)
   return input.substr(0,found);
 }
 
-void DirectoryCreate(std::string input)
+void DirectoryCopy(std::string input, std::string output)
 {
   #ifdef _WIN32
-    system(("mkdir " + input).c_str());
+    system(("xcopy " + input + " " + output + " /E /H").c_str());
   #else
-    system(("mkdir -p " + input).c_str());
+    system(("cp -rf " + input + " " + output).c_str());
   #endif
+}
+
+void DirectoryCreate(std::string input)
+{
+  if (!FileOrDirectoryExists(input))
+  {
+    #ifdef _WIN32
+      system(("mkdir " + input).c_str());
+    #else
+      system(("mkdir -p " + input).c_str());
+    #endif
+  }
+
 }
 
 void FileCopy(std::string input, std::string output)
@@ -277,10 +292,15 @@ int main(int argc, char* argv[])
   		}
   	}
 
+    DirectoryCopy(animus_path, output_path);
     if (!IsNumeric(builder_row))
     {
       std:: cout << "Error: builder row: " << builder_row << " is not numeric!" << std::endl;
       exit(-1);
+    }
+    else
+    {
+      std:: cout << "Builder row OK!" << std::endl;
     }
 
     if (!IsNumeric(builder_col))
@@ -288,17 +308,29 @@ int main(int argc, char* argv[])
       std:: cout << "Error: builder col: " << builder_col << " is not numeric!" << std::endl;
       exit(-1);
     }
+    else
+    {
+      std:: cout << "Builder col OK!" << std::endl;
+    }
 
     if (!IsArray(builder_vpins))
     {
       std:: cout << "Error: builder vpins: " << builder_vpins << " is not a valid array!" << std::endl;
       exit(-1);
     }
+    else
+    {
+      std:: cout << "Builder vpins OK!" << std::endl;
+    }
 
     if (!IsArray(builder_hpins))
     {
       std:: cout << "Error: builder hpins: " << builder_hpins << " is not a valid array!" << std::endl;
       exit(-1);
+    }
+    else
+    {
+      std:: cout << "Builder hpins OK!" << std::endl;
     }
   }
   if (argc > 7)
@@ -308,6 +340,10 @@ int main(int argc, char* argv[])
     {
       std:: cout << "Error: builder refresh: " << builder_refresh << " is not numeric!" << std::endl;
       exit(-1);
+    }
+    else
+    {
+      std:: cout << "Builder refresh rate OK!" << std::endl;
     }
   }
   if (argc > 10)
@@ -320,15 +356,27 @@ int main(int argc, char* argv[])
       std:: cout << "Error: builder kbname: " << builder_kbname << " is not alphanumeric!" << std::endl;
       exit(-1);
     }
+    else
+    {
+      std:: cout << "Builder kbname OK!" << std::endl;
+    }
     if (!IsAlphanumericOrSpace(builder_kbvariant))
     {
       std:: cout << "Error: builder kbvariant: " << builder_kbvariant << " is not alphanumeric!" << std::endl;
       exit(-1);
     }
+    else
+    {
+      std:: cout << "Builder kbvariant OK!" << std::endl;
+    }
     if (!IsAlphanumericOrSpace(builder_kbdriver_build))
     {
       std:: cout << "Error: builder driver build: " << builder_kbdriver_build << " is not alphanumeric!" << std::endl;
       exit(-1);
+    }
+    else
+    {
+      std:: cout << "Builder driver build OK!" << std::endl;
     }
   }
   if (argc > 12)
@@ -345,26 +393,38 @@ int main(int argc, char* argv[])
       std::cout << "Error: mod path: " << mod_path << " does not exist!" << std::endl;
       exit(-1);
     }
+    else
+    {
+      std:: cout << "mod path OK!" << std::endl;
+    }
 
     if (!IsModArray(builder_modlist))
     {
       std:: cout << "Error: builder modlist: " << builder_modlist << " is not a valid mod list!" << std::endl;
       exit(-1);
     }
+    else
+    {
+      std:: cout << "Builder modlist OK!" << std::endl;
+    }
 
 
     std::string temp = builder_modlist;
     int counter = 0;
-    while (temp.find('.'))
+    std::cout << temp << std::endl;
+    while (temp.find('.')!=-1  && temp.find('.') <temp.size())
     {
       counter++;
-      temp.erase(temp.find('.'));
+      temp.erase(temp.find('.'), 1);
+      std::cout << temp << std::endl;
+      std::cout << "lala" << std::endl;
     }
     std::string arr [counter];
     temp = builder_modlist;
     for (int i = 0; i < counter; i++)
     {
       std::string modfilename = temp.substr(0, temp.find('.') + 4);
+      std::cout << modfilename << std::endl;
       std::string modname = temp.substr(4, temp.find('.'));
       #ifdef _WIN32
       arr[i] = mod_path + "\\" + temp.substr(0, temp.find('.') + 4);
@@ -373,7 +433,12 @@ int main(int argc, char* argv[])
       arr[i] = mod_path + "/" + temp.substr(0, temp.find('.') + 4);
       std::string outputfile = output_path + "/" + temp.substr(0, temp.find('.') + 4);
       #endif
-      temp = temp.substr(temp.find('.') + 4);
+      temp = temp.substr(temp.find("mod_") +3);
+      if (temp.find("mod_") !=-1)
+      {
+
+        temp = temp.substr(temp.find("mod_"));
+      }
       if (!FileOrDirectoryExists(arr[i]))
       {
         std:: cout << "Error: the mod file: " << arr[i] << " does not exist!" << std::endl;
