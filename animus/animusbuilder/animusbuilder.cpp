@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fstream>
+#include <vector>
+#include <iterator>
+#include <algorithm>
 
 #ifdef _WIN32
    //#include <windows.h>
@@ -127,6 +130,16 @@ bool IsModArray(std::string input)
     return true;
   }
 }
+void SetFileAttribute(std::string file, std::string attr, std::string val)
+{
+  std::vector<std::string> output;
+  std::ifstream src(file.c_str());
+  std::copy(std::istream_iterator<std::string>(src), std::istream_iterator<std::string>(), std::back_inserter(output));
+  for(size_t i = 0; i < output.size(); i++)
+  {
+    std::cout << output.at(i) << std::endl;
+  }
+}
 
 bool IsAlphanumericOrSpace(std::string input)
 {
@@ -221,6 +234,10 @@ int main(int argc, char* argv[])
 
   if (argc < 7)
   {
+    if (argc == 1)
+    {
+      SetFileAttribute("\\animusmaster\\animus_main.ino", "abc", "def")
+    }
     if (argc == 2)
     {
       std::string help = argv[1];
