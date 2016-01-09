@@ -1,6 +1,14 @@
 #include <sys/stat.h>
 #include <iostream>
 #include <string>
+#include <stdio.h>
+#include <stdlib.h>
+
+#ifdef _WIN32
+   #include <windows.h>
+#else
+  //define it for a Unix machine
+#endif
 
 bool IsNumeric(std::string input)
 {
@@ -153,8 +161,26 @@ inline std::string GetPathFromCin()
   return output;
 }
 
+
+std::string GetDirectoryFromPathname (const std::string& str)
+{
+  size_t found;
+  found=str.find_last_of("/\\");
+  return str.substr(0,found);
+}
+
+void DirectoryCreate(std::string input)
+{
+  #ifdef _WIN32
+    system("mkdir " + strPath);
+  #else
+    system("mkdir -p " + strPath);
+  #endif
+}
+
 void FileCopy(std::string input, std::string output)
 {
+  DirectoryCreate(GetDirectoryFromPathname(output));
   std::ifstream src(input, std::ios::binary);
   std::ofstream src(output, std::ios::binary);
   dst << src.rdbuf();
@@ -212,7 +238,7 @@ int main(int argc, char* argv[])
     builder_vpins = argv[5];
     builder_hpins = argv[6];
 
-    if (animus_path[animus_path.size()-1] == '\\')
+    if (animus_path[animus_path.size()-1] == '\\' || animus_path[animus_path.size()-1] == '/')
     {
       animus_path = animus_path.substr(0, animus_path.size()-2);
     }
@@ -222,10 +248,20 @@ int main(int argc, char* argv[])
       std::cout << "Error: animus path: " << animus_path << " does not exist!" << std::endl;
       exit(-1);
     }
-
+    #ifdef _WIN32
     std::string maindriver = animus_path.substr(animus_path.find_last_of('\\'));
+    #else
+    std::string maindriver = animus_path.substr(animus_path.find_last_of('/'));
+    #endif
+
   	const int checkerSize = 2;
+
+    #ifdef _WIN32
   	std::string checker[2] = { maindriver + ".ino", "\\mod.ino" };
+    #else
+  	std::string checker[2] = { maindriver + ".ino", "/mod.ino" };
+    #endif
+
   	for (int i = 0; i < checkerSize ; i++)
   	{
   		if (FileOrDirectoryExists(inputPath + checker[i]))
@@ -299,7 +335,7 @@ int main(int argc, char* argv[])
     mod_path = argv[11];
     builder_modlist = argv[12];
 
-    if (mod_path[mod_path.size()-1] == '\\')
+    if (mod_path[mod_path.size()-1] == '\\' || mod_path[mod_path.size()-1] == '/')
     {
       mod_path = mod_path.substr(0, mod_path.size()-2);
     }
@@ -329,7 +365,11 @@ int main(int argc, char* argv[])
     {
       std::string modfilename = temp.substr(0, temp.find('.') + 4);
       std::string modname = temp.substr(4, temp.find('.'));
+      #ifdef _WIN32
       arr[i] = mod_path + "\\" + temp.substr(0, temp.find('.') + 4);
+      #else
+      arr[i] = mod_path + "/" + temp.substr(0, temp.find('.') + 4);
+      #endif
       temp = temp.substr(temp.find('.') + 4);
       if (!FileOrDirectoryExists(arr[i]))
       {
@@ -338,7 +378,7 @@ int main(int argc, char* argv[])
       }
       else
       {
-        FileCopy()
+        FileCopy();
       }
     }
 
