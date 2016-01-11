@@ -153,7 +153,7 @@ void SetFileAttribute(std::string file, std::string attr, std::string val)
   {
     if (output[i].find("#define " + attr) == 0)
     {
-      output[i] = "#define " + attr + " " + val;
+      output[i] = "#define " + attr + " """"""""" + val;
     }
     outputfile << output[i] << std::endl;
   }
@@ -409,7 +409,7 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder kbname OK!" << std::endl;
-      SetFileAttribute(mainfile_path, "builder_kbname", builder_kbname);
+      SetFileAttribute(mainfile_path, "builder_kbname", "\"" + builder_kbname + "\"" );
     }
     if (!IsAlphanumericOrSpace(builder_kbvariant))
     {
@@ -419,7 +419,7 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder kbvariant OK!" << std::endl;
-      SetFileAttribute(mainfile_path, "builder_kbvariant", builder_kbvariant);
+      SetFileAttribute(mainfile_path, "builder_kbvariant", "\"" + builder_kbvariant + "\"" );
     }
     if (!IsAlphanumericOrSpace(builder_kbdriver_build))
     {
@@ -429,7 +429,7 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder driver build OK!" << std::endl;
-      SetFileAttribute(mainfile_path, "builder_kbdriver_build", builder_kbdriver_build);
+      SetFileAttribute(mainfile_path, "builder_kbdriver_build", "\"" + builder_kbdriver_build + "\"" );
     }
 
 
