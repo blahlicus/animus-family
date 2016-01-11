@@ -409,6 +409,7 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder kbname OK!" << std::endl;
+      SetFileAttribute(mainfile_path, "builder_kbname", builder_kbname);
     }
     if (!IsAlphanumericOrSpace(builder_kbvariant))
     {
@@ -418,6 +419,7 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder kbvariant OK!" << std::endl;
+      SetFileAttribute(mainfile_path, "builder_kbvariant", builder_kbvariant);
     }
     if (!IsAlphanumericOrSpace(builder_kbdriver_build))
     {
@@ -427,7 +429,10 @@ int main(int argc, char* argv[])
     else
     {
       std:: cout << "Builder driver build OK!" << std::endl;
+      SetFileAttribute(mainfile_path, "builder_kbdriver_build", builder_kbdriver_build);
     }
+
+
   }
   if (argc > 12)
   {
@@ -508,11 +513,11 @@ int main(int argc, char* argv[])
       else
       {
         std:: cout << "Adding mod: " << modname << std::endl;
-        SetFileAttribute(modfile_path, "builder_mstartup", builder_mstartup)
-        SetFileAttribute(modfile_path, "builder_mloop", builder_mloop)
-        SetFileAttribute(modfile_path, "builder_mkeydown", builder_mkeydown)
-        SetFileAttribute(modfile_path, "builder_mkeyup", builder_mkeyup)
-        SetFileAttribute(modfile_path, "builder_mserial", builder_mserial)
+        SetFileAttribute(modfile_path, "builder_mstartup", builder_mstartup);
+        SetFileAttribute(modfile_path, "builder_mloop", builder_mloop);
+        SetFileAttribute(modfile_path, "builder_mkeydown", builder_mkeydown);
+        SetFileAttribute(modfile_path, "builder_mkeyup", builder_mkeyup);
+        SetFileAttribute(modfile_path, "builder_mserial", builder_mserial);
 
         FileCopy(arr[i],outputfile);
       }
