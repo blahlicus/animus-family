@@ -146,14 +146,18 @@ void SetFileAttribute(std::string file, std::string attr, std::string val)
   {
     output.push_back(temp);
   }
+  src.close();
+  std::ofstream outputfile;
+  outputfile.open(file.c_str(), std::ios::trunc);
   for (int i = 0; i < output.size(); i++)
   {
     if (output[i].find("#define " + attr) == 0)
     {
       output[i] = "#define " + attr + " " + val;
     }
-    std::cout << output[i] << std::endl;
+    outputfile << output[i] << std::endl;
   }
+  outputfile.close();
 }
 
 bool IsAlphanumericOrSpace(std::string input)
