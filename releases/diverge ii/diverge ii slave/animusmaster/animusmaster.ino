@@ -1,12 +1,12 @@
-#define builder_row 4
-#define builder_col 5
-#define builder_kbname abc
-#define builder_kbvariant def
-#define builder_kbdriver "Animus"
-#define builder_kbdriver_build "ghi
-#define builder_vpins 1,2,3,4
-#define builder_hpins 1,2,3,4,5
-#define builder_refresh 25
+#define builder_row 5
+#define builder_col 8
+#define builder_kbname "Diverge II"
+#define builder_kbvariant "Diverge II"
+#define builder_kbdriver "Animus Renascentia"
+#define builder_kbdriver_build "Diverge II OEM"
+#define builder_vpins 5, 6, 7, 8, 9
+#define builder_hpins A3, A2, A1, A0, 15, 14, 16, 10
+#define builder_refresh 10
 #include "EEPROM.h"
 
 // constants: change this only to edit keyboard info

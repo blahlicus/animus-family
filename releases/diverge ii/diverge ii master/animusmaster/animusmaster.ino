@@ -1,6 +1,9 @@
 #define builder_row 5
 #define builder_col 8
-#define builder_kbinfo "Diverge II,Diverge II,Animus,Diverge II OEM"
+#define builder_kbname "Diverge II"
+#define builder_kbvariant "Diverge II"
+#define builder_kbdriver "Animus Renascentia"
+#define builder_kbdriver_build "Diverge II OEM"
 #define builder_vpins 5, 6, 7, 8, 9
 #define builder_hpins A3, A2, A1, A0, 15, 14, 16, 10
 #define builder_refresh 10
@@ -10,7 +13,7 @@
 
 const int ROW = builder_row;
 const int COL = builder_col;
-String KBINFO = builder_kbinfo;
+String KBINFO = builder_kbname "," builder_kbvariant "," builder_kbdriver "," builder_kbdriver_build;
 int vPins[ROW] = {builder_vpins};
 int hPins[COL] = {builder_hpins};
 
