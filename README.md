@@ -14,14 +14,49 @@ This is an Arduino based firmware for use by devices compatible with the Arduino
 * serial communication (for editing layout, layers, name, etc)
 * device embedded unique id
 * modular modding system (plugins could be added to provide additional functionality)
-*low ROM usage (currently uses less than 500 bytes)
+* low ROM usage (currently uses less than 500 bytes)
 
+## Table of Content (use Ctrl+F)
+
+* 1.00: Quick start guide to using animus for your keyboard project
+  * 1.10: Hardware Prerequisites
+  * 1.20: Software Prerequisites
+  * 1.30: Step 1: Building Animus with Animus Builder
+  * 1.40: Step 2: Uploading the firmware
+  * 1.60: Step 3: Setting layers and rebinding keys
+* 2.00: Animus Builder Documentation
+  * 2.10: Overview
+  * 2.20: Building your own Animus builder
+* 3.00: Main Animus Documentation
+  * 3.10: Basic Structure
+  * 3.20: Globals
+  * 3.30: File: animus_main.ino
+  * 3.40: File: animusmaster.ino
+  * 3.50: File: EEPROM.ino
+  * 3.60: File: millis.ino
+  * 3.70: File: mod.ino
+  * 3.80: File: seria.ino
+* 4.00: Animus Modding Documentation
+  * 4.10: Basic Structure
+  * 4.20: Togglables
+  * 4.30: Function: modStartup()
+  * 4.40: Function: modLoop()
+  * 4.50: Function: modKeyDown(char val, byte type) and modKeyUp(char val, byte type)
+  * 4.60: Function: modSerial(String input)
+  * 4.70: Animus mod development language convention
+  * 4.80: Getting started on writing Animus mods
+* 6.00: Mod List
+  * 6.10: Overview
+  * 6.20: Mod: I2C
+  * 6.30: Mod: I2CSlave
+  * 6.40: Mod: media
+  
 ## Using the driver for a keyboard project
 ### Hardware Prerequisites 
 * custom keyboard built with an arduino capable device (any teensy/Arduino Leonardo/Arduino Micro/Pro Micro)
 
 ### Software Prerequisites
-* [modified arduino IDE with media controls](https://github.com/stefanjones/Arduino)
+* Arduino IDE
 
 ### Getting Started
 Using the firmware is extremely easy, first, open animus/animusmaster.ino and edit the code within, animusmaster.ino functions like a config file of sorts, everything you need to edit is within.
