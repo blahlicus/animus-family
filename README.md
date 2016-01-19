@@ -66,22 +66,29 @@ Simply build your own own customised firmware with animus builder in releases/an
 Animus builder is fully cross-platform and is currently command-line only (set to change), the builder prepares animus files for precompilation and upload, the command-line arguments list is the following
 
 ```
-animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins]
+animusbuilder [animus path] [output path] [row] [column] [vertical pins] [horizontal pins]
 
-animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]
+animusbuilder [animus path] [output path] [row] [column] [vertical pins] [horizontal pins] [refresh rate]
 
-animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]
+animusbuilder [animus path] [output path] [row] [column] [vertical pins] [horizontal pins] [refresh rate]
 
-animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build]
+animusbuilder [animus path] [output path] [row] [column] [vertical pins] [horizontal pins] [refresh rate] [kb name] [kb variant] [driver build name]
 
-animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build] [-str mod path] [-arr<str mod filename>  modlst]
+animusbuilder [animus path] [output path] [row] [column] [vertical pins] [horizontal pins] [refresh rate] [kb name] [kb variant] [driver build name] [mods folder path] [list of included mods]
 ```
 
 * `animus path`: path to the animusmaster directory
 * `output path`: output path (creates folder if it does not already exist)
 * `row`: number of rows your keyboard matrix has
-* `col`: number of cols your keyboard matrix has
-* `vpins`: array of arduino `pins`
+* `columns`: number of columns your keyboard matrix has
+* `vertical pins`: array of arduino `pins` written in quotes separated by commas (like this: "1, 2, 3, 4")
+* `horizontal pins`: array of arduino `pins` written in quotes separated by commas (like this: "1, 2, 3, 4")
+* `refresh rate`: refresh rate in milliseconds to prevent debouncing
+* `kb name`: name of keyboard or keyboard type, used in serial identifier to interact with third-party software
+* `kb variant`: data, used in serial identifier to interact with third-party software
+* `driver build name`: data, used in serial identifier to interact with third-party software
+* `mods folder path`: path to the directory containing animus mods/plugins
+* `list of included mods`: list of mod files to be included, filename and extension is needed, this should be written in quotes separated by commas (e.g. "mod_I2C.ino, mod_media.ino")
 
 ### Upload Firmware to Hardware
 Now launch [modified arduino IDE with media controls](https://github.com/stefanjones/Arduino) and upload animus to your target device, be sure to select "Arduino Leonardo" or other comparable board types when uploading the firmware to your device.
