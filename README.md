@@ -50,30 +50,38 @@ This is an Arduino based firmware for use by devices compatible with the Arduino
   * 6.20: Mod: I2C
   * 6.30: Mod: I2CSlave
   * 6.40: Mod: media
-  
-## Using the driver for a keyboard project
-### Hardware Prerequisites 
+
+## Using the driver for a keyboard project (quick and no coding)
+### Hardware Prerequisites
 * custom keyboard built with an arduino capable device (any teensy/Arduino Leonardo/Arduino Micro/Pro Micro)
 
 ### Software Prerequisites
 * Arduino IDE
 
 ### Getting Started
-Using the firmware is extremely easy, first, open animus/animusmaster.ino and edit the code within, animusmaster.ino functions like a config file of sorts, everything you need to edit is within.
+Using the firmware is extremely easy, every keyboard project is different, to account for hardware differences, the firmware needs to be pre-built with the animus builder, it allows you to specify the number of rows and columns of your matrix keyboard, the pins, as well as any mods/plugins, identifiers, etc.
 
-    const int ROW = 4;
-    const int COL = 6;
-    String KBINFO = "DivergeTM,Diverge TM,Animus,Diverge TM QWERTY";
-    int vPins[ROW] = { A3, A2, 9, 16};
-    int hPins[COL] = { 10, 8, 7, 6, 5, 4};
-    int refreshDelay = 10;
+Simply build your own own customised firmware with animus builder in releases/animusbuilder
 
-* const int ROW: number of rows your keyboard matrix has
-* const int COL: number of columns your keyboard matrix has
-* **DEPRECIATED** string KNINFO: serial identifier in the format of "[device name],[devicetype],[driver name],[layout name]"
-* int vPins[ROW]: array containing the vertical pins in your keyboard matrix, top left corner first
-* int hPins[COL]: array containing the horizontal pins in your keyboard matrix, top left corner first
-* int refreshDelay: delay in ms between each scan check used for preventing debounce.
+Animus builder is fully cross-platform and is currently command-line only (set to change), the builder prepares animus files for precompilation and upload, the command-line arguments list is the following
+
+```
+animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins]
+
+animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]
+
+animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]
+
+animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build]
+
+animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build] [-str mod path] [-arr<str mod filename>  modlst]
+```
+
+* `animus path`: path to the animusmaster directory
+* `output path`: output path (creates folder if it does not already exist)
+* `row`: number of rows your keyboard matrix has
+* `col`: number of cols your keyboard matrix has
+* `vpins`: array of arduino `pins`
 
 ### Upload Firmware to Hardware
 Now launch [modified arduino IDE with media controls](https://github.com/stefanjones/Arduino) and upload animus to your target device, be sure to select "Arduino Leonardo" or other comparable board types when uploading the firmware to your device.
