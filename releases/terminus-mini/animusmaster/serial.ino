@@ -112,7 +112,21 @@ void serialCommand(String input)
   {
     Serial.println(COL);
   }
-
+  else if (input.startsWith("uniqueksetmaster"))
+  {
+    input = input.substring(input.indexOf('(')+1);
+    byte out = input.toInt();
+    if (out == 0)
+    {
+      IS_MASTER = false;
+    }
+    else
+    {
+      IS_MASTER = true;
+    }
+    Serial.print("set master(");
+    Serial.print(IS_MASTER);
+  }
   modSerial(input);
 }
 

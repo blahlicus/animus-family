@@ -1,6 +1,23 @@
+#define builder_row 4
+#define builder_col 12
+#define builder_kbname "Terminus Mini"
+#define builder_kbvariant "Terminus Mini Dash"
+#define builder_kbdriver "Animus Renascentia 2"
+#define builder_kbdriver_build "Terminus Mini OEM"
+#define builder_vpins 9, 8, 7, 6
+#define builder_hpins A3, A2, A0, A1, 14, 15, 10, 16, 2, 3, 4, 5
+#define builder_refresh 10
 #include "EEPROM.h"
 
 // constants: change this only to edit keyboard info
+
+const int ROW = builder_row;
+const int COL = builder_col;
+String KBINFO = builder_kbname "," builder_kbvariant "," builder_kbdriver "," builder_kbdriver_build;
+int vPins[ROW] = {builder_vpins};
+int hPins[COL] = {builder_hpins};
+
+int refreshDelay = builder_refresh;
 
 // diverge ii
 /*
@@ -16,8 +33,8 @@ int refreshDelay = 10;
 
 // constants end
 
-// terminus mini
-//*
+// diverge ii
+/*
 const int ROW = 4;
 const int COL = 12;
 String KBINFO = "Terminus Mini,Terminus Mini,Animus,Terminus Mini OEM";

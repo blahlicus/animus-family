@@ -1,13 +1,13 @@
-#define builder_mstartup I2CSlaveStartup();
+#define builder_mstartup mediaStartup(); I2CStartup(); 
 
-#define builder_mloop I2CSlaveLoop();
-#define builder_mloop_milis
+#define builder_mloop mediaLoop(); I2CLoop(); 
+#define builder_mloop mediaLoop(); I2CLoop(); 
 
-#define builder_mkeydown I2CSlaveKeyDown(val, type);
+#define builder_mkeydown mediaKeyDown(val, type); I2CKeyDown(val, type); 
 
-#define builder_mkeyup I2CSlaveKeyUp(val, type);
+#define builder_mkeyup mediaKeyUp(val, type); I2CKeyUp(val, type); 
 
-#define builder_mserial I2CSlaveSerial(input);
+#define builder_mserial mediaSerial(input); I2CSerial(input); 
 void modStartup()
 {
   builder_mstartup

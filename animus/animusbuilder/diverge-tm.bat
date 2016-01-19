@@ -1,0 +1,3 @@
+test "C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusmaster" "C:\Users\blahlicus\Documents\GitHub\animus-family\releases\diverge-tm\diverge-tm-master\animusmaster" 4 6 "A3, A2, 9, 16" "10, 8, 7, 6, 5, 4" 10 "Diverge TM" "Diverge TM" "Diverge TM OEM" "C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusmod" "mod_media.ino, mod_I2C.ino"
+
+test "C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusmaster" "C:\Users\blahlicus\Documents\GitHub\animus-family\releases\diverge-tm\diverge-tm-slave\animusmaster" 4 6 "A3, A2, 9, 16" "10, 8, 7, 6, 5, 4" 10 "Diverge TM" "Diverge TM" "Diverge TM Slave OEM" "C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusmod" "mod_media.ino, mod_I2CSlave.ino"
