@@ -184,7 +184,37 @@ TODO
 
 Animus is designed to be robust, customisable, modular, and lightweight. The code is properly separated into several files, with non-essential functions set as "mods" (AKA plugins), this allows native animus to be extremely lightweight whilst allowing for plugins to be installed that to make it feature reach (stuff like media keys, dual keyboards, I2C, macros, etc could be done with mods)
 
-### 3.20 3.30 3.40 3.50 3.60 3.70 3.80
+### 3.20: Globals
+
+There are several major global variables and methods available for mods and other core functions
+
+The major global variables are the following:
+
+
+###  3.30 3.40 3.50 3.60 3.70 3.80
+
+## 4.00: Animus Modding Documentation
+### 4.10: Basic Structure
+
+Animus is highly moddable, mods are optional plugin/addons that could be added to a build to give additional capabilities such as media controls, I2C, macros, etc.
+
+A mod must be self-contained in a single .ino file with a strict naming convention of mod_[modname].ino, there are 5 required methods that must be included in any mods, the mod also interacts with the core with these 5 methods, which are the following functions:
+
+* `[modname]Startup()`: This piece of code will run on device startup, useful forinitializing services such as Serial.begin() or defining variables. This is the equivalent of startup() in a typical arduino sketch.
+* `[modname]Loop`() : this runs every time the arduino loops, this loop has no delays and is ran at full speed, it is recommended that key checking functions be placed in an if statement with the `checkMilis()` method for proper delays to prevent debouncing.
+* `[modname]KeyDown(char val, byte type)` : This method exposes the OnKeyDown event to mods, this method is called when a key is pressed on the device, the value and type of the `key` being held down is sent to this method, this is useful for implementing special HID IOs and keypresses (such as media keys and macros).
+* `[modname]KeyUp(char val, byte type)` : See `[modname]KeyDown`.
+* `[modname]Serial(String input)` : This method exposes the SerialReceived event to mods, this method is called when a serial command is sent from a host computer or a peer via third party software (such as arduino's serial monitor), this is useful for interacting with third party software, note that a reply must be sent if a serial command of `uniquekgetmods` is sent to the mod with a reply containing the name of the mod and the name of the mod only.
+
+Note that mods are not limited to the above functions only, you could feel free to add as much functions are you like, but note that the mod should only be exposed via the above 5 functions to other entities, **do not access other mods' method from your mod**.
+
+### 4.20: Togglables
+
+As covered in 3.20, there are several global togglable flags that could be toggled by mods to change system wide behaviour, this is useful for complete overhaul mods such as the I2CSlave mod which turns a device into an I2C slave to be connected to a master (for example, used on one side of a split keyboard)
+
+here are a list of togglables
+
+* `IS_MASTER` : Toggling this off disables all HID interactions towards the host computer
 
 TODO
 
