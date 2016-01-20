@@ -1,3 +1,5 @@
+#include "AnimusMedia.h"
+
 void mediaStartup()
 {
 

@@ -8,6 +8,7 @@
 #define builder_hpins 10, 8, 7, 6, 5, 4
 #define builder_refresh 10
 #include "EEPROM.h"
+#include "AnimusKeyboard.h"
 
 // constants: change this only to edit keyboard info
 

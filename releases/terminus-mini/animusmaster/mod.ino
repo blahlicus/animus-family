@@ -1,13 +1,9 @@
 #define builder_mstartup mediaStartup(); 
-
 #define builder_mloop mediaLoop(); 
-#define builder_mloop mediaLoop(); 
-
 #define builder_mkeydown mediaKeyDown(val, type); 
-
 #define builder_mkeyup mediaKeyUp(val, type); 
-
 #define builder_mserial mediaSerial(input); 
+
 void modStartup()
 {
   builder_mstartup
