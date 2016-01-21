@@ -1,3 +1,11 @@
+#define _tokenToString(str) #str
+#define tokenToString(str) _tokenToString(str)
+
+#define _conca(str1, str2) str1##str2
+#define conca(str1, str2) _conca(str1, str2)
+
+
+
 #define lay getLayEEPROM()
 
 // layering
