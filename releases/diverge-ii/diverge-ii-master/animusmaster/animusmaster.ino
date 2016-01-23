@@ -1,3 +1,5 @@
+#include <Keyboard.h>
+
 #define builder_row 5
 #define builder_col 8
 #define builder_kbname "Diverge II"
@@ -8,7 +10,7 @@
 #define builder_hpins A3, A2, A1, A0, 15, 14, 16, 10
 #define builder_refresh 10
 #include "EEPROM.h"
-#include "AnimusKeyboard.h"
+//#include "Keyboard.h"
 
 // constants: change this only to edit keyboard info
 

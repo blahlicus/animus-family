@@ -1,11 +1,11 @@
 #define builder_row 5
-#define builder_col 8
-#define builder_kbname "Diverge II"
-#define builder_kbvariant "Diverge II Dash"
+#define builder_col 14
+#define builder_kbname "Terminus"
+#define builder_kbvariant "Terminus"
 #define builder_kbdriver "Animus Renascentia 2"
-#define builder_kbdriver_build "Diverge II OEM"
-#define builder_vpins 5, 6, 7, 8, 9
-#define builder_hpins A3, A2, A1, A0, 15, 14, 16, 10
+#define builder_kbdriver_build "Terminus OEM"
+#define builder_vpins 8, 7, 6, 5, 4
+#define builder_hpins 10, 16, 14, 15, A0, A1, 9, 8, 7, 6, 5, 4, A2, A3
 #define builder_refresh 10
 #include "EEPROM.h"
 #include "AnimusKeyboard.h"
