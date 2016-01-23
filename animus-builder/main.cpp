@@ -7,57 +7,113 @@
 #include "QFile"
 #include "QDir"
 
-bool copyDir(QString from_dir, QString to_dir, bool replace_on_conflit)
+static bool copyDir(const QString &srcFilePath,
+                            const QString &tgtFilePath)
 {
-    QDir dir;
-    dir.setPath(from_dir);
-
-    from_dir += QDir::separator();
-    to_dir += QDir::separator();
-
-    foreach (QString copy_file, dir.entryList(QDir::Files))
-    {
-        QString from = from_dir + copy_file;
-        QString to = to_dir + copy_file;
-
-        if (QFile::exists(to))
-        {
-            if (replace_on_conflit)
-            {
-                if (QFile::remove(to) == false)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                continue;
-            }
-        }
-
-        if (QFile::copy(from, to) == false)
-        {
+    QFileInfo srcFileInfo(srcFilePath);
+    if (srcFileInfo.isDir()) {
+        QDir targetDir(tgtFilePath);
+        targetDir.cdUp();
+        if (!targetDir.mkdir(QFileInfo(tgtFilePath).fileName()))
             return false;
+        QDir sourceDir(srcFilePath);
+        QStringList fileNames = sourceDir.entryList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot | QDir::Hidden | QDir::System);
+        foreach (const QString &fileName, fileNames) {
+
+            const QString newSrcFilePath
+                    = srcFilePath + QLatin1Char('/') + fileName;
+            const QString newTgtFilePath
+                    = tgtFilePath + QLatin1Char('/') + fileName;
+            if (!copyDir(newSrcFilePath, newTgtFilePath))
+                return false;
         }
+    } else {
+        if (!QFile::copy(srcFilePath, tgtFilePath))
+            return false;
     }
-
-    foreach (QString copy_dir, dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot))
-    {
-        QString from = from_dir + copy_dir;
-        QString to = to_dir + copy_dir;
-
-        if (dir.mkpath(to) == false)
-        {
-            return false;
-        }
-
-        if (copyDir(from, to, replace_on_conflit) == false)
-        {
-            return false;
-        }
-    }
-
     return true;
+}
+
+static bool isAlphanumeric(const QString input)
+{
+  bool output = true;
+  for (int i = 0; i < input.size(); i++)
+  {
+    if (input[i].isLetterOrNumber())
+    {
+      // do nothing
+    }
+    else
+    {
+      output = false;
+    }
+  }
+  return output;
+}
+
+static bool isAlphanumericOrSpace(const QString input)
+{
+  bool output = true;
+  for (int i = 0; i < input.size(); i++)
+  {
+    if (input[i].isLetterOrNumber() || input[i] == ' ')
+    {
+      // do nothing
+    }
+    else
+    {
+      output = false;
+    }
+  }
+  return output;
+}
+
+
+
+
+
+static bool isNumeric(const QString input)
+{
+  bool output = true;
+  for (int i = 0; i < input.size(); i++)
+  {
+    if (input[i].isDigit())
+    {
+      // do nothing
+    }
+    else
+    {
+      output = false;
+    }
+  }
+  return output;
+}
+
+static bool isArray(QString input)
+{
+    bool output = true;
+    input.replace(" ", "");
+    QStringList iList = input.split(",");
+    foreach (QString ielement, iList)
+    {
+        if (!isAlphanumeric(ielement))
+        {
+            output = false;
+        }
+    }
+
+    return output;
+}
+
+
+static QStringList toStringList(QString input)
+{
+    if (isArray(input))
+    {
+        input.replace(" ", "");
+        QStringList iList = input.split(",");
+        return iList;
+    }
 }
 
 
@@ -66,7 +122,8 @@ int main(int argc, char *argv[])
 
 
     QString animusPath, outputPath, builderRow, builderCol, builderVPins, builderHPins,
-            builderRefresh, builderKBName, builderKBVariant, builderKBBuild, modPath,
+            builderRefresh ="10", builderKBName ="Unknown Animus Device", builderKBVariant ="Unknown Animus Device",
+            builderKBBuild ="Unknown Animus Variant", modPath,
             modList;
 
     if (argc < 2)
@@ -132,8 +189,110 @@ int main(int argc, char *argv[])
             outputDir.removeRecursively();
         }
 
-        copyDir(animusDir.absolutePath(), outputDir.absolutePath(), true);
+        outputDir.setPath(outputDir.absoluteFilePath(animusDir.dirName()));
 
+        QFileInfo outMain(outputDir.absoluteFilePath(outputDir.dirName() + ".ino"));
+        QFileInfo outMod(outputDir.absoluteFilePath("mod.ino"));
+
+        QTextStream(stdout) << copyDir(animusDir.absolutePath(), outputDir.absolutePath()) << endl;
+        QTextStream(stdout) << "balkjkhasdg" << endl;
+
+        if (!isNumeric(builderRow))
+        {
+            QTextStream(stdout) << "Row argument not numeric: " << builderRow << endl;
+            exit(-1);
+        }
+
+        if (!isNumeric(builderCol))
+        {
+            QTextStream(stdout) << "Col argument not numeric: " << builderCol << endl;
+            exit(-1);
+        }
+
+        if (!isArray(builderVPins))
+        {
+            QTextStream(stdout) << "Vertical pin array argument not valid: " << builderVPins << endl;
+            exit(-1);
+        }
+
+        if (!isArray(builderHPins))
+        {
+            QTextStream(stdout) << "Horizontal pin array argument not valid: " << builderHPins << endl;
+            exit(-1);
+        }
+
+
+        /*
+        if (argc > 7)
+        {
+
+            builderRefresh = argv[7];
+            if (!isNumeric(builderRefresh))
+            {
+                QTextStream(stdout) << "Refresh rate argument not numeric: " << builderRefresh << endl;
+                exit(-1);
+            }
+
+            if (argc > 10)
+            {
+                builderKBName = argv[8];
+                builderKBVariant = argv[9];
+                builderKBBuild = argv[10];
+
+                if (!isAlphanumericOrSpace(builderKBName))
+                {
+                    QTextStream(stdout) << "Keyboard name not alphanumeric or space: " << builderKBName << endl;
+                    exit(-1);
+                }
+                if (!isAlphanumericOrSpace(builderKBVariant))
+                {
+                    QTextStream(stdout) << "Keyboard variant not alphanumeric or space: " << builderKBVariant << endl;
+                    exit(-1);
+                }
+                if (!isAlphanumericOrSpace(builderKBBuild))
+                {
+                    QTextStream(stdout) << "Keyboard build not alphanumeric or space: " << builderKBBuild << endl;
+                    exit(-1);
+                }
+
+                if (argc > 12)
+                {
+                    modPath = argv[11];
+                    modList = argv[12];
+
+                    if (!isArray(modList))
+                    {
+                        QTextStream(stdout) << "Mod array not valid: " << modList << endl;
+                        exit(-1);
+
+                    }
+
+                    QDir modDir(modPath);
+                    if (!modDir.exists())
+                    {
+                        QTextStream(stdout) << "Directory for mods: " << modDir.absolutePath() << " does not exist." << endl;
+                        exit(-1);
+                    }
+
+                    QStringList modSList = toStringList(modList);
+
+                    foreach(QString mStr, modSList)
+                    {
+
+                        QFileInfo modStri(modDir.absoluteFilePath("mod_" + mStr + ".ino"));
+                        if (!modStri.exists())
+                        {
+                            QTextStream(stdout) << "File does not exist for mod: " << mStr << endl;
+                            exit(-1);
+                        }
+                        else
+                        {
+                            QFile::copy(modDir.absoluteFilePath("mod_" + mStr + ".ino"), outputDir.absoluteFilePath("mod_" + mStr + ".ino"));
+                        }
+                    }
+                }
+            }
+        }//*/
 
     }
     return 0;

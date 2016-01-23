@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.6.0, 2016-01-24T02:10:13. -->
+<!-- Written by QtCreator 3.6.0, 2016-01-24T03:31:00. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -286,7 +286,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/blahlicus/Documents/GitHub/animus-family/animus-builder/animus-builder.pro</value>
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
-    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments">&quot;C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusbuilder&quot; &quot;C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animustest&quot; 5 8 &quot;5, 6, 7, 8, 9&quot; &quot;A3, A2, A1, A0, 15, 14, 16, 10&quot;</value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments">&quot;C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusmaster&quot; &quot;C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animustest2&quot; 5 8 &quot;5, 6, 7, 8, 9&quot; &quot;A3, A2, A1, A0, 15, 14, 16, 10&quot; 10 &quot;Test board&quot; &quot;Test board v&quot; &quot;Test board d&quot; &quot;C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusmod&quot; &quot;I2C, I2CSlave, media&quot;</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">animus-builder.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseTerminal">true</value>
