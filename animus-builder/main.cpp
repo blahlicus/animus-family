@@ -7,65 +7,95 @@
 #include "QFile"
 #include "QDir"
 
-static bool copyDir(const QString &srcFilePath,
-                            const QString &tgtFilePath)
+void copyDir(QString input, QString output)
 {
-    QFileInfo srcFileInfo(srcFilePath);
-    if (srcFileInfo.isDir()) {
-        QDir targetDir(tgtFilePath);
-        targetDir.cdUp();
-        if (!targetDir.mkdir(QFileInfo(tgtFilePath).fileName()))
-            return false;
-        QDir sourceDir(srcFilePath);
-        QStringList fileNames = sourceDir.entryList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot | QDir::Hidden | QDir::System);
-        foreach (const QString &fileName, fileNames) {
+#ifdef _WIN32
+    input.replace("/", "\\");
+    system(qPrintable("xcopy \"" + input + "\" \"" + output + "\" /E /H /I /Y"));
+#else
+    system(("cp -rf " + input + " " + output).c_str());
+#endif
+}
 
-            const QString newSrcFilePath
-                    = srcFilePath + QLatin1Char('/') + fileName;
-            const QString newTgtFilePath
-                    = tgtFilePath + QLatin1Char('/') + fileName;
-            if (!copyDir(newSrcFilePath, newTgtFilePath))
-                return false;
-        }
-    } else {
-        if (!QFile::copy(srcFilePath, tgtFilePath))
-            return false;
+void copyFile(QString input, QString output)
+{
+#ifdef _WIN32
+    input.replace("/", "\\");
+    system(qPrintable("copy /Y \"" + input + "\" \"" + output + "\""));
+#else
+    system(("yes | cp -rf \"" + input + "\" \"" + output + "\"").c_str());
+#endif
+}
+
+void setFileAttribute(QString file, QString attr, QString val)
+{
+    QStringList output;
+    QString temp;
+    if (!QFileInfo(file).exists())
+    {
+        return;
     }
-    return true;
+
+    QFile qffile(file);
+
+    QTextStream tstream(&qffile);
+
+    qffile.open(QIODevice::ReadOnly | QIODevice::Text);
+    while (true)
+    {
+        QString line = tstream.readLine();
+        if (line.isNull())
+            break;
+        else
+            output.append(line);
+    }
+    qffile.close();
+    qffile.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream outstrm(&qffile);
+    for (int i = 0; i < output.size(); i++)
+    {
+        if (output[i].indexOf("#define " + attr) == 0)
+        {
+            output[i] = "#define " + attr + " " + val;
+        }
+        outstrm << output[i] + "\n";
+    }
+
+    qffile.close();
 }
 
 static bool isAlphanumeric(const QString input)
 {
-  bool output = true;
-  for (int i = 0; i < input.size(); i++)
-  {
-    if (input[i].isLetterOrNumber())
+    bool output = true;
+    for (int i = 0; i < input.size(); i++)
     {
-      // do nothing
+        if (input[i].isLetterOrNumber())
+        {
+            // do nothing
+        }
+        else
+        {
+            output = false;
+        }
     }
-    else
-    {
-      output = false;
-    }
-  }
-  return output;
+    return output;
 }
 
 static bool isAlphanumericOrSpace(const QString input)
 {
-  bool output = true;
-  for (int i = 0; i < input.size(); i++)
-  {
-    if (input[i].isLetterOrNumber() || input[i] == ' ')
+    bool output = true;
+    for (int i = 0; i < input.size(); i++)
     {
-      // do nothing
+        if (input[i].isLetterOrNumber() || input[i] == ' ')
+        {
+            // do nothing
+        }
+        else
+        {
+            output = false;
+        }
     }
-    else
-    {
-      output = false;
-    }
-  }
-  return output;
+    return output;
 }
 
 
@@ -74,19 +104,19 @@ static bool isAlphanumericOrSpace(const QString input)
 
 static bool isNumeric(const QString input)
 {
-  bool output = true;
-  for (int i = 0; i < input.size(); i++)
-  {
-    if (input[i].isDigit())
+    bool output = true;
+    for (int i = 0; i < input.size(); i++)
     {
-      // do nothing
+        if (input[i].isDigit())
+        {
+            // do nothing
+        }
+        else
+        {
+            output = false;
+        }
     }
-    else
-    {
-      output = false;
-    }
-  }
-  return output;
+    return output;
 }
 
 static bool isArray(QString input)
@@ -136,19 +166,19 @@ int main(int argc, char *argv[])
         if (arg1 == "help")
         {
             QTextStream(stdout) << "Help menu" << endl
-            << "animusbuilder accepts several argument orders" << endl
-            << "1) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins]" << endl <<  endl
-            << "2) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]" <<  endl <<  endl
-            << "3) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]" <<  endl <<  endl
-            << "4) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build]" <<  endl <<  endl
-            << "5) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build] [-str mod path] [-arr<str mod filename>  modlst]" <<  endl <<  endl
-            << "-str denotes a string input such as \"abc\"" <<  endl
-            << "-int denotes an integer input such as 123" <<  endl
-            << "-int denotes an arduino pin input such as 5 or A0" <<  endl
-            << "-arr<t> denotes an array of type t" <<  endl
-            << "arrays are declared without brackets, separated with commas, and surrounded by quotes" <<  endl
-            << "example array -arr<pins>:\"2, 3, A2, A3, A4\"" <<  endl
-            << "example array -arr<str>: \"abc, def, ghi\"" <<  endl;
+                                << "animusbuilder accepts several argument orders" << endl
+                                << "1) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins]" << endl <<  endl
+                                << "2) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]" <<  endl <<  endl
+                                << "3) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]" <<  endl <<  endl
+                                << "4) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build]" <<  endl <<  endl
+                                << "5) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build] [-str mod path] [-arr<str mod filename>  modlst]" <<  endl <<  endl
+                                << "-str denotes a string input such as \"abc\"" <<  endl
+                                << "-int denotes an integer input such as 123" <<  endl
+                                << "-int denotes an arduino pin input such as 5 or A0" <<  endl
+                                << "-arr<t> denotes an array of type t" <<  endl
+                                << "arrays are declared without brackets, separated with commas, and surrounded by quotes" <<  endl
+                                << "example array -arr<pins>:\"2, 3, A2, A3, A4\"" <<  endl
+                                << "example array -arr<str>: \"abc, def, ghi\"" <<  endl;
         }
         else
         {
@@ -157,6 +187,7 @@ int main(int argc, char *argv[])
     }
     else if (argc > 6)
     {
+        QFile::copy("C:\\Users\\blahlicus\\Documents\\GitHub\\animus-family\\animus\\animusmaster\\animusmaster.ino", "C:\\Users\\blahlicus\\Documents\\GitHub\\animus-family\\animus\\asdasd\\animusmaster.ino");
         animusPath = argv[1];
         outputPath = argv[2];
         builderRow = argv[3];
@@ -180,7 +211,7 @@ int main(int argc, char *argv[])
         QFileInfo animusMod(animusDir.absoluteFilePath("mod.ino"));
         if (!animusMod.exists())
         {
-            QTextStream(stdout) << "Main driver file not found for animus: " << animusMod.absoluteFilePath() << endl;
+            QTextStream(stdout) << "mod driver file not found for animus: " << animusMod.absoluteFilePath() << endl;
             exit(-1);
         }
         QDir outputDir(outputPath);
@@ -194,7 +225,7 @@ int main(int argc, char *argv[])
         QFileInfo outMain(outputDir.absoluteFilePath(outputDir.dirName() + ".ino"));
         QFileInfo outMod(outputDir.absoluteFilePath("mod.ino"));
 
-        QTextStream(stdout) << copyDir(animusDir.absolutePath(), outputDir.absolutePath()) << endl;
+        copyDir(animusDir.absolutePath(), outputDir.absolutePath());
         QTextStream(stdout) << "balkjkhasdg" << endl;
 
         if (!isNumeric(builderRow))
@@ -203,11 +234,15 @@ int main(int argc, char *argv[])
             exit(-1);
         }
 
+        setFileAttribute(outMain.absoluteFilePath(), "builder_row", builderRow);
+
         if (!isNumeric(builderCol))
         {
             QTextStream(stdout) << "Col argument not numeric: " << builderCol << endl;
             exit(-1);
         }
+
+        setFileAttribute(outMain.absoluteFilePath(), "builder_col", builderCol);
 
         if (!isArray(builderVPins))
         {
@@ -215,14 +250,18 @@ int main(int argc, char *argv[])
             exit(-1);
         }
 
+        setFileAttribute(outMain.absoluteFilePath(), "builder_vpins", builderVPins);
+
         if (!isArray(builderHPins))
         {
             QTextStream(stdout) << "Horizontal pin array argument not valid: " << builderHPins << endl;
             exit(-1);
         }
 
+        setFileAttribute(outMain.absoluteFilePath(), "builder_hpins", builderHPins);
 
-        /*
+
+
         if (argc > 7)
         {
 
@@ -232,6 +271,8 @@ int main(int argc, char *argv[])
                 QTextStream(stdout) << "Refresh rate argument not numeric: " << builderRefresh << endl;
                 exit(-1);
             }
+
+            setFileAttribute(outMain.absoluteFilePath(), "builder_refresh", builderRefresh);
 
             if (argc > 10)
             {
@@ -244,16 +285,22 @@ int main(int argc, char *argv[])
                     QTextStream(stdout) << "Keyboard name not alphanumeric or space: " << builderKBName << endl;
                     exit(-1);
                 }
+                setFileAttribute(outMain.absoluteFilePath(), "builder_kbname", builderKBName);
+
                 if (!isAlphanumericOrSpace(builderKBVariant))
                 {
                     QTextStream(stdout) << "Keyboard variant not alphanumeric or space: " << builderKBVariant << endl;
                     exit(-1);
                 }
+                setFileAttribute(outMain.absoluteFilePath(), "builder_kbvariant", builderKBVariant);
+
                 if (!isAlphanumericOrSpace(builderKBBuild))
                 {
                     QTextStream(stdout) << "Keyboard build not alphanumeric or space: " << builderKBBuild << endl;
                     exit(-1);
                 }
+                setFileAttribute(outMain.absoluteFilePath(), "builder_kbdriver_build", builderKBBuild);
+
 
                 if (argc > 12)
                 {
@@ -276,8 +323,18 @@ int main(int argc, char *argv[])
 
                     QStringList modSList = toStringList(modList);
 
+                    QString builder_mstartup = "";
+                    QString builder_mloop = "";
+                    QString builder_mkeydown = "";
+                    QString builder_mkeyup = "";
+                    QString builder_mserial = "";
                     foreach(QString mStr, modSList)
                     {
+                        builder_mstartup = builder_mstartup + mStr + "Startup(); ";
+                        builder_mloop = builder_mloop + mStr + "Loop(); ";
+                        builder_mkeydown = builder_mkeydown + mStr + "KeyDown(val, type); ";
+                        builder_mkeyup = builder_mkeyup + mStr + "KeyUp(val, type); ";
+                        builder_mserial = builder_mserial + mStr + "Serial(input); ";
 
                         QFileInfo modStri(modDir.absoluteFilePath("mod_" + mStr + ".ino"));
                         if (!modStri.exists())
@@ -287,9 +344,18 @@ int main(int argc, char *argv[])
                         }
                         else
                         {
-                            QFile::copy(modDir.absoluteFilePath("mod_" + mStr + ".ino"), outputDir.absoluteFilePath("mod_" + mStr + ".ino"));
+                            QTextStream(stdout) << modDir.absoluteFilePath("mod_" + mStr + ".ino") << endl;
+                            copyFile(modDir.absoluteFilePath("mod_" + mStr + ".ino"), outputDir.absoluteFilePath("mod_" + mStr + ".ino"));
                         }
                     }
+
+                    setFileAttribute(outMod.absoluteFilePath(), "builder_mstartup", builder_mstartup);
+                    setFileAttribute(outMod.absoluteFilePath(), "builder_mloop", builder_mloop);
+                    setFileAttribute(outMod.absoluteFilePath(), "builder_mkeydown", builder_mkeydown);
+                    setFileAttribute(outMod.absoluteFilePath(), "builder_mkeyup", builder_mkeyup);
+                    setFileAttribute(outMod.absoluteFilePath(), "builder_mserial", builder_mserial);
+
+
                 }
             }
         }//*/
