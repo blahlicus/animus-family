@@ -67,7 +67,7 @@ void mediaSerial(String input)
 {
   if (input.startsWith("uniquekgetmods"))
   {
-    Serial.print("I2C");
+    Serial.print("media");
   }
 
 }
