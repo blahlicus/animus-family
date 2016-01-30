@@ -1,3 +1,0 @@
-test "C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusmaster" "C:\Users\blahlicus\Documents\GitHub\animus-family\releases\diverge-ii\diverge-ii-master\animusmaster" 5 8 "5, 6, 7, 8, 9" "A3, A2, A1, A0, 15, 14, 16, 10" 10 "Diverge II" "Diverge II Dash" "Diverge II OEM" "C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusmod" "mod_media.ino, mod_I2C.ino"
-
-test "C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusmaster" "C:\Users\blahlicus\Documents\GitHub\animus-family\releases\diverge-ii\diverge-ii-slave\animusmaster" 5 8 "5, 6, 7, 8, 9" "A3, A2, A1, A0, 15, 14, 16, 10" 10 "Diverge II" "Diverge II Dash Slave" "Diverge II Slave OEM" "C:\Users\blahlicus\Documents\GitHub\animus-family\animus\animusmod" "mod_media.ino, mod_I2CSlave.ino"

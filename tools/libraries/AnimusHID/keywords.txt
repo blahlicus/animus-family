@@ -1,0 +1,32 @@
+#######################################
+# Syntax Coloring Map For Keyboard
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Keyboard	KEYWORD1
+Remote KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+write	KEYWORD2
+press	KEYWORD2
+release	KEYWORD2
+releaseAll	KEYWORD2
+play KEYWORD2
+pause KEYWORD2
+stop KEYWORD2
+next KEYWORD2
+previous KEYWORD2
+forward KEYWORD2
+rewind KEYWORD2
+clear KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
