@@ -48,28 +48,28 @@ class Remote_
 {
 private:
 public:
-	Remote_(void);
-	void begin(void);
-	void end(void);
+  Remote_(void);
+  void begin(void);
+  void end(void);
 
-	// Volume
-	void increase(void);
-	void decrease(void);
-	void mute(void);
+  // Volume
+  void increase(void);
+  void decrease(void);
+  void mute(void);
 
-	// Playback
-	void play(void);
-	void pause(void);
-	void stop(void);
+  // Playback
+  void play(void);
+  void pause(void);
+  void stop(void);
 
-	// Track Controls
-	void next(void);
-	void previous(void);
-	void forward(void);
-	void rewind(void);
+  // Track Controls
+  void next(void);
+  void previous(void);
+  void forward(void);
+  void rewind(void);
 
-	// Send an empty report to prevent repeated actions
-	void clear(void);
+  // Send an empty report to prevent repeated actions
+  void clear(void);
 };
 extern Remote_ Remote;
 
