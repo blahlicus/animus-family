@@ -94,7 +94,7 @@ void I2CSerial(String input)
     int addr = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
     byte val = input.toInt();
-    EEPROM.write(addr, val);
+    I2CSetEEPROM(addr, val);
     Serial.print("Wrote to sub EEPROM: ");
     Serial.print(addr);
     Serial.print(", ");
