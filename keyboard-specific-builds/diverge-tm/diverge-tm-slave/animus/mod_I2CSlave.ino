@@ -51,7 +51,7 @@ void receiveEvent(int numBytes)
   else if (type == 3)
   {
     byte input = Wire.read();
-    EEPROM.write(1023, input);
+    EEPROM.update(1023, input);
   }
   else if (type == 4)
   {
@@ -61,7 +61,7 @@ void receiveEvent(int numBytes)
     {
       addr = addr + Wire.read();
     }
-    EEPROM.write(addr, val);
+    EEPROM.update(addr, val);
   }
 }
 

@@ -1,9 +1,9 @@
 void setEEPROM(int x, int y, int z, char inputChar, byte inputType)
 {
   int addr = getEEPROMValue(x, y, z);
-  EEPROM.write(addr, inputChar);
+  EEPROM.update(addr, inputChar);
   addr++;
-  EEPROM.write(addr, inputType);
+  EEPROM.update(addr, inputType);
 }
 
 int getLayEEPROM()
