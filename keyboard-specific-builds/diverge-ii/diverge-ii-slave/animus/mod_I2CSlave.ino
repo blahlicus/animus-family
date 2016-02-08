@@ -63,13 +63,19 @@ void receiveEvent(int numBytes)
     }
     EEPROM.update(addr, val);
   }
+  else if (type == 5)
+  {
+    byte input = Wire.read();
+    keyLayer = input;
+  }
 }
 
 /* references
-1: layer
+1: set tempLayer
 2: rebind
-3: set layer
+3: set number of layers
 4: set EEPROM
+5: set keyLayer
 */
 
 void I2CSlaveKeyDown(char val, byte type)
