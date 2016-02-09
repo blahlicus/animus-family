@@ -294,6 +294,8 @@ size_t Keyboard_::press(uint8_t k)
   else if (k >= 128)            // it's a modifier key
   {
     _keyReport1.modifiers |= (1<<(k-128));
+    _keyReport2.modifiers |= (1<<(k-128));
+    _keyReport3.modifiers |= (1<<(k-128));
     k = 0;
   }
   else                                    // it's a printing key
@@ -391,6 +393,8 @@ size_t Keyboard_::release(uint8_t k)
   else if (k >= 128)            // it's a modifier key
   {
     _keyReport1.modifiers &= ~(1<<(k-128));
+    _keyReport2.modifiers &= ~(1<<(k-128));
+    _keyReport3.modifiers &= ~(1<<(k-128));
     k = 0;
   }
   else                                    // it's a printing key
