@@ -108,6 +108,11 @@ void pressKey(char val, byte type)
       {
         switchLayer(false);
       }
+      else
+      {
+        /* Rotate to the next layer in bitfield within val */
+        rotateLayers(val);
+      }
     }
     else if (type == 5)
     {
@@ -177,6 +182,51 @@ void switchLayer(boolean increment)
   {
     keyLayer = lay - 1;
   }
+  releaseAllKey();
+}
+
+
+/*
+  Rotate to the next layer in bitfield within val.
+  Examples:
+    val=0x3: rotate between layers 0 and 1
+    val=0x7: rotate between layers 0, 1, and 2
+    val=0xF: rotate between layers 0, 1, 2, and 3
+    val=0x11: rotate between layers 0 and 4
+*/
+void rotateLayers(byte val)
+{
+  int newLayer = keyLayer;
+  byte mask = 1 << newLayer;
+
+  if (! val)
+  {
+    /* No layers are allowed. Do nothing. */
+    return;
+  }
+
+  /*
+    Find the next layer within the bitfield.
+    Limit iterations to 10, to ensure no infinite loop.
+   */
+  for (int i = 0; i < 10; i++)
+  {
+    newLayer++;
+    mask <<= 1;
+    if ((! mask) || (newLayer >= lay))
+    {
+      newLayer = 0;
+      mask = 1;
+    }
+
+    if (val & mask)
+    {
+      /* newLayer is an allowed layer within the bitfield. */
+      break;
+    }
+  }
+
+  keyLayer = newLayer;
   releaseAllKey();
 }
 
