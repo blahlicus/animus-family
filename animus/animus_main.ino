@@ -84,33 +84,33 @@ void pressKey(char val, byte type)
   if (IS_MASTER)
   {
     if (type == 0)
-  	{
-  		Keyboard.press(val);
-  	}
-  	else if (type == 1)
-  	{
-  		tempLayer = val;
-  		releaseAllKey();
-  	}
+    {
+      Keyboard.press(val);
+    }
+    else if (type == 1)
+    {
+      tempLayer = val;
+      releaseAllKey();
+    }
     else if (type == 2)
     {
       pressedKey = false;
       tempLayer = val;
       releaseAllKey();
     }
-  	else if (type == 3)
-  	{
+    else if (type == 3)
+    {
       if (val == 0)
       {
-    		switchLayer(true);
+        switchLayer(true);
       }
       else if (val == 1)
       {
-      	switchLayer(false);
+        switchLayer(false);
       }
-  	}
-  	else if (type == 5)
-  	{
+    }
+    else if (type == 5)
+    {
       if (tempLayer == val)
       {
         tempLayer = keyLayer;
@@ -120,7 +120,7 @@ void pressKey(char val, byte type)
         tempLayer = val;
       }
       releaseAllKey();
-  	}
+    }
   }
 
   modKeyDown(val, type);
@@ -131,21 +131,21 @@ void releaseKey(char val, byte type)
   if (IS_MASTER)
   {
     if (type == 0)
-  	{
-  		Keyboard.release(val);
-  	}
-  	else if (type == 1)
-  	{
-  		tempLayer = keyLayer;
-  		releaseAllKey();
-  	}
+    {
+      Keyboard.release(val);
+    }
+    else if (type == 1)
+    {
+      tempLayer = keyLayer;
+      releaseAllKey();
+    }
     else if (type == 2)
     {
       if (pressedKey == false)
       {
         Keyboard.write(' ');
       }
-    	tempLayer = keyLayer;
+      tempLayer = keyLayer;
       releaseAllKey();
     }
   }
@@ -155,29 +155,29 @@ void releaseKey(char val, byte type)
 
 void releaseAllKey()
 {
-	Keyboard.releaseAll();
+  Keyboard.releaseAll();
 }
 
 
 void switchLayer(boolean increment)
 {
-	if (increment)
-	{
-		keyLayer++;
-	}
-	else
-	{
-		keyLayer--;
-	}
-	if (keyLayer >= lay)
-	{
-		keyLayer = 0;
-	}
-	else if (keyLayer < 0)
-	{
-		keyLayer = lay - 1;
-	}
-	releaseAllKey();
+  if (increment)
+  {
+    keyLayer++;
+  }
+  else
+  {
+    keyLayer--;
+  }
+  if (keyLayer >= lay)
+  {
+    keyLayer = 0;
+  }
+  else if (keyLayer < 0)
+  {
+    keyLayer = lay - 1;
+  }
+  releaseAllKey();
 }
 
 

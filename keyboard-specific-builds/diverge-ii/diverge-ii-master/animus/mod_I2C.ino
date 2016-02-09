@@ -23,7 +23,8 @@ void I2CLoop()
     boolean slaveExists = false;
     Wire.requestFrom(8, 31);    // request 6 bytes from slave device #8
     while (Wire.available())
-    { // slave may send less than requested
+    {
+      // slave may send less than requested
       byte out = Wire.read(); // receive a byte as character
       slaveArray[slaveCount] = out;
       slaveExists = true;

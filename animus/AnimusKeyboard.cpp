@@ -25,7 +25,7 @@
 
 //================================================================================
 //================================================================================
-//	Keyboard
+//        Keyboard
 
 static const uint8_t _hidReportDescriptor[] PROGMEM =
 {
@@ -154,9 +154,9 @@ const uint8_t _asciimap[128] =
   0x00,             // ENQ
   0x00,             // ACK
   0x00,             // BEL
-  0x2a,			// BS	Backspace
-  0x2b,			// TAB	Tab
-  0x28,			// LF	Enter
+  0x2a,             // BS        Backspace
+  0x2b,             // TAB        Tab
+  0x28,             // LF        Enter
   0x00,             // VT
   0x00,             // FF
   0x00,             // CR
@@ -179,9 +179,9 @@ const uint8_t _asciimap[128] =
   0x00,             // RS
   0x00,             // US
 
-  0x2c,		   //  ' '
-  0x1e|SHIFT,	   // !
-  0x34|SHIFT,	   // "
+  0x2c,             //  ' '
+  0x1e|SHIFT,       // !
+  0x34|SHIFT,       // "
   0x20|SHIFT,    // #
   0x21|SHIFT,    // $
   0x22|SHIFT,    // %
@@ -274,7 +274,7 @@ const uint8_t _asciimap[128] =
   0x31|SHIFT,    // |
   0x30|SHIFT,    // }
   0x35|SHIFT,    // ~
-  0				// DEL
+  0              // DEL
 };
 
 
@@ -287,16 +287,16 @@ uint8_t USBPutChar(uint8_t c);
 size_t Keyboard_::press(uint8_t k)
 {
   uint8_t i;
-  if (k >= 136)  			// it's a non-printing key (not a modifier)
+  if (k >= 136)                          // it's a non-printing key (not a modifier)
   {
     k = k - 136;
   }
-  else if (k >= 128)  	// it's a modifier key
+  else if (k >= 128)            // it's a modifier key
   {
     _keyReport1.modifiers |= (1<<(k-128));
     k = 0;
   }
-  else  				// it's a printing key
+  else                                    // it's a printing key
   {
     k = pgm_read_byte(_asciimap + k);
     if (!k)
@@ -304,9 +304,9 @@ size_t Keyboard_::press(uint8_t k)
       setWriteError();
       return 0;
     }
-    if (k & 0x80)  						// it's a capital letter or other character reached with shift
+    if (k & 0x80)                                                  // it's a capital letter or other character reached with shift
     {
-      _keyReport1.modifiers |= 0x02;	// the left shift modifier
+      _keyReport1.modifiers |= 0x02;        // the left shift modifier
       k &= 0x7F;
     }
   }
@@ -384,25 +384,25 @@ size_t Keyboard_::press(uint8_t k)
 size_t Keyboard_::release(uint8_t k)
 {
   uint8_t i;
-  if (k >= 136)  			// it's a non-printing key (not a modifier)
+  if (k >= 136)                          // it's a non-printing key (not a modifier)
   {
     k = k - 136;
   }
-  else if (k >= 128)  	// it's a modifier key
+  else if (k >= 128)            // it's a modifier key
   {
     _keyReport1.modifiers &= ~(1<<(k-128));
     k = 0;
   }
-  else  				// it's a printing key
+  else                                    // it's a printing key
   {
     k = pgm_read_byte(_asciimap + k);
     if (!k)
     {
       return 0;
     }
-    if (k & 0x80)  							// it's a capital letter or other character reached with shift
+    if (k & 0x80)                                                          // it's a capital letter or other character reached with shift
     {
-      _keyReport1.modifiers &= ~(0x02);	// the left shift modifier
+      _keyReport1.modifiers &= ~(0x02);        // the left shift modifier
       k &= 0x7F;
     }
   }

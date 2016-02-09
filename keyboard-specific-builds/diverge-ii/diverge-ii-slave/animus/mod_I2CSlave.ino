@@ -25,9 +25,9 @@ void I2CSlaveLoop()
 
 void requestEvent()
 {
-    slaveArray[0] = slaveCount;
-    Wire.write(slaveArray, slaveCount);
-    slaveCount = 1;
+  slaveArray[0] = slaveCount;
+  Wire.write(slaveArray, slaveCount);
+  slaveCount = 1;
 }
 
 void receiveEvent(int numBytes)
