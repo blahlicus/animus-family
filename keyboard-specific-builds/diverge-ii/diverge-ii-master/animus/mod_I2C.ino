@@ -1,6 +1,7 @@
 #include "Wire.h"
 
-int I2CLayer = 0;
+int I2CKeyLayer = 0;
+int I2CTempLayer = 0;
 
 void I2CStartup()
 {
@@ -11,10 +12,16 @@ void I2CLoop()
 {
   if (checkMillis())
   {
-    if (tempLayer != I2CLayer)
+    if (keyLayer != I2CKeyLayer)
     {
-      I2CSelectLayer(tempLayer);
-      I2CLayer = tempLayer;
+      I2CSetKeyLayer(keyLayer);
+      I2CKeyLayer = keyLayer;
+    }
+
+    if (tempLayer != I2CTempLayer)
+    {
+      I2CSetTempLayer(tempLayer);
+      I2CTempLayer = tempLayer;
     }
 
 
@@ -23,7 +30,8 @@ void I2CLoop()
     boolean slaveExists = false;
     Wire.requestFrom(8, 31);    // request 6 bytes from slave device #8
     while (Wire.available())
-    { // slave may send less than requested
+    {
+      // slave may send less than requested
       byte out = Wire.read(); // receive a byte as character
       slaveArray[slaveCount] = out;
       slaveExists = true;
@@ -94,7 +102,7 @@ void I2CSerial(String input)
     int addr = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
     byte val = input.toInt();
-    EEPROM.write(addr, val);
+    I2CSetEEPROM(addr, val);
     Serial.print("Wrote to sub EEPROM: ");
     Serial.print(addr);
     Serial.print(", ");
@@ -126,12 +134,22 @@ void I2CSerial(String input)
 
 
 /* references
-1: layer
+1: set tempLayer
 2: rebind
-3: set layer
+3: set number of layers
 4: set EEPROM
+5: set keyLayer
 */
-void I2CSelectLayer(byte input)
+void I2CSetKeyLayer(byte input)
+{
+  Wire.beginTransmission(8);
+  Wire.write(5);
+  Wire.write(input);
+  Wire.endTransmission();
+}
+
+
+void I2CSetTempLayer(byte input)
 {
   Wire.beginTransmission(8);
   Wire.write(1);

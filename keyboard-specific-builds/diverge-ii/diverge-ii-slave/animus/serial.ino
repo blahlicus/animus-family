@@ -78,7 +78,7 @@ void serialCommand(String input)
     int addr = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
     byte val = input.toInt();
-    EEPROM.write(addr, val);
+    EEPROM.update(addr, val);
     Serial.print("set EEPROM(");
     Serial.print(addr);
     Serial.print("(");
@@ -91,7 +91,7 @@ void serialCommand(String input)
 
     if (val <= (500  / (ROW * COL)))
     {
-      EEPROM.write(1023, val);
+      EEPROM.update(1023, val);
       Serial.print("set layer count(");
       Serial.println(val);
     }

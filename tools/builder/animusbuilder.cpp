@@ -9,9 +9,9 @@
 #include <algorithm>
 
 #ifdef _WIN32
-   //#include <windows.h>
+//#include <windows.h>
 #else
-  //define it for a Unix machine
+//define it for a Unix machine
 #endif
 
 bool IsNumeric(std::string input)
@@ -206,22 +206,22 @@ std::string GetDirectoryFromPathname (std::string input)
 
 void DirectoryCopy(std::string input, std::string output)
 {
-  #ifdef _WIN32
-    system(("xcopy " + input + " " + output + " /E /H /I /Y").c_str());
-  #else
-    system(("cp -rf " + input + " " + output).c_str());
-  #endif
+#ifdef _WIN32
+  system(("xcopy " + input + " " + output + " /E /H /I /Y").c_str());
+#else
+  system(("cp -rf " + input + " " + output).c_str());
+#endif
 }
 
 void DirectoryCreate(std::string input)
 {
   if (!FileOrDirectoryExists(input))
   {
-    #ifdef _WIN32
-      system(("mkdir " + input).c_str());
-    #else
-      system(("mkdir -p " + input).c_str());
-    #endif
+#ifdef _WIN32
+    system(("mkdir " + input).c_str());
+#else
+    system(("mkdir -p " + input).c_str());
+#endif
   }
 
 }
@@ -266,19 +266,19 @@ int main(int argc, char* argv[])
       if (help == "help")
       {
         std::cout << "Help menu" << std::endl
-        << "animusbuilder accepts several argument orders" << std::endl
-        << "1) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins]" << std::endl << std::endl
-        << "2) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]" << std::endl << std::endl
-        << "3) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]" << std::endl << std::endl
-        << "4) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build]" << std::endl << std::endl
-        << "5) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build] [-str mod path] [-arr<str mod filename>  modlst]" << std::endl << std::endl
-        << "-str denotes a string input such as \"abc\"" << std::endl
-        << "-int denotes an integer input such as 123" << std::endl
-        << "-int denotes an arduino pin input such as 5 or A0" << std::endl
-        << "-arr<t> denotes an array of type t" << std::endl
-        << "arrays are declared without brackets, separated with commas, and surrounded by quotes" << std::endl
-        << "example array -arr<pins>:\"2, 3, A2, A3, A4\"" << std::endl
-        << "example array -arr<str>: \"abc, def, ghi\"" << std::endl;
+                  << "animusbuilder accepts several argument orders" << std::endl
+                  << "1) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins]" << std::endl << std::endl
+                  << "2) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]" << std::endl << std::endl
+                  << "3) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh]" << std::endl << std::endl
+                  << "4) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build]" << std::endl << std::endl
+                  << "5) animusbuilder [-str animus path] [-str output path] [-int row] [-int col] [-arr<pins> vpins] [-arr<pins> hpins] [-int refresh] [-str kbname] [-str kbvariant] [-str kbdriver build] [-str mod path] [-arr<str mod filename>  modlst]" << std::endl << std::endl
+                  << "-str denotes a string input such as \"abc\"" << std::endl
+                  << "-int denotes an integer input such as 123" << std::endl
+                  << "-int denotes an arduino pin input such as 5 or A0" << std::endl
+                  << "-arr<t> denotes an array of type t" << std::endl
+                  << "arrays are declared without brackets, separated with commas, and surrounded by quotes" << std::endl
+                  << "example array -arr<pins>:\"2, 3, A2, A3, A4\"" << std::endl
+                  << "example array -arr<str>: \"abc, def, ghi\"" << std::endl;
       }
     }
     std::cout << "Error: incorrect number of arguments! use help as argument for more information!" << std::endl;
@@ -303,41 +303,41 @@ int main(int argc, char* argv[])
       std::cout << "Error: animus path: " << animus_path << " does not exist!" << std::endl;
       exit(-1);
     }
-    #ifdef _WIN32
+#ifdef _WIN32
     std::string maindriver = animus_path.substr(animus_path.find_last_of('\\'));
-    #else
+#else
     std::string maindriver = animus_path.substr(animus_path.find_last_of('/'));
-    #endif
+#endif
 
-  	const int checkerSize = 2;
+    const int checkerSize = 2;
 
-    #ifdef _WIN32
-  	std::string checker[2] = { maindriver + ".ino", "\\mod.ino" };
-    #else
-  	std::string checker[2] = { maindriver + ".ino", "/mod.ino" };
-    #endif
+#ifdef _WIN32
+    std::string checker[2] = { maindriver + ".ino", "\\mod.ino" };
+#else
+    std::string checker[2] = { maindriver + ".ino", "/mod.ino" };
+#endif
 
-  	for (int i = 0; i < checkerSize ; i++)
-  	{
-  		if (FileOrDirectoryExists(animus_path + checker[i]))
-  		{
-  			std::cout << checker[i] << " OK!" << std::endl;
-  		}
-  		else
-  		{
-  			std::cout << checker[i] << " Does not exists!" << std::endl;
-  			std::cout << "Error: File does not exist, now exiting";
+    for (int i = 0; i < checkerSize ; i++)
+    {
+      if (FileOrDirectoryExists(animus_path + checker[i]))
+      {
+        std::cout << checker[i] << " OK!" << std::endl;
+      }
+      else
+      {
+        std::cout << checker[i] << " Does not exists!" << std::endl;
+        std::cout << "Error: File does not exist, now exiting";
         exit(-1);
-  		}
-  	}
+      }
+    }
 
     DirectoryCopy(animus_path, output_path);
     mainfile_path = output_path + maindriver + ".ino";
-    #ifdef _WIN32
+#ifdef _WIN32
     modfile_path = output_path + "\\mod.ino";
-    #else
+#else
     modfile_path = output_path + "/mod.ino";
-    #endif
+#endif
     if (!IsNumeric(builder_row))
     {
       std:: cout << "Error: builder row: " << builder_row << " is not numeric!" << std::endl;
@@ -492,13 +492,13 @@ int main(int argc, char* argv[])
       builder_mserial = builder_mserial + modname + "Serial(input); ";
 
 
-      #ifdef _WIN32
+#ifdef _WIN32
       arr[i] = mod_path + "\\" + temp.substr(0, temp.find('.') + 4);
       std::string outputfile = output_path + "\\" + temp.substr(0, temp.find('.') + 4);
-      #else
+#else
       arr[i] = mod_path + "/" + temp.substr(0, temp.find('.') + 4);
       std::string outputfile = output_path + "/" + temp.substr(0, temp.find('.') + 4);
-      #endif
+#endif
       temp = temp.substr(temp.find("mod_") +3);
       if (temp.find("mod_") !=-1)
       {

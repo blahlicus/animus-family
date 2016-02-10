@@ -25,9 +25,9 @@ void I2CSlaveLoop()
 
 void requestEvent()
 {
-    slaveArray[0] = slaveCount;
-    Wire.write(slaveArray, slaveCount);
-    slaveCount = 1;
+  slaveArray[0] = slaveCount;
+  Wire.write(slaveArray, slaveCount);
+  slaveCount = 1;
 }
 
 void receiveEvent(int numBytes)
@@ -51,7 +51,7 @@ void receiveEvent(int numBytes)
   else if (type == 3)
   {
     byte input = Wire.read();
-    EEPROM.write(1023, input);
+    EEPROM.update(1023, input);
   }
   else if (type == 4)
   {
@@ -61,15 +61,21 @@ void receiveEvent(int numBytes)
     {
       addr = addr + Wire.read();
     }
-    EEPROM.write(addr, val);
+    EEPROM.update(addr, val);
+  }
+  else if (type == 5)
+  {
+    byte input = Wire.read();
+    keyLayer = input;
   }
 }
 
 /* references
-1: layer
+1: set tempLayer
 2: rebind
-3: set layer
+3: set number of layers
 4: set EEPROM
+5: set keyLayer
 */
 
 void I2CSlaveKeyDown(char val, byte type)
