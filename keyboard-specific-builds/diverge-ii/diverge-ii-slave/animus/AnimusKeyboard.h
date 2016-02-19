@@ -85,12 +85,14 @@ private:
   KeyReport _keyReport1;
   KeyReport _keyReport2;
   KeyReport _keyReport3;
-
+  int _NKROMode;
   void sendReport(KeyReport* keys, uint8_t ID);
 public:
   Keyboard_(void);
   void begin(void);
   void end(void);
+  int getNKROMode();
+  void setNKROMode(int input);
   size_t write(uint8_t k);
   size_t press(uint8_t k);
   size_t release(uint8_t k);
