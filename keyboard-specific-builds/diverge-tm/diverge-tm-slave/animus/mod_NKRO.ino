@@ -40,6 +40,8 @@ void modMethod(KeyDown)(char val, byte type)
       {
         Keyboard.setNKROMode(val);
       }
+
+      Keyboard.releaseAll();
     }
   }
 }

@@ -411,8 +411,11 @@ const uint8_t _asciimap[128] =
               }
             }
             sendReport(&_keyReport1, 2);
-            sendReport(&_keyReport2, 3);
-            sendReport(&_keyReport3, 4);
+            if (_NKROMode > 0)
+            {
+              sendReport(&_keyReport2, 3);
+              sendReport(&_keyReport3, 4);
+            }
             return 1;
           }
 
@@ -482,8 +485,11 @@ const uint8_t _asciimap[128] =
             }
 
             sendReport(&_keyReport1, 2);
-            sendReport(&_keyReport2, 3);
-            sendReport(&_keyReport3, 4);
+            if (_NKROMode > 0)
+            {
+              sendReport(&_keyReport2, 3);
+              sendReport(&_keyReport3, 4);
+            }
             return 1;
           }
 
