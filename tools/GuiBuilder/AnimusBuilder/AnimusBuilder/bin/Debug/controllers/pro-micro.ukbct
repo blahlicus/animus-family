@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClController xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <name>Pro Micro</name>
+  <startEEPROM>600</startEEPROM>
+  <endEEPROM>1000</endEEPROM>
+  <pins>
+    <string>2</string>
+    <string>3</string>
+    <string>4</string>
+    <string>5</string>
+    <string>6</string>
+    <string>7</string>
+    <string>8</string>
+    <string>9</string>
+    <string>10</string>
+    <string>14</string>
+    <string>15</string>
+    <string>16</string>
+    <string>A0</string>
+    <string>A1</string>
+    <string>A2</string>
+    <string>A3</string>
+  </pins>
+  <reservedPins>
+    <ClReservedPin>
+      <name>2</name>
+      <use>I2C</use>
+    </ClReservedPin>
+    <ClReservedPin>
+      <name>3</name>
+      <use>I2C</use>
+    </ClReservedPin>
+    <ClReservedPin>
+      <name>15</name>
+      <use>SPI</use>
+    </ClReservedPin>
+    <ClReservedPin>
+      <name>14</name>
+      <use>SPI</use>
+    </ClReservedPin>
+    <ClReservedPin>
+      <name>16</name>
+      <use>SPI</use>
+    </ClReservedPin>
+  </reservedPins>
+</ClController>

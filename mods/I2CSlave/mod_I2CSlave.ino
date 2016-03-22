@@ -1,3 +1,11 @@
+/*
+Do not remove this comment, this comment is used by animus builder for the
+build process
+BUILDER_REQUIREMENT_START
+I2C
+BUILDER_REQUIREMENT_END
+*/
+
 #include "Wire.h"
 
 // slave data

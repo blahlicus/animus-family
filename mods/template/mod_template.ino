@@ -1,3 +1,11 @@
+/*
+Do not remove this comment, this comment is used by animus builder for the
+build process
+BUILDER_REQUIREMENT_START
+BUILDER_REQUIREMENT_END
+*/
+
+
 #define mod_modname uktemplate
 
 #define modMethod(str) conca(mod_modname, str)
