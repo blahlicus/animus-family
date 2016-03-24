@@ -28,5 +28,53 @@ namespace AnimusBuilder
             return output;
 
         }
+
+        public static string BuildAnimus(ClBuildProfile bp, string animusPath, string modPath, string outputPath)
+        {
+            string output = "";
+
+            if (bp.name.Contains("\"") || bp.name.Contains("\\") ||
+                bp.driver_build.Contains("\"") || bp.driver_build.Contains("\\") ||
+                bp.variant.Contains("\"") || bp.variant.Contains("\\"))
+            {
+                output = "Error: name, build, or variant contains illegal characters.";
+                return output;
+            }
+
+            if (bp.hpins.Count < 1 || bp.vpins.Count < 1)
+            {
+                output = "Error: you need at least 1 pin per column and row.";
+                return output;
+            }
+
+            if (!File.Exists(animusPath + MdConstant.pseparator + "animus.ino"))
+            {
+                output = "Error: animus.ino missing, animus path is invalid";
+                return output;
+            }
+
+            if (!Directory.Exists(modPath))
+            {
+                output = "Error: mod folder missing, mod path is invalid.";
+                return output;
+            }
+
+            List<string> modpool = new List<string>();
+            modpool = Directory.GetDirectories(MdSetting.setting.modPath).Select(str => Path.GetFileNameWithoutExtension(str)).ToList();
+            foreach (string mod in bp.mods)
+            {
+                if (modpool.Contains(mod))
+                {
+                    // do nothing
+                }
+                else
+                {
+                    output = "Error: mod " + mod + " missing from the mod path.";
+                    return output;
+                }
+            }
+
+            return output;
+        }
     }
 }

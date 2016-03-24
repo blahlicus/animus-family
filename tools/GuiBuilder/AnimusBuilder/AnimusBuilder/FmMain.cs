@@ -53,6 +53,10 @@ namespace AnimusBuilder
         {
             var btn = e.Data.GetData(typeof(Button)) as Button;
             var pnl = sender as Panel;
+            if (btn.Parent == pnl)
+            {
+                btn.Parent = null;
+            }
             btn.Parent = pnl;
         }
 
@@ -230,5 +234,68 @@ namespace AnimusBuilder
                 LbModPool.Items.Remove(LbModPool.SelectedItem);
             }
         }
+
+        private void BtnAnimusPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "Select the directory containing animus.ino";
+            if (Directory.Exists(MdSetting.setting.animusPath))
+            {
+                dialog.SelectedPath = MdSetting.setting.animusPath;
+            }
+            else
+            {
+                dialog.SelectedPath = MdConstant.root;
+            }
+            dialog.ShowDialog();
+            if (dialog.SelectedPath != "")
+            {
+                TbAnimusPath.Text = dialog.SelectedPath;
+            }
+        }
+
+        private void BtnModPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "Select the directory containing the mods";
+            if (Directory.Exists(MdSetting.setting.modPath))
+            {
+                dialog.SelectedPath = MdSetting.setting.modPath;
+            }
+            else
+            {
+                dialog.SelectedPath = MdConstant.root;
+            }
+            dialog.ShowDialog();
+            if (dialog.SelectedPath != "")
+            {
+                TbModPath.Text = dialog.SelectedPath;
+            }
+        }
+
+        private void BtnOutputPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "Select the directory for the output";
+            if (Directory.Exists(MdSetting.setting.outputPath))
+            {
+                dialog.SelectedPath = MdSetting.setting.outputPath;
+            }
+            else
+            {
+                dialog.SelectedPath = MdConstant.root;
+            }
+            dialog.ShowDialog();
+            if (dialog.SelectedPath != "")
+            {
+                TbOutputPath.Text = dialog.SelectedPath;
+            }
+        }
+
+        private void BtnBuild_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

@@ -98,6 +98,7 @@
             this.BtnOutputPath.TabIndex = 8;
             this.BtnOutputPath.Text = "Browse";
             this.BtnOutputPath.UseVisualStyleBackColor = true;
+            this.BtnOutputPath.Click += new System.EventHandler(this.BtnOutputPath_Click);
             // 
             // TbOutputPath
             // 
@@ -127,6 +128,7 @@
             this.BtnModPath.TabIndex = 5;
             this.BtnModPath.Text = "Browse";
             this.BtnModPath.UseVisualStyleBackColor = true;
+            this.BtnModPath.Click += new System.EventHandler(this.BtnModPath_Click);
             // 
             // TbModPath
             // 
@@ -156,6 +158,7 @@
             this.BtnAnimusPath.TabIndex = 2;
             this.BtnAnimusPath.Text = "Browse";
             this.BtnAnimusPath.UseVisualStyleBackColor = true;
+            this.BtnAnimusPath.Click += new System.EventHandler(this.BtnAnimusPath_Click);
             // 
             // TbAnimusPath
             // 
@@ -207,6 +210,7 @@
             this.BtnBuild.TabIndex = 4;
             this.BtnBuild.Text = "Build";
             this.BtnBuild.UseVisualStyleBackColor = true;
+            this.BtnBuild.Click += new System.EventHandler(this.BtnBuild_Click);
             // 
             // BtnSelectControl
             // 
