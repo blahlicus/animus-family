@@ -1,4 +1,8 @@
 /*
+Do not remove this comment, this comment is used by animus builder for the
+build process
+BUILDER_REQUIREMENT_START
+BUILDER_REQUIREMENT_END
 Remeber to change the mod_modname to your mod name
 */
 

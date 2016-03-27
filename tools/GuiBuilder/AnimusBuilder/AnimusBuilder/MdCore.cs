@@ -65,7 +65,7 @@ namespace AnimusBuilder
             {
                 if (modpool.Contains(mod))
                 {
-                    // do nothing
+                    
                 }
                 else
                 {
@@ -73,6 +73,8 @@ namespace AnimusBuilder
                     return output;
                 }
             }
+
+            
 
             return output;
         }

@@ -44,6 +44,16 @@ call them regularly, example:
 
 `int layer = getLayEEPROM();`
 --------------------------------------------------------------------------------
+## Declaring dependancies and reserving resources
+
+If your mod requires use of special functions or pins, you should declare it in
+the comment on top of mod_[modname] in between BUILDER_REQUIREMENT_START and
+BUILDER_REQUIREMENT_END, the list of special functions available:
+
+* I2C: used by Arduino's Wire library for I2C communication
+* EEPROM([start-address],[end-address]): declare to claim ownership of EEPROM
+* Pin([pin],[pin],[pin]...): declare to claim ownership of pins
+--------------------------------------------------------------------------------
 ## Using EEPROM
 
 EEPROM addresses 601-999 (inclusive) are reserved for mods, you may get and set
@@ -53,7 +63,7 @@ EEPROM values with the following functions:
 void EEPROM.update(address, valueByte);
 byte EEPROM.read(address);
 ```
-
+Remember to declare the EEPROM addresses used as per the previous section
 --------------------------------------------------------------------------------
 # Creating multiple file mods
 
