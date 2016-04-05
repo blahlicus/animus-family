@@ -17,5 +17,27 @@ namespace AnimusBuilder
         public static string eControllers = @"*.ukbct";
         public static string eProfiles = @"*.ukbpr";
         public static string eSettings = @"*.ukbst";
+
+        public static string bRow = "builder_row";
+        public static string bCol = "builder_col";
+        public static string bName = "builder_kbname";
+        public static string bVariant = "builder_kbvariant";
+        public static string bDriver = "builder_kbdriver";
+        public static string bBuild = "builder_kbdriver_build";
+        public static string bVPins = "builder_vpins";
+        public static string bHPins = "builder_hpins";
+        public static string bRefresh = "builder_refresh";
+
+        public static string bMStart = "builder_mstartup";
+        public static string bMLoop = "builder_mloop";
+        public static string bMKDown = "builder_mkeydown";
+        public static string bMKUp = "builder_mkeyup";
+        public static string bMSerial = "builder_mserial";
+
+        public static string bMEStartup = "Startup();";
+        public static string bMELoop = "Loop();";
+        public static string bMEKDown = "KeyDown(val, type);";
+        public static string bMEKUp = "KeyUp(val, type);";
+        public static string bMESerial = "Serial(input);";
     }
 }

@@ -8,10 +8,23 @@ namespace AnimusBuilder
 {
     public class ClBuildProfile
     {
+        public enum CheckModResponse
+        {
+            DirectoryDoesNotExist,
+            ModNamingError,
+            ModDoesNotExist,
+            PinDoesNotExist,
+            PinConflictError,
+            AllClear
+
+        }
+        
+
         public List<string> mods { get; set; }
         public List<string> vpins { get; set; }
         public List<string> hpins { get; set; }
         public string name { get; set; }
+        public string bp_name { get; set; }
         public string variant { get; set; }
         public string driver_build { get; set; }
         public string refresh { get; set; }
@@ -22,6 +35,7 @@ namespace AnimusBuilder
             vpins = new List<string>();
             hpins = new List<string>();
             name = "Unknown Keyboard";
+            bp_name = "unknown-keyboard";
             variant = "Unknown Variant";
             driver_build = "Unknown Build";
             refresh = "10";
@@ -50,19 +64,21 @@ namespace AnimusBuilder
 
         }
 
-        public bool CheckMods(string modPath)
+        public CheckModResponse CheckMods(ClController controller, string modPath)
         {
-            bool output = true;
+            CheckModResponse output = CheckModResponse.AllClear;
             if (!Directory.Exists(modPath))
             {
-                output = false;
+                output = CheckModResponse.DirectoryDoesNotExist;
                 return output;
             }
 
             List<string> usedPins = new List<string>();
+            List<string> usedEEPROM = new List<string>();
             List<string> usedFeatures = new List<string>();
-            int startEEPROM = -1;
-            int endEEPROM = -1;
+
+            usedPins.AddRange(hpins);
+            usedPins.AddRange(vpins);
 
 
             List<string> modpool = new List<string>();
@@ -86,7 +102,7 @@ namespace AnimusBuilder
 
                     if (!File.Exists(mfPath))
                     {
-                        output = false;
+                        output = CheckModResponse.ModDoesNotExist;
                         return output;
                     }
 
@@ -99,7 +115,7 @@ namespace AnimusBuilder
                     }
                     else
                     {
-                        output = false;
+                        output = CheckModResponse.ModNamingError;
                         return output;
                     }
 
@@ -139,11 +155,49 @@ namespace AnimusBuilder
                                 temp = temp.Substring(0, temp.IndexOf(')'));
 
                                 temp = temp.Replace(" ", string.Empty);
+                                usedPins = temp.Split(',').ToList();
+                                if (usedPins.All(pstr => controller.pins.Contains(pstr)))
+                                {
+                                    // do nothing
+                                }
+                                else
+                                {
+                                    output = CheckModResponse.PinDoesNotExist;
+                                    return output;
+                                }
 
                             }
-                            // reserves EEPROM addresses
+                            else if (str.StartsWith("EEPROM("))// reserves EEPROM addresses
+                            {
+                                string temp = str.Substring(str.IndexOf('(') + 1);
+                                temp = temp.Substring(0, temp.IndexOf(')'));
 
-                            // adds additional features
+                                temp = temp.Replace(" ", string.Empty);
+                                usedEEPROM = temp.Split(',').ToList();
+                            }
+                            else // adds additional features
+                            {
+                                // fuck LINQ, i love you LINQ but i am having a brain fart right now
+                                if (controller.features.Contains(str))
+                                {
+                                    usedFeatures.Add(str);
+                                    foreach(ClReservedPin rp in controller.reservedPins)
+                                    {
+                                        if (rp.use == str)
+                                        {
+                                            if (usedPins.Contains(rp.name))
+                                            {
+                                                output = CheckModResponse.PinConflictError;
+                                                return output;
+                                            }
+                                            else
+                                            {
+                                                usedPins.Add(rp.name);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -151,11 +205,12 @@ namespace AnimusBuilder
                 }
                 else
                 {
-                    output = false;
+                    output = CheckModResponse.ModDoesNotExist;
                     return output;
                 }
             }
 
+            output = CheckModResponse.AllClear;
             return output;
         }
     }

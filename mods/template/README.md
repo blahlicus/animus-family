@@ -51,7 +51,7 @@ the comment on top of mod_[modname] in between BUILDER_REQUIREMENT_START and
 BUILDER_REQUIREMENT_END, the list of special functions available:
 
 * I2C: used by Arduino's Wire library for I2C communication
-* EEPROM([start-address],[end-address]): declare to claim ownership of EEPROM
+* EEPROM([addr1],[addr2],[addr3]...): declare to claim ownership of EEPROM
 * Pin([pin],[pin],[pin]...): declare to claim ownership of pins
 --------------------------------------------------------------------------------
 ## Using EEPROM

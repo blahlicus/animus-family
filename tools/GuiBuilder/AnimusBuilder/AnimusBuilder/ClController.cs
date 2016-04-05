@@ -12,6 +12,7 @@ namespace AnimusBuilder
         public int endEEPROM { get; set; }
         public List<string> pins { get; set; }
         public List<ClReservedPin> reservedPins { get; set; }
+        public List<string> features { get; set; }
 
         public ClController()
         {
@@ -20,6 +21,7 @@ namespace AnimusBuilder
             endEEPROM = 0;
             pins = new List<string>();
             reservedPins = new List<ClReservedPin>();
+            features = new List<string>();
         }
 
     }
