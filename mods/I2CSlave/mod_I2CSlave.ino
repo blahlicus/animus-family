@@ -6,6 +6,8 @@ I2C
 BUILDER_REQUIREMENT_END
 */
 
+#define mod_modname I2CSlave
+
 #include "Wire.h"
 
 // slave data

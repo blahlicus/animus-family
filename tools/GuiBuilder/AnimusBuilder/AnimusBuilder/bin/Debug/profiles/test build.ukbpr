@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClBuildProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <mods>
+    <string>I2C</string>
+    <string>media</string>
+  </mods>
+  <vpins>
+    <string>6</string>
+    <string>7</string>
+    <string>8</string>
+  </vpins>
+  <hpins>
+    <string>4</string>
+    <string>5</string>
+  </hpins>
+  <name>TestBuild</name>
+  <bp_name>TestBuild</bp_name>
+  <variant>tv</variant>
+  <driver_build>tb</driver_build>
+  <refresh>50</refresh>
+</ClBuildProfile>

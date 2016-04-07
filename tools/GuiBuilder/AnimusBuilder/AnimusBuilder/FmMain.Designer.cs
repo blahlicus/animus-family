@@ -65,6 +65,7 @@
             this.BtAddMod = new System.Windows.Forms.Button();
             this.BtnBuildAll = new System.Windows.Forms.Button();
             this.BtnResetPins = new System.Windows.Forms.Button();
+            this.BtnResetMod = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NudRefresh)).BeginInit();
             this.SuspendLayout();
@@ -82,7 +83,7 @@
             this.groupBox1.Controls.Add(this.BtnAnimusPath);
             this.groupBox1.Controls.Add(this.TbAnimusPath);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 481);
+            this.groupBox1.Location = new System.Drawing.Point(12, 485);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(540, 113);
             this.groupBox1.TabIndex = 26;
@@ -364,7 +365,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(18, 360);
+            this.label11.Location = new System.Drawing.Point(18, 371);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(36, 13);
             this.label11.TabIndex = 21;
@@ -375,7 +376,7 @@
             this.LbMods.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LbMods.FormattingEnabled = true;
-            this.LbMods.Location = new System.Drawing.Point(21, 376);
+            this.LbMods.Location = new System.Drawing.Point(21, 387);
             this.LbMods.Name = "LbMods";
             this.LbMods.Size = new System.Drawing.Size(245, 95);
             this.LbMods.TabIndex = 22;
@@ -384,7 +385,7 @@
             // 
             this.LbModPool.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LbModPool.FormattingEnabled = true;
-            this.LbModPool.Location = new System.Drawing.Point(315, 376);
+            this.LbModPool.Location = new System.Drawing.Point(315, 387);
             this.LbModPool.Name = "LbModPool";
             this.LbModPool.Size = new System.Drawing.Size(237, 95);
             this.LbModPool.TabIndex = 25;
@@ -393,7 +394,7 @@
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(312, 360);
+            this.label12.Location = new System.Drawing.Point(312, 371);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(82, 13);
             this.label12.TabIndex = 24;
@@ -402,7 +403,7 @@
             // BtAddMod
             // 
             this.BtAddMod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtAddMod.Location = new System.Drawing.Point(272, 376);
+            this.BtAddMod.Location = new System.Drawing.Point(272, 387);
             this.BtAddMod.Name = "BtAddMod";
             this.BtAddMod.Size = new System.Drawing.Size(37, 95);
             this.BtAddMod.TabIndex = 23;
@@ -431,11 +432,23 @@
             this.BtnResetPins.UseVisualStyleBackColor = true;
             this.BtnResetPins.Click += new System.EventHandler(this.BtnResetPins_Click);
             // 
+            // BtnResetMod
+            // 
+            this.BtnResetMod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnResetMod.Location = new System.Drawing.Point(477, 362);
+            this.BtnResetMod.Name = "BtnResetMod";
+            this.BtnResetMod.Size = new System.Drawing.Size(75, 23);
+            this.BtnResetMod.TabIndex = 28;
+            this.BtnResetMod.Text = "Reset";
+            this.BtnResetMod.UseVisualStyleBackColor = true;
+            this.BtnResetMod.Click += new System.EventHandler(this.BtnResetMod_Click);
+            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 606);
+            this.ClientSize = new System.Drawing.Size(564, 610);
+            this.Controls.Add(this.BtnResetMod);
             this.Controls.Add(this.BtnResetPins);
             this.Controls.Add(this.BtnBuildAll);
             this.Controls.Add(this.BtAddMod);
@@ -513,6 +526,7 @@
         private System.Windows.Forms.Button BtAddMod;
         private System.Windows.Forms.Button BtnBuildAll;
         private System.Windows.Forms.Button BtnResetPins;
+        private System.Windows.Forms.Button BtnResetMod;
 
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ClController xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <name>Pro Micro</name>
+  <name>Pro Micro - Atmega32u4</name>
   <startEEPROM>600</startEEPROM>
   <endEEPROM>1000</endEEPROM>
   <pins>
@@ -15,7 +15,7 @@
     <string>10</string>
     <string>14</string>
     <string>15</string>
-    <string>16</string>
+    <string>!6</string>
     <string>A0</string>
     <string>A1</string>
     <string>A2</string>
@@ -31,11 +31,11 @@
       <use>I2C</use>
     </ClReservedPin>
     <ClReservedPin>
-      <name>15</name>
+      <name>14</name>
       <use>SPI</use>
     </ClReservedPin>
     <ClReservedPin>
-      <name>14</name>
+      <name>15</name>
       <use>SPI</use>
     </ClReservedPin>
     <ClReservedPin>
@@ -43,4 +43,8 @@
       <use>SPI</use>
     </ClReservedPin>
   </reservedPins>
+  <features>
+    <string>I2C</string>
+    <string>SPI</string>
+  </features>
 </ClController>

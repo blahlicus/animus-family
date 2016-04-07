@@ -42,7 +42,7 @@ namespace AnimusBuilder
 
             for (int i = 0; i < lines.Count; i++)
             {
-                if (lines[i].StartsWith("#define " + attr))
+                if (lines[i].Contains("#define " + attr))
                 {
                     lines[i] = "#define " + attr + " " + val;
                     output = true;
@@ -82,7 +82,7 @@ namespace AnimusBuilder
             }
             else
             {
-                outputPath = animusPath + MdConstant.pseparator;
+                outputPath = outputPath + MdConstant.pseparator;
             }
 
             if (bp.name.Contains("\"") || bp.name.Contains("\\") ||
@@ -143,10 +143,16 @@ namespace AnimusBuilder
                 output = "Error: Pin does not exist for the selected controller.";
                 return output;
             }
+            else if (cmr == ClBuildProfile.CheckModResponse.EEPROMConflictError)
+            {
+                output = "Error: EEPROM conflict.";
+                return output;
+            }
             else if (cmr == ClBuildProfile.CheckModResponse.AllClear)
             {
                 // vars
                 string ofolder = outputPath + bp.bp_name + MdConstant.pseparator + Path.GetFileNameWithoutExtension(animusPath);
+                Console.WriteLine(ofolder);
                 string mafile = ofolder + MdConstant.pseparator + "animus.ino";
                 string mmfile = ofolder + MdConstant.pseparator + "mod.ino";
 
@@ -154,14 +160,14 @@ namespace AnimusBuilder
                 MdCore.DirectoryCopy(animusPath, ofolder);
 
                 // edit main animus file
-                MdCore.SetFileAttribute(mafile, MdConstant.bCol, bp.vpins.Count.ToString());
-                MdCore.SetFileAttribute(mafile, MdConstant.bRow, bp.hpins.Count.ToString());
+                MdCore.SetFileAttribute(mafile, MdConstant.bRow, bp.vpins.Count.ToString());
+                MdCore.SetFileAttribute(mafile, MdConstant.bCol, bp.hpins.Count.ToString());
 
-                MdCore.SetFileAttribute(mafile, MdConstant.bName, bp.name);
+                MdCore.SetFileAttribute(mafile, MdConstant.bName, "\"" + bp.name + "\"");
 
-                MdCore.SetFileAttribute(mafile, MdConstant.bVariant, bp.variant);
+                MdCore.SetFileAttribute(mafile, MdConstant.bVariant, "\"" + bp.variant + "\"");
 
-                MdCore.SetFileAttribute(mafile, MdConstant.bBuild, bp.driver_build);
+                MdCore.SetFileAttribute(mafile, MdConstant.bBuild, "\"" + bp.driver_build + "\"");
 
                 MdCore.SetFileAttribute(mafile, MdConstant.bVPins, ListStringToString(bp.vpins));
 
@@ -174,11 +180,22 @@ namespace AnimusBuilder
                 MdCore.SetFileAttribute(mmfile, MdConstant.bMStart, GenerateModMethodString(bp.mods, MdConstant.bMEStartup));
                 MdCore.SetFileAttribute(mmfile, MdConstant.bMKDown, GenerateModMethodString(bp.mods, MdConstant.bMEKDown));
                 MdCore.SetFileAttribute(mmfile, MdConstant.bMKUp, GenerateModMethodString(bp.mods, MdConstant.bMEKUp));
-                MdCore.SetFileAttribute(mmfile, MdConstant.bMELoop, GenerateModMethodString(bp.mods, MdConstant.bMELoop));
-                MdCore.SetFileAttribute(mmfile, MdConstant.bMESerial, GenerateModMethodString(bp.mods, MdConstant.bMESerial));
+                MdCore.SetFileAttribute(mmfile, MdConstant.bMLoop, GenerateModMethodString(bp.mods, MdConstant.bMELoop));
+                MdCore.SetFileAttribute(mmfile, MdConstant.bMSerial, GenerateModMethodString(bp.mods, MdConstant.bMESerial));
 
                 // copy mod files
-                
+                List<string> modpaths = bp.mods.Select(str => modPath + str).ToList();
+                foreach(string str in modpaths)
+                {
+                    DirectoryCopy(str, ofolder, false);
+                }
+
+            }
+            else
+            {
+
+                output = "Error: Unknown build error.";
+                return output;
             }
 
             /*
@@ -197,8 +214,8 @@ namespace AnimusBuilder
                 }
             }
             */
-            
 
+            output = "Build Completed for " + bp.name;
             return output;
         }
 

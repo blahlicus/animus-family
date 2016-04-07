@@ -15,6 +15,7 @@ namespace AnimusBuilder
             ModDoesNotExist,
             PinDoesNotExist,
             PinConflictError,
+            EEPROMConflictError,
             AllClear
 
         }
@@ -23,7 +24,21 @@ namespace AnimusBuilder
         public List<string> mods { get; set; }
         public List<string> vpins { get; set; }
         public List<string> hpins { get; set; }
-        public string name { get; set; }
+        private string _name;
+
+        public string name
+        {
+            get { return _name; }
+            set
+            {
+
+                _name = value;
+                var invalids = System.IO.Path.GetInvalidFileNameChars();
+                
+                bp_name = String.Join("-", _name.Split(invalids, StringSplitOptions.RemoveEmptyEntries) ).TrimEnd('.');
+            }
+        }
+        
         public string bp_name { get; set; }
         public string variant { get; set; }
         public string driver_build { get; set; }
@@ -97,9 +112,9 @@ namespace AnimusBuilder
                     {
                         modDir = modDir + MdConstant.pseparator;
                     }
-
+                    modDir = modDir + mod + MdConstant.pseparator; 
                     string mfPath = modDir + mfName;
-
+                    Console.WriteLine(mfPath);
                     if (!File.Exists(mfPath))
                     {
                         output = CheckModResponse.ModDoesNotExist;
@@ -198,6 +213,24 @@ namespace AnimusBuilder
                                     }
                                 }
                             }
+
+                            if (usedEEPROM.Distinct().Count() != usedEEPROM.Count)
+                            {
+                                output = CheckModResponse.EEPROMConflictError;
+                                return output;
+                            }
+
+
+                            foreach(string eeprom in usedEEPROM)
+                            {
+                                if (Convert.ToInt32(eeprom) < controller.startEEPROM || Convert.ToInt32(eeprom) > controller.endEEPROM)
+                                {
+                                    output = CheckModResponse.EEPROMConflictError;
+                                    return output;
+                                }
+                            }
+
+                            
                         }
                     }
 

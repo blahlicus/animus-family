@@ -5,6 +5,8 @@ BUILDER_REQUIREMENT_START
 BUILDER_REQUIREMENT_END
 */
 
+#define mod_modname media
+
 #include "AnimusMedia.h"
 
 void mediaStartup()

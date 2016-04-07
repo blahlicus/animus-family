@@ -29,7 +29,7 @@ namespace AnimusBuilder
             TbModPath.Text = MdSetting.setting.modPath;
             TbOutputPath.Text = MdSetting.setting.outputPath;
 
-
+            MdCore.Serialize<ClController>(ClController.ProMicro(), MdConstant.controllers + MdConstant.pseparator + "pro-micro.ukbct");
 
         }
 
@@ -73,6 +73,8 @@ namespace AnimusBuilder
             MdSetting.SaveSettings();
             if (Directory.Exists(MdSetting.setting.modPath))
             {
+                LbModPool.Items.Clear();
+                LbMods.Items.Clear();
                 LbModPool.Items.AddRange(Directory.GetDirectories(MdSetting.setting.modPath).ToList<string>().Select(str => Path.GetFileNameWithoutExtension(str)).ToArray());
             }
 
@@ -109,6 +111,7 @@ namespace AnimusBuilder
             if (dialog.FileName != "")
             {
                 BtnResetPins.PerformClick();
+                BtnResetMod.PerformClick();
                 ClBuildProfile bp = MdCore.Deserialize<ClBuildProfile>(dialog.FileName);
                 List<string> pinpool = FlpPool.Controls.Cast<Button>().Select(btn => btn.Text).ToList();
                 List<string> modpool = LbModPool.Items.Cast<string>().ToList();
@@ -154,7 +157,7 @@ namespace AnimusBuilder
             }
         }
 
-        private void BtnSave_Click(object sender, EventArgs e)
+        private void UpdateProfile()
         {
             MdGlobal.profile.driver_build = TbBuild.Text;
 
@@ -165,7 +168,11 @@ namespace AnimusBuilder
             MdGlobal.profile.refresh = NudRefresh.Value.ToString();
             MdGlobal.profile.variant = TbVariant.Text;
             MdGlobal.profile.mods = LbMods.Items.Cast<String>().ToList();
+        }
 
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            UpdateProfile();
 
 
             SaveFileDialog dialog = new SaveFileDialog();
@@ -235,6 +242,7 @@ namespace AnimusBuilder
             }
         }
 
+
         private void BtnAnimusPath_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -294,7 +302,25 @@ namespace AnimusBuilder
 
         private void BtnBuild_Click(object sender, EventArgs e)
         {
+            UpdateProfile();
+            MessageBox.Show(MdCore.BuildAnimus(MdGlobal.profile, MdGlobal.selectedController, MdSetting.setting.animusPath, MdSetting.setting.modPath, MdSetting.setting.outputPath));
 
+        }
+
+        public void SetMods(List<string> input)
+        {
+            LbMods.Items.Clear();
+
+            LbModPool.Items.Clear();
+
+            foreach (string element in input)
+            {
+                LbModPool.Items.Add(element);
+            }
+        }
+        private void BtnResetMod_Click(object sender, EventArgs e)
+        {
+            SetMods(Directory.GetDirectories(MdSetting.setting.modPath).ToList<string>().Select(str => Path.GetFileNameWithoutExtension(str)).ToList());
         }
 
     }
