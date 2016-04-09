@@ -89,7 +89,7 @@ void serialCommand(String input)
     input = input.substring(input.indexOf('(')+1);
     byte val = input.toInt();
 
-    if (val <= (500  / (ROW * COL)))
+    if (val <= (600  / (ROW * COL)))
     {
       EEPROM.update(1023, val);
       Serial.print("set layer count(");
@@ -143,6 +143,7 @@ void serialCommand(String input)
     Serial.print("set master(");
     Serial.print(IS_MASTER);
   }
+  NKROSerial(input);
   modSerial(input);
 }
 

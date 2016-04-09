@@ -478,7 +478,7 @@
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FmMain";
-            this.Text = "Animus Builder Innova - 1.0 0000";
+            this.Text = "Animus Builder Innova - 1.0 0004";
             this.Load += new System.EventHandler(this.FmMain_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -30,7 +30,7 @@ namespace AnimusBuilder
             output.name = "Pro Micro - Atmega32u4";
             output.startEEPROM = 600;
             output.endEEPROM = 1000;
-            output.pins = new List<string> { "2", "3", "4", "5", "6", "7", "8", "9", "10", "14", "15", "!6", "A0", "A1", "A2", "A3" };
+            output.pins = new List<string> { "2", "3", "4", "5", "6", "7", "8", "9", "10", "14", "15", "16", "A0", "A1", "A2", "A3" };
             output.reservedPins = new List<ClReservedPin>();
             output.reservedPins.Add(new ClReservedPin("2", "I2C"));
             output.reservedPins.Add(new ClReservedPin("3", "I2C"));

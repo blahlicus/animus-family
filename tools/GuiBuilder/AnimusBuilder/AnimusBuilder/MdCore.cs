@@ -151,7 +151,7 @@ namespace AnimusBuilder
             else if (cmr == ClBuildProfile.CheckModResponse.AllClear)
             {
                 // vars
-                string ofolder = outputPath + bp.bp_name + MdConstant.pseparator + Path.GetFileNameWithoutExtension(animusPath);
+                string ofolder = outputPath + bp.bp_name + MdConstant.pseparator + Path.GetFileNameWithoutExtension(animusPath) + MdConstant.pseparator + "animus";
                 Console.WriteLine(ofolder);
                 string mafile = ofolder + MdConstant.pseparator + "animus.ino";
                 string mmfile = ofolder + MdConstant.pseparator + "mod.ino";

@@ -11,14 +11,28 @@ namespace AnimusBuilder
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             MdGlobal.init();
             MdGlobal.mainForm = new FmMain();
-            Application.Run(MdGlobal.mainForm);
+            List<string> largs = args.ToList();
+            if (largs.Count == 1)
+            {
+                if (System.IO.File.Exists(largs[0]))
+                {
+
+                    ClBuildList.BuildFromList(MdCore.Deserialize<ClBuildList>(largs[0]));
+                }
+                Application.Exit();
+            }
+            else
+            {
+
+                Application.Run(MdGlobal.mainForm);
+            }
         }
     }
 }

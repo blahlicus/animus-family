@@ -29,7 +29,8 @@ namespace AnimusBuilder
             TbModPath.Text = MdSetting.setting.modPath;
             TbOutputPath.Text = MdSetting.setting.outputPath;
 
-            MdCore.Serialize<ClController>(ClController.ProMicro(), MdConstant.controllers + MdConstant.pseparator + "pro-micro.ukbct");
+            //MdCore.Serialize<ClController>(ClController.ProMicro(), MdConstant.controllers + MdConstant.pseparator + "pro-micro.ukbct");
+            MdCore.Serialize<ClBuildList>(ClBuildList.BuildAll(), MdConstant.root + MdConstant.pseparator + "build-all.ukbl");
 
         }
 

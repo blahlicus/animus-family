@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClBuildList.cs" />
     <Compile Include="ClBuildProfile.cs" />
     <Compile Include="ClReservedPin.cs" />
     <Compile Include="FmMain.cs">

@@ -1,8 +1,8 @@
-#define builder_mstartup mediaStartup(); NKROStartup(); 
-#define builder_mloop mediaLoop(); NKROLoop(); 
-#define builder_mkeydown mediaKeyDown(val, type); NKROKeyDown(val, type); 
-#define builder_mkeyup mediaKeyUp(val, type); NKROKeyUp(val, type); 
-#define builder_mserial mediaSerial(input); NKROSerial(input); 
+#define builder_mstartup mediaStartup();
+#define builder_mloop mediaLoop();
+#define builder_mkeydown mediaKeyDown(val, type);
+#define builder_mkeyup mediaKeyUp(val, type);
+#define builder_mserial mediaSerial(input);
 
 void modStartup()
 {

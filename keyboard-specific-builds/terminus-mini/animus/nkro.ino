@@ -1,16 +1,13 @@
-#define mod_modname NKRO
-
-#define modMethod(str) conca(mod_modname, str)
 
 #define NKROMAX 3
 
-void modMethod(Startup)()
+void NKROStartup()
 {
   // things to run during hardware startup
   Keyboard.setNKROMode(EEPROM.read(1022));
 }
 
-void modMethod(Loop)()
+void NKROLoop()
 {
   // full speed master loop
 
@@ -22,7 +19,7 @@ void modMethod(Loop)()
   }
 }
 
-void modMethod(KeyDown)(char val, byte type)
+void NKROKeyDown(char val, byte type)
 {
   // ran when a key is pressed down
 
@@ -46,7 +43,7 @@ void modMethod(KeyDown)(char val, byte type)
   }
 }
 
-void modMethod(KeyUp)(char val, byte type)
+void NKROKeyUp(char val, byte type)
 {
   // ran when a key is pressed up
 
@@ -57,7 +54,7 @@ void modMethod(KeyUp)(char val, byte type)
   }
 }
 
-void modMethod(SetMode)(int val)
+void NKROSetMode(int val)
 {
   if (val < NKROMAX)
   {
@@ -66,23 +63,18 @@ void modMethod(SetMode)(int val)
   }
 }
 
-void modMethod(Serial)(String input)
+void NKROSerial(String input)
 {
   // ran when serial command of input is sent to device from host
 
-  // do not delete this as this is for the identifier
-  if (input.startsWith("uniquekgetmods"))
-  {
-    Serial.print(tokenToString(mod_modname));
-  }
-  else if (input.startsWith("uniqueksetnkro"))
+  if (input.startsWith("uniqueksetnkro"))
   {
     input = input.substring(input.indexOf('(')+1);
     byte val = input.toInt();
 
     if (val < NKROMAX)
     {
-      modMethod(SetMode)(val);
+      NKROSetMode(val);
       Serial.print("set NKRO mode(");
       Serial.println(val);
     }
@@ -99,5 +91,3 @@ void modMethod(Serial)(String input)
 
 }
 #undef NKROMAX
-#undef mod_modname
-#undef modMethod

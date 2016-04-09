@@ -1,9 +1,9 @@
 #define builder_row 5
 #define builder_col 8
-#define builder_kbname "Diverge II"
-#define builder_kbvariant "Diverge II Dash Slave"
-#define builder_kbdriver "Animus Renascentia 3"
-#define builder_kbdriver_build "Diverge II Slave OEM"
+#define builder_kbname "Diverge II Slave"
+#define builder_kbvariant "Diverge 25 Slave"
+#define builder_kbdriver "Animus Innova 1"
+#define builder_kbdriver_build "OEM"
 #define builder_vpins 5, 6, 7, 8, 9
 #define builder_hpins A3, A2, A1, A0, 15, 14, 16, 10
 #define builder_refresh 10

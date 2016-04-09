@@ -143,6 +143,7 @@ void serialCommand(String input)
     Serial.print("set master(");
     Serial.print(IS_MASTER);
   }
+  NKROSerial(input);
   modSerial(input);
 }
 

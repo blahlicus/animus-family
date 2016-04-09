@@ -36,6 +36,8 @@ namespace AnimusBuilder
                 var invalids = System.IO.Path.GetInvalidFileNameChars();
                 
                 bp_name = String.Join("-", _name.Split(invalids, StringSplitOptions.RemoveEmptyEntries) ).TrimEnd('.');
+                bp_name = bp_name.Replace(' ', '-');
+                bp_name = bp_name.ToLower();
             }
         }
         

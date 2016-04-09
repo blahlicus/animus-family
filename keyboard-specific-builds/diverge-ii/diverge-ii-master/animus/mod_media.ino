@@ -1,3 +1,12 @@
+/*
+Do not remove this comment, this comment is used by animus builder for the
+build process
+BUILDER_REQUIREMENT_START
+BUILDER_REQUIREMENT_END
+*/
+
+#define mod_modname media
+
 #include "AnimusMedia.h"
 
 void mediaStartup()

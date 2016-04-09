@@ -1,8 +1,8 @@
-#define builder_mstartup mediaStartup(); I2CSlaveStartup(); NKROStartup(); 
-#define builder_mloop mediaLoop(); I2CSlaveLoop(); NKROLoop(); 
-#define builder_mkeydown mediaKeyDown(val, type); I2CSlaveKeyDown(val, type); NKROKeyDown(val, type); 
-#define builder_mkeyup mediaKeyUp(val, type); I2CSlaveKeyUp(val, type); NKROKeyUp(val, type); 
-#define builder_mserial mediaSerial(input); I2CSlaveSerial(input); NKROSerial(input); 
+#define builder_mstartup I2CSlaveStartup(); mediaStartup();
+#define builder_mloop I2CSlaveLoop(); mediaLoop();
+#define builder_mkeydown I2CSlaveKeyDown(val, type); mediaKeyDown(val, type);
+#define builder_mkeyup I2CSlaveKeyUp(val, type); mediaKeyUp(val, type);
+#define builder_mserial I2CSlaveSerial(input); mediaSerial(input);
 
 void modStartup()
 {

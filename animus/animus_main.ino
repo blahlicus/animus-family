@@ -30,6 +30,7 @@ void setup()
 {
   Keyboard.begin();
   Serial.begin(baudRate);
+  NKROStartup();
   modStartup();
   resetPins();
 
@@ -71,7 +72,7 @@ void loop()
     // main loop ends
   }
 
-
+  NKROLoop();
   modLoop();
 }
 
@@ -128,6 +129,7 @@ void pressKey(char val, byte type)
     }
   }
 
+  NKROKeyDown(val, type);
   modKeyDown(val, type);
 }
 
@@ -154,7 +156,7 @@ void releaseKey(char val, byte type)
       releaseAllKey();
     }
   }
-
+  NKROKeyUp(val, type);
   modKeyUp(val, type);
 }
 
