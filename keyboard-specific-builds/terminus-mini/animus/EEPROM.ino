@@ -1,30 +1,30 @@
-void setEEPROM(int x, int y, int z, char inputChar, byte inputType)
+void SetEEPROM(int x, int y, int z, char inputChar, byte inputType)
 {
-  int addr = getEEPROMValue(x, y, z);
+  int addr = GetEEPROMValue(x, y, z);
   EEPROM.update(addr, inputChar);
   addr++;
   EEPROM.update(addr, inputType);
 }
 
-int getLayEEPROM()
+int GetLayEEPROM()
 {
   return EEPROM.read(1023);
 }
 
-char getValEEPROM(int x, int y, int z)
+char GetValEEPROM(int x, int y, int z)
 {
-  int addr = getEEPROMValue(x, y, z);
+  int addr = GetEEPROMValue(x, y, z);
   return EEPROM.read(addr);
 }
 
-byte getTypeEEPROM(int x, int y, int z)
+byte GetTypeEEPROM(int x, int y, int z)
 {
-  int addr = getEEPROMValue(x, y, z);
+  int addr = GetEEPROMValue(x, y, z);
   addr++;
   return EEPROM.read(addr);
 }
 
-int getEEPROMValue(int x, int y, int z)
+int GetEEPROMValue(int x, int y, int z)
 {
   return ((x + (y * COL) + (z * COL * ROW))*2);
 }

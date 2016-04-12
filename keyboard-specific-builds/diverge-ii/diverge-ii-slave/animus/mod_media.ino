@@ -16,7 +16,7 @@ void mediaStartup()
 
 void mediaLoop()
 {
-  if (checkMillis())
+  if (CheckMillis())
   {
 
   }

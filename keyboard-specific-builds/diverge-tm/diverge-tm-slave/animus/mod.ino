@@ -4,31 +4,31 @@
 #define builder_mkeyup I2CSlaveKeyUp(val, type); mediaKeyUp(val, type);
 #define builder_mserial I2CSlaveSerial(input); mediaSerial(input);
 
-void modStartup()
+void ModStartup()
 {
   builder_mstartup
 }
 
-void modLoop()
+void ModLoop()
 {
-  if (checkMillis())
+  if (CheckMillis())
   {
   }
   builder_mloop
 }
 
 
-void modKeyDown(char val, byte type)
+void ModKeyDown(char val, byte type)
 {
   builder_mkeydown
 }
 
-void modKeyUp(char val, byte type)
+void ModKeyUp(char val, byte type)
 {
   builder_mkeyup
 }
 
-void modSerial(String input)
+void ModSerial(String input)
 {
   if (input == "uniquekgetmods")
   {
