@@ -42,7 +42,7 @@ To call the function from above with the argument value of 5, do the following:
 If you wish to call functions from the main animus files, then you could just
 call them regularly, example:
 
-`int layer = getLayEEPROM();`
+`int layer = GetLayEEPROM();`
 --------------------------------------------------------------------------------
 ## Declaring dependancies and reserving resources
 

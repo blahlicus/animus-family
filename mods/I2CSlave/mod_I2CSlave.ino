@@ -27,7 +27,7 @@ void I2CSlaveLoop()
 {
 
 
-  if (checkMillis())
+  if (CheckMillis())
   {
   }
 
@@ -47,7 +47,7 @@ void receiveEvent(int numBytes)
   if (type == 1)
   {
     byte input = Wire.read();
-    tempLayer = input;
+    TempLayer = input;
   }
   else if (type == 2)
   {
@@ -56,7 +56,7 @@ void receiveEvent(int numBytes)
     byte z = Wire.read();
     char inputChar = Wire.read();
     byte inputType = Wire.read();
-    setEEPROM(x, y, z, inputChar, inputType);
+    SetEEPROM(x, y, z, inputChar, inputType);
   }
   else if (type == 3)
   {
@@ -76,16 +76,16 @@ void receiveEvent(int numBytes)
   else if (type == 5)
   {
     byte input = Wire.read();
-    keyLayer = input;
+    KeyLayer = input;
   }
 }
 
 /* references
-1: set tempLayer
+1: set TempLayer
 2: rebind
 3: set number of layers
 4: set EEPROM
-5: set keyLayer
+5: set KeyLayer
 */
 
 void I2CSlaveKeyDown(char val, byte type)

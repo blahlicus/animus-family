@@ -21,8 +21,8 @@ void modMethod(Loop)()
   // full speed master loop
 
 
-  // things inside this if statement is ran every refreshDelay milliseconds
-  if (checkMillis())
+  // things inside this if statement is ran every RefreshDelay milliseconds
+  if (CheckMillis())
   {
 
   }

@@ -20,18 +20,18 @@ void I2CStartup()
 
 void I2CLoop()
 {
-  if (checkMillis())
+  if (CheckMillis())
   {
-    if (keyLayer != I2CKeyLayer)
+    if (KeyLayer != I2CKeyLayer)
     {
-      I2CSetKeyLayer(keyLayer);
-      I2CKeyLayer = keyLayer;
+      I2CSetKeyLayer(KeyLayer);
+      I2CKeyLayer = KeyLayer;
     }
 
-    if (tempLayer != I2CTempLayer)
+    if (TempLayer != I2CTempLayer)
     {
-      I2CSetTempLayer(tempLayer);
-      I2CTempLayer = tempLayer;
+      I2CSetTempLayer(TempLayer);
+      I2CTempLayer = TempLayer;
     }
 
 
@@ -56,11 +56,11 @@ void I2CLoop()
         byte tinput = slaveArray[i+1];
         if (slaveArray[i+2]>1)
         {
-          pressKey(cinput, tinput);
+          PressKey(cinput, tinput);
         }
         else
         {
-          releaseKey(cinput, tinput);
+          ReleaseKey(cinput, tinput);
         }
       }
     }
@@ -144,11 +144,11 @@ void I2CSerial(String input)
 
 
 /* references
-1: set tempLayer
+1: set TempLayer
 2: rebind
 3: set number of layers
 4: set EEPROM
-5: set keyLayer
+5: set KeyLayer
 */
 void I2CSetKeyLayer(byte input)
 {
