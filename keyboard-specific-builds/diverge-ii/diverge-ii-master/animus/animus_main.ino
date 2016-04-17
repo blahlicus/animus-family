@@ -72,8 +72,8 @@ void loop()
     // main loop ends
   }
 
-  NKROLoop();
   ModLoop();
+  NKROLoop();
 }
 
 
