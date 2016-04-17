@@ -35,7 +35,7 @@ void setup()
   ResetPins();
 
   // serial delay
-  delay(1000);
+  delay(300);
 }
 
 void loop()
