@@ -22,5 +22,5 @@
   <bp_name>diverge-tm-master</bp_name>
   <variant>Diverge TM Master</variant>
   <driver_build>OEM</driver_build>
-  <refresh>10</refresh>
+  <refresh>5</refresh>
 </ClBuildProfile>

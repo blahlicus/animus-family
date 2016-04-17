@@ -6,7 +6,7 @@
 #define builder_kbdriver_build "OEM"
 #define builder_vpins A3, A2, 9, 16
 #define builder_hpins 10, 8, 7, 6, 5, 4
-#define builder_refresh 10
+#define builder_refresh 5
 #include "EEPROM.h"
 #include "AnimusKeyboard.h"
 
