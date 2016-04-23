@@ -93,11 +93,11 @@ void PressKey(char val, byte type)
       TempLayer = val;
       ReleaseAllKey();
     }
-    else if (type == 2)
+    else if (type == 2) // DEPRECIATED
     {
       PressedKey = false;
       TempLayer = val;
-      ReleaseAllKey();
+      ReleaseAllKey();  // DEPRECIATED END
     }
     else if (type == 3)
     {
@@ -146,14 +146,14 @@ void ReleaseKey(char val, byte type)
       TempLayer = KeyLayer;
       ReleaseAllKey();
     }
-    else if (type == 2)
+    else if (type == 2) //DEPRECIATED
     {
       if (PressedKey == false)
       {
         Keyboard.write(' ');
       }
       TempLayer = KeyLayer;
-      ReleaseAllKey();
+      ReleaseAllKey(); // DEPRECIATED END
     }
   }
   NKROKeyUp(val, type);
