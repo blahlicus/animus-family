@@ -12,11 +12,11 @@ Remeber to change the mod_modname to your mod name
 
 
 
-#define mod_modname AdaptiveFN
+#define mod_modname AdaptiveMod
 
 
-const int AdaptiveFNMinAddr = 801;
-const int MaxAdaptiveFN = 18;
+const int AdaptiveModMinAddr = 801;
+const int MaxAdaptiveMod = 18;
 
 #define modMethod(str) conca(mod_modname, str)
 
@@ -123,7 +123,7 @@ void modMethod(Serial)(String input)
     input = input.substring(input.indexOf('(')+1);
     byte id = input.toInt();
 
-    Serial.print("get adaptive char (");
+    Serial.print("get adaptive char(");
     Serial.println(modMethod(GetEEPROM)(id));
 
 
@@ -136,7 +136,7 @@ void modMethod(Serial)(String input)
     input = input.substring(input.indexOf('(')+1);
     byte val = input.toInt();
 
-    if (id < MaxAdaptiveFN)
+    if (id < MaxAdaptiveMod)
     {
       modMethod(SetEEPROM)(id, val);
 
@@ -158,13 +158,13 @@ void modMethod(Serial)(String input)
 
 int modMethod(GetEEPROM)(int id)
 {
-  int addr = AdaptiveFNMinAddr + id;
+  int addr = AdaptiveModMinAddr + id;
   return EEPROM.read(addr);
 }
 
 int modMethod(SetEEPROM)(int id, int input)
 {
-  int addr = AdaptiveFNMinAddr + id;
+  int addr = AdaptiveModMinAddr + id;
   EEPROM.update(addr, input);
 }
 
