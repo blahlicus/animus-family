@@ -18,6 +18,8 @@ Remeber to change the mod_modname to your mod name
 const int AdaptiveModMinAddr = 801;
 const int MaxAdaptiveMod = 18;
 
+const int AMMods[14] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, KEY_LEFT_CTRL, KEY_LEFT_SHIFT, KEY_LEFT_ALT, KEY_LEFT_GUI]
+
 #define modMethod(str) conca(mod_modname, str)
 
 void modMethod(Startup)()
@@ -47,10 +49,19 @@ void modMethod(KeyDown)(char val, byte type)
   {
     if (type == 8)
     {
-      byte switchLay = val & 0xf; // splits byte and get first 4 bits as number
+      byte switchID = val & 0xf; // splits byte and get first 4 bits as number
 
       PressedKey = false;
-      TempLayer = switchLay; // switches layer when key is held
+      if (switchID > 10)
+      {
+        Keyboard.press(AMMods[switchID]);
+
+      }
+      else
+      {
+
+        TempLayer = switchID; // switches layer when key is held
+      }
       ReleaseAllKey();
 
     }
@@ -73,7 +84,18 @@ void modMethod(KeyUp)(char val, byte type)
       {
         Keyboard.write(modMethod(GetEEPROM)(AdapterID)); // outputs key from EEPROM
       }
-      TempLayer = KeyLayer; // resets layer back to default
+
+      if (switchID > 10)
+      {
+        // do nothing
+
+      }
+      else
+      {
+
+        TempLayer = KeyLayer; // resets layer back to default
+      }
+
       ReleaseAllKey(); // DEPRECIATED END
     }
   }
@@ -97,13 +119,13 @@ void modMethod(Serial)(String input)
     input = input.substring(input.indexOf('(')+1);
     byte z = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
-    byte lay = input.substring(0, input.indexOf('(')).toInt();
+    byte key = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
     byte id = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
     byte type = input.toInt();
 
-    byte val = (lay << 4) | id;
+    byte val = (key << 4) | id;
 
     SetEEPROM(x, y, z, val, type);
     Serial.print("set key(");
@@ -130,11 +152,12 @@ void modMethod(Serial)(String input)
   }
   else if (input.startsWith("uniqueksetadaptivechar"))
   {
-
     input = input.substring(input.indexOf('(')+1);
     byte id = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
     byte val = input.toInt();
+
+
 
     if (id < MaxAdaptiveMod)
     {
