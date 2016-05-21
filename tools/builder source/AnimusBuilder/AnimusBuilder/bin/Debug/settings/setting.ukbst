@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MdSetting xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <animusPath>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</animusPath>
+  <modPath>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</modPath>
+  <outputPath>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds</outputPath>
+</MdSetting>

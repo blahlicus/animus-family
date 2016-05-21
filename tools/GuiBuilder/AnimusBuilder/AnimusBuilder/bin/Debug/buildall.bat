@@ -1,1 +1,0 @@
-animusbuilder build-all.ukbl

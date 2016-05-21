@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClBuildList xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <bp>
+    <string>diverge-ii-master.ukbpr</string>
+    <string>diverge-ii-slave.ukbpr</string>
+    <string>diverge-tm-master.ukbpr</string>
+    <string>diverge-tm-slave.ukbpr</string>
+    <string>terminus-mini.ukbpr</string>
+  </bp>
+  <controller>
+    <string>pro-micro.ukbct</string>
+    <string>pro-micro.ukbct</string>
+    <string>pro-micro.ukbct</string>
+    <string>pro-micro.ukbct</string>
+    <string>pro-micro.ukbct</string>
+  </controller>
+  <animus>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
+  </animus>
+  <mod>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
+  </mod>
+  <output>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-ii</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-ii</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-tm</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-tm</string>
+    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds</string>
+  </output>
+</ClBuildList>

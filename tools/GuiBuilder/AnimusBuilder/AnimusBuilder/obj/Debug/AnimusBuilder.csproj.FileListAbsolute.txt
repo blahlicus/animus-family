@@ -1,8 +1,0 @@
-C:\Users\blahlicus\Documents\GitHub\animus-family\tools\GuiBuilder\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.csprojResolveAssemblyReference.cache
-C:\Users\blahlicus\Documents\GitHub\animus-family\tools\GuiBuilder\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.Properties.Resources.resources
-C:\Users\blahlicus\Documents\GitHub\animus-family\tools\GuiBuilder\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.csproj.GenerateResource.Cache
-C:\Users\blahlicus\Documents\GitHub\animus-family\tools\GuiBuilder\AnimusBuilder\AnimusBuilder\bin\Debug\AnimusBuilder.exe
-C:\Users\blahlicus\Documents\GitHub\animus-family\tools\GuiBuilder\AnimusBuilder\AnimusBuilder\bin\Debug\AnimusBuilder.pdb
-C:\Users\blahlicus\Documents\GitHub\animus-family\tools\GuiBuilder\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.exe
-C:\Users\blahlicus\Documents\GitHub\animus-family\tools\GuiBuilder\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.pdb
-C:\Users\blahlicus\Documents\GitHub\animus-family\tools\GuiBuilder\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.FmMain.resources
