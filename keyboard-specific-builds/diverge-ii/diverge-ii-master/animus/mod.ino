@@ -1,8 +1,8 @@
-#define builder_mstartup I2CStartup(); mediaStartup();
-#define builder_mloop I2CLoop(); mediaLoop();
-#define builder_mkeydown I2CKeyDown(val, type); mediaKeyDown(val, type);
-#define builder_mkeyup I2CKeyUp(val, type); mediaKeyUp(val, type);
-#define builder_mserial I2CSerial(input); mediaSerial(input);
+#define builder_mstartup I2CStartup(); mediaStartup(); macroStartup();
+#define builder_mloop I2CLoop(); mediaLoop(); macroLoop();
+#define builder_mkeydown I2CKeyDown(val, type); mediaKeyDown(val, type); macroKeyDown(val, type);
+#define builder_mkeyup I2CKeyUp(val, type); mediaKeyUp(val, type); macroKeyUp(val, type);
+#define builder_mserial I2CSerial(input); mediaSerial(input); macroSerial(input);
 
 void ModStartup()
 {

@@ -3,6 +3,7 @@
   <mods>
     <string>I2C</string>
     <string>media</string>
+    <string>macro</string>
   </mods>
   <vpins>
     <string>A3</string>
