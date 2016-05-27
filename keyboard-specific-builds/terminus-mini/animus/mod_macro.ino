@@ -1,5 +1,6 @@
-//WORK IN PROGRESS, THIS MOD DOES NOT WORK
-//example serial command: uniqueksetmacro(0(4(97(0(0(98(0(0(99(0(0(100(0(0(97(0(1(98(0(1(99(0(1(100(0(1(0
+// completed 5/27/2016 blahlicus
+// this library helps
+// example serial command: uniqueksetmacro(0(4(97(0(0(98(0(0(99(0(0(100(0(0(97(0(1(98(0(1(99(0(1(100(0(1(0
 
 /*
 Do not remove this comment, this comment is used by animus builder for the
@@ -16,11 +17,10 @@ Remeber to change the mod_modname to your mod name
 
 
 const int macroMinAddr = 600;
-const int macroMaxAddr = 790;
-const byte macroMAX_MACROS = 9;
+const int macroMaxAddr = 800;
+const byte macroMAX_MACROS = 10;
 const byte macroMAX_KEYS = 4;
 const byte macroSERIES_PADDING = 2;
-
 const byte macroKEY_DOWN = 0;
 const byte macroKEY_UP = 1;
 
