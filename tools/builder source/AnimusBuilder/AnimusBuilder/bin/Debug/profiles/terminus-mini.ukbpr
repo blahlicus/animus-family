@@ -3,6 +3,7 @@
   <mods>
     <string>media</string>
     <string>macro</string>
+    <string>dualRoles</string>
   </mods>
   <vpins>
     <string>9</string>
