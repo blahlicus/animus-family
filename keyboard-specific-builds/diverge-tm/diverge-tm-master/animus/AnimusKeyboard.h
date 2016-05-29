@@ -97,6 +97,7 @@ public:
   size_t press(uint8_t k);
   size_t release(uint8_t k);
   void releaseAll(void);
+  void releaseAllExcept(uint8_t k[18]);
 };
 extern Keyboard_ Keyboard;
 

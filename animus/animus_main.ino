@@ -160,9 +160,34 @@ void ReleaseKey(char val, byte type)
   ModKeyUp(val, type);
 }
 
+
 void ReleaseAllKey()
 {
-  Keyboard.releaseAll();
+
+
+  uint8_t tkeys[18] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  byte tkeyCounter = 0;
+
+  for (int i = 0; i < ROW; i++)
+  {
+    for (int j = 0; j < COL; j++)
+    {
+      if (KeyState[j][i] == HIGH)
+      {
+        char val = GetValEEPROM(j, i, TempLayer);
+        byte type = GetTypeEEPROM(j, i, TempLayer);
+        if (type == 0)
+        {
+
+          tkeys[tkeyCounter] = val;
+          tkeyCounter++;
+        }
+      }
+    }
+  }
+
+  Keyboard.releaseAllExcept(tkeys);
+
 }
 
 

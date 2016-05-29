@@ -495,27 +495,46 @@ const uint8_t _asciimap[128] =
 
           void Keyboard_::releaseAll(void)
           {
-            _keyReport1.keys[0] = 0;
-            _keyReport1.keys[1] = 0;
-            _keyReport1.keys[2] = 0;
-            _keyReport1.keys[3] = 0;
-            _keyReport1.keys[4] = 0;
-            _keyReport1.keys[5] = 0;
+
+            for (int i = 0; i < 6; i++)
+            {
+              _keyReport1.keys[i] = 0;
+              _keyReport2.keys[i] = 0;
+              _keyReport3.keys[i] = 0;
+            }
             _keyReport1.modifiers = 0;
-            _keyReport2.keys[0] = 0;
-            _keyReport2.keys[1] = 0;
-            _keyReport2.keys[2] = 0;
-            _keyReport2.keys[3] = 0;
-            _keyReport2.keys[4] = 0;
-            _keyReport2.keys[5] = 0;
             _keyReport2.modifiers = 0;
-            _keyReport3.keys[0] = 0;
-            _keyReport3.keys[1] = 0;
-            _keyReport3.keys[2] = 0;
-            _keyReport3.keys[3] = 0;
-            _keyReport3.keys[4] = 0;
-            _keyReport3.keys[5] = 0;
             _keyReport3.modifiers = 0;
+            sendReport(&_keyReport1, 2);
+            sendReport(&_keyReport2, 3);
+            sendReport(&_keyReport3, 4);
+          }
+
+          void Keyboard_::releaseAllExcept(uint8_t k[18])
+          {
+            // first clears all key arrays
+            for (int i = 0; i < 6; i++)
+            {
+              _keyReport1.keys[i] = 0;
+              _keyReport2.keys[i] = 0;
+              _keyReport3.keys[i] = 0;
+            }
+            // clears all modifiers
+            _keyReport1.modifiers = 0;
+            _keyReport2.modifiers = 0;
+            _keyReport3.modifiers = 0;
+
+
+            // reassigns the keys
+            for (int j = 0; j < 18; j++)
+            {
+              if (k[j] != 0)
+              {
+                press(k[j]);
+              }
+            }
+
+            // then resends the HID output
             sendReport(&_keyReport1, 2);
             sendReport(&_keyReport2, 3);
             sendReport(&_keyReport3, 4);
