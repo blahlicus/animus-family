@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClBuildProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <mods>
+    <string>media</string>
+    <string>macro</string>
+    <string>stickyKeys</string>
+    <string>ledPWM</string>
+    <string>dualRoles</string>
+  </mods>
+  <vpins>
+    <string>16</string>
+    <string>14</string>
+    <string>15</string>
+    <string>A0</string>
+    <string>A1</string>
+  </vpins>
+  <hpins>
+    <string>9</string>
+    <string>8</string>
+    <string>7</string>
+    <string>6</string>
+  </hpins>
+  <name>Felix</name>
+  <bp_name>felix</bp_name>
+  <variant>Felix typeZERO</variant>
+  <driver_build>Felix OEM</driver_build>
+  <refresh>5</refresh>
+</ClBuildProfile>

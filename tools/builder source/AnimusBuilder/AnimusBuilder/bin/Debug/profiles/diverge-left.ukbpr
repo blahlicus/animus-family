@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClBuildProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <mods>
+    <string>macro</string>
+    <string>media</string>
+    <string>dualRoles</string>
+  </mods>
+  <vpins>
+    <string>10</string>
+    <string>16</string>
+    <string>14</string>
+    <string>15</string>
+    <string>A0</string>
+    <string>A1</string>
+    <string>A2</string>
+    <string>A3</string>
+  </vpins>
+  <hpins>
+    <string>9</string>
+    <string>8</string>
+    <string>7</string>
+    <string>6</string>
+    <string>5</string>
+  </hpins>
+  <name>Diverge Left</name>
+  <bp_name>diverge-left</bp_name>
+  <variant>Diverge</variant>
+  <driver_build>OEM</driver_build>
+  <refresh>5</refresh>
+</ClBuildProfile>
