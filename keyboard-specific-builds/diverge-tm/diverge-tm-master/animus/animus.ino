@@ -1,4 +1,4 @@
- #define builder_row 4
+#define builder_row 4
 #define builder_col 6
 #define builder_kbname "Diverge TM Master"
 #define builder_kbvariant "Diverge TM Master"

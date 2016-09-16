@@ -8,6 +8,8 @@
     <string>terminus-mini.ukbpr</string>
     <string>diverge-left.ukbpr</string>
     <string>diverge-right.ukbpr</string>
+    <string>diverge-3-master.ukbpr</string>
+    <string>diverge-3-slave.ukbpr</string>
   </bp>
   <controller>
     <string>pro-micro.ukbct</string>
@@ -17,32 +19,40 @@
     <string>pro-micro.ukbct</string>
     <string>pro-micro.ukbct</string>
     <string>pro-micro.ukbct</string>
+    <string>pro-micro.ukbct</string>
+    <string>pro-micro.ukbct</string>
   </controller>
   <animus>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
   </animus>
   <mod>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
   </mod>
   <output>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-2</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-2</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-tm</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-tm</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-1</string>
-    <string>C:\Users\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-1</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-2</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-2</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-tm</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-tm</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-1</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-1</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-3</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-3</string>
   </output>
 </ClBuildList>

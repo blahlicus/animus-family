@@ -46,6 +46,10 @@ namespace AnimusBuilder
             bl.bp.Add("terminus-mini.ukbpr");
             bl.bp.Add("diverge-left.ukbpr");
             bl.bp.Add("diverge-right.ukbpr");
+            bl.bp.Add("diverge-3-master.ukbpr");
+            bl.bp.Add("diverge-3-slave.ukbpr");
+            bl.controller.Add("pro-micro.ukbct");
+            bl.controller.Add("pro-micro.ukbct");
             bl.controller.Add("pro-micro.ukbct");
             bl.controller.Add("pro-micro.ukbct");
             bl.controller.Add("pro-micro.ukbct");
@@ -60,6 +64,10 @@ namespace AnimusBuilder
             bl.animus.Add(MdSetting.setting.animusPath);
             bl.animus.Add(MdSetting.setting.animusPath);
             bl.animus.Add(MdSetting.setting.animusPath);
+            bl.animus.Add(MdSetting.setting.animusPath);
+            bl.animus.Add(MdSetting.setting.animusPath);
+            bl.mod.Add(MdSetting.setting.modPath);
+            bl.mod.Add(MdSetting.setting.modPath);
             bl.mod.Add(MdSetting.setting.modPath);
             bl.mod.Add(MdSetting.setting.modPath);
             bl.mod.Add(MdSetting.setting.modPath);
@@ -74,6 +82,8 @@ namespace AnimusBuilder
             bl.output.Add(MdSetting.setting.outputPath);
             bl.output.Add(MdSetting.setting.outputPath + MdConstant.pseparator + "diverge-1");
             bl.output.Add(MdSetting.setting.outputPath + MdConstant.pseparator + "diverge-1");
+            bl.output.Add(MdSetting.setting.outputPath + MdConstant.pseparator + "diverge-3");
+            bl.output.Add(MdSetting.setting.outputPath + MdConstant.pseparator + "diverge-3");
             return bl;
         }
 
