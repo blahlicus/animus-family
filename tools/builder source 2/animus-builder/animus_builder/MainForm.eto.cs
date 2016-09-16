@@ -8,8 +8,7 @@ namespace animus_builder
     {
         void InitializeComponent()
         {
-            Title = "My Eto Form";
-            ClientSize = new Size(400, 350);
+            Title = "Animus Builder";
 
             Content = new StackLayout
             {
