@@ -6,7 +6,7 @@ BUILDER_REQUIREMENT_END
 Remeber to change the mod_modname to your mod name
 */
 
-
+#define LEDEXISTS true
 #define mod_modname ledPWM
 
 #define modMethod(str) conca(mod_modname, str)
@@ -35,6 +35,10 @@ void modMethod(Loop)()
   }
 }
 
+void modMethod(SetBright)(int input)
+{
+  modMethod(Brightness) = input;
+}
 
 void modMethod(KeyDown)(char val, byte type)
 {
@@ -131,6 +135,8 @@ void modMethod(Serial)(String input)
   }
 
 }
+
+
 
 #undef mod_modname
 #undef modMethod

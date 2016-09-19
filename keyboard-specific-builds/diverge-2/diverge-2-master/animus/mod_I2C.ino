@@ -135,6 +135,13 @@ void I2CSerial(String input)
     }
 
   }
+  else if (input.startsWith("uniqueksetsubbright"))
+  {
+    input = input.substring(input.indexOf('(')+1);
+    byte val = input.toInt();
+    I2CSetLEDBrightness(val);
+    Serial.println("Set sub brightness");
+  }
   else if (input.startsWith("uniquekgetmods"))
   {
     Serial.print("I2C");
@@ -149,6 +156,7 @@ void I2CSerial(String input)
 3: set number of layers
 4: set EEPROM
 5: set KeyLayer
+6: set brightness
 */
 void I2CSetKeyLayer(byte input)
 {
@@ -167,6 +175,13 @@ void I2CSetTempLayer(byte input)
   Wire.endTransmission();
 }
 
+void I2CSetLEDBrightness(byte input)
+{
+  Wire.beginTransmission(8);
+  Wire.write(6);
+  Wire.write(input);
+  Wire.endTransmission();
+}
 
 void I2CSetKey(byte x, byte y, byte z, char inputChar, byte inputType)
 {

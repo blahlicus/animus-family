@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ClBuildProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <mods>
+    <string>ledPWM</string>
     <string>I2CSlave</string>
     <string>dualRoles</string>
-    <string>ledPWM</string>
     <string>media</string>
     <string>macro</string>
     <string>stickyKeys</string>

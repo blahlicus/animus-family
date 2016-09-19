@@ -10,8 +10,10 @@
     <string>diverge-right.ukbpr</string>
     <string>diverge-3-master.ukbpr</string>
     <string>diverge-3-slave.ukbpr</string>
+    <string>felix.ukbpr</string>
   </bp>
   <controller>
+    <string>pro-micro.ukbct</string>
     <string>pro-micro.ukbct</string>
     <string>pro-micro.ukbct</string>
     <string>pro-micro.ukbct</string>
@@ -32,8 +34,10 @@
     <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
   </animus>
   <mod>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
@@ -54,5 +58,6 @@
     <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-1</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-3</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-3</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds</string>
   </output>
 </ClBuildList>

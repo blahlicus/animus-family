@@ -127,6 +127,59 @@ void PressKey(char val, byte type)
       }
       ReleaseAllKey();
     }
+    else if (type == 11)
+    {
+      // shifted
+      PressKey(225, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 12)
+    {
+      // ctrled
+      PressKey(224, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 13)
+    {
+      // alted
+      PressKey(226, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 14)
+    {
+      // altgred
+      PressKey(230, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 15)
+    {
+      // ctrl shifted
+      PressKey(224, 0);
+      PressKey(225, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 16)
+    {
+      // ctrl shifted alted
+      PressKey(224, 0);
+      PressKey(225, 0);
+      PressKey(226, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 17)
+    {
+      // ctrl alted
+      PressKey(224, 0);
+      PressKey(226, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 18)
+    {
+      // shifted alted
+      PressKey(225, 0);
+      PressKey(226, 0);
+      PressKey(val, 0);
+    }
   }
 
   NKROKeyDown(val, type);
@@ -154,6 +207,59 @@ void ReleaseKey(char val, byte type)
       }
       TempLayer = KeyLayer;
       ReleaseAllKey(); // DEPRECIATED END
+    }
+    else if (type == 11)
+    {
+      // shifted
+      ReleaseKey(225, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 12)
+    {
+      // ctrled
+      ReleaseKey(224, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 13)
+    {
+      // alted
+      ReleaseKey(226, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 14)
+    {
+      // altgred
+      ReleaseKey(230, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 15)
+    {
+      // ctrl shifted
+      ReleaseKey(224, 0);
+      ReleaseKey(225, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 16)
+    {
+      // ctrl shifted alted
+      ReleaseKey(224, 0);
+      ReleaseKey(225, 0);
+      ReleaseKey(226, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 17)
+    {
+      // ctrl alted
+      ReleaseKey(224, 0);
+      ReleaseKey(226, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 18)
+    {
+      // shifted alted
+      ReleaseKey(225, 0);
+      ReleaseKey(226, 0);
+      ReleaseKey(val, 0);
     }
   }
   NKROKeyUp(val, type);

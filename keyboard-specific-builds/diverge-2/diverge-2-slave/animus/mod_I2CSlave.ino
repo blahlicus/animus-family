@@ -78,6 +78,13 @@ void receiveEvent(int numBytes)
     byte input = Wire.read();
     KeyLayer = input;
   }
+  else if (type == 6)
+  {
+    byte input = Wire.read();
+    #ifndef LEDEXISTS
+    ledPWMSetBright(input);
+    #endif
+  }
 }
 
 /* references
