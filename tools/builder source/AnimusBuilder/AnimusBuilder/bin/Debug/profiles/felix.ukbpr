@@ -4,7 +4,7 @@
     <string>media</string>
     <string>macro</string>
     <string>stickyKeys</string>
-    <string>ledPWM</string>
+    <string>BledPWM</string>
     <string>dualRoles</string>
   </mods>
   <vpins>

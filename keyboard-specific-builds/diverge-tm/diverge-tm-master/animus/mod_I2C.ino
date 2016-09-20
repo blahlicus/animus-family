@@ -8,6 +8,8 @@ BUILDER_REQUIREMENT_END
 
 #define mod_modname I2C
 
+#define LEDBRIGHTSETTER I2CSetLEDBrightness
+
 #include "Wire.h"
 
 int I2CKeyLayer = 0;
@@ -73,6 +75,13 @@ void I2CLoop()
 void I2CKeyDown(char val, byte type)
 {
 
+  #ifdef LEDEXISTS
+  if (type == 10)
+  {
+
+    I2CSetLEDBrightness(BledPWMBrightness);
+  }
+  #endif
 }
 
 void I2CKeyUp(char val, byte type)

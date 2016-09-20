@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ClBuildProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <mods>
+    <string>BledPWM</string>
     <string>I2C</string>
     <string>media</string>
     <string>macro</string>
     <string>dualRoles</string>
-    <string>ledPWM</string>
   </mods>
   <vpins>
     <string>6</string>

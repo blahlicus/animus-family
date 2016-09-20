@@ -7,7 +7,7 @@ Remeber to change the mod_modname to your mod name
 */
 
 #define LEDEXISTS true
-#define mod_modname ledPWM
+#define mod_modname BledPWM
 
 #define modMethod(str) conca(mod_modname, str)
 
@@ -45,55 +45,57 @@ void modMethod(KeyDown)(char val, byte type)
   // ran when a key is pressed down
 
 
-  if (type == 10)
-  {
 
-    if (val < 101)
-    {
-      int adjust = val;
 
-      if (modMethod(Brightness) + adjust < 0)
-      {
-        modMethod(Brightness) = 0;
-      }
-      else if (modMethod(Brightness) + adjust > modMethod(MAX_BRIGHT))
-      {
-        modMethod(Brightness) = modMethod(MAX_BRIGHT);
-      }
-      else
-      {
-        modMethod(Brightness) = modMethod(Brightness) + adjust;
-      }
-    }
-
-    else if (val == 101)
-    {
-      modMethod(Brightness) = 0;
-    }
-    else if (val == 102)
-    {
-      modMethod(Brightness) = 32;
-    }
-    else if (val == 103)
-    {
-      modMethod(Brightness) = 64;
-    }
-    else if (val == 104)
-    {
-      modMethod(Brightness) = 96;
-    }
-    else if (val == 105)
-    {
-      modMethod(Brightness) = 128;
-    }
-    else if (val == 106)
-    {
-      modMethod(Brightness) = 160;
-    }
-  }
   // ran if this device's IS_MASTER flag is true
   if (IS_MASTER)
   {
+    if (type == 10)
+    {
+
+      if (val < 101)
+      {
+        int adjust = val;
+
+        if (modMethod(Brightness) + adjust < 0)
+        {
+          modMethod(Brightness) = 0;
+        }
+        else if (modMethod(Brightness) + adjust > modMethod(MAX_BRIGHT))
+        {
+          modMethod(Brightness) = modMethod(MAX_BRIGHT);
+        }
+        else
+        {
+          modMethod(Brightness) = modMethod(Brightness) + adjust;
+        }
+      }
+      else if (val == 101)
+      {
+        modMethod(Brightness) = 0;
+      }
+      else if (val == 102)
+      {
+        modMethod(Brightness) = 32;
+      }
+      else if (val == 103)
+      {
+        modMethod(Brightness) = 64;
+      }
+      else if (val == 104)
+      {
+        modMethod(Brightness) = 96;
+      }
+      else if (val == 105)
+      {
+        modMethod(Brightness) = 128;
+      }
+      else if (val == 106)
+      {
+        modMethod(Brightness) = 160;
+      }
+
+    }
   }
 }
 
