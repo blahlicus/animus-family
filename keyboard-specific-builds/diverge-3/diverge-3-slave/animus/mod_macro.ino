@@ -18,8 +18,8 @@ Remeber to change the mod_modname to your mod name
 
 const int macroMinAddr = 600;
 const int macroMaxAddr = 800;
-const byte macroMAX_MACROS = 10;
-const byte macroMAX_KEYS = 4;
+const byte macroMAX_MACROS = 12;
+const byte macroMAX_KEYS = 8;
 const byte macroSERIES_PADDING = 2;
 const byte macroKEY_DOWN = 0;
 const byte macroKEY_UP = 1;
