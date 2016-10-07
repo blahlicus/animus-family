@@ -203,7 +203,7 @@ void ReleaseKey(char val, byte type)
     {
       if (PressedKey == false)
       {
-        Keyboard.write(' ');
+        Keyboard.write(44);
       }
       TempLayer = KeyLayer;
       ReleaseAllKey(); // DEPRECIATED END
