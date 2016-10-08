@@ -15,6 +15,7 @@ int tempLayer = 0;
 // key states
 int keyState[COL][ROW];
 int previousState[COL][ROW];
+int LayerState[COL][ROW];
 
 // slave states
 boolean IS_MASTER = true;
@@ -56,11 +57,12 @@ void loop()
         {
           if (keyState[j][i] == HIGH)
           {
+            LayerState[j][i] = TempLayer;
             pressKey(getValEEPROM(j, i, tempLayer), getTypeEEPROM(j, i, tempLayer));
           }
           else
           {
-            releaseKey(getValEEPROM(j, i, tempLayer), getTypeEEPROM(j, i, tempLayer));
+            releaseKey(getValEEPROM(j, i, LayerState[j][i]), getTypeEEPROM(j, i, LayerState[j][i]));
           }
         }
 
@@ -90,13 +92,13 @@ void pressKey(char val, byte type)
     else if (type == 1)
     {
       tempLayer = val;
-      releaseAllKey();
+      //releaseAllKey();
     }
     else if (type == 2)
     {
       pressedKey = false;
       tempLayer = val;
-      releaseAllKey();
+      //releaseAllKey();
     }
     else if (type == 3)
     {
@@ -124,7 +126,7 @@ void pressKey(char val, byte type)
       {
         tempLayer = val;
       }
-      releaseAllKey();
+      //releaseAllKey();
     }
   }
 
@@ -142,7 +144,7 @@ void releaseKey(char val, byte type)
     else if (type == 1)
     {
       tempLayer = keyLayer;
-      releaseAllKey();
+      //releaseAllKey();
     }
     else if (type == 2)
     {
@@ -151,7 +153,7 @@ void releaseKey(char val, byte type)
         Keyboard.write(' ');
       }
       tempLayer = keyLayer;
-      releaseAllKey();
+      //releaseAllKey();
     }
   }
 
@@ -182,7 +184,7 @@ void switchLayer(boolean increment)
   {
     keyLayer = lay - 1;
   }
-  releaseAllKey();
+  //releaseAllKey();
 }
 
 
@@ -227,7 +229,7 @@ void rotateLayers(byte val)
   }
 
   keyLayer = newLayer;
-  releaseAllKey();
+  //releaseAllKey();
 }
 
 
