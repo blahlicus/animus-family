@@ -6,83 +6,84 @@
 
 
 
-#define lay getLayEEPROM()
+#define Lay GetLayEEPROM()
 
 // layering
-int keyLayer = 0;
-int tempLayer = 0;
+int KeyLayer = 0;
+int TempLayer = 0;
 
 // key states
-int keyState[COL][ROW];
-int previousState[COL][ROW];
+int KeyState[COL][ROW];
+int PreviousState[COL][ROW];
 int LayerState[COL][ROW];
 
 // slave states
 boolean IS_MASTER = true;
 
 // spacefn keys
-boolean pressedKey = false;
+boolean PressedKey = false;
 
 // baud: dont change this it messes with the GUI interface
-int baudRate = 19200;
+int BaudRate = 19200;
 
 
 void setup()
 {
   Keyboard.begin();
-  Serial.begin(baudRate);
-  modStartup();
-  resetPins();
+  Serial.begin(BaudRate);
+  NKROStartup();
+  ModStartup();
+  ResetPins();
 
   // serial delay
-  delay(2000);
+  delay(300);
 }
 
 void loop()
 {
   // resets millis counter
-  millisLoop();
+  MillisLoop();
   // checks serials
-  testSerial();
+  TestSerial();
 
-  if (checkMillis())
+  if (CheckMillis())
   {
     // main loop starts
-    keyScan();
+    KeyScan();
     for (int i = 0; i < ROW; i++)
     {
       for (int j = 0; j < COL; j++)
       {
-        if (previousState[j][i] != keyState[j][i])
+        if (PreviousState[j][i] != KeyState[j][i])
         {
-          if (keyState[j][i] == HIGH)
+          if (KeyState[j][i] == HIGH)
           {
             LayerState[j][i] = TempLayer;
-            pressKey(getValEEPROM(j, i, tempLayer), getTypeEEPROM(j, i, tempLayer));
+            PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
           }
           else
           {
-            releaseKey(getValEEPROM(j, i, LayerState[j][i]), getTypeEEPROM(j, i, LayerState[j][i]));
+            ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
           }
         }
 
-        previousState[j][i] = keyState[j][i];
+        PreviousState[j][i] = KeyState[j][i];
 
       }
     }
     // main loop ends
   }
 
-
-  modLoop();
+  ModLoop();
+  NKROLoop();
 }
 
 
 // key press functions start
 
-void pressKey(char val, byte type)
+void PressKey(char val, byte type)
 {
-  pressedKey = true;
+  PressedKey = true;
   if (IS_MASTER)
   {
     if (type == 0)
@@ -91,49 +92,103 @@ void pressKey(char val, byte type)
     }
     else if (type == 1)
     {
-      tempLayer = val;
-      //releaseAllKey();
+      TempLayer = val;
+      //ReleaseAllKey();
     }
-    else if (type == 2)
+    else if (type == 2) // DEPRECIATED
     {
-      pressedKey = false;
-      tempLayer = val;
-      //releaseAllKey();
+      PressedKey = false;
+      TempLayer = val;
+      //ReleaseAllKey();  // DEPRECIATED END
     }
     else if (type == 3)
     {
       if (val == 0)
       {
-        switchLayer(true);
+        SwitchLayer(true);
       }
       else if (val == 1)
       {
-        switchLayer(false);
+        SwitchLayer(false);
       }
       else
       {
         /* Rotate to the next layer in bitfield within val */
-        rotateLayers(val);
+        RotateLayers(val);
       }
     }
     else if (type == 5)
     {
-      if (tempLayer == val)
+      if (TempLayer == val)
       {
-        tempLayer = keyLayer;
+        TempLayer = KeyLayer;
       }
       else
       {
-        tempLayer = val;
+        TempLayer = val;
       }
-      //releaseAllKey();
+      //ReleaseAllKey();
+    }
+    else if (type == 11)
+    {
+      // shifted
+      PressKey(225, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 12)
+    {
+      // ctrled
+      PressKey(224, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 13)
+    {
+      // alted
+      PressKey(226, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 14)
+    {
+      // altgred
+      PressKey(230, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 15)
+    {
+      // ctrl shifted
+      PressKey(224, 0);
+      PressKey(225, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 16)
+    {
+      // ctrl shifted alted
+      PressKey(224, 0);
+      PressKey(225, 0);
+      PressKey(226, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 17)
+    {
+      // ctrl alted
+      PressKey(224, 0);
+      PressKey(226, 0);
+      PressKey(val, 0);
+    }
+    else if (type == 18)
+    {
+      // shifted alted
+      PressKey(225, 0);
+      PressKey(226, 0);
+      PressKey(val, 0);
     }
   }
 
-  modKeyDown(val, type);
+  NKROKeyDown(val, type);
+  ModKeyDown(val, type);
 }
 
-void releaseKey(char val, byte type)
+void ReleaseKey(char val, byte type)
 {
   if (IS_MASTER)
   {
@@ -143,48 +198,126 @@ void releaseKey(char val, byte type)
     }
     else if (type == 1)
     {
-      tempLayer = keyLayer;
-      //releaseAllKey();
+      TempLayer = KeyLayer;
+      //ReleaseAllKey();
     }
-    else if (type == 2)
+    else if (type == 2) //DEPRECIATED
     {
-      if (pressedKey == false)
+      if (PressedKey == false)
       {
-        Keyboard.write(' ');
+        Keyboard.write(44);
       }
-      tempLayer = keyLayer;
-      //releaseAllKey();
+      TempLayer = KeyLayer;
+      //ReleaseAllKey(); // DEPRECIATED END
+    }
+    else if (type == 11)
+    {
+      // shifted
+      ReleaseKey(225, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 12)
+    {
+      // ctrled
+      ReleaseKey(224, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 13)
+    {
+      // alted
+      ReleaseKey(226, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 14)
+    {
+      // altgred
+      ReleaseKey(230, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 15)
+    {
+      // ctrl shifted
+      ReleaseKey(224, 0);
+      ReleaseKey(225, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 16)
+    {
+      // ctrl shifted alted
+      ReleaseKey(224, 0);
+      ReleaseKey(225, 0);
+      ReleaseKey(226, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 17)
+    {
+      // ctrl alted
+      ReleaseKey(224, 0);
+      ReleaseKey(226, 0);
+      ReleaseKey(val, 0);
+    }
+    else if (type == 18)
+    {
+      // shifted alted
+      ReleaseKey(225, 0);
+      ReleaseKey(226, 0);
+      ReleaseKey(val, 0);
+    }
+  }
+  NKROKeyUp(val, type);
+  ModKeyUp(val, type);
+}
+
+
+void ReleaseAllKey()
+{
+
+
+  uint8_t tkeys[18] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  byte tkeyCounter = 0;
+
+  for (int i = 0; i < ROW; i++)
+  {
+    for (int j = 0; j < COL; j++)
+    {
+      if (KeyState[j][i] == HIGH)
+      {
+        char val = GetValEEPROM(j, i, TempLayer);
+        byte type = GetTypeEEPROM(j, i, TempLayer);
+        if (type == 0)
+        {
+
+          tkeys[tkeyCounter] = val;
+          tkeyCounter++;
+        }
+      }
     }
   }
 
-  modKeyUp(val, type);
-}
+  Keyboard.releaseAllExcept(tkeys);
 
-void releaseAllKey()
-{
-  Keyboard.releaseAll();
 }
 
 
-void switchLayer(boolean increment)
+void SwitchLayer(boolean increment)
 {
   if (increment)
   {
-    keyLayer++;
+    KeyLayer++;
   }
   else
   {
-    keyLayer--;
+    KeyLayer--;
   }
-  if (keyLayer >= lay)
+  if (KeyLayer >= Lay)
   {
-    keyLayer = 0;
+    KeyLayer = 0;
   }
-  else if (keyLayer < 0)
+  else if (KeyLayer < 0)
   {
-    keyLayer = lay - 1;
+    KeyLayer = Lay - 1;
   }
-  //releaseAllKey();
+  //ReleaseAllKey();
 }
 
 
@@ -196,9 +329,9 @@ void switchLayer(boolean increment)
     val=0xF: rotate between layers 0, 1, 2, and 3
     val=0x11: rotate between layers 0 and 4
 */
-void rotateLayers(byte val)
+void RotateLayers(byte val)
 {
-  int newLayer = keyLayer;
+  int newLayer = KeyLayer;
   byte mask = 1 << newLayer;
 
   if (! val)
@@ -215,7 +348,7 @@ void rotateLayers(byte val)
   {
     newLayer++;
     mask <<= 1;
-    if ((! mask) || (newLayer >= lay))
+    if ((! mask) || (newLayer >= Lay))
     {
       newLayer = 0;
       mask = 1;
@@ -228,32 +361,32 @@ void rotateLayers(byte val)
     }
   }
 
-  keyLayer = newLayer;
-  //releaseAllKey();
+  KeyLayer = newLayer;
+  //ReleaseAllKey();
 }
 
 
 
-void resetPins()
+void ResetPins()
 {
   for (int i = 0; i < ROW; i++)
   {
-    pinMode(vPins[i], INPUT);
-    digitalWrite(vPins[i], HIGH);
+    pinMode(VPins[i], INPUT);
+    digitalWrite(VPins[i], HIGH);
   }
 
   for (int i = 0; i < COL; i++)
   {
-    pinMode(hPins[i], INPUT);
-    digitalWrite(hPins[i], LOW);
+    pinMode(HPins[i], INPUT);
+    digitalWrite(HPins[i], LOW);
   }
 
   for (int i = 0; i < ROW; i++)
   {
     for (int j = 0; j < COL; j++)
     {
-      keyState[j][i] = 0;
-      previousState[j][i] = 0;
+      KeyState[j][i] = 0;
+      PreviousState[j][i] = 0;
     }
   }
 }
@@ -262,19 +395,19 @@ void resetPins()
 
 
 
-void keyScan()
+void KeyScan()
 {
   for (int i = 0; i < COL; i++)
   {
-    pinMode(hPins[i], OUTPUT);
+    pinMode(HPins[i], OUTPUT);
 
     for (int j = 0; j < ROW; j++)
     {
-      int val = digitalRead(vPins[j]);
-      keyState[i][j] = (val == LOW);
+      int val = digitalRead(VPins[j]);
+      KeyState[i][j] = (val == LOW);
     }
 
-    pinMode(hPins[i], INPUT);
+    pinMode(HPins[i], INPUT);
   }
 }
 

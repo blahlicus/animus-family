@@ -3,7 +3,7 @@ String inputData = "";
 
 // serial functions start
 
-void testSerial()
+void TestSerial()
 {
   if (Serial.available()>0)
   {
@@ -15,7 +15,7 @@ void testSerial()
     }
     else
     {
-      serialCommand(inputData);
+      SerialCommand(inputData);
       inputData = "";
     }
 
@@ -26,7 +26,7 @@ void testSerial()
   }
 }
 
-void serialCommand(String input)
+void SerialCommand(String input)
 {
   if (input == "uniquekreqinfo")
   {
@@ -60,7 +60,7 @@ void serialCommand(String input)
     byte val = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
     byte type = input.toInt();
-    setEEPROM(x, y, z, val, type);
+    SetEEPROM(x, y, z, val, type);
     Serial.print("set key(");
     Serial.print(x);
     Serial.print("(");
@@ -89,7 +89,7 @@ void serialCommand(String input)
     input = input.substring(input.indexOf('(')+1);
     byte val = input.toInt();
 
-    if (val <= (500  / (ROW * COL)))
+    if (val <= (600  / (ROW * COL)))
     {
       EEPROM.update(1023, val);
       Serial.print("set layer count(");
@@ -113,8 +113,8 @@ void serialCommand(String input)
     byte y = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
     byte z = input.toInt();
-    byte outVal = getValEEPROM(x, y, z);
-    byte outType = getTypeEEPROM(x, y, z);
+    byte outVal = GetValEEPROM(x, y, z);
+    byte outType = GetTypeEEPROM(x, y, z);
     Serial.print("return key(");
     Serial.print(outVal);
     Serial.print("(");
@@ -143,7 +143,8 @@ void serialCommand(String input)
     Serial.print("set master(");
     Serial.print(IS_MASTER);
   }
-  modSerial(input);
+  NKROSerial(input);
+  ModSerial(input);
 }
 
 // serial functions end

@@ -1,34 +1,34 @@
-#define builder_mstartup mediaStartup();
-#define builder_mloop mediaLoop();
-#define builder_mkeydown mediaKeyDown(val, type);
-#define builder_mkeyup mediaKeyUp(val, type);
-#define builder_mserial mediaSerial(input);
+#define builder_mstartup mediaStartup(); macroStartup(); dualRolesStartup();
+#define builder_mloop mediaLoop(); macroLoop(); dualRolesLoop();
+#define builder_mkeydown mediaKeyDown(val, type); macroKeyDown(val, type); dualRolesKeyDown(val, type);
+#define builder_mkeyup mediaKeyUp(val, type); macroKeyUp(val, type); dualRolesKeyUp(val, type);
+#define builder_mserial mediaSerial(input); macroSerial(input); dualRolesSerial(input);
 
-void modStartup()
+void ModStartup()
 {
   builder_mstartup
 }
 
-void modLoop()
+void ModLoop()
 {
-  if (checkMillis())
+  if (CheckMillis())
   {
   }
   builder_mloop
 }
 
 
-void modKeyDown(char val, byte type)
+void ModKeyDown(char val, byte type)
 {
   builder_mkeydown
 }
 
-void modKeyUp(char val, byte type)
+void ModKeyUp(char val, byte type)
 {
   builder_mkeyup
 }
 
-void modSerial(String input)
+void ModSerial(String input)
 {
   if (input == "uniquekgetmods")
   {

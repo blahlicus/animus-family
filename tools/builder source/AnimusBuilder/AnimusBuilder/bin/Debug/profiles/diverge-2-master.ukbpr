@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClBuildProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <mods>
+    <string>I2C</string>
+    <string>media</string>
+    <string>macro</string>
+    <string>dualRoles</string>
+  </mods>
+  <vpins>
+    <string>5</string>
+    <string>6</string>
+    <string>7</string>
+    <string>8</string>
+    <string>9</string>
+  </vpins>
+  <hpins>
+    <string>A3</string>
+    <string>A2</string>
+    <string>A1</string>
+    <string>A0</string>
+    <string>15</string>
+    <string>14</string>
+    <string>16</string>
+    <string>10</string>
+  </hpins>
+  <name>Diverge 2 Master</name>
+  <bp_name>diverge-2-master</bp_name>
+  <variant>Diverge 25</variant>
+  <driver_build>OEM</driver_build>
+  <refresh>5</refresh>
+</ClBuildProfile>
