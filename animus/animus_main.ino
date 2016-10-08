@@ -15,7 +15,10 @@ int TempLayer = 0;
 // key states
 int KeyState[COL][ROW];
 int PreviousState[COL][ROW];
+<<<<<<< HEAD
 int LayerState[COL][ROW];
+=======
+>>>>>>> refs/remotes/origin/master
 
 // slave states
 boolean IS_MASTER = true;
@@ -58,12 +61,19 @@ void loop()
         {
           if (KeyState[j][i] == HIGH)
           {
+<<<<<<< HEAD
             LayerState[j][i] = TempLayer;
+=======
+>>>>>>> refs/remotes/origin/master
             PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
           }
           else
           {
+<<<<<<< HEAD
             ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
+=======
+            ReleaseKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
+>>>>>>> refs/remotes/origin/master
           }
         }
 
@@ -93,13 +103,21 @@ void PressKey(char val, byte type)
     else if (type == 1)
     {
       TempLayer = val;
+<<<<<<< HEAD
       //ReleaseAllKey();
+=======
+      ReleaseAllKey();
+>>>>>>> refs/remotes/origin/master
     }
     else if (type == 2) // DEPRECIATED
     {
       PressedKey = false;
       TempLayer = val;
+<<<<<<< HEAD
       //ReleaseAllKey();  // DEPRECIATED END
+=======
+      ReleaseAllKey();  // DEPRECIATED END
+>>>>>>> refs/remotes/origin/master
     }
     else if (type == 3)
     {
@@ -127,7 +145,11 @@ void PressKey(char val, byte type)
       {
         TempLayer = val;
       }
+<<<<<<< HEAD
       //ReleaseAllKey();
+=======
+      ReleaseAllKey();
+>>>>>>> refs/remotes/origin/master
     }
     else if (type == 11)
     {
@@ -199,7 +221,11 @@ void ReleaseKey(char val, byte type)
     else if (type == 1)
     {
       TempLayer = KeyLayer;
+<<<<<<< HEAD
       //ReleaseAllKey();
+=======
+      ReleaseAllKey();
+>>>>>>> refs/remotes/origin/master
     }
     else if (type == 2) //DEPRECIATED
     {
@@ -208,7 +234,11 @@ void ReleaseKey(char val, byte type)
         Keyboard.write(44);
       }
       TempLayer = KeyLayer;
+<<<<<<< HEAD
       //ReleaseAllKey(); // DEPRECIATED END
+=======
+      ReleaseAllKey(); // DEPRECIATED END
+>>>>>>> refs/remotes/origin/master
     }
     else if (type == 11)
     {
@@ -317,7 +347,11 @@ void SwitchLayer(boolean increment)
   {
     KeyLayer = Lay - 1;
   }
+<<<<<<< HEAD
   //ReleaseAllKey();
+=======
+  ReleaseAllKey();
+>>>>>>> refs/remotes/origin/master
 }
 
 
@@ -362,7 +396,11 @@ void RotateLayers(byte val)
   }
 
   KeyLayer = newLayer;
+<<<<<<< HEAD
   //ReleaseAllKey();
+=======
+  ReleaseAllKey();
+>>>>>>> refs/remotes/origin/master
 }
 
 
