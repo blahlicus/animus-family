@@ -15,6 +15,7 @@ int TempLayer = 0;
 // key states
 int KeyState[COL][ROW];
 int PreviousState[COL][ROW];
+int LayerState[COL][ROW];
 
 // slave states
 boolean IS_MASTER = true;
@@ -57,11 +58,12 @@ void loop()
         {
           if (KeyState[j][i] == HIGH)
           {
+            LayerState[j][i] = TempLayer;
             PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
           }
           else
           {
-            ReleaseKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
+            ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
           }
         }
 
@@ -91,13 +93,13 @@ void PressKey(char val, byte type)
     else if (type == 1)
     {
       TempLayer = val;
-      ReleaseAllKey();
+      //ReleaseAllKey();
     }
     else if (type == 2) // DEPRECIATED
     {
       PressedKey = false;
       TempLayer = val;
-      ReleaseAllKey();  // DEPRECIATED END
+      //ReleaseAllKey();  // DEPRECIATED END
     }
     else if (type == 3)
     {
@@ -125,7 +127,7 @@ void PressKey(char val, byte type)
       {
         TempLayer = val;
       }
-      ReleaseAllKey();
+      //ReleaseAllKey();
     }
     else if (type == 11)
     {
@@ -197,7 +199,7 @@ void ReleaseKey(char val, byte type)
     else if (type == 1)
     {
       TempLayer = KeyLayer;
-      ReleaseAllKey();
+      //ReleaseAllKey();
     }
     else if (type == 2) //DEPRECIATED
     {
@@ -206,7 +208,7 @@ void ReleaseKey(char val, byte type)
         Keyboard.write(44);
       }
       TempLayer = KeyLayer;
-      ReleaseAllKey(); // DEPRECIATED END
+      //ReleaseAllKey(); // DEPRECIATED END
     }
     else if (type == 11)
     {
@@ -315,7 +317,7 @@ void SwitchLayer(boolean increment)
   {
     KeyLayer = Lay - 1;
   }
-  ReleaseAllKey();
+  //ReleaseAllKey();
 }
 
 
@@ -360,7 +362,7 @@ void RotateLayers(byte val)
   }
 
   KeyLayer = newLayer;
-  ReleaseAllKey();
+  //ReleaseAllKey();
 }
 
 

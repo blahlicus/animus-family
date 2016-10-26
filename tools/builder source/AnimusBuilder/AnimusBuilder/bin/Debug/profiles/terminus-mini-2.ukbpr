@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClBuildProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <mods>
+    <string>BledPWM</string>
+    <string>dualRoles</string>
+    <string>macro</string>
+    <string>media</string>
+    <string>stickyKeys</string>
+  </mods>
+  <vpins>
+    <string>16</string>
+    <string>14</string>
+    <string>15</string>
+    <string>A0</string>
+    <string>A1</string>
+  </vpins>
+  <hpins>
+    <string>10</string>
+    <string>9</string>
+    <string>8</string>
+    <string>7</string>
+    <string>6</string>
+    <string>4</string>
+    <string>3</string>
+    <string>2</string>
+    <string>A2</string>
+    <string>A3</string>
+  </hpins>
+  <name>Terminus Mini 2</name>
+  <bp_name>terminus-mini-2</bp_name>
+  <variant>Terminus Mini 2 typeZERO</variant>
+  <driver_build>OEM</driver_build>
+  <refresh>6</refresh>
+</ClBuildProfile>
