@@ -15,8 +15,10 @@
     <string>diverge-tm-2-slave.ukbpr</string>
     <string>terminus-2-master.ukbpr</string>
     <string>terminus-2-slave.ukbpr</string>
+    <string>terminus-mini-2.ukbpr</string>
   </bp>
   <controller>
+    <string>pro-micro.ukbct</string>
     <string>pro-micro.ukbct</string>
     <string>pro-micro.ukbct</string>
     <string>pro-micro.ukbct</string>
@@ -47,8 +49,10 @@
     <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\animus</string>
   </animus>
   <mod>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\mods</string>
@@ -79,5 +83,6 @@
     <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\diverge-tm-2</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\terminus-2</string>
     <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\terminus-2</string>
+    <string>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds</string>
   </output>
 </ClBuildList>

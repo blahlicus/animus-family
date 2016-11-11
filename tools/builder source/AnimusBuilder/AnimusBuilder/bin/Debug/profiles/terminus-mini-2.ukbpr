@@ -6,6 +6,7 @@
     <string>macro</string>
     <string>media</string>
     <string>stickyKeys</string>
+    <string>tapDance</string>
   </mods>
   <vpins>
     <string>16</string>

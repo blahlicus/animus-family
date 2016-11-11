@@ -2,7 +2,7 @@
 #define builder_col 10
 #define builder_kbname "Terminus Mini 2"
 #define builder_kbvariant "Terminus Mini 2 typeZERO"
-#define builder_kbdriver "Animus Innova 2.1"
+#define builder_kbdriver "Animus Innova 2.3"
 #define builder_kbdriver_build "OEM"
 #define builder_vpins 16, 14, 15, A0, A1
 #define builder_hpins 10, 9, 8, 7, 6, 4, 3, 2, A2, A3
