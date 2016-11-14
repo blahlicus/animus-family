@@ -58,7 +58,7 @@ public:
   size_t release(uint8_t k);
   void setNKROMode(uint8_t mode);
   uint8_t getNKROMode(void);
-  void releaseAll(void);
+  void releaseAll(void);\
   void releaseAllExcept(uint8_t k[18]);
 };
 extern Keyboard_ Keyboard;

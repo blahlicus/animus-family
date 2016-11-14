@@ -5,6 +5,8 @@
     <string>dualRoles</string>
     <string>macro</string>
     <string>media</string>
+    <string>tapDance</string>
+    <string>stickyKeys</string>
   </mods>
   <vpins>
     <string>A0</string>

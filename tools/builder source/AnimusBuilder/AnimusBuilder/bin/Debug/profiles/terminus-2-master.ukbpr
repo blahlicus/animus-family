@@ -6,6 +6,8 @@
     <string>I2C</string>
     <string>macro</string>
     <string>media</string>
+    <string>tapDance</string>
+    <string>stickyKeys</string>
   </mods>
   <vpins>
     <string>4</string>

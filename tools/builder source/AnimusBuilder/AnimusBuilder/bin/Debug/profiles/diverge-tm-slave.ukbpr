@@ -3,6 +3,8 @@
   <mods>
     <string>I2CSlave</string>
     <string>media</string>
+    <string>tapDance</string>
+    <string>stickyKeys</string>
   </mods>
   <vpins>
     <string>A3</string>

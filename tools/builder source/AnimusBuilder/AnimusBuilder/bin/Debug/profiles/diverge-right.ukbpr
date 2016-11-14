@@ -4,6 +4,7 @@
     <string>macro</string>
     <string>media</string>
     <string>dualRoles</string>
+    <string>tapDance</string>
   </mods>
   <vpins>
     <string>10</string>

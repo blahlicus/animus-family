@@ -6,6 +6,7 @@
     <string>stickyKeys</string>
     <string>BledPWM</string>
     <string>dualRoles</string>
+    <string>tapDance</string>
   </mods>
   <vpins>
     <string>16</string>

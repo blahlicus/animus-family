@@ -1,27 +1,23 @@
-// completed 5/28/2016 blahlicus
-// example serial command: uniqueksetdualroles(0(129(0(97(0
-
 /*
 Do not remove this comment, this comment is used by animus builder for the
 build process
 BUILDER_REQUIREMENT_START
-EEPROM(801,841)
+Keytype(20)
+Keytype(21)
+Keytype(22)
+Keytype(23)
+Keytype(24)
+Keytype(25)
+Keytype(26)
+Keytype(27)
+Keytype(28)
+Keytype(29)
 BUILDER_REQUIREMENT_END
 Remeber to change the mod_modname to your mod name
 */
 
 
 #define mod_modname dualRoles
-
-const int dualRolesMinAddr = 801;
-const int dualRolesMaxAddr = 841;
-const byte dualRolesMAX = 10;
-const byte dualRolesSLOT_SIZE = 4;
-
-boolean dualRolesState[10] = {false, false, false, false, false, false, false, false, false, false};
-
-
-int dualRolesDelay = 5;
 
 #define modMethod(str) conca(mod_modname, str)
 
@@ -50,13 +46,31 @@ void modMethod(KeyDown)(char val, byte type)
   // ran if this device's IS_MASTER flag is true
   if (IS_MASTER)
   {
-    for (int i = 0; i < dualRolesMAX; i++)
+    // ctrlDualRole
+    if (type == 20)
     {
-      dualRolesState[i] = true;
+      PressKey(224, 0);
+      PressedKey = false;
     }
-    if (type == 8)
+    else if (type == 21) // shiftDualRolee
     {
-      modMethod(HoldKey)(val);
+      PressKey(225, 0);
+      PressedKey = false;
+    }
+    else if (type == 22) // alt
+    {
+      PressKey(226, 0);
+      PressedKey = false;
+    }
+    else if (type == 23) // altgr
+    {
+      PressKey(230, 0);
+      PressedKey = false;
+    }
+    else if (type > 23 && type < 30) // fn
+    {
+      PressedKey = false;
+      TempLayer = type - 23;
     }
   }
 }
@@ -69,9 +83,34 @@ void modMethod(KeyUp)(char val, byte type)
   // ran if this device's IS_MASTER flag is true
   if (IS_MASTER)
   {
-    if (type == 8)
+    if (type >= 20 && type < 30)
     {
-      modMethod(FinishHold)(val);
+
+      if (PressedKey == false)
+      {
+        Keyboard.write(val);
+      }
+      // ctrlDualRole
+      if (type == 20)
+      {
+        ReleaseKey(224, 0);
+      }
+      else if (type == 21) // shiftDualRolee
+      {
+        ReleaseKey(225, 0);
+      }
+      else if (type == 22) // alt
+      {
+        ReleaseKey(226, 0);
+      }
+      else if (type == 23) // altgr
+      {
+        ReleaseKey(230, 0);
+      }
+      else if (type > 23 && type < 30) // fn
+      {
+        TempLayer = KeyLayer;
+      }
     }
   }
 }
@@ -85,100 +124,8 @@ void modMethod(Serial)(String input)
   {
     Serial.print(tokenToString(mod_modname));
   }
-  else if (input.startsWith("uniqueksetdualroles"))
-  {
-
-    input = input.substring(input.indexOf('(')+1);
-    byte id = input.substring(0, input.indexOf('(')).toInt();
-    input = input.substring(input.indexOf('(')+1);
-    byte key1val = input.substring(0, input.indexOf('(')).toInt();
-    input = input.substring(input.indexOf('(')+1);
-    byte key1type = input.substring(0, input.indexOf('(')).toInt();
-    input = input.substring(input.indexOf('(')+1);
-    byte key2val = input.substring(0, input.indexOf('(')).toInt();
-    input = input.substring(input.indexOf('(')+1);
-    byte key2type = input.substring(0, input.indexOf('(')).toInt();
-    input = input.toInt();
-
-    modMethod(SetKeyVal)(id, 0, key1val);
-    modMethod(SetKeyType)(id, 0, key1type);
-    modMethod(SetKeyVal)(id, 1, key2val);
-    modMethod(SetKeyType)(id, 1, key2type);
-    Serial.print("set dual-roles(");
-    Serial.println(id);
-  }
 
 }
-
-void modMethod(HoldKey)(int id)
-{
-  if (id < dualRolesMAX)
-  {
-    PressKey( modMethod(GetKeyVal)(id, 0), modMethod(GetKeyType)(id, 0) );
-    dualRolesState[id] = false;
-  }
-}
-void modMethod(FinishHold)(int id)
-{
-  if (id < dualRolesMAX)
-  {
-    ReleaseKey( modMethod(GetKeyVal)(id, 0), modMethod(GetKeyType)(id, 0) );
-    if (dualRolesState[id] == false)
-    {
-      PressKey( modMethod(GetKeyVal)(id, 1), modMethod(GetKeyType)(id, 1) );
-      delay(dualRolesDelay);
-      ReleaseKey( modMethod(GetKeyVal)(id, 1), modMethod(GetKeyType)(id, 1) );
-    }
-  }
-}
-
-byte modMethod(GetKeyVal)(int id, byte key)
-{
-  char output = 0;
-  if (id < dualRolesMAX && key < 2)
-  {
-    int addr = modMethod(GetStartAddr)(id);
-    output = EEPROM.read(addr + key * 2);
-  }
-  return output;
-}
-
-void modMethod(SetKeyVal)(int id, byte key, byte val)
-{
-  if (id < dualRolesMAX && key < 2)
-  {
-    int addr = modMethod(GetStartAddr)(id);
-    EEPROM.update(addr + key * 2, val);
-  }
-}
-
-byte modMethod(GetKeyType)(int id, byte key)
-{
-  char output = 0;
-  if (id < dualRolesMAX && key < 2)
-  {
-    int addr = modMethod(GetStartAddr)(id);
-    output = EEPROM.read(addr + key * 2 + 1);
-  }
-  return output;
-}
-
-void modMethod(SetKeyType)(int id, byte key, byte val)
-{
-  if (id < dualRolesMAX && key < 2)
-  {
-    int addr = modMethod(GetStartAddr)(id);
-    EEPROM.update(addr + key * 2 + 1, val);
-  }
-}
-
-
-int modMethod(GetStartAddr)(int id)
-{
-    int addr = dualRolesMinAddr + (id * dualRolesSLOT_SIZE);
-    return addr;
-}
-
 
 #undef mod_modname
 #undef modMethod

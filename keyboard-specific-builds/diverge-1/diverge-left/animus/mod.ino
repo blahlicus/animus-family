@@ -1,8 +1,8 @@
-#define builder_mstartup macroStartup(); mediaStartup(); dualRolesStartup();
-#define builder_mloop macroLoop(); mediaLoop(); dualRolesLoop();
-#define builder_mkeydown macroKeyDown(val, type); mediaKeyDown(val, type); dualRolesKeyDown(val, type);
-#define builder_mkeyup macroKeyUp(val, type); mediaKeyUp(val, type); dualRolesKeyUp(val, type);
-#define builder_mserial macroSerial(input); mediaSerial(input); dualRolesSerial(input);
+#define builder_mstartup macroStartup(); mediaStartup(); dualRolesStartup(); tapDanceStartup();
+#define builder_mloop macroLoop(); mediaLoop(); dualRolesLoop(); tapDanceLoop();
+#define builder_mkeydown macroKeyDown(val, type); mediaKeyDown(val, type); dualRolesKeyDown(val, type); tapDanceKeyDown(val, type);
+#define builder_mkeyup macroKeyUp(val, type); mediaKeyUp(val, type); dualRolesKeyUp(val, type); tapDanceKeyUp(val, type);
+#define builder_mserial macroSerial(input); mediaSerial(input); dualRolesSerial(input); tapDanceSerial(input);
 
 void ModStartup()
 {
