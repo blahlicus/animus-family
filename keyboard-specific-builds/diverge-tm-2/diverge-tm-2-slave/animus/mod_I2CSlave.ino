@@ -128,3 +128,6 @@ void I2CSlaveSerial(String input)
     Serial.print("I2CSlave");
   }
 }
+
+#undef mod_modname
+#undef modMethod

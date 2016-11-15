@@ -80,3 +80,6 @@ void mediaSerial(String input)
   }
 
 }
+
+#undef mod_modname
+#undef modMethod

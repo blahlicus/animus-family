@@ -230,5 +230,7 @@ void I2CSetEEPROM(int addr, byte val)
 
 
 
+#undef mod_modname
+#undef modMethod
 // TODO
 // bool I2CDetectDevice(byte addr)

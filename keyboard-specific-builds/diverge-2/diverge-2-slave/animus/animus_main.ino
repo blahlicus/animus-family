@@ -48,6 +48,14 @@ void loop()
 
   if (CheckMillis())
   {
+
+    // layering checks
+    if (KeyLayer > GetLayEEPROM() || TempLayer > GetLayEEPROM())
+    {
+      KeyLayer = 0;
+      TempLayer = 0;
+    }
+
     // main loop starts
     KeyScan();
     for (int i = 0; i < ROW; i++)

@@ -86,10 +86,6 @@ void modMethod(KeyUp)(char val, byte type)
     if (type >= 20 && type < 30)
     {
 
-      if (PressedKey == false)
-      {
-        Keyboard.write(val);
-      }
       // ctrlDualRole
       if (type == 20)
       {
@@ -111,6 +107,13 @@ void modMethod(KeyUp)(char val, byte type)
       {
         TempLayer = KeyLayer;
       }
+
+
+      if (PressedKey == false)
+      {
+        Keyboard.write(val);
+      }
+
     }
   }
 }
