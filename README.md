@@ -11,6 +11,7 @@ This is an Arduino based firmware for use by devices compatible with the Arduino
 * up to 256 layers limited by EEPROM
 * FN keys, spaceFN, toggleFN
 * "dual-keys" functionality (commaShift, etc)
+* default combo keys (shift+??/ctrl+??/altgr+??)
 * macros
 * tap dance keys
 * media keys
