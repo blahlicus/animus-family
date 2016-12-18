@@ -281,6 +281,7 @@ void ReleaseAllKey()
 {
 
 
+  TempLayer = KeyLayer;
   uint8_t tkeys[18] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   byte tkeyCounter = 0;
 
