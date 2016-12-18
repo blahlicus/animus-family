@@ -11,10 +11,13 @@ This is an Arduino based firmware for use by devices compatible with the Arduino
 * up to 256 layers limited by EEPROM
 * FN keys, spaceFN, toggleFN
 * "dual-keys" functionality (commaShift, etc)
+* macros
+* tap dance keys
 * media keys
 * serial communication (for editing layout, layers, name, etc)
 * device embedded unique id
 * modular modding system (plugins could be added to provide additional functionality)
 * low ROM usage (currently uses less than 500 bytes)
+* multi-HID emulation
 
 This wiki contains information for both non-programmers and developers alike, check out the side bar for more information.
