@@ -19,7 +19,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "AnimusKeyboard.h"
+#include "ArduinoKeyboard.h"
 
 #if defined(_USING_HID)
 
@@ -211,6 +211,6 @@ size_t Keyboard_::write(uint8_t c)
   return p;              // just return the result of press() since release() almost always returns 1
 }
 
-Keyboard_ Keyboard;
+Keyboard_ ArduinoKeyboard;
 
 #endif

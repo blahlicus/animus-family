@@ -1,5 +1,5 @@
 /*
-  AnimusKeyboard.h
+  Keyboard.h
 
   Copyright (c) 2015, Arduino LLC
   Original code (pre-library): Copyright (c) 2011, Peter Barrett
@@ -19,59 +19,23 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef ANIMUSMEDIA_h
-#define ANIMUSMEDIA_h
 
 #include "HID.h"
+#include "HID-Project.h"
+#include "HID-Settings.h"
 
-#if !defined(_USING_HID)
-
-#warning "Using legacy HID core (non pluggable)"
-
-#else
-
-// ---------MEDIA-------------
-
-#define REMOTE_CLEAR 0
-#define VOLUME_UP 1
-#define VOLUME_DOWN 2
-#define VOLUME_MUTE 4
-#define REMOTE_PLAY 8
-#define REMOTE_PAUSE 16
-#define REMOTE_STOP 32
-#define REMOTE_NEXT 64
-#define REMOTE_PREVIOUS 128
-#define REMOTE_FAST_FORWARD 256
-#define REMOTE_REWIND 512
-
-class Remote_
+class KeyboardInterface
 {
-private:
 public:
-  Remote_(void);
+  KeyboardInterface(void);
   void begin(void);
   void end(void);
-
-  // Volume
-  void increase(void);
-  void decrease(void);
-  void mute(void);
-
-  // Playback
-  void play(void);
-  void pause(void);
-  void stop(void);
-
-  // Track Controls
-  void next(void);
-  void previous(void);
-  void forward(void);
-  void rewind(void);
-
-  // Send an empty report to prevent repeated actions
-  void clear(void);
+  size_t write(uint8_t k);
+  size_t press(uint8_t k);
+  size_t release(uint8_t k);
+  void setNKROMode(uint8_t mode);
+  uint8_t getNKROMode(void);
+  void releaseAll(void);
+  void releaseAllExcept(uint8_t k[18]);
 };
-extern Remote_ Remote;
-
-#endif
-#endif
+extern KeyboardInterface AnimusKeyboard;

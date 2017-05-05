@@ -61,7 +61,7 @@ public:
   void releaseAll(void);\
   void releaseAllExcept(uint8_t k[18]);
 };
-extern Keyboard_ Keyboard;
+extern Keyboard_ ArduinoKeyboard;
 
 #endif
 #endif
