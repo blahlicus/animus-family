@@ -1,3 +1,5 @@
+#include "Mouse.h"
+
 #define builder_row 5
 #define builder_col 8
 #define builder_kbname "Diverge 2 Master"
