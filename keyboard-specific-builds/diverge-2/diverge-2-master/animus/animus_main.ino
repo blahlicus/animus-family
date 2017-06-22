@@ -30,6 +30,7 @@ int BaudRate = 19200;
 void setup()
 {
   Keyboard.begin();
+  Mouse.begin();
   Serial.begin(BaudRate);
   NKROStartup();
   ModStartup();
@@ -190,6 +191,11 @@ void PressKey(char val, byte type)
       PressKey(226, 0);
       PressKey(val, 0);
     }
+    else if (type == 99)
+    {
+      // mouse buttons
+      Mouse.press(val);
+    }
   }
 
   NKROKeyDown(val, type);
@@ -270,6 +276,11 @@ void ReleaseKey(char val, byte type)
       ReleaseKey(225, 0);
       ReleaseKey(226, 0);
       ReleaseKey(val, 0);
+    }
+    else if (type == 99)
+    {
+      // mouse buttons
+      Mouse.release(val);
     }
   }
   NKROKeyUp(val, type);
