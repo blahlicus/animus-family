@@ -1,5 +1,5 @@
 /*
-  Keyboard.h
+  AnimusKeyboard.h
 
   Copyright (c) 2015, Arduino LLC
   Original code (pre-library): Copyright (c) 2011, Peter Barrett

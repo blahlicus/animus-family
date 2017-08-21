@@ -4,7 +4,7 @@
 void NKROStartup()
 {
   // things to run during hardware startup
-  Keyboard.setNKROMode(EEPROM.read(1022));
+  AnimusKeyboard.setNKROMode(EEPROM.read(1022));
 }
 
 void NKROLoop()
@@ -29,16 +29,16 @@ void NKROKeyDown(char val, byte type)
   {
     if (type == 6)
     {
-      if (Keyboard.getNKROMode() == val)
+      if (AnimusKeyboard.getNKROMode() == val)
       {
-        Keyboard.setNKROMode(0);
+        AnimusKeyboard.setNKROMode(0);
       }
       else
       {
-        Keyboard.setNKROMode(val);
+        AnimusKeyboard.setNKROMode(val);
       }
 
-      Keyboard.releaseAll();
+      AnimusKeyboard.releaseAll();
     }
   }
 }
@@ -59,7 +59,7 @@ void NKROSetMode(int val)
   if (val < NKROMAX)
   {
     EEPROM.update(1022, val);
-    Keyboard.setNKROMode(val);
+    AnimusKeyboard.setNKROMode(val);
   }
 }
 

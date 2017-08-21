@@ -7,6 +7,7 @@
     <string>media</string>
     <string>stickyKeys</string>
     <string>tapDance</string>
+    <string>mouseKeys</string>
   </mods>
   <vpins>
     <string>16</string>

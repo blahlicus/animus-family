@@ -111,7 +111,7 @@ void modMethod(KeyUp)(char val, byte type)
 
       if (PressedKey == false)
       {
-        Keyboard.write(val);
+        AnimusKeyboard.write(val);
       }
 
     }

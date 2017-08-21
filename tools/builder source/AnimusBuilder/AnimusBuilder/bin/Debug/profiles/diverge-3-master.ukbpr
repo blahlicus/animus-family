@@ -7,6 +7,8 @@
     <string>macro</string>
     <string>dualRoles</string>
     <string>tapDance</string>
+    <string>mouseKeys</string>
+    <string>stickyKeys</string>
   </mods>
   <vpins>
     <string>4</string>

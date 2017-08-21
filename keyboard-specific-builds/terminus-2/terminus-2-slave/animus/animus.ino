@@ -2,13 +2,13 @@
 #define builder_col 7
 #define builder_kbname "Terminus 2 Slave"
 #define builder_kbvariant "Terminus 2 Slave"
-#define builder_kbdriver "Animus Innova 2.3.1"
+#define builder_kbdriver "Animus Innova 2.4.1"
 #define builder_kbdriver_build "OEM"
 #define builder_vpins A0, 15, 14, 16, 10
 #define builder_hpins A1, A2, 9, 8, 7, 6, 4
 #define builder_refresh 7
 #include "EEPROM.h"
-#include "AnimusKeyboard.h"
+#include "KeyboardInterface.h"
 
 // constants: change this only to edit keyboard info
 

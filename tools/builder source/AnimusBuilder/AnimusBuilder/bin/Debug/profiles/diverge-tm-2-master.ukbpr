@@ -8,6 +8,7 @@
     <string>dualRoles</string>
     <string>tapDance</string>
     <string>stickyKeys</string>
+    <string>mouseKeys</string>
   </mods>
   <vpins>
     <string>6</string>

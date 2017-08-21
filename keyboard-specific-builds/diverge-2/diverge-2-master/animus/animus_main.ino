@@ -29,8 +29,7 @@ int BaudRate = 19200;
 
 void setup()
 {
-  Keyboard.begin();
-  Mouse.begin();
+  AnimusKeyboard.begin();
   Serial.begin(BaudRate);
   NKROStartup();
   ModStartup();
@@ -97,7 +96,7 @@ void PressKey(char val, byte type)
   {
     if (type == 0)
     {
-      Keyboard.press(val);
+      AnimusKeyboard.press(val);
     }
     else if (type == 1)
     {
@@ -191,11 +190,6 @@ void PressKey(char val, byte type)
       PressKey(226, 0);
       PressKey(val, 0);
     }
-    else if (type == 99)
-    {
-      // mouse buttons
-      Mouse.press(val);
-    }
   }
 
   NKROKeyDown(val, type);
@@ -208,7 +202,7 @@ void ReleaseKey(char val, byte type)
   {
     if (type == 0)
     {
-      Keyboard.release(val);
+      AnimusKeyboard.release(val);
     }
     else if (type == 1)
     {
@@ -219,7 +213,7 @@ void ReleaseKey(char val, byte type)
     {
       if (PressedKey == false)
       {
-        Keyboard.write(44);
+        AnimusKeyboard.write(44);
       }
       TempLayer = KeyLayer;
       //ReleaseAllKey(); // DEPRECIATED END
@@ -277,11 +271,6 @@ void ReleaseKey(char val, byte type)
       ReleaseKey(226, 0);
       ReleaseKey(val, 0);
     }
-    else if (type == 99)
-    {
-      // mouse buttons
-      Mouse.release(val);
-    }
   }
   NKROKeyUp(val, type);
   ModKeyUp(val, type);
@@ -314,7 +303,7 @@ void ReleaseAllKey()
     }
   }
 
-  Keyboard.releaseAllExcept(tkeys);
+  AnimusKeyboard.releaseAllExcept(tkeys);
 
 }
 

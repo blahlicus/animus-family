@@ -55,19 +55,19 @@ void modMethod(KeyDown)(char val, byte type)
 
         if (val == 0)
         {
-          Keyboard.press(224); // ctrl
+          AnimusKeyboard.press(224); // ctrl
         }
         else if (val == 1)
         {
-          Keyboard.press(225); // shift
+          AnimusKeyboard.press(225); // shift
         }
         else if (val == 2)
         {
-          Keyboard.press(226); //alt
+          AnimusKeyboard.press(226); //alt
         }
         else if (val == 3)
         {
-          Keyboard.press(230); //altgr
+          AnimusKeyboard.press(230); //altgr
         }
         else if (val > 3 && val < STICKY_KEY_MAX)
         {
@@ -99,19 +99,19 @@ void modMethod(ReleaseAll)()
       {
         if (i == 0)
         {
-          Keyboard.release(224); // ctrl
+          AnimusKeyboard.release(224); // ctrl
         }
         else if (i == 1)
         {
-          Keyboard.release(225); // shift
+          AnimusKeyboard.release(225); // shift
         }
         else if (i == 2)
         {
-          Keyboard.release(226); //alt
+          AnimusKeyboard.release(226); //alt
         }
         else if (i == 3)
         {
-          Keyboard.release(230); //altgr
+          AnimusKeyboard.release(230); //altgr
         }
         else if (i > 3 && i < STICKY_KEY_MAX)
         {

@@ -2,13 +2,13 @@
 #define builder_col 6
 #define builder_kbname "Diverge TM Master"
 #define builder_kbvariant "Diverge TM Master"
-#define builder_kbdriver "Animus Innova 2.3.1"
+#define builder_kbdriver "Animus Innova 2.4.1"
 #define builder_kbdriver_build "OEM"
 #define builder_vpins A3, A2, 9, 16
 #define builder_hpins 10, 8, 7, 6, 5, 4
 #define builder_refresh 5
 #include "EEPROM.h"
-#include "AnimusKeyboard.h"
+#include "KeyboardInterface.h"
 
 // constants: change this only to edit keyboard info
 

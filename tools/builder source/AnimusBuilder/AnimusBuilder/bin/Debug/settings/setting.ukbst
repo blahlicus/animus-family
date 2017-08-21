@@ -2,5 +2,5 @@
 <MdSetting xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <animusPath>E:\blahlicus\Documents\GitHub\animus-family\animus</animusPath>
   <modPath>E:\blahlicus\Documents\GitHub\animus-family\mods</modPath>
-  <outputPath>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds\lets-split-2</outputPath>
+  <outputPath>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds</outputPath>
 </MdSetting>
