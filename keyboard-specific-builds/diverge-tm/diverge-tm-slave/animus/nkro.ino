@@ -29,16 +29,11 @@ void NKROKeyDown(char val, byte type)
   {
     if (type == 6)
     {
-      if (AnimusKeyboard.getNKROMode() == val)
-      {
-        AnimusKeyboard.setNKROMode(0);
-      }
-      else
-      {
-        AnimusKeyboard.setNKROMode(val);
-      }
-
       AnimusKeyboard.releaseAll();
+      EEPROM.update(1022, val);
+      AnimusKeyboard.setNKROMode(val);
+      AnimusKeyboard.releaseAll();
+
     }
   }
 }

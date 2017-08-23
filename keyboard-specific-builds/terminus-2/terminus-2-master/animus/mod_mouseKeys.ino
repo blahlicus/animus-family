@@ -1,14 +1,14 @@
-#include <Mouse.h>
+
 
 
 /*
 Do not remove this comment, this comment is used by animus builder for the
 build process
 BUILDER_REQUIREMENT_START
-keyType(24)
-keyType(25)
-keyType(26)
-keyType(27)
+keyType(31)
+keyType(32)
+keyType(33)
+keyType(34)
 BUILDER_REQUIREMENT_END
 Remeber to change the mod_modname to your mod name
 */
@@ -19,7 +19,6 @@ Remeber to change the mod_modname to your mod name
 26: wheel movement
 27: click type (bitwise)
 */
-
 #define mod_modname mouseKeys
 
 #define modMethod(str) conca(mod_modname, str)
@@ -28,7 +27,7 @@ Remeber to change the mod_modname to your mod name
 byte modMethod(XVal) = 128;
 byte modMethod(YVal) = 128;
 byte modMethod(WheelVal) = 128;
-
+boolean modMethod(IsRunning) = false;
 
 void modMethod(Startup)()
 {
@@ -46,12 +45,17 @@ void modMethod(Loop)()
     if (modMethod(XVal) == 128 && modMethod(YVal) == 128 && modMethod(WheelVal) == 128)
     {
       // do nothing
-      Mouse.end();
-
+      if (modMethod(IsRunning))
+      {
+        modMethod(IsRunning) = false;
+        Mouse.end();
+      }
+      
     }
     else
     {
       Mouse.begin();
+      modMethod(IsRunning) = true;
       Mouse.move(modMethod(XVal)-128,modMethod(YVal)-128,modMethod(WheelVal)-128);
     }
 
@@ -66,24 +70,24 @@ void modMethod(KeyDown)(char val, byte type)
   // ran if this device's IS_MASTER flag is true
   if (IS_MASTER)
   {
-    if (type == 24)
+    if (type == 31)
     {
       modMethod(XVal) += val - 128;
 
 
     }
-    else if (type == 25)
+    else if (type == 32)
     {
       modMethod(YVal) += val - 128;
 
 
     }
-    else if (type == 26)
+    else if (type == 33)
     {
       modMethod(WheelVal) += val - 128;
 
     }
-    else if (type == 27)
+    else if (type == 34)
     {
       if (val == 1)
       {
@@ -96,6 +100,14 @@ void modMethod(KeyDown)(char val, byte type)
       else if (val == 3)
       {
         Mouse.press(MOUSE_MIDDLE);
+      }
+      else if (val == 4)
+      {
+        Mouse.press(MOUSE_PREV);
+      }
+      else if (val == 5)
+      {
+        Mouse.press(Mouse_NEXT);
       }
 
     }
@@ -111,22 +123,22 @@ void modMethod(KeyUp)(char val, byte type)
   // ran if this device's IS_MASTER flag is true
   if (IS_MASTER)
   {
-    if (type == 24)
+    if (type == 31)
     {
       modMethod(XVal) -= val - 128;
 
     }
-    else if (type == 25)
+    else if (type == 32)
     {
       modMethod(YVal) -= val -128;
 
     }
-    else if (type == 26)
+    else if (type == 33)
     {
       modMethod(WheelVal) -= val -128;
 
     }
-    else if (type == 27)
+    else if (type == 34)
     {
       if (val == 1)
       {

@@ -4,10 +4,9 @@ This contains an "adapter" that allows animus to use multiple HID libraries/HID 
 
 
 #include "KeyboardInterface.h"
-
 KeyboardInterface::KeyboardInterface(void)
 {
-  // put init code here if necessary
+  // insert code for constructor here
 
 }
 
@@ -15,19 +14,39 @@ KeyboardInterface::KeyboardInterface(void)
 
 void KeyboardInterface::begin(void)
 {
-  ArduinoKeyboard.begin();
+  if (KeyboardMode == 1)
+  {
+    NKROKeyboard.begin();
+  }
+  else
+  {
+    BootKeyboard.begin();
+  }
 }
 
 void KeyboardInterface::end(void)
 {
-  ArduinoKeyboard.end();
+  if (KeyboardMode == 1)
+  {
+    NKROKeyboard.end();
+  }
+  else
+  {
+    BootKeyboard.end();
+  }
 }
 
 
 size_t KeyboardInterface::press(uint8_t k)
 {
-  return ArduinoKeyboard.press(k);
-
+  if (KeyboardMode == 1)
+  {
+    NKROKeyboard.press(k);
+  }
+  else
+  {
+    BootKeyboard.press(k);
+  }
 }
 
 // release() takes the specified key out of the persistent key report and
@@ -35,31 +54,57 @@ size_t KeyboardInterface::press(uint8_t k)
 // it shouldn't be repeated any more.
 size_t KeyboardInterface::release(uint8_t k)
 {
-  return ArduinoKeyboard.release(k);
+  if (KeyboardMode == 1)
+  {
+    NKROKeyboard.release(k);
+  }
+  else
+  {
+    BootKeyboard.release(k);
+  }
 }
 
 void KeyboardInterface::releaseAll(void)
 {
-  ArduinoKeyboard.releaseAll();
+  if (KeyboardMode == 1)
+  {
+    NKROKeyboard.releaseAll();
+  }
+  else
+  {
+    BootKeyboard.releaseAll();
+  }
 }
 
-void KeyboardInterface::releaseAllExcept(uint8_t k[18])
+void KeyboardInterface::releaseAllExcept(uint8_t k[18]) //TODO modify this to add support to except arg
 {
-  ArduinoKeyboard.releaseAllExcept(k);
+  if (KeyboardMode == 1)
+  {
+    NKROKeyboard.releaseAll();
+  }
+  else
+  {
+    BootKeyboard.releaseAll();
+  }
 }
 void KeyboardInterface::setNKROMode(uint8_t mode)
 {
-  ArduinoKeyboard.setNKROMode(mode);
+  end();
+  KeyboardMode = mode;
+  begin();
 }
 
-uint8_t KeyboardInterface::getNKROMode(void)
-{
-  return ArduinoKeyboard.getNKROMode();
-}
 
 size_t KeyboardInterface::write(uint8_t c)
 {
-  return ArduinoKeyboard.write(c);
+  if (KeyboardMode == 1)
+  {
+    NKROKeyboard.write(c);
+  }
+  else
+  {
+    BootKeyboard.write(c);
+  }
 }
 
 KeyboardInterface AnimusKeyboard;
