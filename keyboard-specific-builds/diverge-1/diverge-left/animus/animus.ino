@@ -2,7 +2,7 @@
 #define builder_col 5
 #define builder_kbname "Diverge Left"
 #define builder_kbvariant "Diverge"
-#define builder_kbdriver "Animus Innova 2.5"
+#define builder_kbdriver "Animus Innova 2.5.1"
 #define builder_kbdriver_build "OEM"
 #define builder_vpins 10, 16, 14, 15, A0, A1, A2, A3
 #define builder_hpins 9, 8, 7, 6, 5

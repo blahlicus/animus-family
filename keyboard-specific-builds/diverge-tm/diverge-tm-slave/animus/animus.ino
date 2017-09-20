@@ -2,7 +2,7 @@
 #define builder_col 6
 #define builder_kbname "Diverge TM Slave"
 #define builder_kbvariant "Diverge TM Slave"
-#define builder_kbdriver "Animus Innova 2.5"
+#define builder_kbdriver "Animus Innova 2.5.1"
 #define builder_kbdriver_build "OEM"
 #define builder_vpins A3, A2, 9, 16
 #define builder_hpins 10, 8, 7, 6, 5, 4

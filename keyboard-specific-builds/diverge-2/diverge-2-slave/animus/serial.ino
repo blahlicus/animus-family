@@ -105,6 +105,13 @@ void SerialCommand(String input)
   {
     Serial.println(EEPROM.read(1023));
   }
+  else if (input.startsWith("uniquekgeteeprom"))
+  {
+    
+    input = input.substring(input.indexOf('(')+1);
+    int val = input.toInt();
+    Serial.println(EEPROM.read(val));    
+  }
   else if (input.startsWith("uniquekgetkey"))
   {
     input = input.substring(input.indexOf('(')+1);

@@ -107,7 +107,7 @@ void modMethod(KeyDown)(char val, byte type)
       }
       else if (val == 5)
       {
-        Mouse.press(Mouse_NEXT);
+        Mouse.press(MOUSE_NEXT);
       }
 
     }
@@ -151,6 +151,14 @@ void modMethod(KeyUp)(char val, byte type)
       else if (val == 3)
       {
         Mouse.release(MOUSE_MIDDLE);
+      }
+      else if (val == 4)
+      {
+        Mouse.release(MOUSE_PREV);
+      }
+      else if (val == 5)
+      {
+        Mouse.release(MOUSE_NEXT);
       }
 
     }
