@@ -1,8 +1,8 @@
-#define builder_mstartup // nothing happens lol
-#define builder_mloop // nothing happens lol
-#define builder_mkeydown // nothing happens lol
-#define builder_mkeyup // nothing happens lol
-#define builder_mserial // nothing happens lol
+#define builder_mstartup 
+#define builder_mloop 
+#define builder_mkeydown 
+#define builder_mkeyup 
+#define builder_mserial 
 
 void ModStartup()
 {

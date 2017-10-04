@@ -1,11 +1,11 @@
 #define builder_row 5
-#define builder_col 8
-#define builder_kbname "Test Build"
-#define builder_kbvariant "Test Vuild V"
+#define builder_col 4
+#define builder_kbname "Felix Barebones"
+#define builder_kbvariant "Felix typeZERO"
 #define builder_kbdriver "Animus Innova x2.6"
-#define builder_kbdriver_build "Test Build OEM"
-#define builder_vpins 5, 6, 7, 8, 9
-#define builder_hpins A3, A2, A1, A0, 15, 14, 16, 10
+#define builder_kbdriver_build "Felix OEM Barebones"
+#define builder_vpins 16, 14, 15, A0, A1
+#define builder_hpins 9, 8, 7, 6
 #define builder_refresh 5
 #include "EEPROM.h"
 #include "KeyboardInterface.h"
