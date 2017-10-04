@@ -109,7 +109,7 @@ void SerialCommand(String input)
   {
     
     input = input.substring(input.indexOf('(')+1);
-    int val = input.toInt();
+    byte val = input.toInt();
     Serial.println(EEPROM.read(val));    
   }
   else if (input.startsWith("uniquekgetkey"))

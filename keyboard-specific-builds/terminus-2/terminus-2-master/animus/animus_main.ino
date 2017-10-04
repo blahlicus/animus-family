@@ -9,13 +9,13 @@
 #define Lay GetLayEEPROM()
 
 // layering
-int KeyLayer = 0;
-int TempLayer = 0;
+byte KeyLayer = 0;
+byte TempLayer = 0;
 
 // key states
-int KeyState[COL][ROW];
-int PreviousState[COL][ROW];
-int LayerState[COL][ROW];
+byte KeyState[COL][ROW];
+byte KeyStateCountDown[COL][ROW];
+byte LayerState[COL][ROW];
 
 // slave states
 boolean IS_MASTER = true;
@@ -46,40 +46,66 @@ void loop()
   // checks serials
   TestSerial();
 
-  if (CheckMillis())
+
+  // layering checks
+  if (KeyLayer > GetLayEEPROM() || TempLayer > GetLayEEPROM())
   {
+    KeyLayer = 0;
+    TempLayer = 0;
+  }
 
-    // layering checks
-    if (KeyLayer > GetLayEEPROM() || TempLayer > GetLayEEPROM())
-    {
-      KeyLayer = 0;
-      TempLayer = 0;
-    }
+  // main loop starts
+  KeyScan();
 
-    // main loop starts
-    KeyScan();
-    for (int i = 0; i < ROW; i++)
+  for (byte i = 0; i < ROW; i++)
+  {
+    for (byte j = 0; j < COL; j++)
     {
-      for (int j = 0; j < COL; j++)
+      if (KeyState[j][i] == HIGH) // if key is down
       {
-        if (PreviousState[j][i] != KeyState[j][i])
+        if (KeyStateCountDown[j][i] == 1) // if key is still down after debounce time
         {
-          if (KeyState[j][i] == HIGH)
-          {
-            LayerState[j][i] = TempLayer;
-            PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
-          }
-          else
-          {
-            ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
-          }
+          LayerState[j][i] = TempLayer;
+          PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
+          KeyStateCountDown[j][i] = 255;
+
+        }
+        else if (KeyStateCountDown[j][i] == 0) // if key is still down after debounce time
+        {
+          KeyStateCountDown[j][i] = builder_refresh;
         }
 
-        PreviousState[j][i] = KeyState[j][i];
+      }
+      else if (KeyState[j][i] == LOW)
+      {
+        if (KeyStateCountDown[j][i] == 255)
+        {
+          ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
+
+          KeyStateCountDown[j][i] = 0;
+        }
 
       }
+
+
+
+
     }
     // main loop ends
+  }
+
+  if (CheckMillis())
+  {
+    for (byte i = 0; i < ROW; i++)
+    {
+      for (byte j = 0; j < COL; j++)
+      {
+        if (KeyStateCountDown[j][i] > 0 && KeyStateCountDown[j][i] != 255)
+        {
+          KeyStateCountDown[j][i] = KeyStateCountDown[j][i] - 1;
+        }
+      }
+    }
   }
 
   ModLoop();
@@ -285,9 +311,9 @@ void ReleaseAllKey()
   uint8_t tkeys[18] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   byte tkeyCounter = 0;
 
-  for (int i = 0; i < ROW; i++)
+  for (byte i = 0; i < ROW; i++)
   {
-    for (int j = 0; j < COL; j++)
+    for (byte j = 0; j < COL; j++)
     {
       if (KeyState[j][i] == HIGH)
       {
@@ -318,13 +344,13 @@ void SwitchLayer(boolean increment)
   {
     KeyLayer--;
   }
-  if (KeyLayer >= Lay)
-  {
-    KeyLayer = 0;
-  }
-  else if (KeyLayer < 0)
+  if (KeyLayer > 254)
   {
     KeyLayer = Lay - 1;
+  }
+  else if (KeyLayer >= Lay)
+  {
+    KeyLayer = 0;
   }
   //ReleaseAllKey();
 }
@@ -340,7 +366,7 @@ void SwitchLayer(boolean increment)
 */
 void RotateLayers(byte val)
 {
-  int newLayer = KeyLayer;
+  byte newLayer = KeyLayer;
   byte mask = 1 << newLayer;
 
   if (! val)
@@ -353,7 +379,7 @@ void RotateLayers(byte val)
     Find the next layer within the bitfield.
     Limit iterations to 10, to ensure no infinite loop.
    */
-  for (int i = 0; i < 10; i++)
+  for (byte i = 0; i < 10; i++)
   {
     newLayer++;
     mask <<= 1;
@@ -378,24 +404,24 @@ void RotateLayers(byte val)
 
 void ResetPins()
 {
-  for (int i = 0; i < ROW; i++)
+  for (byte i = 0; i < ROW; i++)
   {
     pinMode(VPins[i], INPUT);
     digitalWrite(VPins[i], HIGH);
   }
 
-  for (int i = 0; i < COL; i++)
+  for (byte i = 0; i < COL; i++)
   {
     pinMode(HPins[i], INPUT);
     digitalWrite(HPins[i], LOW);
   }
 
-  for (int i = 0; i < ROW; i++)
+  for (byte i = 0; i < ROW; i++)
   {
-    for (int j = 0; j < COL; j++)
+    for (byte j = 0; j < COL; j++)
     {
       KeyState[j][i] = 0;
-      PreviousState[j][i] = 0;
+      KeyStateCountDown[j][i] = 0;
     }
   }
 }
@@ -406,13 +432,13 @@ void ResetPins()
 
 void KeyScan()
 {
-  for (int i = 0; i < COL; i++)
+  for (byte i = 0; i < COL; i++)
   {
     pinMode(HPins[i], OUTPUT);
 
-    for (int j = 0; j < ROW; j++)
+    for (byte j = 0; j < ROW; j++)
     {
-      int val = digitalRead(VPins[j]);
+      byte val = digitalRead(VPins[j]);
       KeyState[i][j] = (val == LOW);
     }
 

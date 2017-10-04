@@ -49,7 +49,7 @@ void NKROKeyUp(char val, byte type)
   }
 }
 
-void NKROSetMode(int val)
+void NKROSetMode(byte val)
 {
   if (val < NKROMAX)
   {

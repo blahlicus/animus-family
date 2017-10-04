@@ -6,7 +6,7 @@ void SetEEPROM(int x, int y, int z, char inputChar, byte inputType)
   EEPROM.update(addr, inputType);
 }
 
-int GetLayEEPROM()
+byte GetLayEEPROM()
 {
   return EEPROM.read(1023);
 }

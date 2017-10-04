@@ -24,5 +24,5 @@
   <bp_name>diverge-tm-slave</bp_name>
   <variant>Diverge TM Slave</variant>
   <driver_build>OEM</driver_build>
-  <refresh>5</refresh>
+  <refresh>1</refresh>
 </ClBuildProfile>

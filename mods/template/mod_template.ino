@@ -21,7 +21,7 @@ void modMethod(Loop)()
   // full speed master loop
 
 
-  // things inside this if statement is ran every RefreshDelay milliseconds
+  // this is an async clock that runs once every ms, put non-critically responsive code in here to reduce processor stress
   if (CheckMillis())
   {
 

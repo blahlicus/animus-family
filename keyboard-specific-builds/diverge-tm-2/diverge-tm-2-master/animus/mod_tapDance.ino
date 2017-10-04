@@ -17,6 +17,8 @@ Remeber to change the mod_modname to your mod name
 
 #define modMethod(str) conca(mod_modname, str)
 
+
+const byte modMethod(TIMER_MULTIPLIER) = 10;
 const int modMethod(MAX_ADDR) = 842;
 const int modMethod(MIN_ADDR) = 982;
 const byte modMethod(MAX_INDEX) = 20;
@@ -32,7 +34,7 @@ boolean modMethod(KeyIsDown)[modMethod(MAX_INDEX)];
 void modMethod(Startup)()
 {
   // things to run during hardware startup
-  for (int i = 0; i < modMethod(MAX_INDEX); i++)
+  for (byte i = 0; i < modMethod(MAX_INDEX); i++)
   {
     modMethod(PressCount)[i] = 0;
     modMethod(PressTimer)[i] = 0;
@@ -50,7 +52,7 @@ void modMethod(Loop)()
   {
     if (IS_MASTER)
     {
-      for (int i = 0; i < modMethod(MAX_INDEX); i++)
+      for (byte i = 0; i < modMethod(MAX_INDEX); i++)
       {
 
 
@@ -97,7 +99,7 @@ void modMethod(KeyDown)(char val, byte type)
       {
 
         modMethod(PressCount)[val]++;
-        modMethod(PressTimer)[val] = modMethod(GetTimeout)(val) * 2;
+        modMethod(PressTimer)[val] = modMethod(GetTimeout)(val) * modMethod(TIMER_MULTIPLIER);
         modMethod(KeyIsDown)[val] = true;
       }
 
@@ -199,8 +201,7 @@ void modMethod(Serial)(String input)
 
 }
 
-// TODO
-byte modMethod(GetLength)(int id)
+byte modMethod(GetLength)(byte id)
 {
 
   byte output = 0;
@@ -213,7 +214,7 @@ byte modMethod(GetLength)(int id)
   return output;
 }
 
-void modMethod(SetLength)(int id, byte val)
+void modMethod(SetLength)(byte id, byte val)
 {
 
   if (id < modMethod(MAX_INDEX))
@@ -223,7 +224,7 @@ void modMethod(SetLength)(int id, byte val)
   }
 }
 
-byte modMethod(GetTimeout)(int id)
+byte modMethod(GetTimeout)(byte id)
 {
 
   byte output = 0;
@@ -236,7 +237,7 @@ byte modMethod(GetTimeout)(int id)
   return output;
 }
 
-void modMethod(SetTimeout)(int id, byte val)
+void modMethod(SetTimeout)(byte id, byte val)
 {
 
   if (id < modMethod(MAX_INDEX))
@@ -248,7 +249,7 @@ void modMethod(SetTimeout)(int id, byte val)
 
 
 // key LL functions start
-char modMethod(GetKeyVal)(int id, byte key)
+char modMethod(GetKeyVal)(byte id, byte key)
 {
   byte output = 0;
   if (id < modMethod(MAX_INDEX) && key < modMethod(MAX_KEYS))
@@ -259,7 +260,7 @@ char modMethod(GetKeyVal)(int id, byte key)
   return output;
 }
 
-void modMethod(SetKeyVal)(int id, byte key, byte val)
+void modMethod(SetKeyVal)(byte id, byte key, byte val)
 {
   if (id < modMethod(MAX_INDEX) && key < modMethod(MAX_KEYS))
   {
@@ -268,7 +269,7 @@ void modMethod(SetKeyVal)(int id, byte key, byte val)
   }
 }
 
-byte modMethod(GetKeyType)(int id, byte key)
+byte modMethod(GetKeyType)(byte id, byte key)
 {
   byte output = 0;
   if (id < modMethod(MAX_INDEX) && key < modMethod(MAX_KEYS))
@@ -279,7 +280,7 @@ byte modMethod(GetKeyType)(int id, byte key)
   return output;
 }
 
-void modMethod(SetKeyType)(int id, byte key, byte val)
+void modMethod(SetKeyType)(byte id, byte key, byte val)
 {
   if (id < modMethod(MAX_INDEX) && key < modMethod(MAX_KEYS))
   {
@@ -310,7 +311,7 @@ EEPROM.update(addr + 1, newLength);
 }
 */
 
-int modMethod(GetStartAddr)(int id)
+int modMethod(GetStartAddr)(byte id)
 {
   int addr = modMethod(MAX_ADDR) + (id * (modMethod(MAX_KEYS) * 2 + modMethod(PADDING)));
   return addr;

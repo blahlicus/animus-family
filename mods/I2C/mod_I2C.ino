@@ -23,51 +23,54 @@ void I2CStartup()
 void I2CLoop()
 {
 
+
+
+  if (KeyLayer != I2CKeyLayer)
+  {
+    I2CSetKeyLayer(KeyLayer);
+    I2CKeyLayer = KeyLayer;
+  }
+
+  if (TempLayer != I2CTempLayer)
+  {
+    I2CSetTempLayer(TempLayer);
+    I2CTempLayer = TempLayer;
+  }
+
+
+  byte slaveArray[31];
+  byte slaveCount = 0;
+  boolean slaveExists = false;
+  Wire.requestFrom(8, 31);    // request 31 bytes from slave device #8
+  while (Wire.available())
+  {
+    // slave may send less than requested
+    byte out = Wire.read(); // receive a byte
+    slaveArray[slaveCount] = out;
+    slaveExists = true;
+    slaveCount++;
+  }
+  if (slaveExists)
+  {
+    slaveCount = slaveArray[0];
+    for (int i = 1; i < slaveCount; i=i+3)
+    {
+      char cinput = slaveArray[i];
+      byte tinput = slaveArray[i+1];
+      if (slaveArray[i+2]>1)
+      {
+        PressKey(cinput, tinput);
+      }
+      else
+      {
+        ReleaseKey(cinput, tinput);
+      }
+    }
+  }
+
   if (CheckMillis())
   {
 
-    if (KeyLayer != I2CKeyLayer)
-    {
-      I2CSetKeyLayer(KeyLayer);
-      I2CKeyLayer = KeyLayer;
-    }
-
-    if (TempLayer != I2CTempLayer)
-    {
-      I2CSetTempLayer(TempLayer);
-      I2CTempLayer = TempLayer;
-    }
-
-
-    byte slaveArray[31];
-    byte slaveCount = 0;
-    boolean slaveExists = false;
-    Wire.requestFrom(8, 31);    // request 31 bytes from slave device #8
-    while (Wire.available())
-    {
-      // slave may send less than requested
-      byte out = Wire.read(); // receive a byte
-      slaveArray[slaveCount] = out;
-      slaveExists = true;
-      slaveCount++;
-    }
-    if (slaveExists)
-    {
-      slaveCount = slaveArray[0];
-      for (int i = 1; i < slaveCount; i=i+3)
-      {
-        char cinput = slaveArray[i];
-        byte tinput = slaveArray[i+1];
-        if (slaveArray[i+2]>1)
-        {
-          PressKey(cinput, tinput);
-        }
-        else
-        {
-          ReleaseKey(cinput, tinput);
-        }
-      }
-    }
   }
 
 }

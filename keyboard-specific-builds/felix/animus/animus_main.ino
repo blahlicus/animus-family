@@ -14,7 +14,7 @@ byte TempLayer = 0;
 
 // key states
 byte KeyState[COL][ROW];
-byte PreviousState[COL][ROW];
+byte KeyStateCountDown[COL][ROW];
 byte LayerState[COL][ROW];
 
 // slave states
@@ -46,40 +46,66 @@ void loop()
   // checks serials
   TestSerial();
 
+
+  // layering checks
+  if (KeyLayer > GetLayEEPROM() || TempLayer > GetLayEEPROM())
+  {
+    KeyLayer = 0;
+    TempLayer = 0;
+  }
+
+  // main loop starts
+  KeyScan();
+
+  for (byte i = 0; i < ROW; i++)
+  {
+    for (byte j = 0; j < COL; j++)
+    {
+      if (KeyState[j][i] == HIGH) // if key is down
+      {
+        if (KeyStateCountDown[j][i] == 1) // if key is still down after debounce time
+        {
+          LayerState[j][i] = TempLayer;
+          PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
+          KeyStateCountDown[j][i] = 255;
+
+        }
+        else if (KeyStateCountDown[j][i] == 0) // if key is still down after debounce time
+        {
+          KeyStateCountDown[j][i] = builder_refresh;
+        }
+
+      }
+      else if (KeyState[j][i] == LOW)
+      {
+        if (KeyStateCountDown[j][i] == 255)
+        {
+          ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
+
+          KeyStateCountDown[j][i] = 0;
+        }
+
+      }
+
+
+
+
+    }
+    // main loop ends
+  }
+
   if (CheckMillis())
   {
-
-    // layering checks
-    if (KeyLayer > GetLayEEPROM() || TempLayer > GetLayEEPROM())
-    {
-      KeyLayer = 0;
-      TempLayer = 0;
-    }
-
-    // main loop starts
-    KeyScan();
     for (byte i = 0; i < ROW; i++)
     {
       for (byte j = 0; j < COL; j++)
       {
-        if (PreviousState[j][i] != KeyState[j][i])
+        if (KeyStateCountDown[j][i] > 0 && KeyStateCountDown[j][i] != 255)
         {
-          if (KeyState[j][i] == HIGH)
-          {
-            LayerState[j][i] = TempLayer;
-            PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
-          }
-          else
-          {
-            ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
-          }
+          KeyStateCountDown[j][i] = KeyStateCountDown[j][i] - 1;
         }
-
-        PreviousState[j][i] = KeyState[j][i];
-
       }
     }
-    // main loop ends
   }
 
   ModLoop();
@@ -395,7 +421,7 @@ void ResetPins()
     for (byte j = 0; j < COL; j++)
     {
       KeyState[j][i] = 0;
-      PreviousState[j][i] = 0;
+      KeyStateCountDown[j][i] = 0;
     }
   }
 }

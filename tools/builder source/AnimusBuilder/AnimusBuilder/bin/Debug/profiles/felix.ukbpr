@@ -26,5 +26,5 @@
   <bp_name>felix</bp_name>
   <variant>Felix typeZERO</variant>
   <driver_build>Felix OEM</driver_build>
-  <refresh>5</refresh>
+  <refresh>1</refresh>
 </ClBuildProfile>

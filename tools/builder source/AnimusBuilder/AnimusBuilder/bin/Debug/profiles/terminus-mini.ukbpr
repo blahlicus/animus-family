@@ -32,5 +32,5 @@
   <bp_name>terminus-mini</bp_name>
   <variant>Terminus Mini</variant>
   <driver_build>OEM</driver_build>
-  <refresh>5</refresh>
+  <refresh>1</refresh>
 </ClBuildProfile>

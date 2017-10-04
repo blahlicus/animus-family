@@ -6,7 +6,7 @@
 #define builder_kbdriver_build "Felix OEM"
 #define builder_vpins 16, 14, 15, A0, A1
 #define builder_hpins 9, 8, 7, 6
-#define builder_refresh 5
+#define builder_refresh 1
 #include "EEPROM.h"
 #include "KeyboardInterface.h"
 

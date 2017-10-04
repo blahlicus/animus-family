@@ -55,7 +55,7 @@ void modMethod(KeyDown)(char val, byte type)
 
       if (val < 101)
       {
-        int8_t adjust = val;
+        int adjust = val;
 
         if (modMethod(Brightness) + adjust < 0)
         {
@@ -69,7 +69,7 @@ void modMethod(KeyDown)(char val, byte type)
         {
           modMethod(Brightness) = modMethod(Brightness) + adjust;
         }
-}
+      }
       else if (val == 101)
       {
         modMethod(Brightness) = 0;

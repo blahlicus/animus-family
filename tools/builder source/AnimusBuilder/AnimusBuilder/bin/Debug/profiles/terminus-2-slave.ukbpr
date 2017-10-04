@@ -28,5 +28,5 @@
   <bp_name>terminus-2-slave</bp_name>
   <variant>Terminus 2 Slave</variant>
   <driver_build>OEM</driver_build>
-  <refresh>7</refresh>
+  <refresh>1</refresh>
 </ClBuildProfile>

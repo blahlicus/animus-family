@@ -30,5 +30,5 @@
   <bp_name>terminus-2-master</bp_name>
   <variant>Terminus 2 Master</variant>
   <driver_build>Terminus 2 OEM</driver_build>
-  <refresh>7</refresh>
+  <refresh>1</refresh>
 </ClBuildProfile>

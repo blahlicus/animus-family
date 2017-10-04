@@ -29,5 +29,5 @@
   <bp_name>diverge-left</bp_name>
   <variant>Diverge</variant>
   <driver_build>OEM</driver_build>
-  <refresh>5</refresh>
+  <refresh>1</refresh>
 </ClBuildProfile>

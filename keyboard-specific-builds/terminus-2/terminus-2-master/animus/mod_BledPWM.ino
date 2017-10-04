@@ -12,11 +12,11 @@ Remeber to change the mod_modname to your mod name
 #define modMethod(str) conca(mod_modname, str)
 
 
-const int modMethod(LedPin) = 5;
+const byte modMethod(LedPin) = 5;
 
-const int modMethod(MAX_BRIGHT) = 255;
+const byte modMethod(MAX_BRIGHT) = 255;
 
-int modMethod(Brightness) = 50;
+byte modMethod(Brightness) = 50;
 
 void modMethod(Startup)()
 {
@@ -35,7 +35,7 @@ void modMethod(Loop)()
   }
 }
 
-void modMethod(SetBright)(int input)
+void modMethod(SetBright)(byte input)
 {
   modMethod(Brightness) = input;
 }

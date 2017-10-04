@@ -31,5 +31,5 @@
   <bp_name>diverge-3-master</bp_name>
   <variant>Diverge 3 Master</variant>
   <driver_build>OEM</driver_build>
-  <refresh>5</refresh>
+  <refresh>1</refresh>
 </ClBuildProfile>

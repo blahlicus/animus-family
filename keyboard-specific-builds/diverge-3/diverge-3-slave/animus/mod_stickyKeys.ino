@@ -93,7 +93,7 @@ void modMethod(ReleaseAll)()
 {
 
     modMethod(PressedKey) = true;
-    for (int i = 0; i < STICKY_KEY_MAX; i++)
+    for (byte i = 0; i < STICKY_KEY_MAX; i++)
     {
       if (modMethod(State)[i])
       {

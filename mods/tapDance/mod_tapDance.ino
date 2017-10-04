@@ -17,6 +17,8 @@ Remeber to change the mod_modname to your mod name
 
 #define modMethod(str) conca(mod_modname, str)
 
+
+const byte modMethod(TIMER_MULTIPLIER) = 10;
 const int modMethod(MAX_ADDR) = 842;
 const int modMethod(MIN_ADDR) = 982;
 const byte modMethod(MAX_INDEX) = 20;
@@ -97,7 +99,7 @@ void modMethod(KeyDown)(char val, byte type)
       {
 
         modMethod(PressCount)[val]++;
-        modMethod(PressTimer)[val] = modMethod(GetTimeout)(val) * 2;
+        modMethod(PressTimer)[val] = modMethod(GetTimeout)(val) * modMethod(TIMER_MULTIPLIER);
         modMethod(KeyIsDown)[val] = true;
       }
 
