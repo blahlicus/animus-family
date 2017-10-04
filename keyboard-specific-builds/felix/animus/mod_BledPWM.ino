@@ -55,21 +55,21 @@ void modMethod(KeyDown)(char val, byte type)
 
       if (val < 101)
       {
-        int adjust = val;
+        int8_t adjust = val;
 
-        if (modMethod(Brightness) + adjust > modMethod(MAX_BRIGHT) + adjust) // if brightness is negative/ underflows
+        if (modMethod(Brightness) + adjust < 0)
         {
-          modMethod(Brightness) = 0; // set to no LEDs
+          modMethod(Brightness) = 0;
         }
-        else if (modMethod(Brightness) + adjust < adjust) // if brightness overflows
+        else if (modMethod(Brightness) + adjust > modMethod(MAX_BRIGHT))
         {
-          modMethod(Brightness) = modMethod(MAX_BRIGHT); // set to brightest LEDs
+          modMethod(Brightness) = modMethod(MAX_BRIGHT);
         }
         else
         {
           modMethod(Brightness) = modMethod(Brightness) + adjust;
         }
-      }
+}
       else if (val == 101)
       {
         modMethod(Brightness) = 0;

@@ -18,8 +18,3 @@ byte VPins[ROW] = {builder_vpins};
 byte HPins[COL] = {builder_hpins};
 
 byte RefreshDelay = builder_refresh;
-
-
-
-
-
