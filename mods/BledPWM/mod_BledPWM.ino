@@ -56,22 +56,14 @@ void modMethod(KeyDown)(char val, byte type)
       if (val < 101)
       {
         int adjust = val;
-        Serial.println(modMethod(Brightness));
-        Serial.println(adjust);
-        Serial.println(MAX_BRIGHT);
-        
 
-        if (modMethod(Brightness) + adjust > modMethod(MAX_BRIGHT) + adjust) // if brightness is negative/ underflows
+        if (modMethod(Brightness) + adjust < 0)
         {
-          modMethod(Brightness) = 0; // set to no LEDs
-        Serial.println("Reached 0");
-          
+          modMethod(Brightness) = 0;
         }
-        else if (modMethod(Brightness) + adjust < adjust) // if brightness overflows
+        else if (modMethod(Brightness) + adjust > modMethod(MAX_BRIGHT))
         {
-          modMethod(Brightness) = modMethod(MAX_BRIGHT); // set to brightest LEDs
-        Serial.println("Reached 255");
-          
+          modMethod(Brightness) = modMethod(MAX_BRIGHT);
         }
         else
         {
