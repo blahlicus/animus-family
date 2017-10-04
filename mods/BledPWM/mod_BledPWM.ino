@@ -12,11 +12,11 @@ Remeber to change the mod_modname to your mod name
 #define modMethod(str) conca(mod_modname, str)
 
 
-const int modMethod(LedPin) = 5;
+const byte modMethod(LedPin) = 5;
 
-const int modMethod(MAX_BRIGHT) = 255;
+const byte modMethod(MAX_BRIGHT) = 255;
 
-int modMethod(Brightness) = 50;
+byte modMethod(Brightness) = 50;
 
 void modMethod(Startup)()
 {
@@ -35,7 +35,7 @@ void modMethod(Loop)()
   }
 }
 
-void modMethod(SetBright)(int input)
+void modMethod(SetBright)(byte input)
 {
   modMethod(Brightness) = input;
 }
@@ -57,13 +57,13 @@ void modMethod(KeyDown)(char val, byte type)
       {
         int adjust = val;
 
-        if (modMethod(Brightness) + adjust < 0)
+        if (modMethod(Brighness) + adjust > modMethod(MAX_BRIGHT) + adjust) // if brightness is negative/ underflows
         {
-          modMethod(Brightness) = 0;
+          modMethod(Brightness) = 0; // set to no LEDs
         }
-        else if (modMethod(Brightness) + adjust > modMethod(MAX_BRIGHT))
+        else if (modMethod(Brightness) + adjust < adjust) // if brightness overflows
         {
-          modMethod(Brightness) = modMethod(MAX_BRIGHT);
+          modMethod(Brightness) = modMethod(MAX_BRIGHT); // set to brightest LEDs
         }
         else
         {

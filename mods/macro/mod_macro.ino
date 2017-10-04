@@ -24,7 +24,7 @@ const byte macroSERIES_PADDING = 2;
 const byte macroKEY_DOWN = 0;
 const byte macroKEY_UP = 1;
 
-int macroDelay = 5;
+byte macroDelay = 5;
 
 #define modMethod(str) conca(mod_modname, str)
 
@@ -118,12 +118,12 @@ void modMethod(Serial)(String input)
 
 }
 
-void modMethod(Send)(int id)
+void modMethod(Send)(byte id)
 {
   if (id < macroMAX_MACROS)
   {
     byte length = modMethod(GetMacroLength)(id);
-    for (int i = 0; i < length; i++)
+    for (byte i = 0; i < length; i++)
     {
       if (modMethod(GetKeyDownUp)(id, i) == macroKEY_DOWN)
       {
@@ -139,7 +139,7 @@ void modMethod(Send)(int id)
   }
 }
 
-char modMethod(GetKeyVal)(int id, byte key)
+char modMethod(GetKeyVal)(byte id, byte key)
 {
   char output = 0;
   if (id < macroMAX_MACROS)
@@ -150,7 +150,7 @@ char modMethod(GetKeyVal)(int id, byte key)
   return output;
 }
 
-void modMethod(SetKeyVal)(int id, byte key, byte val)
+void modMethod(SetKeyVal)(byte id, byte key, byte val)
 {
   if (id < macroMAX_MACROS && key < macroMAX_KEYS)
   {
@@ -159,7 +159,7 @@ void modMethod(SetKeyVal)(int id, byte key, byte val)
   }
 }
 
-byte modMethod(GetKeyType)(int id, byte key)
+byte modMethod(GetKeyType)(byte id, byte key)
 {
   char output = 0;
   if (id < macroMAX_MACROS && key < macroMAX_KEYS)
@@ -170,7 +170,7 @@ byte modMethod(GetKeyType)(int id, byte key)
   return output;
 }
 
-void modMethod(SetKeyType)(int id, byte key, byte val)
+void modMethod(SetKeyType)(byte id, byte key, byte val)
 {
   if (id < macroMAX_MACROS && key < macroMAX_KEYS)
   {
@@ -180,7 +180,7 @@ void modMethod(SetKeyType)(int id, byte key, byte val)
 }
 
 
-byte modMethod(GetKeyDownUp)(int id, byte key)
+byte modMethod(GetKeyDownUp)(byte id, byte key)
 {
   byte output = 2;
   if (id < macroMAX_MACROS)
@@ -191,7 +191,7 @@ byte modMethod(GetKeyDownUp)(int id, byte key)
   return output;
 }
 
-void modMethod(SetKeyDownUp)(int id, byte key, byte bitState)
+void modMethod(SetKeyDownUp)(byte id, byte key, byte bitState)
 {
   if (id < macroMAX_MACROS && key < macroMAX_KEYS)
   {
@@ -202,7 +202,7 @@ void modMethod(SetKeyDownUp)(int id, byte key, byte bitState)
   }
 }
 
-byte modMethod(GetMacroLength)(int id)
+byte modMethod(GetMacroLength)(byte id)
 {
   byte output = 0;
   if (id < macroMAX_MACROS)
@@ -213,7 +213,7 @@ byte modMethod(GetMacroLength)(int id)
   return output;
 }
 
-void modMethod(SetMacroLength)(int id, byte newLength)
+void modMethod(SetMacroLength)(byte id, byte newLength)
 {
   if (id < macroMAX_MACROS && newLength <= macroMAX_KEYS)
   {
@@ -222,7 +222,7 @@ void modMethod(SetMacroLength)(int id, byte newLength)
   }
 }
 
-int modMethod(GetMacroStartAddr)(int id)
+int modMethod(GetMacroStartAddr)(byte id)
 {
     int addr = macroMinAddr + (id * (macroMAX_KEYS * 2 + macroSERIES_PADDING));
     return addr;
