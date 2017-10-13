@@ -25,7 +25,7 @@ const byte modMethod(MAX_INDEX) = 20;
 const byte modMethod(MAX_KEYS) = 3;
 const byte modMethod(PADDING) = 2;
 
-byte modMethod(PressTimer)[modMethod(MAX_INDEX)];
+uint16_t modMethod(PressTimer)[modMethod(MAX_INDEX)];
 byte modMethod(PressCount)[modMethod(MAX_INDEX)];
 boolean modMethod(KeyIsDown)[modMethod(MAX_INDEX)];
 

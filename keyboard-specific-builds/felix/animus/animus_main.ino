@@ -72,7 +72,7 @@ void loop()
         }
         else if (KeyStateCountDown[j][i] == 0) // if key is still down after debounce time
         {
-          KeyStateCountDown[j][i] = builder_refresh;
+          KeyStateCountDown[j][i] = builder_refresh+1;
         }
 
       }
