@@ -6,6 +6,7 @@ BUILDER_REQUIREMENT_END
 */
 
 #define mod_modname media
+#define modMethod(str) conca(mod_modname, str)
 
 #include "AnimusMedia.h"
 

@@ -65,6 +65,8 @@ void loop()
       {
         if (KeyStateCountDown[j][i] == 1) // if key is still down after debounce time
         {
+          ModPressCoord(j, i);
+          ModPrePress(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
           LayerState[j][i] = TempLayer;
           PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
           KeyStateCountDown[j][i] = 255;

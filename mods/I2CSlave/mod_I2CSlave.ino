@@ -7,6 +7,7 @@ BUILDER_REQUIREMENT_END
 */
 
 #define mod_modname I2CSlave
+#define modMethod(str) conca(mod_modname, str)
 
 #include "Wire.h"
 
