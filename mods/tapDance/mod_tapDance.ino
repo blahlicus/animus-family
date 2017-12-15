@@ -25,7 +25,7 @@ const byte modMethod(MAX_INDEX) = 20;
 const byte modMethod(MAX_KEYS) = 3;
 const byte modMethod(PADDING) = 2;
 
-uint16_t modMethod(PressTimer)[modMethod(MAX_INDEX)];
+int16_t modMethod(PressTimer)[modMethod(MAX_INDEX)];
 byte modMethod(PressCount)[modMethod(MAX_INDEX)];
 boolean modMethod(KeyIsDown)[modMethod(MAX_INDEX)];
 
@@ -62,14 +62,11 @@ void modMethod(Loop)()
           {
             modMethod(PressTimer)[i]--;
           }
-          else
+          else if (modMethod(PressTimer)[i] == 0)
           {
+            modMethod(PressTimer)[i] = -1; // signal that the key has fired
             PressKey(modMethod(GetKeyVal)(i, modMethod(PressCount)[i] - 1), modMethod(GetKeyType)(i, modMethod(PressCount)[i] - 1));
-            if (modMethod(KeyIsDown)[i])
-            {
-              // do nothing
-            }
-            else
+            if (!modMethod(KeyIsDown)[i])
             {
               modMethod(KeyUp)(i, 19);
             }
@@ -107,6 +104,25 @@ void modMethod(KeyDown)(char val, byte type)
   }
 }
 
+void modMethod(PrePress)(char val, byte type)
+{
+  if (IS_MASTER)
+  {
+    for (byte i = 0; i < modMethod(MAX_INDEX); i++)
+    {
+      if ((type != 19 || val != i) && modMethod(PressCount)[i] > 0)
+      {
+        modMethod(PressTimer)[i] = -1; // signal that the key has fired
+        PressKey(modMethod(GetKeyVal)(i, modMethod(PressCount)[i] - 1), modMethod(GetKeyType)(i, modMethod(PressCount)[i] - 1));
+        if (!modMethod(KeyIsDown)[i])
+        {
+          modMethod(KeyUp)(i, 19);
+        }
+      }
+    }
+  }
+}
+
 void modMethod(KeyUp)(char val, byte type)
 {
   // ran when a key is pressed up
@@ -120,13 +136,9 @@ void modMethod(KeyUp)(char val, byte type)
       // sends the macro sequence with id = val
       ReleaseKey(modMethod(GetKeyVal)(val, modMethod(PressCount)[val] - 1), modMethod(GetKeyType)(val, modMethod(PressCount)[val] - 1));
 
-      if (modMethod(KeyIsDown)[val])
+      // if key has already fired
+      if (modMethod(PressTimer)[val] < 0)
       {
-        // do nothing
-      }
-      else
-      {
-
         modMethod(PressCount)[val] = 0;
         modMethod(PressTimer)[val] = 0;
       }
@@ -147,8 +159,6 @@ void modMethod(Serial)(String input)
   }
   else if (input.startsWith("uniqueksettapdance"))
   {
-    byte key, type, state;
-
     input = input.substring(input.indexOf('(')+1);
     byte id = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
