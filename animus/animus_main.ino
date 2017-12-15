@@ -165,12 +165,6 @@ void PressKey(char val, byte type)
       }
       //ReleaseAllKey();
     }
-    else if (type == 11)
-    {
-      // shifted
-      PressKey(225, 0);
-      PressKey(val, 0);
-    }
     else if (type == 12)
     {
       // ctrled
@@ -245,12 +239,6 @@ void ReleaseKey(char val, byte type)
       }
       TempLayer = KeyLayer;
       //ReleaseAllKey(); // DEPRECIATED END
-    }
-    else if (type == 11)
-    {
-      // shifted
-      ReleaseKey(225, 0);
-      ReleaseKey(val, 0);
     }
     else if (type == 12)
     {
