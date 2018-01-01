@@ -30,14 +30,21 @@ namespace AnimusBuilder
 
         public static string bMStart = "builder_mstartup";
         public static string bMLoop = "builder_mloop";
+        public static string bMPreCoord = "builder_mpresscoord";
+        public static string bMPrePress = "builder_mprepress";
         public static string bMKDown = "builder_mkeydown";
         public static string bMKUp = "builder_mkeyup";
         public static string bMSerial = "builder_mserial";
 
         public static string bMEStartup = "Startup();";
         public static string bMELoop = "Loop();";
+        public static string bMEPreCoord = "PressCoord(x, y);";
+        public static string bMEPrePress = "PrePress(val, type);";
         public static string bMEKDown = "KeyDown(val, type);";
         public static string bMEKUp = "KeyUp(val, type);";
         public static string bMESerial = "Serial(input);";
+
+        public static string bMFPreCoord = "void modMethod(PressCoord)(byte x, byte y)";
+        public static string bMFPrePress = "void modMethod(PrePress)(char val, byte type)";
     }
 }

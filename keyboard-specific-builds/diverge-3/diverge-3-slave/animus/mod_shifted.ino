@@ -2,24 +2,18 @@
 Do not remove this comment, this comment is used by animus builder for the
 build process
 BUILDER_REQUIREMENT_START
-Keytype(20)
-Keytype(21)
-Keytype(22)
-Keytype(23)
-Keytype(24)
-Keytype(25)
-Keytype(26)
-Keytype(27)
-Keytype(28)
-Keytype(29)
+Keytype(11)
 BUILDER_REQUIREMENT_END
 Remeber to change the mod_modname to your mod name
 */
 
 
-#define mod_modname dualRoles
+#define mod_modname shifted
 
 #define modMethod(str) conca(mod_modname, str)
+
+char modMethod(Shifted) = 0;
+char modMethod(LastVal) = 0;
 
 void modMethod(Startup)()
 {
@@ -46,31 +40,36 @@ void modMethod(KeyDown)(char val, byte type)
   // ran if this device's IS_MASTER flag is true
   if (IS_MASTER)
   {
-    // ctrlDualRole
-    if (type == 20)
-    {
-      PressKey(224, 0);
-      PressedKey = false;
-    }
-    else if (type == 21) // shiftDualRolee
+    // shifted
+    if (type == 11)
     {
       PressKey(225, 0);
-      PressedKey = false;
+      PressKey(val, 0);
+      modMethod(Shifted) = val;
     }
-    else if (type == 22) // alt
+  }
+}
+
+void modMethod(PrePress)(char val, byte type)
+{
+  if (IS_MASTER)
+  {
+    if (type == 0)
     {
-      PressKey(226, 0);
-      PressedKey = false;
+      modMethod(LastVal) = val;
+      if (modMethod(Shifted))
+      {
+        ReleaseKey(modMethod(Shifted), 0);
+        ReleaseKey(225, 0);
+        modMethod(Shifted) = 0;
+      }
     }
-    else if (type == 23) // altgr
+    else if (type == 11)
     {
-      PressKey(230, 0);
-      PressedKey = false;
-    }
-    else if (type > 23 && type < 30) // fn
-    {
-      PressedKey = false;
-      TempLayer = type - 23;
+      if (val == modMethod(LastVal))
+      {
+        ReleaseKey(modMethod(LastVal), 0);
+      }
     }
   }
 }
@@ -83,37 +82,12 @@ void modMethod(KeyUp)(char val, byte type)
   // ran if this device's IS_MASTER flag is true
   if (IS_MASTER)
   {
-    if (type >= 20 && type < 30)
+    // shifted
+    if (type == 11)
     {
-
-      // ctrlDualRole
-      if (type == 20)
-      {
-        ReleaseKey(224, 0);
-      }
-      else if (type == 21) // shiftDualRolee
-      {
-        ReleaseKey(225, 0);
-      }
-      else if (type == 22) // alt
-      {
-        ReleaseKey(226, 0);
-      }
-      else if (type == 23) // altgr
-      {
-        ReleaseKey(230, 0);
-      }
-      else if (type > 23 && type < 30) // fn
-      {
-        TempLayer = KeyLayer;
-      }
-
-
-      if (PressedKey == false)
-      {
-        AnimusKeyboard.write(val);
-      }
-
+      ReleaseKey(val, 0);
+      ReleaseKey(225, 0);
+      modMethod(Shifted) = 0;
     }
   }
 }
@@ -131,6 +105,5 @@ void modMethod(Serial)(String input)
 }
 
 void modMethod(PressCoord)(byte x, byte y) { }
-void modMethod(PrePress)(char val, byte type) { }
 #undef mod_modname
 #undef modMethod

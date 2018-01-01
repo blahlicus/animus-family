@@ -54,6 +54,40 @@ namespace AnimusBuilder
             return output;
         }
 
+        public static bool EnsureMethodExists(string file, string method)
+        {
+            bool output = false;
+
+            if (!File.Exists(file))
+            {
+                return output;
+            }
+
+            List<string> lines = File.ReadAllLines(file).ToList();
+            var insertionPoint = lines.Count;
+
+            for (int i = 0; i < lines.Count; i++)
+            {
+                if (lines[i].Contains(method))
+                {
+                    output = true;
+                    break;
+                }
+                else if (lines[i].Contains("#undef mod_modname") || lines[i].Contains("#undef modMethod"))
+                {
+                    insertionPoint = Math.Min(i, insertionPoint);
+                }
+            }
+            if (!output)
+            {
+                lines.Insert(insertionPoint, method + " { }");
+                output = true;
+            }
+
+            File.WriteAllLines(file, lines);
+            return output;
+        }
+
         public static string BuildAnimus(ClBuildProfile bp, ClController controller, string animusPath, string modPath, string outputPath)
         {
             string output = "";
@@ -178,6 +212,8 @@ namespace AnimusBuilder
                 // edit main mod file
 
                 MdCore.SetFileAttribute(mmfile, MdConstant.bMStart, GenerateModMethodString(bp.mods, MdConstant.bMEStartup));
+                MdCore.SetFileAttribute(mmfile, MdConstant.bMPreCoord, GenerateModMethodString(bp.mods, MdConstant.bMEPreCoord));
+                MdCore.SetFileAttribute(mmfile, MdConstant.bMPrePress, GenerateModMethodString(bp.mods, MdConstant.bMEPrePress));
                 MdCore.SetFileAttribute(mmfile, MdConstant.bMKDown, GenerateModMethodString(bp.mods, MdConstant.bMEKDown));
                 MdCore.SetFileAttribute(mmfile, MdConstant.bMKUp, GenerateModMethodString(bp.mods, MdConstant.bMEKUp));
                 MdCore.SetFileAttribute(mmfile, MdConstant.bMLoop, GenerateModMethodString(bp.mods, MdConstant.bMELoop));
@@ -188,6 +224,10 @@ namespace AnimusBuilder
                 foreach(string str in modpaths)
                 {
                     DirectoryCopy(str, ofolder, false);
+                    string modName = str.Substring(modPath.Length);
+                    string modFile = ofolder + MdConstant.pseparator + "mod_" + modName + ".ino";
+                    EnsureMethodExists(modFile, MdConstant.bMFPreCoord);
+                    EnsureMethodExists(modFile, MdConstant.bMFPrePress);
                 }
 
             }
