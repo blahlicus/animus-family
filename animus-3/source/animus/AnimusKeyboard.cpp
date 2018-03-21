@@ -1,38 +1,38 @@
 #include "AnimusKeyboard.h"
-
+#include "ArduinoKeyboard.h"
+// this is for the modified arduino HID
 IKeyboard::IKeyboard(void)
 {
-  //TODO
+  //nothing
 }
 
 void IKeyboard::Begin(void)
 {
-  //TODO
+  Keyboard.begin();
 }
 void IKeyboard::End(void)
 {
-  //TODO
+  Keyboard.end();
 }
 void IKeyboard::Press(byte k)
 {
-  //TODO
+  Keyboard.press(k);
 }
 void IKeyboard::Release(byte k)
 {
-  //TODO
+  Keyboard.release(k);
 }
 void IKeyboard::SetNKRO(byte mode)
 {
-  //TODO
+  Keyboard.setNKROMode(mode);
 }
 uint8_t IKeyboard::GetNKRO(void)
 {
-  //TODO
-  return 0;
+  return Keyboard.getNKROMode();
 }
 void IKeyboard::ReleaseAll(void)
 {
-  //TODO
+  Keyboard.releaseAll();
 }
 
 IKeyboard AnimusKeyboard;

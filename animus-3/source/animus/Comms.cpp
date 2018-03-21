@@ -30,7 +30,7 @@ void CSerial::Loop(void)
     }
   }
 
-  if (mode == 1) // load bytes to eeprom
+  if (mode == 1) // load bytes to eeprom, do not use this, use modes 4 or 5 instead to load layout or board data
   {
     loadCounter = 0;
     if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
@@ -43,7 +43,7 @@ void CSerial::Loop(void)
       mode = 0;
     }
   }
-  else if (mode == 2) // received RTS for EEPROM mapping
+  else if (mode == 2) // received RTS to send entire EEPROM
   {
     for (short i = 0; i < 1024; i++)
     {
@@ -52,7 +52,35 @@ void CSerial::Loop(void)
   }
   else if (mode == 3) // print mod list in order of mem id
   {
-    //TODO
+    Serial.print(Mod.PrintMods());
+  }
+  else if (mode == 4) // load 900 bytes to 0-899 EEPROM for layout and mod data
+  {
+
+      loadCounter = 0;
+      if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
+      {
+         EEPROM.update(loadCounter, (byte)Serial.read());
+         loadCounter++;
+      }
+      if (loadCounter == 900)
+      {
+        mode = 0;
+      }
+  }
+  else if (mode == 5) // load 124 bytes to 900-1023 EEPROM for board data
+  {
+
+      loadCounter = 900;
+      if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
+      {
+         EEPROM.update(loadCounter, (byte)Serial.read());
+         loadCounter++;
+      }
+      if (loadCounter == 1024)
+      {
+        mode = 0;
+      }
   }
 }
 

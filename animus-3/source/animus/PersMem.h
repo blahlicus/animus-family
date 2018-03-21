@@ -54,7 +54,6 @@
 class CMem
 {
 private:
-  //TODO
 public:
   CMem(void);
   void Begin(void);

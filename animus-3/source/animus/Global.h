@@ -9,7 +9,6 @@
 class CGlobal
 {
 private:
-  //TODO
 public:
   byte RefreshDelay = 5; // default value, overriden on EEPROM load
   byte ROW = DEFAULT_ROW; // default value, overriden on EEPROM load

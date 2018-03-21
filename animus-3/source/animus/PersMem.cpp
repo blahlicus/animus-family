@@ -12,7 +12,7 @@ void CMem::Begin(void)
   Global.ROW = GetRowCount();
   Global.COL = GetColCount();
   Global.LAY = GetLayCount();
-  
+
   for(byte i = 0; i < Global.ROW; i++)
   {
     Global.VPins[i] = GetRowPin(i);
@@ -50,7 +50,7 @@ void CMem::SetColCount(byte input)
 
 void CMem::SetLayCount(byte input)
 {
-  EEPROM.update(MEM_COL_0 + pinNo, colPin);
+  EEPROM.update(MEM_LAY_COUNT, input);
 
 }
 

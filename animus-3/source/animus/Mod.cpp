@@ -27,9 +27,15 @@ void CMod::ReleaseKey(char val, byte type)
 {
   //TODO
 }
-void CMod::Serial(String input)
+void CMod::Serial(byte mode)
 {
   //TODO
+}
+
+String CMod::PrintMods()
+{
+  //TODO
+  return "TODO";
 }
 
 void CMod::End(void)
