@@ -80,6 +80,8 @@ public:
   byte GetNKROType();
   byte GetRefreshRate();
 
+  byte GetModData(short addr, byte modNo);
+
   void Serial(String input);
   void End(void);
 };

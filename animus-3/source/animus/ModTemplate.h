@@ -2,8 +2,9 @@
 #define ANIMUS_MOD+TEMPLATE
 #include "Global.h"
 
-
-class CMod
+#define mod_modname I2C
+#define modMethod(str) conca(mod_modname, str)
+class CModTemplate
 {
 private:
 public:
@@ -18,4 +19,6 @@ public:
 };
 extern CMod Mod;
 
+#undef mod_modname
+#undef modMethod
 #endif
