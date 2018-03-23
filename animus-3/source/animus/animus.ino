@@ -23,6 +23,7 @@ void setup()
 void loop()
 {
 
+  // start of pesudo rtos code
   if (GetMillis()) // should run once every 1 to 1.5ms
   {
 
@@ -34,60 +35,75 @@ void loop()
     }
 
     KeyScan(); // physical key layers scanned
-
-      for (byte i = 0; i < Global.ROW; i++)
+    // start of physical key loops
+    for (byte i = 0; i < Global.ROW; i++)
+    {
+      for (byte j = 0; j < Global.COL; j++)
       {
-        for (byte j = 0; j < Global.COL; j++)
+        if (Global.KeyState[j][i] == HIGH) // if key is down
         {
-          if (Global.KeyState[j][i] == HIGH) // if key is down
+          if (Global.KeyStateCoolDown[j][i] == 0) // if key was not recently released
           {
-            if (Global.KeyStateCoolDown[j][i] == 0) // if key is still down after debounce time
-            {
-              ModPressCoord(j, i);
-              ModPrePress(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
-              LayerState[j][i] = TempLayer;
-              PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
-              Global.KeyStateCoolDown[j][i] = Global.RefreshDelay;
-
-            }
-            else if (KeyStateCountDown[j][i] == 0) // if key is still down after debounce time
-            {
-              KeyStateCountDown[j][i] = builder_refresh+1;
-            }
-
+            Mod.PrePress(PersMem.GetKeyData(j, i, Global.TempLayer), PersMem.GetKeyType(j, i, Global.TempLayer));
+            Global.LayerState[j][i] = Global.TempLayer;
+            PressKey(PersMem.GetKeyData(j, i, Global.TempLayer), PersMem.GetKeyType(j, i, Global.TempLayer));
+            Global.KeyStateCoolDown[j][i] = 255;
           }
-          else if (KeyState[j][i] == LOW)
+        }
+        else if (Global.KeyState[j][i] == LOW) // if key is up
+        {
+          if (Global.KeyStateCoolDown[j][i] == 255) // if key was previously held down
           {
-            if (KeyStateCountDown[j][i] == 255)
-            {
-              ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
+            ReleaseKey(PersMem.GetKeyData(j, i, Global.LayerState[j][i]), PersMem.GetKeyType(j, i, Global.LayerState[j][i]));
 
-              KeyStateCountDown[j][i] = 0;
-            }
-
+            Global.KeyStateCoolDown[j][i] = Global.RefreshDelay;
           }
-
-
+        }
+      }
+    }
+    // end of physical key loops
+    // start of countdowns
+    for (byte i = 0; i < Global.ROW; i++)
+    {
+      for (byte j = 0; j < Global.COL; j++)
+      {
+        if (Global.KeyStateCoolDown[j][i] > 0 && Global.KeyStateCoolDown[j][i] != 255)
+        {
+          Global.KeyStateCoolDown[j][i]--;
+        }
+      }
+    }
+    //end of countdowns
   }
-
-
+  // end of pesudo rtos
   PersMem.Loop();
   Mod.Loop();
   Comms.Loop();
 }
 
-void PrePress(char val, byte type)
+
+void PrePress(byte val, byte type)
 {
   Mod.PrePress(val, type);
 }
 
-void PressKey(char val, byte type)
+void PressKey(byte val, byte type)
 {
+  if (type == 0)
+  {
+    AnimusKeyboard.Press(val);
+
+  }
   Mod.PressKey(val, type);
 }
 
-void ReleaseKey(char val, byte type)
+void ReleaseKey(byte val, byte type)
 {
+  if (type == 0)
+  {
+    AnimusKeyboard.Release(val);
+
+  }
   Mod.ReleaseKey(val, type);
 }
 
@@ -159,7 +175,7 @@ void MillisLoop()
     PreviousMillis = CurrentMillis;
     ReadyMillis = true;
   }
-  elapses
+  else
   {
     ReadyMillis = false;
   }

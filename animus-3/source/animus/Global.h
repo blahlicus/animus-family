@@ -24,6 +24,7 @@ public:
 
 
   byte KeyState[DEFAULT_COL][DEFAULT_ROW];
+  byte KeyStateCoolDown[DEFAULT_COL][DEFAULT_ROW];
   byte PreviousState[DEFAULT_COL][DEFAULT_ROW];
   byte LayerState[DEFAULT_COL][DEFAULT_ROW];
   CGlobal(void);

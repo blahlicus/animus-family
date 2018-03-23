@@ -15,15 +15,15 @@ void CMod::Loop(void)
   //TODO
 }
 
-void CMod::PrePress(char val, byte type)
+void CMod::PrePress(byte val, byte type)
 {
   //TODO
 }
-void CMod::PressKey(char val, byte type)
+void CMod::PressKey(byte val, byte type)
 {
   //TODO
 }
-void CMod::ReleaseKey(char val, byte type)
+void CMod::ReleaseKey(byte val, byte type)
 {
   //TODO
 }

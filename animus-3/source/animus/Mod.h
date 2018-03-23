@@ -10,9 +10,9 @@ public:
   CMod(void);
   void Begin(void);
   void Loop(void);
-  void PrePress(char val, byte type);
-  void PressKey(char val, byte type);
-  void ReleaseKey(char val, byte type);
+  void PrePress(byte val, byte type);
+  void PressKey(byte val, byte type);
+  void ReleaseKey(byte val, byte type);
   void Serial(byte mode);
   String PrintMods();
   void End(void);

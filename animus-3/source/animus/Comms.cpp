@@ -16,7 +16,7 @@ void CSerial::Loop(void)
 {
   if (mode == 0)
   {
-    if (Serial.available()>3) // this will keep clearing the serial buffer once it reaches size 4
+    if (Serial.available()>5) // this will keep clearing the serial buffer once it reaches size 5
     {
       byte arr[4];
       arr[0] = Serial.read();
