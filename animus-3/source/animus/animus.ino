@@ -86,11 +86,45 @@ void PrePress(byte val, byte type)
 
 void PressKey(byte val, byte type)
 {
-  if (type == 0)
+  if (type == 0) // normal HID keystroke
   {
     AnimusKeyboard.Press(val);
-
   }
+  else if (type == 1) // FN keys
+  {
+    Global.TempLayer = val;
+  }
+  else if (type == 2) // DEPRECIATED spaceFN, use mod_spaceFN instead
+  {
+    // do nothing
+  }
+  else if (type == 3) // move main layer up or down or bitwise rotate the layer
+  {
+    if (val == 0)
+    {
+      SwitchLayer(true);
+    }
+    else if (val == 1)
+    {
+      SwitchLayer(false);
+    }
+    else
+    {
+      RotateLayers(val);
+    }
+  }
+  else if (type == 5) // toggle layers
+  {
+    if (Global.TempLayer == val)
+    {
+      Global.TempLayer = KeyLayer;
+    }
+    else
+    {
+      Global.TempLayer = val;
+    }
+  }
+  // for other key types, use a mod
   Mod.PressKey(val, type);
 }
 
@@ -106,12 +140,56 @@ void ReleaseKey(byte val, byte type)
 
 void SwitchLayer(boolean increment)
 {
+  if (increment) // if true, go up a layer
+  {
+    Global.KeyLayer++;
+  }
+  else
+  {
+    Global.KeyLayer--;
+  }
+  if (Global.KeyLayer > 254) // rollover handling
+  {
+    Global.KeyLayer = Global.LAY -1;
+  }
+  else if (Global.KeyLayer >= Global.LAY)
+  {
+    Global.KeyLayer = 0;
+  }
 
 }
 
-void RotateLayer(byte val)
+void RotateLayer(byte val) // bitwise layer shift
 {
+  byte newLayer = Global.KeyLayer;
+  byte mask = 1 << newLayer;
+  if (!val)
+  {
+    /* No layers are allowed. Do nothing. */
+    return;
+  }
 
+  /*
+  Find the next layer within the bitfield.
+  Limit iterations to 10, to ensure no infinite loop.
+  */
+  for (byte i = 0; i < 10; i++)
+  {
+    newLayer++;
+    mask <<= 1;
+    if ((! mask) || (newLayer >= Lay))
+    {
+      newLayer = 0;
+      mask = 1;
+    }
+
+    if (val & mask)
+    {
+      /* newLayer is an allowed layer within the bitfield. */
+      break;
+    }
+  }
+  Global.KeyLayer = newLayer;
 }
 
 
