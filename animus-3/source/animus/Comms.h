@@ -1,6 +1,7 @@
 #ifndef ANIMUS_SERIAL
 #define ANIMUS_SERIAL
 #include "Mod.h"
+#include "Comms.h"
 #define COMM_KEY_0 0
 #define COMM_KEY_1 1
 #define COMM_KEY_2 2

@@ -26,8 +26,8 @@ void CSerial::Loop(void)
         if (buffer[0] == COMM_KEY_0 && buffer[1] == COMM_KEY_1 && buffer[2] == COMM_KEY_2 && buffer[3] == COMM_KEY_3)
         {
           mode = buffer[4];
-          
-    loadCounter = 0;
+
+          loadCounter = 0;
         }
         preloadCounter = 0;
       }
@@ -43,6 +43,7 @@ void CSerial::Loop(void)
     }
     if (loadCounter >= 1024)
     {
+      PersMem.LoadData();
       mode = 0;
     }
   }
@@ -82,6 +83,7 @@ void CSerial::Loop(void)
     }
     if (loadCounter+900 >= 1024)
     {
+      PersMem.LoadData();
       mode = 0;
     }
   }

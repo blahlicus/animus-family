@@ -57,6 +57,7 @@ private:
 public:
   CMem(void);
   void Begin(void);
+  void LoadData(void);
   void Loop(void);
   void SetKey(byte x, byte y, byte z, byte inputChar, byte inputType);
   void SetRowCount(byte input);

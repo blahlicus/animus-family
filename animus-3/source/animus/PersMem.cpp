@@ -7,7 +7,12 @@ CMem::CMem(void)
 
 void CMem::Begin(void)
 {
+  LoadData();
+}
 
+void CMem::LoadData(void)
+{
+  // loads EEPROM data to SRAM
   Global.RefreshDelay = GetRefreshRate();
   Global.ROW = GetRowCount();
   Global.COL = GetColCount();
@@ -20,6 +25,29 @@ void CMem::Begin(void)
   for(byte i = 0; i < Global.COL; i++)
   {
     Global.HPins[i] = GetColPin(i);
+  }
+
+
+  // resets pin statuses
+  for (int i = 0; i < Global.ROW; i++)
+  {
+    pinMode(Global.VPins[i], INPUT);
+    digitalWrite(Global.VPins[i], HIGH);
+  }
+
+  for (int i = 0; i < Global.COL; i++)
+  {
+    pinMode(Global.HPins[i], INPUT);
+    digitalWrite(Global.HPins[i], LOW);
+  }
+
+  for (int i = 0; i < Global.ROW; i++)
+  {
+    for (int j = 0; j < Global.COL; j++)
+    {
+      Global.KeyState[j][i] = 0;
+      Global.PreviousState[j][i] = 0;
+    }
   }
 }
 
