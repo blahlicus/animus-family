@@ -8,6 +8,7 @@ CSerial::CSerial(void)
 void CSerial::Begin(int baud)
 {
   mode = 0;
+  preloadCounter = 0;
   Serial.begin(baud);
   delay(300);
 }
@@ -16,29 +17,31 @@ void CSerial::Loop(void)
 {
   if (mode == 0)
   {
-    if (Serial.available()>5) // this will keep clearing the serial buffer once it reaches size 5
+    if (Serial.available()>0)
     {
-      byte arr[4];
-      arr[0] = Serial.read();
-      arr[1] = Serial.read();
-      arr[2] = Serial.read();
-      arr[3] = Serial.read();
-      if (arr[0] == COMM_KEY_0 && arr[1] == COMM_KEY_1 && arr[2] == COMM_KEY_2 && arr[3] == COMM_KEY_3)
+      buffer[preloadCounter] = Serial.read();
+      preloadCounter++;
+      if (preloadCounter >=5)
       {
-        mode = Serial.read();
+        if (buffer[0] == COMM_KEY_0 && buffer[1] == COMM_KEY_1 && buffer[2] == COMM_KEY_2 && buffer[3] == COMM_KEY_3)
+        {
+          mode = buffer[4];
+          
+    loadCounter = 0;
+        }
+        preloadCounter = 0;
       }
     }
   }
 
   if (mode == 1) // load bytes to eeprom, do not use this, use modes 4 or 5 instead to load layout or board data
   {
-    loadCounter = 0;
     if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
     {
-       EEPROM.update(loadCounter, (byte)Serial.read());
-       loadCounter++;
+      EEPROM.update(loadCounter, (byte)Serial.read());
+      loadCounter++;
     }
-    if (loadCounter == 1024)
+    if (loadCounter >= 1024)
     {
       mode = 0;
     }
@@ -49,38 +52,46 @@ void CSerial::Loop(void)
     {
       Serial.write(EEPROM.read(i));
     }
+    mode = 0;
   }
   else if (mode == 3) // print mod list in order of mem id
   {
     Serial.print(Mod.PrintMods());
+    mode = 0;
   }
   else if (mode == 4) // load 900 bytes to 0-899 EEPROM for layout and mod data
   {
 
-      loadCounter = 0;
-      if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
-      {
-         EEPROM.update(loadCounter, (byte)Serial.read());
-         loadCounter++;
-      }
-      if (loadCounter == 900)
-      {
-        mode = 0;
-      }
+    if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
+    {
+      EEPROM.update(loadCounter, (byte)Serial.read());
+      loadCounter++;
+    }
+    if (loadCounter >= 900)
+    {
+      mode = 0;
+    }
   }
   else if (mode == 5) // load 124 bytes to 900-1023 EEPROM for board data
   {
 
-      loadCounter = 900;
-      if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
-      {
-         EEPROM.update(loadCounter, (byte)Serial.read());
-         loadCounter++;
-      }
-      if (loadCounter == 1024)
-      {
-        mode = 0;
-      }
+    if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
+    {
+      EEPROM.update(loadCounter+900, (byte)Serial.read());
+      loadCounter++;
+    }
+    if (loadCounter+900 >= 1024)
+    {
+      mode = 0;
+    }
+  }
+  else if (mode == 255) // idle mode
+  {
+
+  }
+  else
+  {
+    mode = 0;
   }
 }
 

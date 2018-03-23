@@ -1,5 +1,5 @@
-#define DEFAULT_ROW 20
-#define DEFAULT_COL 20
+#define DEFAULT_ROW 10
+#define DEFAULT_COL 10
 
 #ifndef ANIMUS_GLOBAL
 #define ANIMUS_GLOBAL

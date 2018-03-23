@@ -17,7 +17,7 @@ void CMem::Begin(void)
   {
     Global.VPins[i] = GetRowPin(i);
   }
-  for(byte i = 0; i < Global.ROW; i++)
+  for(byte i = 0; i < Global.COL; i++)
   {
     Global.HPins[i] = GetColPin(i);
   }

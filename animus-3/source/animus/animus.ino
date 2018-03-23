@@ -22,13 +22,14 @@ void setup()
 
 void loop()
 {
+  MillisLoop();
 
   // start of pesudo rtos code
   if (GetMillis()) // should run once every 1 to 1.5ms
   {
 
     // layering checks in case of layout remapping
-    if (Global.KeyLayer > Global.LAY || Global.TempLayer > Global.LAY)
+    if (Global.KeyLayer >= Global.LAY || Global.TempLayer >= Global.LAY)
     {
       Global.KeyLayer = 0;
       Global.TempLayer = 0;
@@ -74,6 +75,7 @@ void loop()
       }
     }
     //end of countdowns
+    //*/
   }
   // end of pesudo rtos
   PersMem.Loop();
@@ -168,7 +170,7 @@ boolean ReadyMillis = false;
 
 void MillisLoop()
 {
-  unsigned long currentMillis = millis();
+  CurrentMillis = millis();
 
   if(CurrentMillis - PreviousMillis >= 1) // this elapses every 1 ms
   {

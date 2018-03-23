@@ -1,6 +1,5 @@
 #ifndef ANIMUS_SERIAL
 #define ANIMUS_SERIAL
-#include "Global.h"
 #include "Mod.h"
 #define COMM_KEY_0 0
 #define COMM_KEY_1 1
@@ -13,6 +12,8 @@ class CSerial
 {
 private:
   int loadCounter;
+  byte preloadCounter;
+  byte buffer[5];
 public:
   byte mode;
 
