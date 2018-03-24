@@ -1,23 +1,33 @@
 #ifndef ANIMUS_MOD_TEMPLATE
-#define ANIMUS_MOD+TEMPLATE
-#include "Global.h"
+#define ANIMUS_MOD_TEMPLATE
+#include "PersMem.h"
+#include "Mod.h"
+#include "Comms.h"
 
-#define mod_modname I2C
-#define modMethod(str) conca(mod_modname, str)
+
+#define MEM_DYNAMIC_ADDR 950
+
 class CModTemplate
 {
 private:
+  void SerialComms(byte mode);
 public:
-  CMod(void);
+  byte ModNo; // this is the EEPROM memory address ID
+  short EEPROMAddress;
+  const byte ModGUID; // this is the GUID for all list of mods, used for identification by arbites
+  CModTemplate(void);
   void Begin(void);
+  void LoadData(void);
   void Loop(void);
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
-  String PrintMods();
+  byte PrintMods();
+  byte GetData(short addr);
+  void SetData(short addr, byte data);
   void End(void);
 };
-extern CMod Mod;
+extern CModTemplate ModTemplate;
 
 #undef mod_modname
 #undef modMethod

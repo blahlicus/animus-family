@@ -1,12 +1,13 @@
 #ifndef ANIMUS_MOD
 #define ANIMUS_MOD
-#include "Global.h"
+#include "PersMem.h"
 
 
 class CMod
 {
 private:
 public:
+  byte ModCount = 0;
   CMod(void);
   void Begin(void);
   void Loop(void);

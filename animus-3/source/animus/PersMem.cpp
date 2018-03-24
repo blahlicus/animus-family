@@ -27,6 +27,9 @@ void CMem::LoadData(void)
     Global.HPins[i] = GetColPin(i);
   }
 
+  // loads mod EEPROM addresses to SRAM
+  //TODO
+
 
   // resets pin statuses
   for (int i = 0; i < Global.ROW; i++)
@@ -168,13 +171,6 @@ byte CMem::GetRefreshRate()
   return EEPROM.read(MEM_REFRESH_RATE);
 }
 
-byte CMem::GetModData(short addr, byte modNo)
-{
-  byte firstByte = EEPROM.read(MEM_DYNAMIC_ADDR + modNo * 2);
-  byte secondByte = EEPROM.read(MEM_DYNAMIC_ADDR + modNo * 2 + 1);
-  short realAddr = (firstByte << 8) | secondByte;
-  return EEPROM.read(realAddr + addr);
-}
 
 
 // End of Getters

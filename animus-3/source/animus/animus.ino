@@ -110,14 +110,14 @@ void PressKey(byte val, byte type)
     }
     else
     {
-      RotateLayers(val);
+      RotateLayer(val);
     }
   }
   else if (type == 5) // toggle layers
   {
     if (Global.TempLayer == val)
     {
-      Global.TempLayer = KeyLayer;
+      Global.TempLayer = Global.KeyLayer;
     }
     else
     {
@@ -177,7 +177,7 @@ void RotateLayer(byte val) // bitwise layer shift
   {
     newLayer++;
     mask <<= 1;
-    if ((! mask) || (newLayer >= Lay))
+    if ((! mask) || (newLayer >= Global.LAY))
     {
       newLayer = 0;
       mask = 1;
