@@ -1,14 +1,28 @@
 #ifndef ANIMUS_MOD
 #define ANIMUS_MOD
-#include "PersMem.h"
+
+#define builder_mod_begin ModExample.Begin();
+#define builder_mod_loop ModExample.Loop();
+#define builder_mod_loaddata ModExample.LoadData();
+#define builder_mod_prepress ModExample.PrePress(val, type);
+#define builder_mod_press ModExample.PressKey(val, type);
+#define builder_mod_release ModExample.ReleaseKey(val, type);
+#define builder_mod_print ModExample.PrintMods();
+
+
+// mod dependencies below
+#include "ModExample.h"
+// mod dependencies above
+
+
 #include "Comms.h"
+
 
 
 class CMod
 {
 private:
 public:
-  byte ModCount = 0;
   CMod(void);
   void Begin(void);
   void Loop(void);

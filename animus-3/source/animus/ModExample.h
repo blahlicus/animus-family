@@ -1,17 +1,16 @@
-#ifndef ANIMUS_MOD_TEMPLATE
-#define ANIMUS_MOD_TEMPLATE
-#include "Comms.h"
+#ifndef ANIMUS_MOD_MODEXAMPLE
+#define ANIMUS_MOD_MODEXAMPLE
+#include "ModTemplate.h"
+#include "AnimusKeyboard.h"
 
-#define MEM_DYNAMIC_ADDR 950
-
-class CModTemplate
+class CModExample : public CModTemplate
 {
 private:
 public:
   byte ModNo; // this is the EEPROM memory address ID
   short EEPROMAddress;
   const byte ModGUID; // this is the GUID for all list of mods, used for identification by arbites
-  CModTemplate(void);
+  CModExample(void);
   void Begin(void);
   void LoadData(void);
   void Loop(void);
@@ -19,11 +18,7 @@ public:
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
   void SerialComms(byte mode);
-  void PrintMods();
-  byte GetData(short addr);
-  void SetData(short addr, byte data);
-  void End(void);
 };
-extern CModTemplate ModTemplate;
+extern CModExample ModExample;
 
 #endif

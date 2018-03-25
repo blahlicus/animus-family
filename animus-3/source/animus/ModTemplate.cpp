@@ -2,14 +2,14 @@
 
 CModTemplate::CModTemplate(void)
 {
-  //TODO
+  //nothing
 }
 
 void CModTemplate::Begin(void)
 {
   // gets and increments the mod counter for a unique mod id
-  ModNo = Mod.ModCount;
-  Mod.ModCount++;
+  ModNo = Global.ModCount;
+  Global.ModCount++;
 
   LoadData();
 }
@@ -24,21 +24,26 @@ void CModTemplate::LoadData(void)
 
 void CModTemplate::Loop(void)
 {
-  //TODO
+  //nothing
   SerialComms(Comms.mode);
+}
+
+void CModTemplate::SerialComms(byte mode)
+{
+  //nothing
 }
 
 void CModTemplate::PrePress(byte val, byte type)
 {
-  //TODO
+  //nothing
 }
 void CModTemplate::PressKey(byte val, byte type)
 {
-  //TODO
+  //nothing
 }
 void CModTemplate::ReleaseKey(byte val, byte type)
 {
-  //TODO
+  //nothing
 }
 
 void CModTemplate::PrintMods()
@@ -57,7 +62,7 @@ void CModTemplate::SetData(short addr, byte data)
 }
 void CModTemplate::End(void)
 {
-  //TODO
+  //nothing
 }
 
 CModTemplate ModTemplate;

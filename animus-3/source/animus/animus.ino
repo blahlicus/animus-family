@@ -2,9 +2,6 @@
 #define DRIVER_VERSION "Animus Janus x3.0"
 #include "AnimusKeyboard.h"
 #include "Mod.h"
-#include "PersMem.h"
-#include "Comms.h"
-#include "Global.h"
 
 
 
@@ -124,6 +121,7 @@ void PressKey(byte val, byte type)
       Global.TempLayer = val;
     }
   }
+
   // for other key types, use a mod
   Mod.PressKey(val, type);
 }

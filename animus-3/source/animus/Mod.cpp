@@ -1,10 +1,4 @@
-#define builder_mod_begin
-#define builder_mod_loop
-#define builder_mod_loaddata
-#define builder_mod_prepress
-#define builder_mod_press
-#define builder_mod_release
-#define builder_mod_print
+
 
 #include "Mod.h"
 
@@ -24,6 +18,7 @@ void CMod::Loop(void)
   if (Comms.mode == 3) // print mod guid list
   {
     PrintMods();
+    Comms.mode == 0; // need this to reset comms back to normal mode
   }
 
 }
@@ -48,7 +43,7 @@ void CMod::ReleaseKey(byte val, byte type)
 
 void CMod::PrintMods()
 {
-  builder_mod_release
+  builder_mod_print
 }
 
 void CMod::End(void)
