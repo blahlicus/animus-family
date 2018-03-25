@@ -41,9 +41,9 @@ void CModTemplate::ReleaseKey(byte val, byte type)
   //TODO
 }
 
-byte CModTemplate::PrintMods()
+void CModTemplate::PrintMods()
 {
-  return ModGUID;
+  Serial.write(ModGUID);
 }
 
 byte CModTemplate::GetData(short addr)

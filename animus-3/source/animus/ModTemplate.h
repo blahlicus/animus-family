@@ -1,8 +1,6 @@
 #ifndef ANIMUS_MOD_TEMPLATE
 #define ANIMUS_MOD_TEMPLATE
-#include "PersMem.h"
 #include "Mod.h"
-#include "Comms.h"
 
 
 #define MEM_DYNAMIC_ADDR 950
@@ -22,7 +20,7 @@ public:
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
-  byte PrintMods();
+  void PrintMods();
   byte GetData(short addr);
   void SetData(short addr, byte data);
   void End(void);

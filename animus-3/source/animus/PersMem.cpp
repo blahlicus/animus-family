@@ -28,7 +28,6 @@ void CMem::LoadData(void)
   }
 
   // loads mod EEPROM addresses to SRAM
-  //TODO
 
 
   // resets pin statuses

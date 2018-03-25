@@ -57,8 +57,7 @@ void CSerial::Loop(void)
   }
   else if (mode == 3) // print mod list in order of mem id
   {
-    Serial.print(Mod.PrintMods());
-    mode = 0;
+    // reserved for mod.cpp
   }
   else if (mode == 4) // load 900 bytes to 0-899 EEPROM for layout and mod data
   {

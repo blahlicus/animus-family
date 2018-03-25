@@ -5,7 +5,7 @@
 class IKeyboard
 {
 private:
-  //TODO
+  //nothing
 public:
   IKeyboard(void);
   void Begin();

@@ -195,12 +195,12 @@ void Keyboard_::releaseAllExcept(uint8_t k[18])
 }
 void Keyboard_::setNKROMode(uint8_t mode)
 {
-  //TODO
+  //nothing
 }
 
 uint8_t Keyboard_::getNKROMode(void)
 {
-  //TODO
+  //nothing
   return 0;
 }
 
