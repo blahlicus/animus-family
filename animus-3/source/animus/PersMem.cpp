@@ -27,6 +27,7 @@ void CMem::LoadData(void)
     Global.HPins[i] = GetColPin(i);
   }
 
+  Global.RequiresLoadData = true;
   // loads mod EEPROM addresses to SRAM
 
 

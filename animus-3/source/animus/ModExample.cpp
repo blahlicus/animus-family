@@ -27,12 +27,14 @@ void CModExample::PrePress(byte val, byte type)
 void CModExample::PressKey(byte val, byte type)
 {
   CModTemplate::PressKey(val, type);
-  AnimusKeyboard.Press(98);
+  AnimusKeyboard.Press(GetData(0));
+  AnimusKeyboard.Press(GetData(1));
 }
 void CModExample::ReleaseKey(byte val, byte type)
 {
   CModTemplate::ReleaseKey(val, type);
-  AnimusKeyboard.Release(98);
+  AnimusKeyboard.Release(GetData(0));
+  AnimusKeyboard.Release(GetData(1));
 
 
 }

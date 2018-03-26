@@ -53,6 +53,11 @@ void CModTemplate::PrintMods()
 
 byte CModTemplate::GetData(short addr)
 {
+    byte firstByte = EEPROM.read(MEM_DYNAMIC_ADDR + ModNo * 2);
+    byte secondByte = EEPROM.read(MEM_DYNAMIC_ADDR + ModNo * 2 + 1);
+  Serial.println(firstByte);
+  Serial.println(secondByte);
+  Serial.println(EEPROMAddress);
   return EEPROM.read(EEPROMAddress + addr);
 }
 

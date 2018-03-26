@@ -28,6 +28,8 @@ public:
   byte KeyStateCoolDown[DEFAULT_COL][DEFAULT_ROW];
   byte PreviousState[DEFAULT_COL][DEFAULT_ROW];
   byte LayerState[DEFAULT_COL][DEFAULT_ROW];
+
+  boolean RequiresLoadData = false; // I am soo sorry for the spaghetti
   CGlobal(void);
 };
 extern CGlobal Global;
