@@ -91,11 +91,7 @@ void PressKey(byte val, byte type)
   {
     Global.TempLayer = val;
   }
-  else if (type == 2) // DEPRECIATED spaceFN, use mod_spaceFN instead
-  {
-    // do nothing
-  }
-  else if (type == 3) // move main layer up or down or bitwise rotate the layer
+  else if (type == 2) // move main layer up or down or bitwise rotate the layer
   {
     if (val == 0)
     {
@@ -110,7 +106,7 @@ void PressKey(byte val, byte type)
       RotateLayer(val);
     }
   }
-  else if (type == 5) // toggle layers
+  else if (type == 3) // toggle layers
   {
     if (Global.TempLayer == val)
     {
@@ -132,6 +128,10 @@ void ReleaseKey(byte val, byte type)
   {
     AnimusKeyboard.Release(val);
 
+  }
+  else if (type == 1)
+  {
+    Global.TempLayer = Global.KeyLayer;
   }
   Mod.ReleaseKey(val, type);
 }
