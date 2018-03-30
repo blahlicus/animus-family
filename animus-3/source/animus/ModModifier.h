@@ -1,8 +1,7 @@
 #ifndef ANIMUS_MOD_MODIFIER
 #define ANIMUS_MOD_MODIFIER
 #include "ModTemplate.h"
-#include "AnimusKeyboard.h"
-
+#include "Animus.h"
 #define ANIMUS_MOD_MODIFIER_LCTRL 224
 #define ANIMUS_MOD_MODIFIER_LSHIFT 225
 #define ANIMUS_MOD_MODIFIER_LALT 226
@@ -18,7 +17,7 @@ private:
 public:
   byte ModNo; // this is the EEPROM memory address ID
   short EEPROMAddress;
-  const byte ModGUID; // this is the GUID for all list of mods, used for identification by arbites
+  const byte ModGUID = 1; // this is the GUID for all list of mods, used for identification by arbites
   CModModifier(void);
   void Begin(void);
   void LoadData(void);

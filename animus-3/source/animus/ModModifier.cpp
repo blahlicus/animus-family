@@ -36,7 +36,6 @@ void CModModifier::PressKey(byte val, byte type)
   }
   else if (type == 5) // shift
   {
-
   }
   else if (type == 6) // alt
   {
@@ -90,11 +89,23 @@ void CModModifier::PressKey(byte val, byte type)
   {
 
   }
+
+  if (type >= 4 && type <= 18)
+  {
+    Animus.PressKey(val, 0);
+  }
+
+
+
 }
 void CModModifier::ReleaseKey(byte val, byte type)
 {
   CModTemplate::ReleaseKey(val, type);
 
+  if (type >= 4 && type <= 18)
+  {
+    Animus.ReleaseKey(val, 0);
+  }
 
 }
 

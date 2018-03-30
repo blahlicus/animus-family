@@ -1,17 +1,17 @@
 #ifndef ANIMUS_MOD
 #define ANIMUS_MOD
 
-#define builder_mod_begin ModExample.Begin();
-#define builder_mod_loop ModExample.Loop();
-#define builder_mod_loaddata ModExample.LoadData();
-#define builder_mod_prepress ModExample.PrePress(val, type);
-#define builder_mod_press ModExample.PressKey(val, type);
-#define builder_mod_release ModExample.ReleaseKey(val, type);
-#define builder_mod_print ModExample.PrintMods();
+#define builder_mod_begin ModModifier.Begin();
+#define builder_mod_loop ModModifier.Loop();
+#define builder_mod_loaddata ModModifier.LoadData();
+#define builder_mod_prepress ModModifier.PrePress(val, type);
+#define builder_mod_press ModModifier.PressKey(val, type);
+#define builder_mod_release ModModifier.ReleaseKey(val, type);
+#define builder_mod_print ModModifier.PrintMods();
 
 
 // mod dependencies below
-#include "ModExample.h"
+#include "ModModifier.h"
 // mod dependencies above
 
 

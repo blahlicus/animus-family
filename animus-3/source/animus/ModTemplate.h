@@ -1,7 +1,6 @@
 #ifndef ANIMUS_MOD_TEMPLATE
 #define ANIMUS_MOD_TEMPLATE
 #include "Comms.h"
-
 #define MEM_DYNAMIC_ADDR 950
 
 class CModTemplate

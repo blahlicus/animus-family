@@ -50,6 +50,7 @@ void CMem::LoadData(void)
     {
       Global.KeyState[j][i] = 0;
       Global.PreviousState[j][i] = 0;
+      Global.KeyStateCoolDown[j][i] = 0;
     }
   }
 }
