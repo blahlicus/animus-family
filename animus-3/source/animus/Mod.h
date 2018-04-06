@@ -1,13 +1,13 @@
 #ifndef ANIMUS_MOD
 #define ANIMUS_MOD
 
-#define builder_mod_begin ModDualRoles.Begin(); ModModifier.Begin();  ModDualRoles.Begin();
-#define builder_mod_loop ModDualRoles.Loop(); ModModifier.Loop();  ModDualRoles.Loop();
-#define builder_mod_loaddata ModDualRoles.LoadData(); ModModifier.LoadData();  ModDualRoles.LoadData();
-#define builder_mod_prepress ModDualRoles.PrePress(val, type); ModModifier.PrePress(val, type);  ModDualRoles.PrePress(val, type);
-#define builder_mod_press ModDualRoles.PressKey(val, type); ModModifier.PressKey(val, type);  ModDualRoles.PressKey(val, type);
-#define builder_mod_release ModDualRoles.ReleaseKey(val, type); ModModifier.ReleaseKey(val, type);  ModDualRoles.ReleaseKey(val, type);
-#define builder_mod_print ModDualRoles.PrintMods(); ModModifier.PrintMods();  ModDualRoles.PrintMods();
+#define builder_mod_begin ModDualRoles.Begin(); ModModifier.Begin();  ModSticky.Begin();
+#define builder_mod_loop ModDualRoles.Loop(); ModModifier.Loop();  ModSticky.Loop();
+#define builder_mod_loaddata ModDualRoles.LoadData(); ModModifier.LoadData();  ModSticky.LoadData();
+#define builder_mod_prepress ModDualRoles.PrePress(val, type); ModModifier.PrePress(val, type);  ModSticky.PrePress(val, type);
+#define builder_mod_press ModDualRoles.PressKey(val, type); ModModifier.PressKey(val, type);  ModSticky.PressKey(val, type);
+#define builder_mod_release ModDualRoles.ReleaseKey(val, type); ModModifier.ReleaseKey(val, type);  ModSticky.ReleaseKey(val, type);
+#define builder_mod_print ModDualRoles.PrintMods(); ModModifier.PrintMods();  ModSticky.PrintMods();
 
 
 // mod dependencies below
