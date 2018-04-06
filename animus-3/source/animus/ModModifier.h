@@ -14,15 +14,15 @@
 class CModModifier : public CModTemplate
 {
 private:
-  byte LShiftedSelf = 0;
-  byte LShiftedNotSelf = 0;
-  byte RShiftedNotSelf = 0;
-  byte PressedShiftCount = 0;
+  bool NaturalLShift = false; // status of shift keys not affected by this mod
+  bool NaturalRShift = false;
 public:
   CModModifier(void);
   void Begin(void);
   void LoadData(void);
   void Loop(void);
+  void PressModifiers(bool ctrl, bool shift, bool alt, bool gui);
+  void ReleaseModifiers(bool ctrl, bool shift, bool alt, bool gui);
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
