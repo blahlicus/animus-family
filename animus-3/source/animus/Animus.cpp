@@ -10,6 +10,17 @@ void CAnimus::Begin()
   PersMem.Begin(); // loads data from EEPROM to RAM
   AnimusKeyboard.Begin();
   Comms.Begin(BAUD);
+
+  if (UDADDR & _BV(ADDEN)) // <- checks if USB received address
+  {
+    Global.HasUSB = true;
+  }
+  else
+  {
+    Global.HasUSB = false;
+  }
+
+
   Mod.Begin();
 }
 
@@ -83,38 +94,42 @@ void CAnimus::PrePress(byte val, byte type)
 
 void CAnimus::PressKey(byte val, byte type)
 {
-  if (type == 0) // normal HID keystroke
+  if (Global.HasUSB)
   {
-    AnimusKeyboard.Press(val);
-  }
-  else if (type == 1) // FN keys
-  {
-    Global.TempLayer = val;
-  }
-  else if (type == 2) // move main layer up or down or bitwise rotate the layer
-  {
-    if (val == 0)
+
+    if (type == 0) // normal HID keystroke
     {
-      SwitchLayer(true);
+      AnimusKeyboard.Press(val);
     }
-    else if (val == 1)
-    {
-      SwitchLayer(false);
-    }
-    else
-    {
-      RotateLayer(val);
-    }
-  }
-  else if (type == 3) // toggle layers
-  {
-    if (Global.TempLayer == val)
-    {
-      Global.TempLayer = Global.KeyLayer;
-    }
-    else
+    else if (type == 1) // FN keys
     {
       Global.TempLayer = val;
+    }
+    else if (type == 2) // move main layer up or down or bitwise rotate the layer
+    {
+      if (val == 0)
+      {
+        SwitchLayer(true);
+      }
+      else if (val == 1)
+      {
+        SwitchLayer(false);
+      }
+      else
+      {
+        RotateLayer(val);
+      }
+    }
+    else if (type == 3) // toggle layers
+    {
+      if (Global.TempLayer == val)
+      {
+        Global.TempLayer = Global.KeyLayer;
+      }
+      else
+      {
+        Global.TempLayer = val;
+      }
     }
   }
 
@@ -124,14 +139,17 @@ void CAnimus::PressKey(byte val, byte type)
 
 void CAnimus::ReleaseKey(byte val, byte type)
 {
-  if (type == 0)
+  if (Global.HasUSB)
   {
-    AnimusKeyboard.Release(val);
+    if (type == 0)
+    {
+      AnimusKeyboard.Release(val);
 
-  }
-  else if (type == 1)
-  {
-    Global.TempLayer = Global.KeyLayer;
+    }
+    else if (type == 1)
+    {
+      Global.TempLayer = Global.KeyLayer;
+    }
   }
   Mod.ReleaseKey(val, type);
 }

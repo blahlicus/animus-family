@@ -29,6 +29,7 @@ public:
   byte PreviousState[DEFAULT_COL][DEFAULT_ROW];
   byte LayerState[DEFAULT_COL][DEFAULT_ROW];
 
+  bool HasUSB = false; // state of USB host addressing, useful for split keyboards, note that this does not work if USB is disconnected whilst device is still powered (IE battery packs)
   bool RequiresLoadData = false; // I am soo sorry for the spaghetti
   CGlobal(void);
 };

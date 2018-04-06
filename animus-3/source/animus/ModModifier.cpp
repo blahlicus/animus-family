@@ -107,217 +107,218 @@ void CModModifier::PressKey(byte val, byte type)
 {
   CModTemplate::PressKey(val, type);
 
-  if (type == 0)
+  if (Global.HasUSB)
   {
-    if (val == ANIMUS_MOD_MODIFIER_LSHIFT)
+    if (type == 0)
     {
-      NaturalLShift = true;
+      if (val == ANIMUS_MOD_MODIFIER_LSHIFT)
+      {
+        NaturalLShift = true;
+      }
+      else if (val == ANIMUS_MOD_MODIFIER_RSHIFT)
+      {
+        NaturalRShift = true;
+      }
     }
-    else if (val == ANIMUS_MOD_MODIFIER_RSHIFT)
+
+    bool ctrl = false;
+    bool shift = false;
+    bool alt = false;
+    bool gui = false;
+
+    if (type == 4) // ctrl
     {
-      NaturalRShift = true;
+      ctrl = true;
     }
-  }
-  bool ctrl = false;
-  bool shift = false;
-  bool alt = false;
-  bool gui = false;
+    else if (type == 5) // shift
+    {
+      shift = true;
+    }
+    else if (type == 6) // alt
+    {
+      alt = true;
+    }
+    else if (type == 7) // win
+    {
+      gui = true;
+    }
+    else if (type == 8) // ctrl shift
+    {
+      ctrl = true;
+      shift = true;
+    }
+    else if (type == 9) // ctrl alt
+    {
+      ctrl = true;
+      alt = true;
+    }
+    else if (type == 10) // ctrl win
+    {
+      ctrl = true;
+      gui = true;
+    }
+    else if (type == 11) // shift alt
+    {
+      shift = true;
+      alt = true;
+    }
+    else if (type == 12) // shift win
+    {
+      shift = true;
+      gui = true;
+    }
+    else if (type == 13) // alt win
+    {
+      alt = true;
+      gui = true;
+    }
+    else if (type == 14) // ctrl shift alt
+    {
+      ctrl = true;
+      shift = true;
+      alt = true;
+    }
+    else if (type == 15) // ctrl shift win
+    {
+      ctrl = true;
+      shift = true;
+      gui = true;
+    }
+    else if (type == 16) // ctrl alt win
+    {
+      ctrl = true;
+      alt = true;
+      gui = true;
+    }
+    else if (type == 17) // shift alt win
+    {
+      shift = true;
+      alt = true;
+      gui = true;
+    }
+    else if (type == 18) // ctrl alt shift win
+    {
+      ctrl = true;
+      alt = true;
+      shift = true;
+      gui = true;
+    }
 
+    PressModifiers(ctrl, shift, alt, gui);
 
-  if (type == 4) // ctrl
-  {
-    ctrl = true;
-  }
-  else if (type == 5) // shift
-  {
-    shift = true;
-  }
-  else if (type == 6) // alt
-  {
-    alt = true;
-  }
-  else if (type == 7) // win
-  {
-    gui = true;
-  }
-  else if (type == 8) // ctrl shift
-  {
-    ctrl = true;
-    shift = true;
-  }
-  else if (type == 9) // ctrl alt
-  {
-    ctrl = true;
-    alt = true;
-  }
-  else if (type == 10) // ctrl win
-  {
-    ctrl = true;
-    gui = true;
-  }
-  else if (type == 11) // shift alt
-  {
-    shift = true;
-    alt = true;
-  }
-  else if (type == 12) // shift win
-  {
-    shift = true;
-    gui = true;
-  }
-  else if (type == 13) // alt win
-  {
-    alt = true;
-    gui = true;
-  }
-  else if (type == 14) // ctrl shift alt
-  {
-    ctrl = true;
-    shift = true;
-    alt = true;
-  }
-  else if (type == 15) // ctrl shift win
-  {
-    ctrl = true;
-    shift = true;
-    gui = true;
-  }
-  else if (type == 16) // ctrl alt win
-  {
-    ctrl = true;
-    alt = true;
-    gui = true;
-  }
-  else if (type == 17) // shift alt win
-  {
-    shift = true;
-    alt = true;
-    gui = true;
-  }
-  else if (type == 18) // ctrl alt shift win
-  {
-    ctrl = true;
-    alt = true;
-    shift = true;
-    gui = true;
-  }
-
-  PressModifiers(ctrl, shift, alt, gui);
-
-  if (type >= 4 && type <= 18)
-  {
-    Animus.PressKey(val, 0);
+    if (type >= 4 && type <= 18)
+    {
+      Animus.PressKey(val, 0);
+    }
   }
 }
 void CModModifier::ReleaseKey(byte val, byte type)
 {
   CModTemplate::ReleaseKey(val, type);
 
-  if (type == 0)
+  if (Global.HasUSB)
   {
-    if (val == ANIMUS_MOD_MODIFIER_LSHIFT)
+    if (type == 0)
     {
-      NaturalLShift = false;
+      if (val == ANIMUS_MOD_MODIFIER_LSHIFT)
+      {
+        NaturalLShift = false;
+      }
+      else if (val == ANIMUS_MOD_MODIFIER_RSHIFT)
+      {
+        NaturalRShift = false;
+      }
     }
-    else if (val == ANIMUS_MOD_MODIFIER_RSHIFT)
+
+    bool ctrl = false;
+    bool shift = false;
+    bool alt = false;
+    bool gui = false;
+
+    if (type == 4) // ctrl
     {
-      NaturalRShift = false;
+      ctrl = true;
     }
-  }
+    else if (type == 5) // shift
+    {
+      shift = true;
+    }
+    else if (type == 6) // alt
+    {
+      alt = true;
+    }
+    else if (type == 7) // win
+    {
+      gui = true;
+    }
+    else if (type == 8) // ctrl shift
+    {
+      ctrl = true;
+      shift = true;
+    }
+    else if (type == 9) // ctrl alt
+    {
+      ctrl = true;
+      alt = true;
+    }
+    else if (type == 10) // ctrl win
+    {
+      ctrl = true;
+      gui = true;
+    }
+    else if (type == 11) // shift alt
+    {
+      shift = true;
+      alt = true;
+    }
+    else if (type == 12) // shift win
+    {
+      shift = true;
+      gui = true;
+    }
+    else if (type == 13) // alt win
+    {
+      alt = true;
+      gui = true;
+    }
+    else if (type == 14) // ctrl shift alt
+    {
+      ctrl = true;
+      shift = true;
+      alt = true;
+    }
+    else if (type == 15) // ctrl shift win
+    {
+      ctrl = true;
+      shift = true;
+      gui = true;
+    }
+    else if (type == 16) // ctrl alt win
+    {
+      ctrl = true;
+      alt = true;
+      gui = true;
+    }
+    else if (type == 17) // shift alt win
+    {
+      shift = true;
+      alt = true;
+      gui = true;
+    }
+    else if (type == 18) // ctrl alt shift win
+    {
+      ctrl = true;
+      alt = true;
+      shift = true;
+      gui = true;
+    }
 
+    ReleaseModifiers(ctrl, shift, alt, gui);
 
-  bool ctrl = false;
-  bool shift = false;
-  bool alt = false;
-  bool gui = false;
-
-
-  if (type == 4) // ctrl
-  {
-    ctrl = true;
-  }
-  else if (type == 5) // shift
-  {
-    shift = true;
-  }
-  else if (type == 6) // alt
-  {
-    alt = true;
-  }
-  else if (type == 7) // win
-  {
-    gui = true;
-  }
-  else if (type == 8) // ctrl shift
-  {
-    ctrl = true;
-    shift = true;
-  }
-  else if (type == 9) // ctrl alt
-  {
-    ctrl = true;
-    alt = true;
-  }
-  else if (type == 10) // ctrl win
-  {
-    ctrl = true;
-    gui = true;
-  }
-  else if (type == 11) // shift alt
-  {
-    shift = true;
-    alt = true;
-  }
-  else if (type == 12) // shift win
-  {
-    shift = true;
-    gui = true;
-  }
-  else if (type == 13) // alt win
-  {
-    alt = true;
-    gui = true;
-  }
-  else if (type == 14) // ctrl shift alt
-  {
-    ctrl = true;
-    shift = true;
-    alt = true;
-  }
-  else if (type == 15) // ctrl shift win
-  {
-    ctrl = true;
-    shift = true;
-    gui = true;
-  }
-  else if (type == 16) // ctrl alt win
-  {
-    ctrl = true;
-    alt = true;
-    gui = true;
-  }
-  else if (type == 17) // shift alt win
-  {
-    shift = true;
-    alt = true;
-    gui = true;
-  }
-  else if (type == 18) // ctrl alt shift win
-  {
-    ctrl = true;
-    alt = true;
-    shift = true;
-    gui = true;
-  }
-
-  ReleaseModifiers(ctrl, shift, alt, gui);
-
-
-
-
-  if (type >= 4 && type <= 18)
-  {
-    Animus.ReleaseKey(val, 0);
+    if (type >= 4 && type <= 18)
+    {
+      Animus.ReleaseKey(val, 0);
+    }
   }
 
 }

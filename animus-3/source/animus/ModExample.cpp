@@ -27,12 +27,20 @@ void CModExample::PrePress(byte val, byte type)
 void CModExample::PressKey(byte val, byte type)
 {
   CModTemplate::PressKey(val, type);
+
+  if (Global.HasUSB)
+  {
+
+  }
 }
 void CModExample::ReleaseKey(byte val, byte type)
 {
   CModTemplate::ReleaseKey(val, type);
 
+  if (Global.HasUSB)
+  {
 
+  }
 }
 
 void CModExample::SerialComms(byte mode)
