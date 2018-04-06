@@ -1,11 +1,11 @@
-#include "ModExample.h"
+#include "ModSticky.h"
 
-CModExample::CModExample(void)
+CModSticky::CModSticky(void)
 {
   // nothing
 }
 
-void CModExample::Begin(void)
+void CModSticky::Begin(void)
 {
   CModTemplate::Begin();
   ModGUID = 3; // GUID of this specific mod
@@ -18,21 +18,21 @@ void CModExample::Begin(void)
   }
 }
 
-void CModExample::LoadData(void)
+void CModSticky::LoadData(void)
 {
   CModTemplate::LoadData();
 }
 
-void CModExample::Loop(void)
+void CModSticky::Loop(void)
 {
   CModTemplate::Loop();
 }
 
-void CModExample::PrePress(byte val, byte type)
+void CModSticky::PrePress(byte val, byte type)
 {
   CModTemplate::PrePress(val, type);
 }
-void CModExample::PressKey(byte val, byte type)
+void CModSticky::PressKey(byte val, byte type)
 {
   CModTemplate::PressKey(val, type);
 
@@ -82,14 +82,14 @@ void CModExample::PressKey(byte val, byte type)
       }
       else if (val == 3)
       {
-        if (AltgrDown)
+        if (AltGrDown)
         {
-          AltgrDown = false;
+          AltGrDown = false;
           Animus.ReleaseKey(ANIMUS_MOD_STICKY_RALT, 0);
         }
         else
         {
-          AltgrDown = true;
+          AltGrDown = true;
           Animus.PressKey(ANIMUS_MOD_STICKY_RALT, 0);
         }
       }
@@ -123,7 +123,7 @@ void CModExample::PressKey(byte val, byte type)
     }
   }
 }
-void CModExample::ReleaseKey(byte val, byte type)
+void CModSticky::ReleaseKey(byte val, byte type)
 {
   CModTemplate::ReleaseKey(val, type);
 
@@ -154,7 +154,7 @@ void CModExample::ReleaseKey(byte val, byte type)
       }
     }
 
-    if (type != 30 && isMod = false) // if this is not a sticky key or a modifier key
+    if (type != 30 && isMod == false) // if this is not a sticky key or a modifier key
     {
       if (CtrlDown)
       {
@@ -194,10 +194,10 @@ void CModExample::ReleaseKey(byte val, byte type)
   }
 }
 
-void CModExample::SerialComms(byte mode)
+void CModSticky::SerialComms(byte mode)
 {
   CModTemplate::SerialComms(mode);
 }
 
 
-CModExample ModSticky;
+CModSticky ModSticky;
