@@ -7,7 +7,7 @@ class IKeyboard
 private:
   //nothing
 public:
-  boolean KeyState[256];
+  bool KeyState[256];
   IKeyboard(void);
   void Begin();
   void End(void);

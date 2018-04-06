@@ -14,10 +14,11 @@
 class CModModifier : public CModTemplate
 {
 private:
+  byte LShiftedSelf = 0;
+  byte LShiftedNotSelf = 0;
+  byte RShiftedNotSelf = 0;
+  byte PressedShiftCount = 0;
 public:
-  byte ModNo; // this is the EEPROM memory address ID
-  short EEPROMAddress;
-  const byte ModGUID = 1; // this is the GUID for all list of mods, used for identification by arbites
   CModModifier(void);
   void Begin(void);
   void LoadData(void);

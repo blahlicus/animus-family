@@ -18,10 +18,10 @@ public:
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
-  void SwitchLayer(boolean increment);
+  void SwitchLayer(bool increment);
   void RotateLayer(byte val);
   void KeyScan(void);
-  boolean GetMillis(void);
+  bool GetMillis(void);
 
 };
 extern CAnimus Animus;

@@ -29,7 +29,7 @@ public:
   byte PreviousState[DEFAULT_COL][DEFAULT_ROW];
   byte LayerState[DEFAULT_COL][DEFAULT_ROW];
 
-  boolean RequiresLoadData = false; // I am soo sorry for the spaghetti
+  bool RequiresLoadData = false; // I am soo sorry for the spaghetti
   CGlobal(void);
 };
 extern CGlobal Global;

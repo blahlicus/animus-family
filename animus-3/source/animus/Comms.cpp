@@ -17,7 +17,7 @@ void CSerial::Loop(void)
 {
   if (mode == 0)
   {
-    if (Serial.available()>0)
+    if (Serial.available()>0) //TODO if the key is incorrrect then the port is forever jammed
     {
       buffer[preloadCounter] = Serial.read();
       preloadCounter++;

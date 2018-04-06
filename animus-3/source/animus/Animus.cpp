@@ -136,7 +136,7 @@ void CAnimus::ReleaseKey(byte val, byte type)
   Mod.ReleaseKey(val, type);
 }
 
-void CAnimus::SwitchLayer(boolean increment)
+void CAnimus::SwitchLayer(bool increment)
 {
   if (increment) // if true, go up a layer
   {
@@ -210,7 +210,7 @@ void CAnimus::KeyScan()
 
 unsigned long PreviousMillis = 0;
 unsigned long CurrentMillis = 0;
-boolean ReadyMillis = false;
+bool ReadyMillis = false;
 
 void CAnimus::MillisLoop()
 {
@@ -227,7 +227,7 @@ void CAnimus::MillisLoop()
   }
 }
 
-boolean CAnimus::GetMillis()
+bool CAnimus::GetMillis()
 {
   return ReadyMillis;
 }
