@@ -43,7 +43,7 @@ void CModModifier::PressModifiers(bool ctrl, bool shift, bool alt, bool gui)
 
     // this runs after the above two checks, if the statement below is true,
     // then the modifiers are definitely up naturally
-    if (NautralLShift == false && NaturalRShift == false) // perhaps i should use NaturalLShift + NaturalRShift == 0? i don't know
+    if (NaturalLShift == false && NaturalRShift == false) // perhaps i should use NaturalLShift + NaturalRShift == 0? i don't know
     {
       Animus.PressKey(ANIMUS_MOD_MODIFIER_LSHIFT, 0);
       NaturalLShift = false;
@@ -153,7 +153,7 @@ void CModModifier::PressKey(byte val, byte type)
   else if (type == 10) // ctrl win
   {
     ctrl = true;
-    gui = true
+    gui = true;
   }
   else if (type == 11) // shift alt
   {
@@ -225,17 +225,6 @@ void CModModifier::ReleaseKey(byte val, byte type)
     }
   }
 
-  if (type == 0)
-  {
-    if (val == ANIMUS_MOD_MODIFIER_LSHIFT)
-    {
-      NaturalLShift = true;
-    }
-    else if (val == ANIMUS_MOD_MODIFIER_RSHIFT)
-    {
-      NaturalRShift = true;
-    }
-  }
 
   bool ctrl = false;
   bool shift = false;
@@ -272,7 +261,7 @@ void CModModifier::ReleaseKey(byte val, byte type)
   else if (type == 10) // ctrl win
   {
     ctrl = true;
-    gui = true
+    gui = true;
   }
   else if (type == 11) // shift alt
   {
