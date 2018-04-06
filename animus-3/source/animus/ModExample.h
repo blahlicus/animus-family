@@ -1,6 +1,7 @@
 #ifndef ANIMUS_MOD_MODEXAMPLE
 #define ANIMUS_MOD_MODEXAMPLE
 #include "ModTemplate.h"
+#include "Animus.h"
 
 class CModExample : public CModTemplate
 {
