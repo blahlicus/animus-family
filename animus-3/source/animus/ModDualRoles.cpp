@@ -10,7 +10,6 @@ void CModDualRoles::Begin(void)
   CModTemplate::Begin();
   ModGUID = 2; // GUID of this specific mod
 
-  TimeoutLength = GetData(0) * 5; // max value is 255 * 5 = about 1.275 seconds
 
   // I don't need to do this but just to be safe to the compiler
   GuiTimeout = 0;
@@ -28,6 +27,9 @@ void CModDualRoles::Begin(void)
 void CModDualRoles::LoadData(void)
 {
   CModTemplate::LoadData();
+
+  TimeoutLength = GetData(0) * 5; // max value is 255 * 5 = about 1.275 seconds
+
 }
 
 void CModDualRoles::Loop(void)
