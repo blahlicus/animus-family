@@ -13,6 +13,7 @@
 // mod dependencies below
 #include "ModModifier.h"
 #include "ModDualRoles.h"
+#include "ModSticky.h"
 
 // mod dependencies above
 
