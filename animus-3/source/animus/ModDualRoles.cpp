@@ -8,6 +8,7 @@ CModDualRoles::CModDualRoles(void)
 void CModDualRoles::Begin(void)
 {
   CModTemplate::Begin();
+  ModGUID = 2; // GUID of this specific mod
 
   TimeoutLength = GetData(0) * 5; // max value is 255 * 5 = about 1.275 seconds
 
@@ -177,7 +178,7 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
       {
         Animus.ReleaseKey(ANIMUS_MOD_DUALROLES_LGUI, 0);
       }
-      
+
       if (PressedKey == false && GuiTimeout > 0) // no key was pressed and gui CD has not finished, output dual character
       {
         Animus.PressKey(val, 0);
@@ -195,7 +196,7 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
       {
         Animus.ReleaseKey(ANIMUS_MOD_DUALROLES_LCTRL, 0);
       }
-      
+
       if (PressedKey == false && CtrlTimeout > 0) // no key was pressed and ctrl CD has not finished, output dual character
       {
         Animus.PressKey(val, 0);
@@ -212,7 +213,7 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
       {
         Animus.ReleaseKey(ANIMUS_MOD_DUALROLES_LSHIFT, 0);
       }
-      
+
       if (PressedKey == false && ShiftTimeout > 0) // no key was pressed and shift CD has not finished, output dual character
       {
         Animus.PressKey(val, 0);
@@ -229,7 +230,7 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
       {
         Animus.ReleaseKey(ANIMUS_MOD_DUALROLES_LALT, 0);
       }
-      
+
       if (PressedKey == false && AltTimeout > 0) // no key was pressed and ctrl CD has not finished, output dual character
       {
         Animus.PressKey(val, 0);
@@ -246,7 +247,7 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
       {
         Animus.ReleaseKey(ANIMUS_MOD_DUALROLES_RALT, 0);
       }
-      
+
       if (PressedKey == false && AltgrTimeout > 0) // no key was pressed and altgr CD has not finished, output dual character
       {
         Animus.PressKey(val, 0);
@@ -264,7 +265,7 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
       {
         Animus.ReleaseKey(fnIndex, 1);
       }
-      
+
       if (PressedKey == false && FNTimeout[fnIndex] > 0) // no key was pressed and altgr CD has not finished, output dual character
       {
         Animus.PressKey(val, 0);

@@ -9,7 +9,7 @@ private:
 public:
   byte ModNo; // this is the EEPROM memory address ID
   short EEPROMAddress;
-  const byte ModGUID; // this is the GUID for all list of mods, used for identification by arbites
+  byte ModGUID; // this is the GUID for all list of mods, used for identification by arbites
   CModTemplate(void);
   void Begin(void);
   void LoadData(void);

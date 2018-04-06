@@ -9,6 +9,7 @@ CModModifier::CModModifier(void)
 void CModModifier::Begin(void)
 {
   CModTemplate::Begin();
+  ModGUID = 1; // GUID of this specific mod
 }
 
 void CModModifier::LoadData(void)

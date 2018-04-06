@@ -8,6 +8,7 @@ CModExample::CModExample(void)
 void CModExample::Begin(void)
 {
   CModTemplate::Begin();
+  ModGUID = 0; // GUID of this specific mod
 }
 
 void CModExample::LoadData(void)
