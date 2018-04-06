@@ -1,17 +1,19 @@
 #ifndef ANIMUS_MOD
 #define ANIMUS_MOD
 
-#define builder_mod_begin ModModifier.Begin();
-#define builder_mod_loop ModModifier.Loop();
-#define builder_mod_loaddata ModModifier.LoadData();
-#define builder_mod_prepress ModModifier.PrePress(val, type);
-#define builder_mod_press ModModifier.PressKey(val, type);
-#define builder_mod_release ModModifier.ReleaseKey(val, type);
-#define builder_mod_print ModModifier.PrintMods();
+#define builder_mod_begin ModDualRoles.Begin(); ModModifier.Begin();
+#define builder_mod_loop ModDualRoles.Loop(); ModModifier.Loop();
+#define builder_mod_loaddata ModDualRoles.LoadData(); ModModifier.LoadData();
+#define builder_mod_prepress ModDualRoles.PrePress(val, type); ModModifier.PrePress(val, type);
+#define builder_mod_press ModDualRoles.PressKey(val, type); ModModifier.PressKey(val, type);
+#define builder_mod_release ModDualRoles.ReleaseKey(val, type); ModModifier.ReleaseKey(val, type);
+#define builder_mod_print ModDualRoles.PrintMods(); ModModifier.PrintMods();
 
 
 // mod dependencies below
 #include "ModModifier.h"
+#include "ModDualRoles.h"
+
 // mod dependencies above
 
 
