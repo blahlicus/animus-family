@@ -6,9 +6,6 @@ class CModExample : public CModTemplate
 {
 private:
 public:
-  byte ModNo; // this is the EEPROM memory address ID
-  short EEPROMAddress;
-  const byte ModGUID = 0; // this is the GUID for all list of mods, used for identification by arbites
   CModExample(void);
   void Begin(void);
   void LoadData(void);
