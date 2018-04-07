@@ -9,14 +9,22 @@ void CModMacro::Begin(void)
 {
   CModTemplate::Begin();
   ModGUID = 5; // GUID of this specific mod
+  if (Global.HasUSB)
+  {
+
+  }
 }
 
 void CModMacro::LoadData(void)
 {
   CModTemplate::LoadData();
 
-  MacroCount = GetData(0);
-  KeyDelay = GetData(1);
+  if (Global.HasUSB)
+  {
+
+    MacroCount = GetData(0);
+    KeyDelay = GetData(1);
+  }
 }
 
 void CModMacro::PressMacro(byte id)
@@ -56,11 +64,23 @@ void CModMacro::ReleaseMacro(byte id)
 void CModMacro::Loop(void)
 {
   CModTemplate::Loop();
+  if (Animus.GetMillis())
+  {
+
+    if (Global.HasUSB)
+    {
+
+    }
+  }
 }
 
 void CModMacro::PrePress(byte val, byte type)
 {
   CModTemplate::PrePress(val, type);
+  if (Global.HasUSB)
+  {
+
+  }
 }
 void CModMacro::PressKey(byte val, byte type)
 {

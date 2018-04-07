@@ -10,13 +10,17 @@ void CModTapdance::Begin(void)
   CModTemplate::Begin();
   ModGUID = 6; // GUID of this specific mod
 
-  // resets all arrays, not needed but nice against compilers
-  for (byte i = 0; i < 10; i++)
+  if (Global.HasUSB)
   {
-    KeyID[i] = 255; // if 255 then slot is not used
-    KeyTimeout[i] = 0;
-    KeyCounter[i] = 0;
-    IsDown[i] = false;
+
+    // resets all arrays, not needed but nice against compilers
+    for (byte i = 0; i < 10; i++)
+    {
+      KeyID[i] = 255; // if 255 then slot is not used
+      KeyTimeout[i] = 0;
+      KeyCounter[i] = 0;
+      IsDown[i] = false;
+    }
   }
 }
 
@@ -25,8 +29,12 @@ void CModTapdance::LoadData(void)
   CModTemplate::LoadData();
 
   // loads number of tapdance keys and timeout settings
-  TapdanceCount = GetData(0);
-  TimeoutSetting = GetData(1);
+  if (Global.HasUSB)
+  {
+
+    TapdanceCount = GetData(0);
+    TimeoutSetting = GetData(1);
+  }
 }
 
 void CModTapdance::PressTapdance(byte id)
@@ -92,33 +100,38 @@ void CModTapdance::Loop(void)
 
   if (Animus.GetMillis())
   {
-    if (tickTock < 5)
-    {
-      tickTock++;
-    }
-    else // runs once every 5 cycles (about 5ms)
-    {
-      for (byte i = 0; i < 10; i++)
-      {
 
-        if (KeyID[i] != 255) // it was previously pressed
+    if (Global.HasUSB)
+    {
+
+      if (tickTock < 5)
+      {
+        tickTock++;
+      }
+      else // runs once every 5 cycles (about 5ms)
+      {
+        for (byte i = 0; i < 10; i++)
         {
-          if (KeyTimeout[i] > 0)
+
+          if (KeyID[i] != 255) // it was previously pressed
           {
-            KeyTimeout[i]--;
-          }
-          else
-          {
-            PressTapKey(KeyID[i], KeyCounter[i]);
-            if (!IsDown[i])
+            if (KeyTimeout[i] > 0)
             {
-              ReleaseTapKey(KeyID[i], KeyCounter[i]);
-              KeyID[i] = 255; // clears keyid state;
+              KeyTimeout[i]--;
+            }
+            else
+            {
+              PressTapKey(KeyID[i], KeyCounter[i]);
+              if (!IsDown[i])
+              {
+                ReleaseTapKey(KeyID[i], KeyCounter[i]);
+                KeyID[i] = 255; // clears keyid state;
+              }
             }
           }
         }
+        tickTock = 0;
       }
-      tickTock = 0;
     }
   }
 }
@@ -158,21 +171,25 @@ void CModTapdance::PrePress(byte val, byte type)
 {
   CModTemplate::PrePress(val, type);
 
-  for (byte i = 0; i < 10; i++) // iterate through the arrays
+  if (Global.HasUSB)
   {
-    if (KeyID[i] != 255) // it was previously pressed
+
+    for (byte i = 0; i < 10; i++) // iterate through the arrays
     {
-      if (val == KeyID[i] && type == 33) // same key as self, ignore
+      if (KeyID[i] != 255) // it was previously pressed
       {
-        // do nothing
-      }
-      else if (KeyTimeout[i] > 0)
-      {
-        PressTapKey(KeyID[i], KeyCounter[i]);
-        if (!IsDown[i])
+        if (val == KeyID[i] && type == 33) // same key as self, ignore
         {
-          ReleaseTapKey(KeyID[i], KeyCounter[i]);
-          KeyID[i] = 255; // clears keyid state;
+          // do nothing
+        }
+        else if (KeyTimeout[i] > 0)
+        {
+          PressTapKey(KeyID[i], KeyCounter[i]);
+          if (!IsDown[i])
+          {
+            ReleaseTapKey(KeyID[i], KeyCounter[i]);
+            KeyID[i] = 255; // clears keyid state;
+          }
         }
       }
     }

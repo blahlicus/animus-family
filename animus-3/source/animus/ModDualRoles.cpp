@@ -9,26 +9,31 @@ void CModDualRoles::Begin(void)
 {
   CModTemplate::Begin();
   ModGUID = 2; // GUID of this specific mod
-
-
-  // I don't need to do this but just to be safe to the compiler
-  GuiTimeout = 0;
-  CtrlTimeout = 0;
-  ShiftTimeout = 0;
-  AltTimeout = 0;
-  AltgrTimeout = 0;
-  for (byte i = 0; i < 6; i++)
+  if (Global.HasUSB)
   {
-    FNTimeout[i] = 0;
-    FNDown[i] = false;
+
+
+    // I don't need to do this but just to be safe to the compiler
+    GuiTimeout = 0;
+    CtrlTimeout = 0;
+    ShiftTimeout = 0;
+    AltTimeout = 0;
+    AltgrTimeout = 0;
+    for (byte i = 0; i < 6; i++)
+    {
+      FNTimeout[i] = 0;
+      FNDown[i] = false;
+    }
   }
 }
 
 void CModDualRoles::LoadData(void)
 {
   CModTemplate::LoadData();
-
-  TimeoutLength = GetData(0) * 5; // max value is 255 * 5 = about 1.275 seconds
+  if (Global.HasUSB)
+  {
+    TimeoutLength = GetData(0) * 5; // max value is 255 * 5 = about 1.275 seconds
+  }
 
 }
 
@@ -37,33 +42,37 @@ void CModDualRoles::Loop(void)
   CModTemplate::Loop();
   if (Animus.GetMillis())
   {
-    // countdowns
-    if (GuiTimeout > 0)
+    if (Global.HasUSB)
     {
-      GuiTimeout--;
-    }
-    if (CtrlTimeout > 0)
-    {
-      CtrlTimeout--;
-    }
-    if (ShiftTimeout > 0)
-    {
-      ShiftTimeout--;
-    }
-    if (AltTimeout > 0)
-    {
-      AltTimeout--;
-    }
-    if (AltgrTimeout > 0)
-    {
-      AltgrTimeout--;
-    }
 
-    for (byte i = 0; i < 6; i++)
-    {
-      if (FNTimeout[i] > 0)
+      // countdowns
+      if (GuiTimeout > 0)
       {
-        FNTimeout[i]--;
+        GuiTimeout--;
+      }
+      if (CtrlTimeout > 0)
+      {
+        CtrlTimeout--;
+      }
+      if (ShiftTimeout > 0)
+      {
+        ShiftTimeout--;
+      }
+      if (AltTimeout > 0)
+      {
+        AltTimeout--;
+      }
+      if (AltgrTimeout > 0)
+      {
+        AltgrTimeout--;
+      }
+
+      for (byte i = 0; i < 6; i++)
+      {
+        if (FNTimeout[i] > 0)
+        {
+          FNTimeout[i]--;
+        }
       }
     }
   }
@@ -76,9 +85,9 @@ void CModDualRoles::PrePress(byte val, byte type)
 void CModDualRoles::PressKey(byte val, byte type)
 {
   CModTemplate::PressKey(val, type);
-  PressedKey = true;
   if (Global.HasUSB)
   {
+    PressedKey = true;
     if (type == 19) // gui
     {
       if (GuiDown == 0) // gui was not down by this mod before
@@ -277,7 +286,6 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
 
     }
   }
-
 }
 
 void CModDualRoles::SerialComms(byte mode)

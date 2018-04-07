@@ -9,21 +9,40 @@ void CModMedia::Begin(void)
 {
   CModTemplate::Begin();
   ModGUID = 4; // GUID of this specific mod
+  if (Global.HasUSB)
+  {
+
+  }
 }
 
 void CModMedia::LoadData(void)
 {
   CModTemplate::LoadData();
+  if (Global.HasUSB)
+  {
+
+  }
 }
 
 void CModMedia::Loop(void)
 {
   CModTemplate::Loop();
+  if (Animus.GetMillis())
+  {
+    if (Global.HasUSB)
+    {
+
+    }
+  }
 }
 
 void CModMedia::PrePress(byte val, byte type)
 {
   CModTemplate::PrePress(val, type);
+  if (Global.HasUSB)
+  {
+
+  }
 }
 void CModMedia::PressKey(byte val, byte type)
 {

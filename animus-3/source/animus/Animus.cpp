@@ -226,9 +226,7 @@ void CAnimus::KeyScan()
 }
 
 
-unsigned long PreviousMillis = 0;
-unsigned long CurrentMillis = 0;
-bool ReadyMillis = false;
+
 
 void CAnimus::MillisLoop()
 {

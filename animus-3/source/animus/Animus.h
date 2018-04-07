@@ -10,7 +10,10 @@
 class CAnimus
 {
 private:
-void MillisLoop(void);
+  void MillisLoop(void);
+  unsigned long PreviousMillis = 0;
+  unsigned long CurrentMillis = 0;
+  bool ReadyMillis = false;
 public:
   CAnimus(void);
   void Begin(void);

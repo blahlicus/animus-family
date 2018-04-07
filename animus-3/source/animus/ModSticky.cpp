@@ -11,26 +11,45 @@ void CModSticky::Begin(void)
   ModGUID = 3; // GUID of this specific mod
 
 
-  // not needed, good against bad compilers
-  for (byte i = 0; i < 20; i++)
+  if (Global.HasUSB)
   {
-    FNDown[i] = false;
+
+    // not needed, good against bad compilers
+    for (byte i = 0; i < 20; i++)
+    {
+      FNDown[i] = false;
+    }
   }
 }
 
 void CModSticky::LoadData(void)
 {
   CModTemplate::LoadData();
+  if (Global.HasUSB)
+  {
+
+  }
 }
 
 void CModSticky::Loop(void)
 {
   CModTemplate::Loop();
+  if (Animus.GetMillis())
+  {
+    if (Global.HasUSB)
+    {
+
+    }
+  }
 }
 
 void CModSticky::PrePress(byte val, byte type)
 {
   CModTemplate::PrePress(val, type);
+  if (Global.HasUSB)
+  {
+
+  }
 }
 void CModSticky::PressKey(byte val, byte type)
 {
