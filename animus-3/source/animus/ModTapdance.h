@@ -6,14 +6,19 @@
 class CModTapdance : public CModTemplate
 {
 private:
+  byte tickTock = 0; // this is the counter for the main loop
+
   byte TapdanceCount = 0;
-  byte KeyTimeout = 100; // this really ought to be shorts but i'm saving them srams
+  byte TimeoutSetting = 100; // this really ought to be shorts but i'm saving them srams
   byte KeyID[10];
   byte KeyTimeout[10];
   byte KeyCounter[10];
+  bool IsDown[10];
 
-  void PressMacro(byte id);
-  void ReleaseMacro(byte id);
+  void PressTapdance(byte id);
+  void ReleaseTapdance(byte id);
+  void PressTapKey(byte id, byte counter);
+  void ReleaseTapKey(byte id, byte counter);
 public:
   CModTapdance(void);
   void Begin(void);

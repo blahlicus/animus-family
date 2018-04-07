@@ -10,11 +10,13 @@ void CModTapdance::Begin(void)
   CModTemplate::Begin();
   ModGUID = 6; // GUID of this specific mod
 
+  // resets all arrays, not needed but nice against compilers
   for (byte i = 0; i < 10; i++)
   {
     KeyID[i] = 255; // if 255 then slot is not used
     KeyTimeout[i] = 0;
     KeyCounter[i] = 0;
+    IsDown[i] = false;
   }
 }
 
@@ -22,57 +24,106 @@ void CModTapdance::LoadData(void)
 {
   CModTemplate::LoadData();
 
+  // loads number of tapdance keys and timeout settings
   TapdanceCount = GetData(0);
   TimeoutSetting = GetData(1);
 }
 
-void CModTapdance::PressMacro(byte id)
+void CModTapdance::PressTapdance(byte id)
 {
-  short startingAddr = 2;
-  byte tapdanceID = 0;
-  for (byte i = 0; i < id; i++) // this retrieves the starting address of the specific macro
-  {
-    startingAddr = startingAddr + 1 + GetData(startingAddr) * 2;
-    tapdanceID = i;
-  }
-
-  byte keyLength = GetData(startingAddr);
-
   bool exists = false;
   for (byte i = 0; i < 10; i++) // iterate through the arrays
   {
-    if (KeyID[i] == tapdanceID) // it was previously pressed
+    if (KeyID[i] == id) // it was previously pressed
     {
       exists = true;
+      IsDown[i] = true;
       if (KeyTimeout[i] > 0)
       {
         KeyTimeout[i] = TimeoutSetting;
         KeyCounter[i]++;
       }
+      break;
     }
   }
 
-  if (!exists)
+  if (!exists) // run this if it was not pressed before
   {
     for (byte i = 0; i < 10; i++) // iterate through the arrays
     {
       if (KeyID[i] == 255) // find first occurance of an empty slot
       {
         exists = true;
+        IsDown[i] = true;
+        KeyID[i] = id;
         KeyTimeout[i] = TimeoutSetting;
         KeyCounter[i] = 0;
+        break; // breaks out of the loop so that not every 255 gets infected
       }
     }
   }
 
-  for (byte i = 0; i < macroLength; i++) // iterates and executes the macros
+}
+
+void CModTapdance::ReleaseTapdance(byte id)
+{
+
+  for (byte i = 0; i < 10; i++) // iterate through the arrays
   {
-    Animus.PressKey(GetData(startingAddr + 1 + i * 2), GetData(startingAddr + 2 + i * 2));
-    delay(KeyDelay);
+    if (KeyID[i] == id) // it was previously pressed
+    {
+      IsDown[i] = false;
+      if (KeyTimeout[i] > 0)
+      {
+        // do nothing
+      }
+      else
+      {
+        KeyID[i] = 255; // clears keyid state;
+        ReleaseTapKey(id, KeyCounter[i]);
+      }
+    }
   }
 }
 
-void CModTapdance::ReleaseMacro(byte id)
+void CModTapdance::Loop(void)
+{
+  CModTemplate::Loop();
+
+  if (Animus.GetMillis())
+  {
+    if (tickTock < 5)
+    {
+      tickTock++;
+    }
+    else // runs once every 5 cycles (about 5ms)
+    {
+      for (byte i = 0; i < 10; i++)
+      {
+
+        if (KeyID[i] != 255) // it was previously pressed
+        {
+          if (KeyTimeout[i] > 0)
+          {
+            KeyTimeout[i]--;
+          }
+          else
+          {
+            PressTapKey(KeyID[i], KeyCounter[i]);
+            if (!IsDown[i])
+            {
+              ReleaseTapKey(KeyID[i], KeyCounter[i]);
+            }
+            KeyID[i] = 255; // clears keyid state;
+          }
+        }
+      }
+      tickTock = 0;
+    }
+  }
+}
+
+void CModTapdance::PressTapKey(byte id, byte counter)
 {
   short startingAddr = 2;
   for (byte i = 0; i < id; i++) // this retrieves the starting address of the specific macro
@@ -80,19 +131,28 @@ void CModTapdance::ReleaseMacro(byte id)
     startingAddr = startingAddr + 1 + GetData(startingAddr) * 2;
   }
 
-  byte macroLength = GetData(startingAddr);
-
-  for (byte i = 0; i < macroLength; i++) // iterates and releases the keys in the macro backwards
+  byte keyLength = GetData(startingAddr);
+  if (counter <= keyLength)
   {
-    Animus.ReleaseKey(GetData(startingAddr + 1 + (macroLength - 1 - i) * 2), GetData(startingAddr + 2 + (macroLength - 1 - i) * 2));
-    delay(KeyDelay);
+    Animus.PressKey(GetData(startingAddr + 1 + counter * 2), GetData(startingAddr + 2 + counter * 2));
   }
 }
 
-void CModTapdance::Loop(void)
+void CModTapdance::ReleaseTapKey(byte id, byte counter)
 {
-  CModTemplate::Loop();
+  short startingAddr = 2;
+  for (byte i = 0; i < id; i++) // this retrieves the starting address of the specific macro
+  {
+    startingAddr = startingAddr + 1 + GetData(startingAddr) * 2;
+  }
+
+  byte keyLength = GetData(startingAddr);
+  if (counter <= keyLength)
+  {
+    Animus.ReleaseKey(GetData(startingAddr + 1 + counter * 2), GetData(startingAddr + 2 + counter * 2));
+  }
 }
+
 
 void CModTapdance::PrePress(byte val, byte type)
 {
@@ -104,9 +164,13 @@ void CModTapdance::PressKey(byte val, byte type)
 
   if (Global.HasUSB)
   {
-    if (type == 32)
+    if (type == 33)
     {
-      PressMacro(val);
+      PressTapdance(val);
+    }
+    else if (type == 34)
+    {
+      PressTapKey(1,1);
     }
   }
 }
@@ -117,9 +181,9 @@ void CModTapdance::ReleaseKey(byte val, byte type)
   if (Global.HasUSB)
   {
 
-    if (type == 32)
+    if (type == 33)
     {
-      ReleaseMacro(val);
+      ReleaseTapdance(val);
     }
   }
 }
