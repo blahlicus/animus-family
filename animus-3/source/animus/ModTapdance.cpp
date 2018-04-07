@@ -79,8 +79,8 @@ void CModTapdance::ReleaseTapdance(byte id)
       }
       else
       {
-        KeyID[i] = 255; // clears keyid state;
         ReleaseTapKey(id, KeyCounter[i]);
+        KeyID[i] = 255; // clears keyid state;
       }
     }
   }
@@ -113,8 +113,8 @@ void CModTapdance::Loop(void)
             if (!IsDown[i])
             {
               ReleaseTapKey(KeyID[i], KeyCounter[i]);
+              KeyID[i] = 255; // clears keyid state;
             }
-            KeyID[i] = 255; // clears keyid state;
           }
         }
       }
@@ -157,6 +157,26 @@ void CModTapdance::ReleaseTapKey(byte id, byte counter)
 void CModTapdance::PrePress(byte val, byte type)
 {
   CModTemplate::PrePress(val, type);
+
+  for (byte i = 0; i < 10; i++) // iterate through the arrays
+  {
+    if (KeyID[i] != 255) // it was previously pressed
+    {
+      if (val == KeyID[i] && type == 33) // same key as self, ignore
+      {
+        // do nothing
+      }
+      else if (KeyTimeout[i] > 0)
+      {
+        PressTapKey(KeyID[i], KeyCounter[i]);
+        if (!IsDown[i])
+        {
+          ReleaseTapKey(KeyID[i], KeyCounter[i]);
+          KeyID[i] = 255; // clears keyid state;
+        }
+      }
+    }
+  }
 }
 void CModTapdance::PressKey(byte val, byte type)
 {
