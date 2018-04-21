@@ -46,10 +46,10 @@ void CModTapdance::PressTapdance(byte id)
     {
       exists = true;
       IsDown[i] = true;
-      if (KeyTimeout[i] > 0)
+      if (KeyTimeout[i] > 0) // it wasn't timed out
       {
         KeyTimeout[i] = TimeoutSetting;
-        KeyCounter[i]++;
+        KeyCounter[i]++; // increment tapdance value
       }
       break;
     }
@@ -182,7 +182,7 @@ void CModTapdance::PrePress(byte val, byte type)
         {
           // do nothing
         }
-        else if (KeyTimeout[i] > 0)
+        else if (KeyTimeout[i] > 0) // press tap key if another key is pressed
         {
           PressTapKey(KeyID[i], KeyCounter[i]);
           if (!IsDown[i])
