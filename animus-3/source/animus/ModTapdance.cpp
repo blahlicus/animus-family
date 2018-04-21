@@ -167,7 +167,7 @@ void CModTapdance::ReleaseTapKey(byte id, byte counter)
 }
 
 
-void CModTapdance::PrePress(byte val, byte type) //TODO modifiers WILL NOT work properly with this prepress config, the modifier is released before the other key is pressed
+void CModTapdance::PrePress(byte val, byte type)
 {
   CModTemplate::PrePress(val, type);
 
