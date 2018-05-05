@@ -26,7 +26,7 @@ private:
   byte EEPROMPacketEOLSize = 255;
   bool EEPROMPacketReady = false;
   byte SignalType = 1;
-
+  byte BrightnessRefreshValue = 127;
 
   void SetTempLayer(void);
   void SetSubEEPROM(void);
