@@ -8,7 +8,7 @@ void CModI2CHost::Begin(void)
 {
   CModTemplate::Begin();
   ModGUID = 8; // GUID of this sspecific mod
-  
+
   if (Global.HasUSB) // i2c host only activates if this device is plugged into the PC
   {
     Wire.begin(8);
@@ -137,7 +137,7 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
   if (Global.HasUSB)
   {
 
-    if (mode == 6) // start of package transfer TODO: you could remove the length in non-EOL packets
+    if (mode == 6 || mode == 7) // start of package transfer TODO: you could remove the length in non-EOL packets
     {
       if (Serial.available()>0)
       {
@@ -162,7 +162,14 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
               }
               else // when buffer is filled, signal package ready to send
               {
-                SignalType = 2;
+                if (mode == 6) // this is for addresses 0 to 900
+                {
+                  SignalType = 2;
+                }
+                else if (mode == 7) // this is for addresses 900 to 1023
+                {
+                  SignalType = 4;
+                }
               }
             }
             else // this is the EOL packet
@@ -174,7 +181,14 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
               }
               else // last package ready, signal package ready to send
               {
-                SignalType = 3;
+                if (mode == 6)
+                {
+                  SignalType = 3;
+                }
+                else if (mode == 7)
+                {
+                  SignalType = 5;
+                }
                 Comms.mode = 0;// comms is reset
               }
             }
