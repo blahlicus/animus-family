@@ -233,7 +233,7 @@ void CModI2CHost::SetSubBoardEOL(void)
   Wire.write(5);
   Wire.write(Global.TempLayer);
   Wire.write(EEPROMPacketIndex);
-  Wire.write(EEPROMPacketIndex, EEPROMPacketIndex);
+  Wire.write(EEPROMPacket, EEPROMPacketIndex);
 }
 
 void CModI2CHost::SetSubLEDBrightness(void)
