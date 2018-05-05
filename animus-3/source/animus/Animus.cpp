@@ -32,49 +32,57 @@ void CAnimus::Loop()
   if (GetMillis()) // should run once every 1 to 1.5ms
   {
 
-    // layering checks in case of layout remapping
-    if (Global.KeyLayer >= Global.LAY || Global.TempLayer >= Global.LAY)
+    if (Global.HasUSB )
     {
-      Global.KeyLayer = 0;
-      Global.TempLayer = 0;
+
+      // layering checks in case of layout remapping
+      if (Global.KeyLayer >= Global.LAY || Global.TempLayer >= Global.LAY)
+      {
+        Global.KeyLayer = 0;
+        Global.TempLayer = 0;
+      }
     }
 
     KeyScan(); // physical key layers scanned
     // start of physical key loops
-    for (byte i = 0; i < Global.ROW; i++)
+    if (Global.HasUSB)
     {
-      for (byte j = 0; j < Global.COL; j++)
-      {
-        if (Global.KeyState[j][i] == HIGH) // if key is down
-        {
-          if (Global.KeyStateCoolDown[j][i] == 0) // if key was not recently released
-          {
-            Mod.PrePress(PersMem.GetKeyData(j, i, Global.TempLayer), PersMem.GetKeyType(j, i, Global.TempLayer));
-            Global.LayerState[j][i] = Global.TempLayer;
-            PressKey(PersMem.GetKeyData(j, i, Global.TempLayer), PersMem.GetKeyType(j, i, Global.TempLayer));
-            Global.KeyStateCoolDown[j][i] = 255;
-          }
-        }
-        else if (Global.KeyState[j][i] == LOW) // if key is up
-        {
-          if (Global.KeyStateCoolDown[j][i] == 255) // if key was previously held down
-          {
-            ReleaseKey(PersMem.GetKeyData(j, i, Global.LayerState[j][i]), PersMem.GetKeyType(j, i, Global.LayerState[j][i]));
 
-            Global.KeyStateCoolDown[j][i] = Global.RefreshDelay;
+      for (byte i = 0; i < Global.ROW; i++)
+      {
+        for (byte j = 0; j < Global.COL; j++)
+        {
+          if (Global.KeyState[j][i] == HIGH) // if key is down
+          {
+            if (Global.KeyStateCoolDown[j][i] == 0) // if key was not recently released
+            {
+              Mod.PrePress(PersMem.GetKeyData(j, i, Global.TempLayer), PersMem.GetKeyType(j, i, Global.TempLayer));
+              Global.LayerState[j][i] = Global.TempLayer;
+              PressKey(PersMem.GetKeyData(j, i, Global.TempLayer), PersMem.GetKeyType(j, i, Global.TempLayer));
+              Global.KeyStateCoolDown[j][i] = 255;
+            }
+          }
+          else if (Global.KeyState[j][i] == LOW) // if key is up
+          {
+            if (Global.KeyStateCoolDown[j][i] == 255) // if key was previously held down
+            {
+              ReleaseKey(PersMem.GetKeyData(j, i, Global.LayerState[j][i]), PersMem.GetKeyType(j, i, Global.LayerState[j][i]));
+
+              Global.KeyStateCoolDown[j][i] = Global.RefreshDelay;
+            }
           }
         }
       }
-    }
-    // end of physical key loops
-    // start of countdowns
-    for (byte i = 0; i < Global.ROW; i++)
-    {
-      for (byte j = 0; j < Global.COL; j++)
+      // end of physical key loops
+      // start of countdowns
+      for (byte i = 0; i < Global.ROW; i++)
       {
-        if (Global.KeyStateCoolDown[j][i] > 0 && Global.KeyStateCoolDown[j][i] != 255)
+        for (byte j = 0; j < Global.COL; j++)
         {
-          Global.KeyStateCoolDown[j][i]--;
+          if (Global.KeyStateCoolDown[j][i] > 0 && Global.KeyStateCoolDown[j][i] != 255)
+          {
+            Global.KeyStateCoolDown[j][i]--;
+          }
         }
       }
     }

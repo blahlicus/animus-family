@@ -73,7 +73,6 @@ void CModI2CHost::RequestEvent()
       SetSubEEPROMEOL();
       EEPROMPacketIndex = 255; // resets packet index and counter
       EEPROMPacketCounter = 255;
-      SetSubRefreshRate();
       SignalType == 0;
     }
     else if (SignalType == 4)
@@ -88,7 +87,6 @@ void CModI2CHost::RequestEvent()
       SetSubBoardEOL();
       EEPROMPacketIndex = 255; // resets packet index and counter
       EEPROMPacketCounter = 255;
-      SetSubRefreshRate();
       SignalType == 0;
     }
     else if (SignalType == 6)
