@@ -1,5 +1,5 @@
-#define DEFAULT_ROW 10
-#define DEFAULT_COL 10
+#define DEFAULT_ROW 12
+#define DEFAULT_COL 12
 
 #ifndef ANIMUS_GLOBAL
 #define ANIMUS_GLOBAL
@@ -31,6 +31,9 @@ public:
 
   bool HasUSB = false; // state of USB host addressing, useful for split keyboards, note that this does not work if USB is disconnected whilst device is still powered (IE battery packs)
   bool RequiresLoadData = false; // I am soo sorry for the spaghetti
+
+
+  byte LEDBrightness = 0;
   CGlobal(void);
 };
 extern CGlobal Global;

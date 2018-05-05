@@ -17,7 +17,7 @@ public:
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
-  void SerialComms(byte mode);
+  virtual void SerialComms(byte mode);
   void PrintMods();
   byte GetData(short addr);
   void SetData(short addr, byte data);

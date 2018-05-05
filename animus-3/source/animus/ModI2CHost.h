@@ -10,21 +10,33 @@
 
 /* references
 below are types of i2c transmissions from the host to guest
-1: set TempLayer (type, tlayer)
-2: set KeyLayer (type, klayer)
-3: set eeprom data (packages of more than 30 bytes) (type, byte0, byte1, ...)
-4: EOL for setting eeprom data, if setting less than 30 bytes, use this (type, length, byte0, byte 1, ...)
-5: change max layer count (type, maxlay)
-6: change refresh rate (type, refreshRate)
-7: change board type (type, boardType)
-8: change rows and row count (type, rowCount, rowPin0, rowPin1, ...)
-9: change cols and col count (type, colCount, colPin0, colPin1, ...)
-10: change brightness (type, brightness value)
+1: send layer statuses (tlayer, klayer) (ping from guest before guest wants to send keystrokes)
+2: ping from guest to check whether there's a new layout to send (maybe check every 100 ms?)
+3: EOL for type 2
+4:
+
 */
 
 class CModI2CHost : public CModTemplate
 {
 private:
+  byte EEPROMPacket[29];
+  byte EEPROMPacketIndex = 0;
+  byte EEPROMPacketCounter = 255;
+  byte EEPROMPacketEOLSize = 255;
+  bool EEPROMPacketReady = false;
+  byte SignalType = 1;
+
+
+  void SetTempLayer(void);
+  void SetSubEEPROM(void);
+  void SetSubEEPROMEOL(void);
+  void SetSubBoardSettings(void);
+  void SetSubBoardEOL(void);
+  void SetSubLEDBrightness(void);
+  void SetSubRefreshRate(void);
+
+
 public:
   CModI2CHost(void);
   void Begin(void);
@@ -33,7 +45,15 @@ public:
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
+  void RequestEvent(void); // really doesn't matter whether those are static or not, there's only one instance
+  void ReceiveEvent(byte numBytes);
+  static void RequestInfo(void);
+  static void ReceiveInfo(byte numBytes);
   void SerialComms(byte mode);
+
+
+
+
 };
 extern CModI2CHost ModI2CHost;
 

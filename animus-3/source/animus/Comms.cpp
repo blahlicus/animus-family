@@ -15,7 +15,7 @@ void CSerial::Begin(int baud)
 
 void CSerial::Loop(void)
 {
-  if (mode == 0)
+  if (mode == 0) // mode 0 is standby mode which waits for another mode input
   {
     if (Serial.available()>0) //TODO if the key is incorrrect then the port is forever jammed
     {
@@ -58,6 +58,8 @@ void CSerial::Loop(void)
   else if (mode == 3) // print mod list in order of mem id
   {
     // reserved for mod.cpp
+    mode = 0;
+
   }
   else if (mode == 4) // load 900 bytes to 0-899 EEPROM for layout and mod data
   {
@@ -89,10 +91,6 @@ void CSerial::Loop(void)
   else if (mode == 255) // idle mode
   {
 
-  }
-  else
-  {
-    mode = 0;
   }
 }
 
