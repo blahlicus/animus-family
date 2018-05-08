@@ -22,8 +22,8 @@ class CModI2CHost : public CModTemplate
 private:
   byte EEPROMPacket[30];
   byte EEPROMPacketIndex = 0;
-
-
+  byte I2CTempLayer = 0;
+  byte I2CLEDBrightness = 0;
   void SetTempLayer(void);
   void SetSubEEPROM(void);
   void SetSubBoardSettings(void);
@@ -36,6 +36,7 @@ public:
   void Begin(void);
   void LoadData(void);
   void Loop(void);
+  void PressCoords(byte x, byte y);
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);

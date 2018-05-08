@@ -30,6 +30,101 @@ void CModI2CHost::Loop(void)
 {
   CModTemplate::Loop();
 
+  if (Global.HasUSB)
+  {
+    // syncs templayer value with guest
+    if (Global.TempLayer != I2CTempLayer)
+    {
+      SetTempLayer();
+      I2CTempLayer = Global.TempLayer;
+    }
+    if (Global.LEDBrightness != I2CLEDBrightness)
+    {
+      SetSubLEDBrightness();
+      I2CLEDBrightness = Global.LEDBrightness;
+    }
+    // gets keystrokes from guest
+    Wire.requestFrom(8, 32);
+    bool hasInput = true;
+    byte keyData;
+    byte keyType;
+    byte keyMode;
+    byte keyX;
+    byte keyY;
+    while (hasInput)
+    {
+      if (Wire.available()) // need to put ifs in here so trailing bytes are left out
+      {
+        keyData = Wire.read();
+      }
+      else
+      {
+        hasInput = false;
+        keyMode = 255;
+      }
+      if (Wire.available()) // need to put ifs in here so trailing bytes are left out
+      {
+        keyType = Wire.read();
+      }
+      else
+      {
+        hasInput = false;
+        keyMode = 255;
+      }
+      if (Wire.available()) // need to put ifs in here so trailing bytes are left out
+      {
+        keyMode = Wire.read();
+      }
+      else
+      {
+        hasInput = false;
+        keyMode = 255;
+      }
+      if (Wire.available()) // need to put ifs in here so trailing bytes are left out
+      {
+        byte tempByte = Wire.read();
+        keyX = tempByte & 0x0f; // bitwise structure is YYYYXXXX
+        keyY = tempByte >> 4;
+      }
+      else
+      {
+        hasInput = false;
+        keyMode = 255;
+      }
+
+      if (keyMode == 1) // release key
+      {
+        Animus.ReleaseKey(keyData, keyType);
+      }
+      else if (keyMode == 5) // press key
+      {
+        Animus.PrePress(keyData, keyType);
+        if (Global.TempLayer != I2CTempLayer)
+        {
+          SetTempLayer();
+          I2CTempLayer = Global.TempLayer;
+          Wire.beginTransmission(8);
+          Wire.write(7);
+          Wire.write(keyX);
+          Wire.write(keyY);
+          Wire.endTransmission();
+          Wire.requestFrom(8, 2);
+          if (Wire.available()) // need to put ifs in here so trailing bytes are left out
+          {
+            keyData = Wire.read();
+          }
+          if (Wire.available()) // need to put ifs in here so trailing bytes are left out
+          {
+            keyType = Wire.read();
+          }
+        }
+        Animus.PressKey(keyData, keyType);
+      }
+    }
+  }
+
+
+
   if (Animus.Async1MSDelay())
   {
 
@@ -40,6 +135,16 @@ void CModI2CHost::Loop(void)
   }
 }
 
+void CModI2CHost::PressCoords(byte x, byte y)
+{
+  CModTemplate::PressCoords(x, y);
+
+  if (Global.HasUSB)
+  {
+
+  }
+
+}
 void CModI2CHost::PrePress(byte val, byte type)
 {
   CModTemplate::PrePress(val, type);
@@ -117,7 +222,6 @@ void CModI2CHost::SetSubLEDBrightness(void)
 {
   Wire.beginTransmission(8);
   Wire.write(4);
-  Wire.write(Global.TempLayer);
   Wire.write(Global.LEDBrightness);
   Wire.endTransmission();
 }
@@ -126,7 +230,6 @@ void CModI2CHost::SetSubRefreshRate(void)
 {
   Wire.beginTransmission(8);
   Wire.write(5);
-  Wire.write(Global.TempLayer);
   Wire.write(Global.RefreshDelay);
   Wire.endTransmission();
 }
