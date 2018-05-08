@@ -1,11 +1,11 @@
-#include "ModExample.h"
+#include "ModI2CGuest.h"
 
-CModExample::CModExample(void)
+CModI2CGuest::CModI2CGuest(void)
 {
   // nothing
 }
 
-void CModExample::Begin(void)
+void CModI2CGuest::Begin(void)
 {
   CModTemplate::Begin();
   ModGUID = 0; // GUID of this specific mod
@@ -16,7 +16,7 @@ void CModExample::Begin(void)
   }
 }
 
-void CModExample::LoadData(void)
+void CModI2CGuest::LoadData(void)
 {
   CModTemplate::LoadData();
 
@@ -26,7 +26,7 @@ void CModExample::LoadData(void)
   }
 }
 
-void CModExample::Loop(void)
+void CModI2CGuest::Loop(void)
 {
   CModTemplate::Loop();
 
@@ -40,13 +40,13 @@ void CModExample::Loop(void)
   }
 }
 
-void CModExample::PressCoords(byte x, byte y)
+void CModI2CGuest::PressCoords(byte x, byte y)
 {
   CModTemplate::PressCoords(x, y);
 
 }
 
-void CModExample::PrePress(byte val, byte type)
+void CModI2CGuest::PrePress(byte val, byte type)
 {
   CModTemplate::PrePress(val, type);
     if (Global.HasUSB)
@@ -54,7 +54,7 @@ void CModExample::PrePress(byte val, byte type)
 
     }
 }
-void CModExample::PressKey(byte val, byte type)
+void CModI2CGuest::PressKey(byte val, byte type)
 {
   CModTemplate::PressKey(val, type);
 
@@ -63,7 +63,7 @@ void CModExample::PressKey(byte val, byte type)
 
   }
 }
-void CModExample::ReleaseKey(byte val, byte type)
+void CModI2CGuest::ReleaseKey(byte val, byte type)
 {
   CModTemplate::ReleaseKey(val, type);
 
@@ -73,10 +73,10 @@ void CModExample::ReleaseKey(byte val, byte type)
   }
 }
 
-void CModExample::SerialComms(byte mode)
+void CModI2CGuest::SerialComms(byte mode)
 {
   CModTemplate::SerialComms(mode);
 }
 
 
-CModExample ModExample;
+CModI2CGuest ModI2CGuest;

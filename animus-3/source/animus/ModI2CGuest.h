@@ -1,13 +1,13 @@
-#ifndef ANIMUS_MOD_MODEXAMPLE
-#define ANIMUS_MOD_MODEXAMPLE
+#ifndef ANIMUS_MOD_ModI2CGuest
+#define ANIMUS_MOD_ModI2CGuest
 #include "ModTemplate.h"
 #include "Animus.h"
 
-class CModExample : public CModTemplate
+class CModI2CGuest : public CModTemplate
 {
 private:
 public:
-  CModExample(void);
+  CModI2CGuest(void);
   void Begin(void);
   void LoadData(void);
   void Loop(void);
@@ -17,6 +17,6 @@ public:
   void ReleaseKey(byte val, byte type);
   void SerialComms(byte mode);
 };
-extern CModExample ModExample;
+extern CModI2CGuest ModI2CGuest;
 
 #endif
