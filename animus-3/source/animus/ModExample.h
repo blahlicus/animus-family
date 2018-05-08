@@ -11,7 +11,7 @@ public:
   void Begin(void);
   void LoadData(void);
   void Loop(void);
-  void PressCoords(byte x, y);
+  void PressCoords(byte x, byte y);
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
