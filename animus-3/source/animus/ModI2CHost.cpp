@@ -184,7 +184,7 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
   CModTemplate::SerialComms(mode);
   if (Global.HasUSB)
   {
-    if (mode == 6 || mode == 7)
+    if (mode == 6 || mode == 7) // write to guest eeprom starting at addr = 0 or 900, ending at first short read from serial
     {
       if (Serial.available()) //TODO I might want to work in a timeout or fail check for this
       {

@@ -8,11 +8,13 @@ CModI2CGuest::CModI2CGuest(void)
 void CModI2CGuest::Begin(void)
 {
   CModTemplate::Begin();
-  ModGUID = 0; // GUID of this specific mod
+  ModGUID = 8; // GUID of this specific mod
 
-  if (Global.HasUSB)
+  if (!Global.HasUSB) // if no usb
   {
-
+    Wire.begin(8);
+    Wire.onRequest();
+    Wire.onReceive();
   }
 }
 
@@ -71,6 +73,16 @@ void CModI2CGuest::ReleaseKey(byte val, byte type)
   {
 
   }
+}
+
+static void CModI2CGuest::RequestEvent()
+{
+  ModI2CGuest.OnRequest();
+}
+
+static void CModI2CGuest::ReceiveEvent(int numBytes)
+{
+  ModI2CGuest.OnReceive(numBytes);
 }
 
 void CModI2CGuest::SerialComms(byte mode)
