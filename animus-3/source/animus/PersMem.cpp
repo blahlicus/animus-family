@@ -14,10 +14,6 @@ void CMem::LoadData(void)
 {
   // loads EEPROM data to SRAM
   Global.RefreshDelay = GetRefreshRate();
-  if (Global.RefreshDelay < 1)
-  {
-    Global.RefreshDelay = 5;
-  }
   Global.ROW = GetRowCount();
   Global.COL = GetColCount();
   Global.LAY = GetLayCount();
@@ -30,31 +26,6 @@ void CMem::LoadData(void)
   {
     Global.HPins[i] = GetColPin(i);
   }
-
-  if (Global.LAY < 1)
-  {
-    Global.LAY = 1;
-  }
-  if (Global.ROW < 1)
-  {
-    Global.ROW = 5;
-    Global.VPins[0] = 4;
-    Global.VPins[1] = 6;
-    Global.VPins[2] = 7;
-    Global.VPins[3] = 8;
-    Global.VPins[4] = 9;
-  }
-  if (Global.COL < 1)
-  {
-    Global.COL = 5;
-    Global.HPins[0] = 21;
-    Global.HPins[1] = 20;
-    Global.HPins[2] = 19;
-    Global.HPins[3] = 18;
-    Global.HPins[4] = 15;
-  }
-
-
 
   Global.RequiresLoadData = true;
   // loads mod EEPROM addresses to SRAM

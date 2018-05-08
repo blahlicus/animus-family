@@ -112,7 +112,6 @@ void CModI2CGuest::Loop(void)
         }
         Wire.beginTransmission(8);
         Wire.write(I2CBuffer, I2CBufferIndex);
-        Wire.endTransmission();
         I2CBufferIndex = 0;
         KeyIndex = 0;
       }
