@@ -20,7 +20,7 @@ below are types of i2c transmissions from the host to guest
 class CModI2CHost : public CModTemplate
 {
 private:
-  byte EEPROMPacket[30];
+  byte EEPROMPacket[30]; // these are not local variables for faster access
   byte EEPROMPacketIndex = 0;
   byte I2CTempLayer = 0;
   byte I2CLEDBrightness = 0;

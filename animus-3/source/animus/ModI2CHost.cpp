@@ -177,21 +177,45 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
   CModTemplate::SerialComms(mode);
   if (Global.HasUSB)
   {
-    if (mode == 6)
+    if (mode == 6 || mode == 7)
     {
-      if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
+      if (Serial.available()) //TODO I might want to work in a timeout or fail check for this
       {
-        if (SerialLoadCounter > 1024)
+        if (SerialLoadCounter > 1024) // if this is the first time mode 6 has made contact
         {
-          SerialLoadCounter = 
+          byte firstByte = (byte)Serial.read();
+          byte secondByte = 0;
+          bool hasAddr = false;
+          if (Serial.available())
+          {
+            secondByte = (byte)Serial.read();
+            hasAddr = true;
+          }
+          if (hasAddr)
+          {
+            SerialLoadCounter = (firstByte << 8) | secondByte;
+          }
         }
-        EEPROM.update(loadCounter, (byte)Serial.read());
-        loadCounter++;
-      }
-      if (loadCounter >= 1024)
-      {
-        PersMem.LoadData();
-        mode = 0;
+        else
+        {
+          if (EEPROMPacketIndex < 30)
+          {
+            EEPROMPacket[EEPROMPacketIndex] = (byte)Serial.read();
+            EEPROMPacketIndex++;
+            SerialLoadCounter--;
+          }
+          if (EEPROMPacketIndex >= 30 || SerialLoadCounter <= 0) // do not use else here to make sure the message is sent in the same cycle
+          {
+            SetSubEEPROM();
+            EEPROMPacketIndex = 0;
+            if (SerialLoadCounter <= 0)
+            {
+              SerialLoadCounter = 1200;
+              Comms.mode = 0;
+            }
+          }
+
+        }
       }
     }
   }
