@@ -43,15 +43,19 @@ void CModI2CHost::Loop(void)
       SetSubLEDBrightness();
       I2CLEDBrightness = Global.LEDBrightness;
     }
+    if (Global.RefreshDelay != I2CRefresh)
+    {
+      SetSubRefreshRate();
+      I2CRefresh = Global.RefreshDelay;
+    }
     // gets keystrokes from guest
     Wire.requestFrom(8, 32);
-    bool hasInput = true;
     byte keyData;
     byte keyType;
-    byte keyMode;
+    byte keyMode = 0;
     byte keyX;
     byte keyY;
-    while (hasInput)
+    while (keyMode != 255)
     {
       if (Wire.available()) // need to put ifs in here so trailing bytes are left out
       {

@@ -24,6 +24,7 @@ private:
   byte EEPROMPacketIndex = 0;
   byte I2CTempLayer = 0;
   byte I2CLEDBrightness = 0;
+  byte I2CRefresh = 0;
   short SerialLoadCounter = 1200;
   void SetTempLayer(void);
   void SetSubEEPROM(void);
