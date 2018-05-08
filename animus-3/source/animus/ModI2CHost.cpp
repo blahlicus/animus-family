@@ -8,7 +8,7 @@ void CModI2CHost::Begin(void)
 {
   CModTemplate::Begin();
   ModGUID = 8; // GUID of this sspecific mod
-  
+
   if (Global.HasUSB) // i2c host only activates if this device is plugged into the PC
   {
     Wire.begin(8);
@@ -33,43 +33,39 @@ void CModI2CHost::RequestEvent()
   type 7 changes the refresh rate (refresh)
   */
 
-  if (Global.HasUSB)
+  if (SignalType == 1)
   {
-
-    if (SignalType == 1)
-    {
-      SetTempLayer();
-    }
-    else if (SignalType == 2)
-    {
-      SetSubEEPROM();
-      EEPROMPacketIndex = 0;
-      EEPROMPacketCounter--;
-      SignalType == 1;
-    }
-    else if (SignalType == 3)
-    {
-      SetSubEEPROMEOL();
-      EEPROMPacketIndex = 255; // resets packet index and counter
-      EEPROMPacketCounter = 255;
-      SignalType == 1;
-    }
-    else if (SignalType == 4)
-    {
-      SetSubBoardSettings();
-    }
-    else if (SignalType == 5)
-    {
-      SetSubBoardEOL();
-    }
-    else if (SignalType == 6)
-    {
-      SetSubLEDBrightness();
-    }
-    else if (SignalType == 7)
-    {
-      SetSubRefreshRate();
-    }
+    SetTempLayer();
+  }
+  else if (SignalType == 2)
+  {
+    SetSubEEPROM();
+    EEPROMPacketIndex = 0;
+    EEPROMPacketCounter--;
+    SignalType == 1;
+  }
+  else if (SignalType == 3)
+  {
+    SetSubEEPROMEOL();
+    EEPROMPacketIndex = 255; // resets packet index and counter
+    EEPROMPacketCounter = 255;
+    SignalType == 1;
+  }
+  else if (SignalType == 4)
+  {
+    SetSubBoardSettings();
+  }
+  else if (SignalType == 5)
+  {
+    SetSubBoardEOL();
+  }
+  else if (SignalType == 6)
+  {
+    SetSubLEDBrightness();
+  }
+  else if (SignalType == 7)
+  {
+    SetSubRefreshRate();
   }
 }
 
@@ -132,58 +128,51 @@ void CModI2CHost::ReleaseKey(byte val, byte type)
 void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
 {
   CModTemplate::SerialComms(mode);
-
-
-  if (Global.HasUSB)
+  if (mode == 6) // start of package transfer TODO: you could remove the length in non-EOL packets
   {
-
-    if (mode == 6) // start of package transfer TODO: you could remove the length in non-EOL packets
+    if (Serial.available()>0)
     {
-      if (Serial.available()>0)
+      if (EEPROMPacketCounter == 255) // if first byte from message is not read
       {
-        if (EEPROMPacketCounter == 255) // if first byte from message is not read
+        EEPROMPacketCounter = Serial.read(); // read first byte as packet counter
+      }
+      else if (EEPROMPacketEOLSize == 255) // if second byte from message is not read
+      {
+        EEPROMPacketEOLSize = Serial.read();
+      }
+      else // length and number of packets is currently known
+      {
+        if (SignalType == 1) // if packet buffer is free
         {
-          EEPROMPacketCounter = Serial.read(); // read first byte as packet counter
-        }
-        else if (EEPROMPacketEOLSize == 255) // if second byte from message is not read
-        {
-          EEPROMPacketEOLSize = Serial.read();
-        }
-        else // length and number of packets is currently known
-        {
-          if (SignalType == 1) // if packet buffer is free
+          if (EEPROMPacketCounter-1 > 0) // if there are still pending packets
           {
-            if (EEPROMPacketCounter-1 > 0) // if there are still pending packets
+            if (EEPROMPacketIndex < 29) // if i2c transfer buffer is not filled then fill buffer
             {
-              if (EEPROMPacketIndex < 29) // if i2c transfer buffer is not filled then fill buffer
-              {
-                EEPROMPacket[EEPROMPacketIndex] = Serial.read();
-                EEPROMPacketIndex++;
-              }
-              else // when buffer is filled, signal package ready to send
-              {
-                SignalType = 2;
-              }
+              EEPROMPacket[EEPROMPacketIndex] = Serial.read();
+              EEPROMPacketIndex++;
             }
-            else // this is the EOL packet
+            else // when buffer is filled, signal package ready to send
             {
-              if (EEPROMPacketIndex < EEPROMPacketEOLSize) // if EOL packet reaches designated size
-              {
-                EEPROMPacket[EEPROMPacketIndex] = Serial.read();
-                EEPROMPacketIndex++;
-              }
-              else // last package ready, signal package ready to send
-              {
-                SignalType = 3;
-                Comms.mode = 0;// comms is reset
-              }
+              SignalType = 2;
+            }
+          }
+          else // this is the EOL packet
+          {
+            if (EEPROMPacketIndex < EEPROMPacketEOLSize) // if EOL packet reaches designated size
+            {
+              EEPROMPacket[EEPROMPacketIndex] = Serial.read();
+              EEPROMPacketIndex++;
+            }
+            else // last package ready, signal package ready to send
+            {
+              SignalType = 3;
+              Comms.mode = 0;// comms is reset
             }
           }
         }
       }
     }
   }
-
 }
 
 void CModI2CHost::RequestInfo(void)
