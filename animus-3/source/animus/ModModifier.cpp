@@ -28,7 +28,7 @@ void CModModifier::LoadData(void)
 void CModModifier::Loop(void)
 {
   CModTemplate::Loop();
-  if (Animus.GetMillis())
+  if (Animus.Async1MSDelay())
   {
     if (Global.HasUSB)
     {

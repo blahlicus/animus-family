@@ -33,7 +33,7 @@ public:
   bool RequiresLoadData = false; // I am soo sorry for the spaghetti
 
 
-  byte LEDBrightness = 0;
+  byte LEDBrightness = 127;
   CGlobal(void);
 };
 extern CGlobal Global;

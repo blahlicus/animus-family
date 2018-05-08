@@ -40,7 +40,7 @@ void CModDualRoles::LoadData(void)
 void CModDualRoles::Loop(void)
 {
   CModTemplate::Loop();
-  if (Animus.GetMillis())
+  if (Animus.Async1MSDelay())
   {
     if (Global.HasUSB)
     {

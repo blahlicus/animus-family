@@ -27,7 +27,7 @@ void CModMedia::LoadData(void)
 void CModMedia::Loop(void)
 {
   CModTemplate::Loop();
-  if (Animus.GetMillis())
+  if (Animus.Async1MSDelay())
   {
     if (Global.HasUSB)
     {

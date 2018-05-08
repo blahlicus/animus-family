@@ -29,7 +29,7 @@ void CAnimus::Loop()
   MillisLoop();
 
   // start of pesudo rtos code
-  if (GetMillis()) // should run once every 1 to 1.5ms
+  if (Async1MSDelay()) // should run once every 1 to 1.5ms
   {
 
     // layering checks in case of layout remapping
@@ -232,10 +232,15 @@ void CAnimus::MillisLoop()
 {
   CurrentMillis = millis();
 
-  if(CurrentMillis - PreviousMillis >= 1) // this elapses every 1 ms
+  if(CurrentMillis - PreviousMillis >= 1) // this elapses every 1-1.5 ms
   {
     PreviousMillis = CurrentMillis;
     ReadyMillis = true;
+    RefreshCounter++;
+    if (RefreshCounter >= Global.RefreshDelay)
+    {
+      RefreshCounter = 0;
+    }
   }
   else
   {
@@ -243,8 +248,21 @@ void CAnimus::MillisLoop()
   }
 }
 
-bool CAnimus::GetMillis()
+bool CAnimus::Async1MSDelay()
 {
   return ReadyMillis;
 }
+
+bool CAnimus::AsyncRefreshDelay()
+{
+  if (!RefreshCounter)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
 CAnimus Animus;

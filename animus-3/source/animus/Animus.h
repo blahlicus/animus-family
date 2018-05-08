@@ -14,6 +14,7 @@ private:
   unsigned long PreviousMillis = 0;
   unsigned long CurrentMillis = 0;
   bool ReadyMillis = false;
+  byte RefreshCounter = 0;
 public:
   CAnimus(void);
   void Begin(void);
@@ -24,7 +25,8 @@ public:
   void SwitchLayer(bool increment);
   void RotateLayer(byte val);
   void KeyScan(void);
-  bool GetMillis(void);
+  bool Async1MSDelay(void);
+  bool AsyncRefreshDelay(void);
 
 };
 extern CAnimus Animus;

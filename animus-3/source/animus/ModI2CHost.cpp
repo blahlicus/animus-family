@@ -88,7 +88,7 @@ void CModI2CHost::Loop(void)
 {
   CModTemplate::Loop();
 
-  if (Animus.GetMillis())
+  if (Animus.Async1MSDelay())
   {
 
     if (Global.HasUSB)
