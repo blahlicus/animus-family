@@ -11,68 +11,10 @@ void CModI2CHost::Begin(void)
 
   if (Global.HasUSB) // i2c host only activates if this device is plugged into the PC
   {
-    Wire.begin(8);
-    Wire.onRequest(CModI2CHost::RequestInfo);
-    Wire.onReceive(CModI2CHost::ReceiveInfo);
+    Wire.begin();
   }
 }
 
-void CModI2CHost::RequestEvent()
-{
-  // first byte is the type of the packet
-  // second byte always sends the templayer
-  // third byte forward is the data of the packet
-  /*
-  type 0 does nothing
-  type 1 sends templayer (templayer)
-  type 2 is a full reflash type that writes sub eeprom from 0 to 1024 (byte0, byte1, byte2, ...)
-  type 3 signals EOL for other continuous types (length, byte0, byte1, byte2, ...)
-  type 4 writes sub eeprom starting from 900 (byte0, byte1, byte2, ...)
-  type 5 EOL for type 4
-  type 6 changes the LED setting (brightness)
-  type 7 changes the refresh rate (refresh)
-  */
-
-  if (SignalType == 1)
-  {
-    SetTempLayer();
-  }
-  else if (SignalType == 2)
-  {
-    SetSubEEPROM();
-    EEPROMPacketIndex = 0;
-    EEPROMPacketCounter--;
-    SignalType == 1;
-  }
-  else if (SignalType == 3)
-  {
-    SetSubEEPROMEOL();
-    EEPROMPacketIndex = 255; // resets packet index and counter
-    EEPROMPacketCounter = 255;
-    SignalType == 1;
-  }
-  else if (SignalType == 4)
-  {
-    SetSubBoardSettings();
-  }
-  else if (SignalType == 5)
-  {
-    SetSubBoardEOL();
-  }
-  else if (SignalType == 6)
-  {
-    SetSubLEDBrightness();
-  }
-  else if (SignalType == 7)
-  {
-    SetSubRefreshRate();
-  }
-}
-
-void CModI2CHost::ReceiveEvent(byte numBytes)
-{
-
-}
 
 void CModI2CHost::LoadData(void)
 {
@@ -128,62 +70,8 @@ void CModI2CHost::ReleaseKey(byte val, byte type)
 void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
 {
   CModTemplate::SerialComms(mode);
-  if (mode == 6) // start of package transfer TODO: you could remove the length in non-EOL packets
-  {
-    if (Serial.available()>0)
-    {
-      if (EEPROMPacketCounter == 255) // if first byte from message is not read
-      {
-        EEPROMPacketCounter = Serial.read(); // read first byte as packet counter
-      }
-      else if (EEPROMPacketEOLSize == 255) // if second byte from message is not read
-      {
-        EEPROMPacketEOLSize = Serial.read();
-      }
-      else // length and number of packets is currently known
-      {
-        if (SignalType == 1) // if packet buffer is free
-        {
-          if (EEPROMPacketCounter-1 > 0) // if there are still pending packets
-          {
-            if (EEPROMPacketIndex < 29) // if i2c transfer buffer is not filled then fill buffer
-            {
-              EEPROMPacket[EEPROMPacketIndex] = Serial.read();
-              EEPROMPacketIndex++;
-            }
-            else // when buffer is filled, signal package ready to send
-            {
-              SignalType = 2;
-            }
-          }
-          else // this is the EOL packet
-          {
-            if (EEPROMPacketIndex < EEPROMPacketEOLSize) // if EOL packet reaches designated size
-            {
-              EEPROMPacket[EEPROMPacketIndex] = Serial.read();
-              EEPROMPacketIndex++;
-            }
-            else // last package ready, signal package ready to send
-            {
-              SignalType = 3;
-              Comms.mode = 0;// comms is reset
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
-void CModI2CHost::RequestInfo(void)
-{
-  ModI2CHost.RequestEvent();
-}
-
-void CModI2CHost::ReceiveInfo(byte numBytes)
-{
-  ModI2CHost.ReceiveEvent(numBytes);
-}
 
 // first byte is the type of the packet
 // second byte always sends the templayer
@@ -192,62 +80,55 @@ void CModI2CHost::ReceiveInfo(byte numBytes)
 type 0 does nothing
 type 1 sends templayer (templayer)
 type 2 is a full reflash type that writes sub eeprom from 0 to 1024 (byte0, byte1, byte2, ...)
-type 3 signals EOL for other continuous types (length, byte0, byte1, byte2, ...)
-type 4 writes sub eeprom starting from 900 (byte0, byte1, byte2, ...)
-type 5 EOL for type 4
-type 6 changes the LED setting (brightness)
-type 7 changes the refresh rate (refresh)
+type 3 writes sub eeprom starting from 900 (byte0, byte1, byte2, ...)
+type 4 changes the LED setting (brightness)
+type 5 changes the refresh rate (refresh)
 */
 
 void CModI2CHost::SetTempLayer()
 {
+  Wire.beginTransmission(8);
   Wire.write(1);
   Wire.write(Global.TempLayer);
+  Wire.endTransmission();
 }
 
 void CModI2CHost::SetSubEEPROM(void)
 {
+  Wire.beginTransmission(8);
   Wire.write(2);
-  Wire.write(Global.TempLayer);
-  Wire.write(EEPROMPacket, EEPROMPacketIndex);
-}
-
-void CModI2CHost::SetSubEEPROMEOL(void)
-{
-  Wire.write(3);
-  Wire.write(Global.TempLayer);
   Wire.write(EEPROMPacketIndex);
   Wire.write(EEPROMPacket, EEPROMPacketIndex);
+  Wire.endTransmission();
 }
 
 void CModI2CHost::SetSubBoardSettings(void)
 {
-  Wire.write(4);
-  Wire.write(Global.TempLayer);
-  Wire.write(EEPROMPacket, EEPROMPacketIndex);
-}
-
-
-void CModI2CHost::SetSubBoardEOL(void)
-{
-  Wire.write(5);
-  Wire.write(Global.TempLayer);
+  Wire.beginTransmission(8);
+  Wire.write(3);
   Wire.write(EEPROMPacketIndex);
-  Wire.write(EEPROMPacketIndex, EEPROMPacketIndex);
+  Wire.write(EEPROMPacket, EEPROMPacketIndex);
+  Wire.endTransmission();
 }
+
+
 
 void CModI2CHost::SetSubLEDBrightness(void)
 {
-  Wire.write(6);
+  Wire.beginTransmission(8);
+  Wire.write(4);
   Wire.write(Global.TempLayer);
   Wire.write(Global.LEDBrightness);
+  Wire.endTransmission();
 }
 
 void CModI2CHost::SetSubRefreshRate(void)
 {
-  Wire.write(7);
+  Wire.beginTransmission(8);
+  Wire.write(5);
   Wire.write(Global.TempLayer);
   Wire.write(Global.RefreshDelay);
+  Wire.endTransmission();
 }
 
 
