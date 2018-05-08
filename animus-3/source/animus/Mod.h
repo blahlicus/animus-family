@@ -1,10 +1,10 @@
-#ifndef ANIMUS_MOD
+(x, y)(x, y)#ifndef ANIMUS_MOD
 #define ANIMUS_MOD
 
 #define builder_mod_begin ModDualRoles.Begin(); ModModifier.Begin();  ModSticky.Begin(); ModMedia.Begin(); ModMacro.Begin(); ModTapdance.Begin(); ModMouse.Begin();ModI2CHost.Begin();
 #define builder_mod_loop ModDualRoles.Loop(); ModModifier.Loop();  ModSticky.Loop(); ModMedia.Loop(); ModMacro.Loop(); ModTapdance.Loop(); ModMouse.Loop();ModI2CHost.Loop();
 #define builder_mod_loaddata ModDualRoles.LoadData(); ModModifier.LoadData();  ModSticky.LoadData(); ModMedia.LoadData(); ModMacro.LoadData(); ModTapdance.LoadData(); ModMouse.LoadData();ModI2CHost.LoadData();
-#define builder_mod_prepress ModDualRoles.PressCoords(x, y); ModModifier.PressCoords(val, type);  ModSticky.PressCoords(val, type); ModMedia.PressCoords(val, type); ModMacro.PressCoords(val, type); ModTapdance.PressCoords(val, type); ModMouse.PressCoords(val, type);ModI2CHost.PressCoords(val, type);
+#define builder_mod_prepress ModDualRoles.PressCoords(x, y); ModModifier.PressCoords(x, y);  ModSticky.PressCoords(x, y); ModMedia.PressCoords(x, y); ModMacro.PressCoords(x, y); ModTapdance.PressCoords(x, y); ModMouse.PressCoords(x, y);ModI2CHost.PressCoords(x, y);
 #define builder_mod_prepress ModDualRoles.PrePress(val, type); ModModifier.PrePress(val, type);  ModSticky.PrePress(val, type); ModMedia.PrePress(val, type); ModMacro.PrePress(val, type); ModTapdance.PrePress(val, type); ModMouse.PrePress(val, type);ModI2CHost.PrePress(val, type);
 #define builder_mod_press ModDualRoles.PressKey(val, type); ModModifier.PressKey(val, type);  ModSticky.PressKey(val, type); ModMedia.PressKey(val, type); ModMacro.PressKey(val, type); ModTapdance.PressKey(val, type); ModMouse.PressKey(val, type);ModI2CHost.PressKey(val, type);
 #define builder_mod_release ModDualRoles.ReleaseKey(val, type); ModModifier.ReleaseKey(val, type);  ModSticky.ReleaseKey(val, type); ModMedia.ReleaseKey(val, type); ModMacro.ReleaseKey(val, type); ModTapdance.ReleaseKey(val, type); ModMouse.ReleaseKey(val, type);ModI2CHost.ReleaseKey(val, type);
