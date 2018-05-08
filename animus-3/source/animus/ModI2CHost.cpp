@@ -175,6 +175,26 @@ void CModI2CHost::ReleaseKey(byte val, byte type)
 void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
 {
   CModTemplate::SerialComms(mode);
+  if (Global.HasUSB)
+  {
+    if (mode == 6)
+    {
+      if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
+      {
+        if (SerialLoadCounter > 1024)
+        {
+          SerialLoadCounter = 
+        }
+        EEPROM.update(loadCounter, (byte)Serial.read());
+        loadCounter++;
+      }
+      if (loadCounter >= 1024)
+      {
+        PersMem.LoadData();
+        mode = 0;
+      }
+    }
+  }
 }
 
 
