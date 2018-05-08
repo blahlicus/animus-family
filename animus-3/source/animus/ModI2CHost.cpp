@@ -206,7 +206,14 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
           }
           if (EEPROMPacketIndex >= 30 || SerialLoadCounter <= 0) // do not use else here to make sure the message is sent in the same cycle
           {
-            SetSubEEPROM();
+            if (mode == 6)
+            {
+              SetSubEEPROM();
+            }
+            else if (mode == 7)
+            {
+              SetSubBoardSettings();
+            }
             EEPROMPacketIndex = 0;
             if (SerialLoadCounter <= 0)
             {
