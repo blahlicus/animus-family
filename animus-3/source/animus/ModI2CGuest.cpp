@@ -20,6 +20,10 @@ void CModI2CGuest::Begin(void)
 
 void CModI2CGuest::OnRequest()
 {
+  if (SlaveIndex == 0) // if slave array is empty, add single byte
+  {
+    Wire.write(0);
+  }
   Wire.write(SlaveArray, SlaveIndex);
   SlaveIndex = 0;
 }
