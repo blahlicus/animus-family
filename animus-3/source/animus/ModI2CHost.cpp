@@ -59,6 +59,19 @@ void CModI2CHost::Loop(void)
     byte keyIndex = 0;
     while (hasInput)
     {
+
+      if (Wire.available()) // need to put ifs in here so trailing bytes are left out
+      {
+        byte tempByte = Wire.read();
+        keyX[keyIndex] = tempByte & 0x0f; // bitwise structure is YYYYXXXX
+        keyY[keyIndex] = tempByte >> 4;
+        keyIndex++;
+      }
+      else
+      {
+        hasInput = false;
+      }
+
       if (Wire.available()) // need to put ifs in here so trailing bytes are left out
       {
         keyData[keyIndex] = Wire.read();
@@ -67,6 +80,7 @@ void CModI2CHost::Loop(void)
       {
         hasInput = false;
       }
+
       if (Wire.available()) // need to put ifs in here so trailing bytes are left out
       {
         keyType[keyIndex] = Wire.read();
@@ -75,20 +89,10 @@ void CModI2CHost::Loop(void)
       {
         hasInput = false;
       }
+
       if (Wire.available()) // need to put ifs in here so trailing bytes are left out
       {
         keyMode[keyIndex] = Wire.read();
-      }
-      else
-      {
-        hasInput = false;
-      }
-      if (Wire.available()) // need to put ifs in here so trailing bytes are left out
-      {
-        byte tempByte = Wire.read();
-        keyX[keyIndex] = tempByte & 0x0f; // bitwise structure is YYYYXXXX
-        keyY[keyIndex] = tempByte >> 4;
-        keyIndex++;
       }
       else
       {
@@ -111,7 +115,7 @@ void CModI2CHost::Loop(void)
           SetTempLayer();
           I2CTempLayer = Global.TempLayer;
           Wire.beginTransmission(8);
-          Wire.write(7);
+          Wire.write(6);
           Wire.write(keyX[i]);
           Wire.write(keyY[i]);
           Wire.endTransmission();
