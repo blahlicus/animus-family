@@ -51,6 +51,7 @@ void CAnimus::Loop()
           {
             PressCoords(j, i);
             Global.LayerState[j][i] = Global.TempLayer;
+            PrePress(PersMem.GetKeyData(j, i, Global.TempLayer), PersMem.GetKeyType(j, i, Global.TempLayer));
             PressKey(PersMem.GetKeyData(j, i, Global.TempLayer), PersMem.GetKeyType(j, i, Global.TempLayer));
             Global.KeyStateCoolDown[j][i] = 255;
           }
