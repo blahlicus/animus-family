@@ -23,8 +23,8 @@ void CModI2CHost::RequestEvent()
   // second byte always sends the templayer
   // third byte forward is the data of the packet
   /*
-  type 0 procs any layer change, then sends templayer
-  type 1 sends templayer (templayer) as a routine ping
+  type 0 does nothing
+  type 1 sends templayer (templayer)
   type 2 is a full reflash type that writes sub eeprom from 0 to 1024 (byte0, byte1, byte2, ...)
   type 3 signals EOL for other continuous types (length, byte0, byte1, byte2, ...)
   type 4 writes sub eeprom starting from 900 (byte0, byte1, byte2, ...)
@@ -35,20 +35,8 @@ void CModI2CHost::RequestEvent()
 
   if (Global.HasUSB)
   {
-    if (SignalType == 0)
-    {
-      Animus.PrePress(255, 255); // sends blank signal to trigger any layer changes
-      if (BrightnessRefreshValue == Global.LEDBrightness)
-      {
-        SetTempLayer();
-      }
-      else
-      {
-        SetSubLEDBrightness();
-        BrightnessRefreshValue = Global.LEDBrightness;
-      }
-    }
-    else if (SignalType == 1)
+
+    if (SignalType == 1)
     {
       if (BrightnessRefreshValue == Global.LEDBrightness)
       {
@@ -59,14 +47,13 @@ void CModI2CHost::RequestEvent()
         SetSubLEDBrightness();
         BrightnessRefreshValue = Global.LEDBrightness;
       }
-      SignalType = 0;
     }
     else if (SignalType == 2)
     {
       SetSubEEPROM();
       EEPROMPacketIndex = 0;
       EEPROMPacketCounter--;
-      SignalType == 0;
+      SignalType == 1;
     }
     else if (SignalType == 3)
     {
@@ -74,14 +61,14 @@ void CModI2CHost::RequestEvent()
       EEPROMPacketIndex = 255; // resets packet index and counter
       EEPROMPacketCounter = 255;
       SetSubRefreshRate();
-      SignalType == 0;
+      SignalType == 1;
     }
     else if (SignalType == 4)
     {
       SetSubBoardSettings();
       EEPROMPacketIndex = 0;
       EEPROMPacketCounter--;
-      SignalType == 0;
+      SignalType == 1;
     }
     else if (SignalType == 5)
     {
@@ -89,48 +76,23 @@ void CModI2CHost::RequestEvent()
       EEPROMPacketIndex = 255; // resets packet index and counter
       EEPROMPacketCounter = 255;
       SetSubRefreshRate();
-      SignalType == 0;
+      SignalType == 1;
     }
     else if (SignalType == 6)
     {
       SetSubLEDBrightness();
-      SignalType == 0;
+      SignalType == 1;
     }
     else if (SignalType == 7)
     {
       SetSubRefreshRate();
-      SignalType == 0;
+      SignalType == 1;
     }
   }
 }
 
 void CModI2CHost::ReceiveEvent(byte numBytes)
 {
-  if (Global.HasUSB)
-  {
-    if (numBytes > 1) // this means that the request from guest is asking to proc layer changes
-    {
-      while (Wire.available())
-      {
-        byte keyVal = Wire.read();
-        byte keyType = Wire.read();
-        byte keyDown = Wire.read();
-        if (keyDown == 1)
-        {
-          Animus.PrePress(keyVal, keyType);
-          Animus.PressKey(keyVal, keyType);
-        }
-        else
-        {
-          Animus.ReleaseKey(keyVal, keyType);
-        }
-      }
-    }
-    else // this means that the request from guest is doing a routine ping
-    {
-      SignalType = 1;
-    }
-  }
 
 }
 
@@ -151,6 +113,10 @@ void CModI2CHost::Loop(void)
   if (Animus.GetMillis())
   {
 
+    if (Global.HasUSB)
+    {
+
+    }
   }
 }
 

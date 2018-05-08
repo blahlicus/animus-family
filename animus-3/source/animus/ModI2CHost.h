@@ -28,7 +28,6 @@ private:
   byte SignalType = 1;
   byte BrightnessRefreshValue = 127;
 
-
   void SetTempLayer(void);
   void SetSubEEPROM(void);
   void SetSubEEPROMEOL(void);
