@@ -20,19 +20,13 @@ below are types of i2c transmissions from the host to guest
 class CModI2CHost : public CModTemplate
 {
 private:
-  byte EEPROMPacket[29];
+  byte EEPROMPacket[30];
   byte EEPROMPacketIndex = 0;
-  byte EEPROMPacketCounter = 255;
-  byte EEPROMPacketEOLSize = 255;
-  bool EEPROMPacketReady = false;
-  byte SignalType = 1;
 
 
   void SetTempLayer(void);
   void SetSubEEPROM(void);
-  void SetSubEEPROMEOL(void);
   void SetSubBoardSettings(void);
-  void SetSubBoardEOL(void);
   void SetSubLEDBrightness(void);
   void SetSubRefreshRate(void);
 
@@ -45,10 +39,6 @@ public:
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
-  void RequestEvent(void); // really doesn't matter whether those are static or not, there's only one instance
-  void ReceiveEvent(byte numBytes);
-  static void RequestInfo(void);
-  static void ReceiveInfo(byte numBytes);
   void SerialComms(byte mode);
 
 
