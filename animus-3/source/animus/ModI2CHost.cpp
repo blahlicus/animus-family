@@ -50,79 +50,82 @@ void CModI2CHost::Loop(void)
     }
     // gets keystrokes from guest
     Wire.requestFrom(8, 32);
-    byte keyData;
-    byte keyType;
-    byte keyMode = 0;
-    byte keyX;
-    byte keyY;
-    while (keyMode != 255)
+    bool hasInput = true;
+    byte keyData[8];
+    byte keyType[8];
+    byte keyMode[8];
+    byte keyX[8];
+    byte keyY[8];
+    byte keyIndex = 0;
+    while (hasInput)
     {
       if (Wire.available()) // need to put ifs in here so trailing bytes are left out
       {
-        keyData = Wire.read();
+        keyData[keyIndex] = Wire.read();
       }
       else
       {
         hasInput = false;
-        keyMode = 255;
       }
       if (Wire.available()) // need to put ifs in here so trailing bytes are left out
       {
-        keyType = Wire.read();
+        keyType[keyIndex] = Wire.read();
       }
       else
       {
         hasInput = false;
-        keyMode = 255;
       }
       if (Wire.available()) // need to put ifs in here so trailing bytes are left out
       {
-        keyMode = Wire.read();
+        keyMode[keyIndex] = Wire.read();
       }
       else
       {
         hasInput = false;
-        keyMode = 255;
       }
       if (Wire.available()) // need to put ifs in here so trailing bytes are left out
       {
         byte tempByte = Wire.read();
-        keyX = tempByte & 0x0f; // bitwise structure is YYYYXXXX
-        keyY = tempByte >> 4;
+        keyX[keyIndex] = tempByte & 0x0f; // bitwise structure is YYYYXXXX
+        keyY[keyIndex] = tempByte >> 4;
+        keyIndex++;
       }
       else
       {
         hasInput = false;
-        keyMode = 255;
       }
+    }
 
-      if (keyMode == 1) // release key
+    for (byte i = 0; i < keyIndex; i++)
+    {
+
+      if (keyMode[i] == 1) // release key
       {
-        Animus.ReleaseKey(keyData, keyType);
+        Animus.ReleaseKey(keyData[i], keyType[i]);
       }
-      else if (keyMode == 5) // press key
+      else if (keyMode[i] == 5) // press key
       {
-        Animus.PrePress(keyData, keyType);
+        Animus.PrePress(keyData[i], keyType[i]);
         if (Global.TempLayer != I2CTempLayer)
         {
           SetTempLayer();
           I2CTempLayer = Global.TempLayer;
           Wire.beginTransmission(8);
           Wire.write(7);
-          Wire.write(keyX);
-          Wire.write(keyY);
+          Wire.write(keyX[i]);
+          Wire.write(keyY[i]);
           Wire.endTransmission();
           Wire.requestFrom(8, 2);
           if (Wire.available()) // need to put ifs in here so trailing bytes are left out
           {
-            keyData = Wire.read();
+            keyData[i] = Wire.read();
           }
           if (Wire.available()) // need to put ifs in here so trailing bytes are left out
           {
-            keyType = Wire.read();
+            keyType[i] = Wire.read();
           }
         }
-        Animus.PressKey(keyData, keyType);
+        Animus.PressKey(keyData[i], keyType[i]);
       }
     }
   }
