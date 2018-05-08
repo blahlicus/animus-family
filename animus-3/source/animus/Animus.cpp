@@ -49,7 +49,7 @@ void CAnimus::Loop()
         {
           if (Global.KeyStateCoolDown[j][i] == 0) // if key was not recently released
           {
-            Mod.PrePress(PersMem.GetKeyData(j, i, Global.TempLayer), PersMem.GetKeyType(j, i, Global.TempLayer));
+            PressCoords(j, i);
             Global.LayerState[j][i] = Global.TempLayer;
             PressKey(PersMem.GetKeyData(j, i, Global.TempLayer), PersMem.GetKeyType(j, i, Global.TempLayer));
             Global.KeyStateCoolDown[j][i] = 255;
@@ -87,9 +87,14 @@ void CAnimus::Loop()
   Comms.Loop();
 }
 
+void CAnimus::PressCoords(byte x, byte y)
+{
+  Mod.PressCoords(x, y);
+}
 
 void CAnimus::PrePress(byte val, byte type)
 {
+  Mod.PrePress(val, type);
 }
 
 void CAnimus::PressKey(byte val, byte type)

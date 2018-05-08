@@ -33,6 +33,11 @@ void CMod::LoadData(void)
   builder_mod_loaddata
 }
 
+void CMod::PressCoords(byte x, byte y)
+{
+  builder_mod_prepress
+}
+
 void CMod::PrePress(byte val, byte type)
 {
   builder_mod_prepress

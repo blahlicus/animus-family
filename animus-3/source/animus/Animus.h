@@ -20,6 +20,7 @@ public:
   void Begin(void);
   void Loop(void);
   void PrePress(byte val, byte type);
+  void PressCoords(byte x, byte y);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
   void SwitchLayer(bool increment);

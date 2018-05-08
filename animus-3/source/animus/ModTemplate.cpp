@@ -33,6 +33,11 @@ void CModTemplate::SerialComms(byte mode)
   //nothing
 }
 
+void CModTemplate::PressCoords(byte x, byte y)
+{
+
+}
+
 void CModTemplate::PrePress(byte val, byte type)
 {
   //nothing

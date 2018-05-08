@@ -40,6 +40,12 @@ void CModExample::Loop(void)
   }
 }
 
+void CModTemplate::PressCoords(byte x, byte y)
+{
+  CModTemplate::PressCoords(x, y);
+
+}
+
 void CModExample::PrePress(byte val, byte type)
 {
   CModTemplate::PrePress(val, type);
