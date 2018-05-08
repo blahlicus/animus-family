@@ -38,15 +38,7 @@ void CModI2CHost::RequestEvent()
 
     if (SignalType == 1)
     {
-      if (BrightnessRefreshValue == Global.LEDBrightness)
-      {
-        SetTempLayer();
-      }
-      else
-      {
-        SetSubLEDBrightness();
-        BrightnessRefreshValue = Global.LEDBrightness;
-      }
+      SetTempLayer();
     }
     else if (SignalType == 2)
     {
@@ -60,33 +52,23 @@ void CModI2CHost::RequestEvent()
       SetSubEEPROMEOL();
       EEPROMPacketIndex = 255; // resets packet index and counter
       EEPROMPacketCounter = 255;
-      SetSubRefreshRate();
       SignalType == 1;
     }
     else if (SignalType == 4)
     {
       SetSubBoardSettings();
-      EEPROMPacketIndex = 0;
-      EEPROMPacketCounter--;
-      SignalType == 1;
     }
     else if (SignalType == 5)
     {
       SetSubBoardEOL();
-      EEPROMPacketIndex = 255; // resets packet index and counter
-      EEPROMPacketCounter = 255;
-      SetSubRefreshRate();
-      SignalType == 1;
     }
     else if (SignalType == 6)
     {
       SetSubLEDBrightness();
-      SignalType == 1;
     }
     else if (SignalType == 7)
     {
       SetSubRefreshRate();
-      SignalType == 1;
     }
   }
 }

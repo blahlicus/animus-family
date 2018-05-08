@@ -23,6 +23,7 @@ public:
   byte KeyLayer = 0;
   byte TempLayer = 0;
 
+
   byte KeyState[DEFAULT_COL][DEFAULT_ROW];
   byte KeyStateCoolDown[DEFAULT_COL][DEFAULT_ROW];
   byte PreviousState[DEFAULT_COL][DEFAULT_ROW];
@@ -32,7 +33,7 @@ public:
   bool RequiresLoadData = false; // I am soo sorry for the spaghetti
 
 
-  byte LEDBrightness = 127;
+  byte LEDBrightness = 0;
   CGlobal(void);
 };
 extern CGlobal Global;
