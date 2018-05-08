@@ -27,7 +27,8 @@ private:
   bool EEPROMPacketReady = false;
   byte SignalType = 1;
   byte BrightnessRefreshValue = 127;
-
+  byte I2CPacket[32];
+  byte I2CPacketSize = 0;
 
   void SetTempLayer(void);
   void SetSubEEPROM(void);

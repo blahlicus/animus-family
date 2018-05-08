@@ -276,53 +276,72 @@ type 7 changes the refresh rate (refresh)
 
 void CModI2CHost::SetTempLayer()
 {
-  Wire.write(1);
-  Wire.write(Global.TempLayer);
+  I2CPacket[0] = 1;
+  I2CPacket[1] = Global.TempLayer;
+  Wire.write(I2CPacket, 2);
 }
 
 void CModI2CHost::SetSubEEPROM(void)
 {
-  Wire.write(2);
-  Wire.write(Global.TempLayer);
-  Wire.write(EEPROMPacket, EEPROMPacketIndex);
+  I2CPacket[0] = 2;
+  I2CPacket[1] = Global.TempLayer;
+  for (byte i = 2; i < 31; i++)
+  {
+    I2CPacket[i] = EEPROMPacket[i-2];
+  }
+  Wire.write(I2CPacket, 31);
 }
 
 void CModI2CHost::SetSubEEPROMEOL(void)
 {
-  Wire.write(3);
-  Wire.write(Global.TempLayer);
-  Wire.write(EEPROMPacketIndex);
-  Wire.write(EEPROMPacket, EEPROMPacketIndex);
+  I2CPacket[0] = 3;
+  I2CPacket[1] = Global.TempLayer;
+  I2CPacket[2] = EEPROMPacketIndex;
+  for (byte i = 3; i < 32; i++)
+  {
+    I2CPacket[i] = EEPROMPacket[i-3];
+  }
+  Wire.write(I2CPacket, 32);
 }
 
 void CModI2CHost::SetSubBoardSettings(void)
 {
-  Wire.write(4);
-  Wire.write(Global.TempLayer);
-  Wire.write(EEPROMPacket, EEPROMPacketIndex);
+  I2CPacket[0] = 4;
+  I2CPacket[1] = Global.TempLayer;
+  for (byte i = 2; i < 31; i++)
+  {
+    I2CPacket[i] = EEPROMPacket[i-2];
+  }
+  Wire.write(I2CPacket, 31);
 }
 
 
 void CModI2CHost::SetSubBoardEOL(void)
 {
-  Wire.write(5);
-  Wire.write(Global.TempLayer);
-  Wire.write(EEPROMPacketIndex);
-  Wire.write(EEPROMPacket, EEPROMPacketIndex);
+  I2CPacket[0] = 5;
+  I2CPacket[1] = Global.TempLayer;
+  I2CPacket[2] = EEPROMPacketIndex;
+  for (byte i = 3; i < 32; i++)
+  {
+    I2CPacket[i] = EEPROMPacket[i-3];
+  }
+  Wire.write(I2CPacket, 32);
 }
 
 void CModI2CHost::SetSubLEDBrightness(void)
 {
-  Wire.write(6);
-  Wire.write(Global.TempLayer);
-  Wire.write(Global.LEDBrightness);
+  I2CPacket[0] = 6;
+  I2CPacket[1] = Global.TempLayer;
+  I2CPacket[2] = Global.LEDBrightness;
+  Wire.write(I2CPacket, 3);
 }
 
 void CModI2CHost::SetSubRefreshRate(void)
 {
-  Wire.write(7);
-  Wire.write(Global.TempLayer);
-  Wire.write(Global.RefreshDelay);
+  I2CPacket[0] = 7;
+  I2CPacket[1] = Global.TempLayer;
+  I2CPacket[2] = Global.RefreshDelay;
+  Wire.write(I2CPacket, 3);
 }
 
 
