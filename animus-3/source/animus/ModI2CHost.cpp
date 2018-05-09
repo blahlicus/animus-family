@@ -230,7 +230,6 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
               Comms.mode = 0;
             }
           }
-
         }
       }
     }
