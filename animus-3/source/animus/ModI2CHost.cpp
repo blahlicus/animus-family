@@ -226,6 +226,7 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
             if (SerialLoadCounter <= 0)
             {
               SerialLoadCounter = 1200;
+              SerialLoaderByteStatus = 0;
               Comms.mode = 0;
             }
           }
