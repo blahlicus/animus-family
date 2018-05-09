@@ -26,6 +26,9 @@ private:
   byte I2CLEDBrightness = 0;
   byte I2CRefresh = 0;
   short SerialLoadCounter = 1200;
+  byte SerialLoaderByteA = 0;
+  byte SerialLoaderByteB = 0;
+  byte SerialLoaderByteStatus = 0;
   void SetTempLayer(void);
   void SetSubEEPROM(void);
   void SetSubBoardSettings(void);

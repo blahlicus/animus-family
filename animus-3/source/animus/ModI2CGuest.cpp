@@ -5,7 +5,7 @@ CModI2CGuest::CModI2CGuest(void)
   // nothing
 }
 
-void CModI2CGuest::Begin(void)
+void CModI2CGuest::Begin(void) //TODO add method to return entire EEPROM to host
 {
   CModTemplate::Begin();
   ModGUID = 9; // GUID of this specific mod

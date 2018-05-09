@@ -1,3 +1,4 @@
+@@ -1,302 +0,0 @@
 #include "ModI2CHost.h"
 CModI2CHost::CModI2CHost(void)
 {
@@ -192,22 +193,18 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
     {
       if (Serial.available()) //TODO I might want to work in a timeout or fail check for this
       {
-        if (SerialLoadCounter > 1024) // if this is the first time mode 6 has made contact
+        if (SerialLoaderByteStatus == 0) // if this is the first time mode 6 has made contact
         {
-          byte firstByte = (byte)Serial.read();
-          byte secondByte = 0;
-          bool hasAddr = false;
-          if (Serial.available())
-          {
-            secondByte = (byte)Serial.read();
-            hasAddr = true;
-          }
-          if (hasAddr)
-          {
-            SerialLoadCounter = (firstByte << 8) | secondByte;
-          }
+          SerialLoaderByteA = (byte)Serial.read();
+          SerialLoaderByteStatus = 1;
         }
-        else
+        else if (SerialLoaderByteStatus == 1) // if this is the second time mode 6 has made contact
+        {
+          SerialLoaderByteB = (byte)Serial.read();
+          SerialLoaderByteStatus = 2;
+          SerialLoadCounter = (SerialLoaderByteA << 8) | SerialLoaderByteB;
+        }
+        else if (SerialLoaderByteStatus == 2) // if mode 6 has obtained the serial load counter
         {
           if (EEPROMPacketIndex < 30)
           {
