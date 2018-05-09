@@ -1,4 +1,3 @@
-@@ -1,302 +0,0 @@
 #include "ModI2CHost.h"
 CModI2CHost::CModI2CHost(void)
 {
