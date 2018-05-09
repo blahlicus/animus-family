@@ -8,7 +8,6 @@ CSerial::CSerial(void)
 void CSerial::Begin(int baud)
 {
   mode = 0;
-  preloadCounter = 0;
   Serial.begin(baud);
   delay(300);
 }
@@ -19,17 +18,51 @@ void CSerial::Loop(void)
   {
     if (Serial.available()>0) //TODO if the key is incorrrect then the port is forever jammed
     {
-      buffer[preloadCounter] = Serial.read();
-      preloadCounter++;
-      if (preloadCounter >=5)
+      byte keyByte = Serial.read(); // read byte, if useless, then discard it, helps clear the buffer
+      if (keyMode == 0) // keyMode is at default mode
       {
-        if (buffer[0] == COMM_KEY_0 && buffer[1] == COMM_KEY_1 && buffer[2] == COMM_KEY_2 && buffer[3] == COMM_KEY_3)
+        if (keyByte == COMM_KEY_0) // first key check passed
         {
-          mode = buffer[4];
-
-          loadCounter = 0;
+          keyMode = 1;
         }
-        preloadCounter = 0;
+      }
+      else if (keyMode == 1) // keyMode is at second key check
+      {
+        if (keyByte == COMM_KEY_1) // second key check passed
+        {
+          keyMode = 2;
+        }
+        else
+        {
+          keyMode = 0; // resets keyMode to 0 if key is incorrect
+        }
+      }
+      else if (keyMode == 2) // keyMode is at third key check
+      {
+        if (keyByte == COMM_KEY_2) // third key check passed
+        {
+          keyMode = 3;
+        }
+        else
+        {
+          keyMode = 0; // resets keyMode to 0 if key is incorrect
+        }
+      }
+      else if (keyMode == 3) // keyMode is at fourth key check
+      {
+        if (keyByte == COMM_KEY_3) // fourth key check passed
+        {
+          keyMode = 4;
+        }
+        else
+        {
+          keyMode = 0; // resets keyMode to 0 if second key is incorrect
+        }
+      }
+      else if (keyMode == 4) // all key checks passed, setting mode
+      {
+        mode = keyByte;
+        keyMode = 0;
       }
     }
   }
@@ -44,6 +77,7 @@ void CSerial::Loop(void)
     if (loadCounter >= 1024)
     {
       PersMem.LoadData();
+      loadCounter = 0;
       mode = 0;
     }
   }
@@ -59,7 +93,6 @@ void CSerial::Loop(void)
   {
     // reserved for mod.cpp
     mode = 0;
-
   }
   else if (mode == 4) // load 900 bytes to 0-899 EEPROM for layout and mod data
   {
@@ -72,6 +105,7 @@ void CSerial::Loop(void)
     if (loadCounter >= 900)
     {
       mode = 0;
+      loadCounter = 0;
     }
   }
   else if (mode == 5) // load 124 bytes to 900-1023 EEPROM for board data
@@ -85,6 +119,7 @@ void CSerial::Loop(void)
     if (loadCounter+900 >= 1024)
     {
       PersMem.LoadData();
+      loadCounter = 0;
       mode = 0;
     }
   }

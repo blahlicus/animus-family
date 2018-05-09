@@ -11,9 +11,8 @@
 class CSerial
 {
 private:
-  int loadCounter;
-  byte preloadCounter;
-  byte buffer[5];
+  short loadCounter = 0;
+  byte keyMode = 0;
 public:
   byte mode;
 
