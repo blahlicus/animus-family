@@ -47,6 +47,7 @@
 #define MEM_COL_19 943
 #define MEM_NKRO_MODE 944
 #define MEM_LAY_COUNT 945
+#define MEM_IS_USBHOST 946
 #define MEM_DYNAMIC_ADDR 950
 #include "Global.h"
 
@@ -67,6 +68,7 @@ public:
   void SetColPin(byte pinNo, byte colNo);
   void SetBoardType(byte input);
   void SetNKROType(byte input);
+  void SetUSBHostType(byte input);
   void SetRefreshRate(byte input);
 
   byte GetKeyData(byte x, byte y, byte z);
@@ -78,6 +80,7 @@ public:
   byte GetColPin(byte colNo);
   byte GetBoardType();
   byte GetNKROType();
+  byte GetUSBHostType();
   byte GetRefreshRate();
 
   byte GetModData(short addr, byte modNo);

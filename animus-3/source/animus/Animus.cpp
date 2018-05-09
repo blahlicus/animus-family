@@ -11,6 +11,7 @@ void CAnimus::Begin()
   AnimusKeyboard.Begin();
   Comms.Begin(BAUD);
 
+  /* This just doesn't work consistently, blame the Pro Micro firmware
   if (UDADDR & _BV(ADDEN)) // <- checks if USB received address
   {
     Global.HasUSB = true;
@@ -19,6 +20,7 @@ void CAnimus::Begin()
   {
     Global.HasUSB = false;
   }
+  */
 
 
   Mod.Begin();

@@ -27,6 +27,8 @@ void CMem::LoadData(void)
     Global.HPins[i] = GetColPin(i);
   }
 
+  Global.HasUSB = GetUSBHostType();
+
   Global.RequiresLoadData = true;
   // loads mod EEPROM addresses to SRAM
 
@@ -110,6 +112,11 @@ void CMem::SetNKROType(byte input)
 
 }
 
+void CMem::SetUSBHostType(byte input)
+{
+  EEPROM.update(MEM_IS_USBHOST, input);
+}
+
 void CMem::SetRefreshRate(byte input)
 {
   EEPROM.update(MEM_REFRESH_RATE, input);
@@ -165,6 +172,11 @@ byte CMem::GetBoardType()
 byte CMem::GetNKROType()
 {
   return EEPROM.read(MEM_NKRO_MODE);
+}
+
+byte CMem::GetUSBHostType()
+{
+  return EEPROM.read(MEM_IS_USBHOST);
 }
 
 byte CMem::GetRefreshRate()
