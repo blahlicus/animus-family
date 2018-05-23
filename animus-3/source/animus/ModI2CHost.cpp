@@ -194,21 +194,17 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
       {
         if (SerialLoaderByteStatus == 0) // if this is the first time mode 6 has made contact
         {
-          SerialLoaderByteA = (byte)Serial.read();
-          EEPROMPacket[0] = SerialLoaderByteA;
+          EEPROMPacket[0] = (byte)Serial.read();
           SerialLoaderByteStatus = 1;
         }
         else if (SerialLoaderByteStatus == 1) // if this is the second time mode 6 has made contact
         {
-          SerialLoaderByteB = (byte)Serial.read();
-          EEPROMPacket[1] = SerialLoaderByteA;
+          EEPROMPacket[1] = (byte)Serial.read();
           SerialLoaderByteStatus = 2;
-          SerialStartAddr = (SerialLoaderByteA << 8) | SerialLoaderByteB;
         }
         else if (SerialLoaderByteStatus == 2) // if status is 2, get packet size
         {
           EEPROMPacketSize = (byte)Serial.read();
-          EEPROMPacket[2] = EEPROMPacketSize;
           SerialLoaderByteStatus = 3;
         }
         else if (SerialLoaderByteStatus == 3) // if mode 6 has obtained the start address and package length
@@ -222,8 +218,7 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
           if (EEPROMPacketSize <= 0)
           {
             SetSubEEPROM();
-            EEPROMPacketIndex = 3;
-            SerialStartAddr = 1200;
+            EEPROMPacketIndex = 2;
             SerialLoaderByteStatus = 0;
             Comms.mode = 0;
           }
