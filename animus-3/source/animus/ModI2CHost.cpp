@@ -188,47 +188,44 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
   CModTemplate::SerialComms(mode);
   if (Global.HasUSB)
   {
-    if (mode == 6 || mode == 7) // write to guest eeprom starting at addr = 0 or 900, ending at first short read from serial
+    if (mode == 6) // write to guest eeprom starting at addr = 0 or 900, ending at first short read from serial
     {
       if (Serial.available()) //TODO I might want to work in a timeout or fail check for this
       {
         if (SerialLoaderByteStatus == 0) // if this is the first time mode 6 has made contact
         {
           SerialLoaderByteA = (byte)Serial.read();
+          EEPROMPacket[0] = SerialLoaderByteA;
           SerialLoaderByteStatus = 1;
         }
         else if (SerialLoaderByteStatus == 1) // if this is the second time mode 6 has made contact
         {
           SerialLoaderByteB = (byte)Serial.read();
+          EEPROMPacket[1] = SerialLoaderByteA;
           SerialLoaderByteStatus = 2;
-          SerialLoadCounter = (SerialLoaderByteA << 8) | SerialLoaderByteB;
+          SerialStartAddr = (SerialLoaderByteA << 8) | SerialLoaderByteB;
         }
-        else if (SerialLoaderByteStatus == 2) // if mode 6 has obtained the serial load counter
+        else if (SerialLoaderByteStatus == 2) // if status is 2, get packet size
         {
-          if (EEPROMPacketIndex < 30)
+          EEPROMPacketSize = (byte)Serial.read();
+          EEPROMPacket[2] = EEPROMPacketSize;
+          SerialLoaderByteStatus = 3;
+        }
+        else if (SerialLoaderByteStatus == 3) // if mode 6 has obtained the start address and package length
+        {
+          if (EEPROMPacketSize > 0)
           {
             EEPROMPacket[EEPROMPacketIndex] = (byte)Serial.read();
             EEPROMPacketIndex++;
-            SerialLoadCounter--;
+            EEPROMPacketSize--;
           }
-          if (EEPROMPacketIndex >= 30 || SerialLoadCounter <= 0) // do not use else here to make sure the message is sent in the same cycle
+          if (EEPROMPacketSize <= 0)
           {
-            if (mode == 6)
-            {
-              AnimusKeyboard.Write(7);
-              SetSubEEPROM();
-            }
-            else if (mode == 7)
-            {
-              SetSubBoardSettings();
-            }
-            EEPROMPacketIndex = 0;
-            if (SerialLoadCounter <= 0)
-            {
-              SerialLoadCounter = 1200;
-              SerialLoaderByteStatus = 0;
-              Comms.mode = 0;
-            }
+            SetSubEEPROM();
+            EEPROMPacketIndex = 3;
+            SerialStartAddr = 1200;
+            SerialLoaderByteStatus = 0;
+            Comms.mode = 0;
           }
         }
       }
@@ -261,20 +258,9 @@ void CModI2CHost::SetSubEEPROM(void)
 {
   Wire.beginTransmission(8);
   Wire.write(2);
-  Wire.write(EEPROMPacketIndex);
   Wire.write(EEPROMPacket, EEPROMPacketIndex);
   Wire.endTransmission();
 }
-
-void CModI2CHost::SetSubBoardSettings(void)
-{
-  Wire.beginTransmission(8);
-  Wire.write(3);
-  Wire.write(EEPROMPacketIndex);
-  Wire.write(EEPROMPacket, EEPROMPacketIndex);
-  Wire.endTransmission();
-}
-
 
 
 void CModI2CHost::SetSubLEDBrightness(void)

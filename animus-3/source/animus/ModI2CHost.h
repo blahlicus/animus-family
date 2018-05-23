@@ -20,15 +20,16 @@ below are types of i2c transmissions from the host to guest
 class CModI2CHost : public CModTemplate
 {
 private:
-  byte EEPROMPacket[30]; // these are not local variables for faster access
-  byte EEPROMPacketIndex = 0;
+  byte EEPROMPacket[31]; // these are not local variables for faster access
+  byte EEPROMPacketIndex = 3;
   byte I2CTempLayer = 0;
   byte I2CLEDBrightness = 0;
   byte I2CRefresh = 0;
-  short SerialLoadCounter = 1200;
+  short SerialStartAddr = 1200;
   byte SerialLoaderByteA = 0;
   byte SerialLoaderByteB = 0;
   byte SerialLoaderByteStatus = 0;
+  byte EEPROMPacketSize = 0;
   void SetTempLayer(void);
   void SetSubEEPROM(void);
   void SetSubBoardSettings(void);
