@@ -149,7 +149,7 @@ void CModI2CHost::Loop(void)
 
   // serial communication
 
-  if (Global.HasUSB)
+  if (Global.HasUSB) // TODO serial communications for mods DO NOT WORK, you have to fix serialcomms
   {
     if (Comms.mode == 6) // write to guest eeprom starting at addr = 0 or 900, ending at first short read from serial
     {
