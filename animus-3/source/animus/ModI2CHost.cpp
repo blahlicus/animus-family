@@ -144,6 +144,60 @@ void CModI2CHost::Loop(void)
 
     }
   }
+
+
+
+  // serial communication
+
+  if (Global.HasUSB)
+  {
+    if (Comms.mode == 6) // write to guest eeprom starting at addr = 0 or 900, ending at first short read from serial
+    {
+      EEPROM.update(0, 5);
+      if (Serial.available()) //TODO I might want to work in a timeout or fail check for this
+      {
+        if (SerialLoaderByteStatus == 0) // if this is the first time mode 6 has made contact
+        {
+          EEPROMPacket[0] = (byte)Serial.read();
+          SerialLoaderByteStatus = 1;
+          EEPROM.update(0, 6);
+        }
+        else if (SerialLoaderByteStatus == 1) // if this is the second time mode 6 has made contact
+        {
+          EEPROMPacket[1] = (byte)Serial.read();
+          SerialLoaderByteStatus = 2;
+          EEPROM.update(2, 5);
+
+        }
+        else if (SerialLoaderByteStatus == 2) // if status is 2, get packet size
+        {
+          EEPROMPacketSize = (byte)Serial.read();
+          SerialLoaderByteStatus = 3;
+          EEPROM.update(4, 5);
+
+        }
+        else if (SerialLoaderByteStatus == 3) // if mode 6 has obtained the start address and package length
+        {
+          if (EEPROMPacketSize > 0)
+          {
+            EEPROMPacket[EEPROMPacketIndex] = (byte)Serial.read();
+            EEPROMPacketIndex++;
+            EEPROMPacketSize--;
+            EEPROM.update(6, 5);
+          }
+          if (EEPROMPacketSize <= 0)
+          {
+            EEPROM.update(8, 5);
+            SetSubEEPROM();
+            EEPROM.update(10, 5);
+            EEPROMPacketIndex = 2;
+            SerialLoaderByteStatus = 0;
+            Comms.mode = 0;
+          }
+        }
+      }
+    }
+  }
 }
 
 void CModI2CHost::PressCoords(byte x, byte y)
@@ -170,7 +224,26 @@ void CModI2CHost::PressKey(byte val, byte type)
 
   if (Global.HasUSB)
   {
-
+    /*
+    EEPROMPacket[0] = 0;
+    EEPROMPacket[1] = 0;
+    bool ff = true;
+    for (byte i = 2; i < 28; i++)
+    {
+      if (ff)
+      {
+        EEPROMPacket[i] = 10;
+      }
+      else
+      {
+        EEPROMPacket[i] = 0;
+      }
+      ff = !ff;
+    }
+    EEPROMPacketIndex = 28;
+    SetSubEEPROM();
+    EEPROMPacketIndex = 2;
+    */
   }
 }
 void CModI2CHost::ReleaseKey(byte val, byte type)
@@ -186,46 +259,6 @@ void CModI2CHost::ReleaseKey(byte val, byte type)
 void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
 {
   CModTemplate::SerialComms(mode);
-  if (Global.HasUSB)
-  {
-    if (mode == 6) // write to guest eeprom starting at addr = 0 or 900, ending at first short read from serial
-    {
-      if (Serial.available()) //TODO I might want to work in a timeout or fail check for this
-      {
-        if (SerialLoaderByteStatus == 0) // if this is the first time mode 6 has made contact
-        {
-          EEPROMPacket[0] = (byte)Serial.read();
-          SerialLoaderByteStatus = 1;
-        }
-        else if (SerialLoaderByteStatus == 1) // if this is the second time mode 6 has made contact
-        {
-          EEPROMPacket[1] = (byte)Serial.read();
-          SerialLoaderByteStatus = 2;
-        }
-        else if (SerialLoaderByteStatus == 2) // if status is 2, get packet size
-        {
-          EEPROMPacketSize = (byte)Serial.read();
-          SerialLoaderByteStatus = 3;
-        }
-        else if (SerialLoaderByteStatus == 3) // if mode 6 has obtained the start address and package length
-        {
-          if (EEPROMPacketSize > 0)
-          {
-            EEPROMPacket[EEPROMPacketIndex] = (byte)Serial.read();
-            EEPROMPacketIndex++;
-            EEPROMPacketSize--;
-          }
-          if (EEPROMPacketSize <= 0)
-          {
-            SetSubEEPROM();
-            EEPROMPacketIndex = 2;
-            SerialLoaderByteStatus = 0;
-            Comms.mode = 0;
-          }
-        }
-      }
-    }
-  }
 }
 
 
