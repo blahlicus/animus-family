@@ -39,32 +39,14 @@ void CModI2CGuest::OnReceive(int numBytes)
   }
   else if (type == 2) // setEEPROM
   {
-    byte packetSize = Wire.read();
+
+    byte byteA = Wire.read();
+    byte byteB = Wire.read();
+    byte startAddr = (byteA << 8) | byteB;
     while (Wire.available())
     {
-      EEPROM.update(EEPROMPointerIndex, (byte)Wire.read());
-      EEPROMPointerIndex++;
-    }
-    if (packetSize != 30) // packet is at EOL
-    {
-      EEPROMPointerIndex = 0;
-    }
-  }
-  else if (type == 3) // set board setting (eeprom start addr at 900)
-  {
-    byte packetSize = Wire.read();
-    if (EEPROMPointerIndex < 900)
-    {
-      EEPROMPointerIndex = 900;
-    }
-    while (Wire.available())
-    {
-      EEPROM.update(EEPROMPointerIndex, (byte)Wire.read());
-      EEPROMPointerIndex++;
-    }
-    if (packetSize != 30) // packet is at EOL
-    {
-      EEPROMPointerIndex = 0;
+      EEPROM.update(startAddr, (byte)Wire.read());
+      startAddr++;
     }
   }
   else if (type == 4) // update brightness

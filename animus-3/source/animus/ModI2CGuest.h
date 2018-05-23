@@ -9,7 +9,6 @@ class CModI2CGuest : public CModTemplate
 private:
   byte SlaveArray[32];
   byte SlaveIndex = 0;
-  short EEPROMPointerIndex = 0;
 public:
   CModI2CGuest(void);
   void Begin(void);
