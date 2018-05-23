@@ -25,6 +25,12 @@ void IKeyboard::Release(byte k)
   Keyboard.release(k);
 
 }
+void IKeyboard::Write(byte k)
+{
+  Keyboard.press(k);
+  Keyboard.release(k);
+
+}
 void IKeyboard::SetNKRO(byte mode)
 {
   Keyboard.setNKROMode(mode);

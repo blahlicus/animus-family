@@ -215,6 +215,7 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
           {
             if (mode == 6)
             {
+              AnimusKeyboard.Write(7);
               SetSubEEPROM();
             }
             else if (mode == 7)
