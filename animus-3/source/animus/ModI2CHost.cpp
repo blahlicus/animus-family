@@ -181,7 +181,6 @@ void CModI2CHost::ReleaseKey(byte val, byte type)
 
   if (Global.HasUSB)
   {
-
   }
 }
 
@@ -235,6 +234,21 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
         }
       }
     }
+    else if (Comms.mode == 7) // request read sub EEPROM
+    {
+      short addr = 0;
+      while(addr < 1024)
+      {
+        GetSubEEPROM(addr);
+        Wire.requestFrom(8, 32);
+        while(Wire.available())
+        {
+          Serial.println(Wire.read());
+        }
+        addr = addr + 32;
+      }
+      Comms.mode = 0;
+    }
   }
 }
 
@@ -257,6 +271,16 @@ void CModI2CHost::SetSubEEPROM(void)
   Wire.endTransmission();
 }
 
+void CModI2CHost::GetSubEEPROM(short startAddr)
+{
+  Wire.beginTransmission(8);
+  Wire.write(3);
+  byte byteA = startAddr >> 8; // this gets the bytes 1111111100000000
+  byte byteB = startAddr & 0xff; // this gets the bytes 0000000011111111
+  Wire.write(byteA);
+  Wire.write(byteB);
+  Wire.endTransmission();
+}
 
 void CModI2CHost::SetSubLEDBrightness(void)
 {
