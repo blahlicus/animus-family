@@ -147,9 +147,53 @@ void CModI2CHost::Loop(void)
 
 
 
+}
+
+void CModI2CHost::PressCoords(byte x, byte y)
+{
+  CModTemplate::PressCoords(x, y);
+
+  if (Global.HasUSB)
+  {
+
+  }
+
+}
+void CModI2CHost::PrePress(byte val, byte type)
+{
+  CModTemplate::PrePress(val, type);
+  if (Global.HasUSB)
+  {
+
+  }
+}
+void CModI2CHost::PressKey(byte val, byte type)
+{
+  CModTemplate::PressKey(val, type);
+
+  if (Global.HasUSB)
+  {
+  }
+}
+void CModI2CHost::ReleaseKey(byte val, byte type)
+{
+  CModTemplate::ReleaseKey(val, type);
+
+  if (Global.HasUSB)
+  {
+
+  }
+}
+
+void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
+{
+  CModTemplate::SerialComms(mode);
+
+
+
   // serial communication
 
-  if (Global.HasUSB) // TODO serial communications for mods DO NOT WORK, you have to fix serialcomms
+  if (Global.HasUSB)
   {
     if (Comms.mode == 6) // write to guest eeprom starting at addr = 0 or 900, ending at first short read from serial
     {
@@ -198,67 +242,6 @@ void CModI2CHost::Loop(void)
       }
     }
   }
-}
-
-void CModI2CHost::PressCoords(byte x, byte y)
-{
-  CModTemplate::PressCoords(x, y);
-
-  if (Global.HasUSB)
-  {
-
-  }
-
-}
-void CModI2CHost::PrePress(byte val, byte type)
-{
-  CModTemplate::PrePress(val, type);
-  if (Global.HasUSB)
-  {
-
-  }
-}
-void CModI2CHost::PressKey(byte val, byte type)
-{
-  CModTemplate::PressKey(val, type);
-
-  if (Global.HasUSB)
-  {
-    /*
-    EEPROMPacket[0] = 0;
-    EEPROMPacket[1] = 0;
-    bool ff = true;
-    for (byte i = 2; i < 28; i++)
-    {
-      if (ff)
-      {
-        EEPROMPacket[i] = 10;
-      }
-      else
-      {
-        EEPROMPacket[i] = 0;
-      }
-      ff = !ff;
-    }
-    EEPROMPacketIndex = 28;
-    SetSubEEPROM();
-    EEPROMPacketIndex = 2;
-    */
-  }
-}
-void CModI2CHost::ReleaseKey(byte val, byte type)
-{
-  CModTemplate::ReleaseKey(val, type);
-
-  if (Global.HasUSB)
-  {
-
-  }
-}
-
-void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
-{
-  CModTemplate::SerialComms(mode);
 }
 
 

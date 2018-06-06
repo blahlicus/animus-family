@@ -25,7 +25,6 @@ void CModTemplate::LoadData(void)
 void CModTemplate::Loop(void)
 {
   //nothing
-  SerialComms(Comms.mode);
 }
 
 void CModTemplate::SerialComms(byte mode)

@@ -26,6 +26,8 @@ void CMod::Loop(void)
     LoadData();
   }
 
+  builder_mod_serial
+
 }
 
 void CMod::LoadData(void)
