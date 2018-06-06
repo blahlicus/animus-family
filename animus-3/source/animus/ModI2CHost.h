@@ -32,6 +32,7 @@ private:
   void SetSubBoardSettings(void);
   void SetSubLEDBrightness(void);
   void SetSubRefreshRate(void);
+  void GetSubEEPROM(short startAddr);
 
 
 public:

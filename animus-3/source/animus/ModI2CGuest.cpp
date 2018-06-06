@@ -40,12 +40,25 @@ void CModI2CGuest::OnReceive(int numBytes)
   else if (type == 2) // setEEPROM
   {
 
-    byte byteA = Wire.read(); //TODO clean this up
+    byte byteA = Wire.read();
     byte byteB = Wire.read();
     short startAddr = (byteA << 8) | byteB;
     while (Wire.available())
     {
       EEPROM.update(startAddr, Wire.read());
+      startAddr++;
+    }
+  }
+  else if (type == 3) // return part of the EEPROM
+  {
+    byte byteA = Wire.read();
+    byte byteB = Wire.read();
+    short startAddr = (byteA << 8) | byteB;
+    SlaveIndex = 0;
+    while (SlaveIndex < 32 && startAddr < 1024)
+    {
+      SlaveArray[SlaveIndex] = EEPROM.read(startAddr);
+      SlaveIndex++;
       startAddr++;
     }
   }
