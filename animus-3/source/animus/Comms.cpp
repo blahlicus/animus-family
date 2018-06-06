@@ -16,7 +16,7 @@ void CSerial::Loop(void)
 {
   if (mode == 0) // mode 0 is standby mode which waits for another mode input
   {
-    if (Serial.available()>0) //TODO if the key is incorrrect then the port is forever jammed
+    if (Serial.available()>0)
     {
       byte keyByte = Serial.read(); // read byte, if useless, then discard it, helps clear the buffer
       if (keyMode == 0) // keyMode is at default mode
