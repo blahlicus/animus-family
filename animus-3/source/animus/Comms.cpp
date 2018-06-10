@@ -131,7 +131,7 @@ void CSerial::Loop(void)
 
     if (Serial.available()>0)
     {
-      SetLayCount((byte)Serial.read());
+      PersMem.SetLayCount((byte)Serial.read());
     }
     if (Serial.available()>0)
     {
