@@ -14,7 +14,7 @@ public:
   byte RefreshDelay = 5; // default value, overriden on EEPROM load
   byte ROW = DEFAULT_ROW; // default value, overriden on EEPROM load
   byte COL = DEFAULT_COL; // default value, overriden on EEPROM load
-  byte LAY = 1;
+  byte LAY = 1; // default value, overriden on EEPROM load
 
   byte VPins[DEFAULT_ROW]; // default value, overriden on EEPROM load
   byte HPins[DEFAULT_COL]; // default value, overriden on EEPROM load

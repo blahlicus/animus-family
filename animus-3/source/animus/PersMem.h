@@ -60,6 +60,8 @@ public:
   void Begin(void);
   void LoadData(void);
   void Loop(void);
+  void SetEEPROM(short address, byte data);
+  void SetEEPROMForced(short address, byte data);
   void SetKey(byte x, byte y, byte z, byte inputChar, byte inputType);
   void SetRowCount(byte input);
   void SetColCount(byte input);
@@ -71,6 +73,7 @@ public:
   void SetUSBHostType(byte input);
   void SetRefreshRate(byte input);
 
+  byte GetEEPROM(short address);
   byte GetKeyData(byte x, byte y, byte z);
   byte GetKeyType(byte x, byte y, byte z);
   byte GetRowCount();

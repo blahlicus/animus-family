@@ -69,9 +69,9 @@ void CSerial::Loop(void)
 
   if (mode == 1) // load bytes to eeprom, do not use this, use modes 4 or 5 instead to load layout or board data
   {
-    if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
+    if (Serial.available()>0)
     {
-      EEPROM.update(loadCounter, (byte)Serial.read());
+      PersMem.SetEEPROM(loadCounter, (byte)Serial.read());
       loadCounter++;
     }
     if (loadCounter >= 1024)
@@ -85,21 +85,20 @@ void CSerial::Loop(void)
   {
     for (short i = 0; i < 1024; i++)
     {
-      Serial.write(EEPROM.read(i));
+      Serial.write(PersMem.GetEEPROM(i));
     }
     mode = 0;
   }
   else if (mode == 3) // print mod list in order of mem id
   {
     // reserved for mod.cpp
-    mode = 0;
   }
   else if (mode == 4) // load 900 bytes to 0-899 EEPROM for layout and mod data
   {
 
     if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
     {
-      EEPROM.update(loadCounter, (byte)Serial.read());
+      PersMem.SetEEPROM(loadCounter, (byte)Serial.read());
       loadCounter++;
     }
     if (loadCounter >= 900)
@@ -113,7 +112,7 @@ void CSerial::Loop(void)
 
     if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
     {
-      EEPROM.update(loadCounter+900, (byte)Serial.read());
+      PersMem.SetEEPROM(loadCounter+900, (byte)Serial.read());
       loadCounter++;
     }
     if (loadCounter+900 >= 1024)
@@ -121,6 +120,30 @@ void CSerial::Loop(void)
       PersMem.LoadData();
       loadCounter = 0;
       mode = 0;
+    }
+  }
+  else if (mode == 6) // reserved for i2i2chost
+  {
+    // do nothing
+  }
+  else if (mode == 7) // update basic info
+  {
+
+    if (Serial.available()>0)
+    {
+      SetLayCount((byte)Serial.read());
+    }
+    if (Serial.available()>0)
+    {
+      SetNKROType((byte)Serial.read());
+    }
+    if (Serial.available()>0)
+    {
+      SetUSBHostType((byte)Serial.read());
+    }
+    if (Serial.available()>0)
+    {
+      SetRefreshRate((byte)Serial.read());
     }
   }
   else if (mode == 255) // idle mode

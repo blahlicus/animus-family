@@ -17,8 +17,8 @@ void CModTemplate::Begin(void)
 void CModTemplate::LoadData(void)
 {
   // loads the EEPROM start address for the mod
-  byte firstByte = EEPROM.read(MEM_DYNAMIC_ADDR + ModNo * 2);
-  byte secondByte = EEPROM.read(MEM_DYNAMIC_ADDR + ModNo * 2 + 1);
+  byte firstByte = PersMem.GetEEPROM(MEM_DYNAMIC_ADDR + ModNo * 2);
+  byte secondByte = PersMem.GetEEPROM(MEM_DYNAMIC_ADDR + ModNo * 2 + 1);
   EEPROMAddress = (firstByte << 8) | secondByte;
 }
 
@@ -57,14 +57,14 @@ void CModTemplate::PrintMods()
 
 byte CModTemplate::GetData(short addr)
 {
-  byte firstByte = EEPROM.read(MEM_DYNAMIC_ADDR + ModNo * 2);
-  byte secondByte = EEPROM.read(MEM_DYNAMIC_ADDR + ModNo * 2 + 1);
-  return EEPROM.read(EEPROMAddress + addr);
+  byte firstByte = PersMem.GetEEPROM(MEM_DYNAMIC_ADDR + ModNo * 2);
+  byte secondByte = EPersMem.GetEEPROM(MEM_DYNAMIC_ADDR + ModNo * 2 + 1);
+  return PersMem.GetEEPROM(EEPROMAddress + addr);
 }
 
 void CModTemplate::SetData(short addr, byte data)
 {
-  EEPROM.update(EEPROMAddress + addr, data);
+  PersMem.SetEEPROM(EEPROMAddress + addr, data);
 }
 void CModTemplate::End(void)
 {

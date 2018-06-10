@@ -45,7 +45,7 @@ void CModI2CGuest::OnReceive(int numBytes)
     short startAddr = (byteA << 8) | byteB;
     while (Wire.available())
     {
-      EEPROM.update(startAddr, Wire.read());
+      PersMem.SetEEPROM(startAddr, Wire.read());
       startAddr++;
     }
   }
@@ -57,7 +57,7 @@ void CModI2CGuest::OnReceive(int numBytes)
     SlaveIndex = 0;
     while (SlaveIndex < 32 && startAddr < 1024)
     {
-      SlaveArray[SlaveIndex] = EEPROM.read(startAddr);
+      SlaveArray[SlaveIndex] = PersMem.GetEEPROM(startAddr);
       SlaveIndex++;
       startAddr++;
     }

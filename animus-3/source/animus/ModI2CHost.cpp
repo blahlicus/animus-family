@@ -196,7 +196,7 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
   {
     if (Comms.mode == 6) // write to guest eeprom starting at addr = 0 or 900, ending at first short read from serial
     {
-      EEPROM.update(0, 5);
+      PersMem.SetEEPROM(0, 5);
       if (Serial.available()) //TODO I might want to work in a timeout or fail check for this
       {
         if (SerialLoaderByteStatus == 0) // if this is the first time mode 6 has made contact

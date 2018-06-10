@@ -2,35 +2,22 @@
 
 CAnimus::CAnimus(void)
 {
-  // nothing
+
 }
 
 void CAnimus::Begin()
 {
   PersMem.Begin(); // loads data from EEPROM to RAM
-  AnimusKeyboard.Begin();
-  Comms.Begin(BAUD);
-
-  /* This just doesn't work consistently, blame the Pro Micro firmware
-  if (UDADDR & _BV(ADDEN)) // <- checks if USB received address
-  {
-    Global.HasUSB = true;
-  }
-  else
-  {
-    Global.HasUSB = false;
-  }
-  */
-
-
-  Mod.Begin();
+  AnimusKeyboard.Begin(); // initialise keyboard module
+  Comms.Begin(BAUD); // start comms
+  Mod.Begin(); // initialise mods
 }
 
 void CAnimus::Loop()
 {
-  MillisLoop();
+  MillisLoop(); // checks pseudoRTOS status
 
-  // start of pesudo rtos code
+  // start of pseudo rtos code
   if (Async1MSDelay()) // should run once every 1 to 1.5ms
   {
 
@@ -82,7 +69,6 @@ void CAnimus::Loop()
       }
     }
     //end of countdowns
-    //*/
   }
   // end of pesudo rtos
   PersMem.Loop();
@@ -104,7 +90,6 @@ void CAnimus::PressKey(byte val, byte type)
 {
   if (Global.HasUSB)
   {
-
     if (type == 0) // normal HID keystroke
     {
       AnimusKeyboard.Press(val);
