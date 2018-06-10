@@ -19,7 +19,7 @@ byte slaveArray[MAX_SLAVE_COUNT];
 void I2CSlaveStartup()
 {
   Wire.begin(8);
-  IS_MASTER = true;
+  IS_MASTER = false;
   Wire.onRequest(requestEvent);
   Wire.onReceive(receiveEvent);
 }

@@ -14,7 +14,7 @@ byte TempLayer = 0;
 
 // key states
 byte KeyState[COL][ROW];
-byte KeyStateCountDown[COL][ROW];
+byte KeyStateCoolDown[COL][ROW];
 byte LayerState[COL][ROW];
 
 // slave states
@@ -45,8 +45,6 @@ void loop()
   MillisLoop();
   // checks serials
   TestSerial();
-
-
   // layering checks
   if (KeyLayer > GetLayEEPROM() || TempLayer > GetLayEEPROM())
   {
@@ -54,60 +52,49 @@ void loop()
     TempLayer = 0;
   }
 
-  // main loop starts
-  KeyScan();
-
-  for (byte i = 0; i < ROW; i++)
-  {
-    for (byte j = 0; j < COL; j++)
-    {
-      if (KeyState[j][i] == HIGH) // if key is down
-      {
-        if (KeyStateCountDown[j][i] == 1) // if key is still down after debounce time
-        {
-          ModPressCoord(j, i);
-          ModPrePress(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
-          LayerState[j][i] = TempLayer;
-          PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
-          KeyStateCountDown[j][i] = 255;
-
-        }
-        else if (KeyStateCountDown[j][i] == 0) // if key is still down after debounce time
-        {
-          KeyStateCountDown[j][i] = builder_refresh+1;
-        }
-
-      }
-      else if (KeyState[j][i] == LOW)
-      {
-        if (KeyStateCountDown[j][i] == 255)
-        {
-          ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
-
-          KeyStateCountDown[j][i] = 0;
-        }
-
-      }
-
-
-
-
-    }
-    // main loop ends
-  }
-
   if (CheckMillis())
   {
+    KeyScan(); // physical key layers scanned
+    // start of physical key loops
+    for (byte i = 0; i < ROW; i++) // this is placed inside the 1ms delay to slow it down a bit
+    {
+      for (byte j = 0; j < COL; j++)
+      {
+        if (KeyState[j][i] == HIGH) // if key is down
+        {
+          if (KeyStateCoolDown[j][i] == 0) // if key was not recently released
+          {
+            ModPressCoord(j, i);
+            LayerState[j][i] = TempLayer;
+            ModPrePress(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
+            PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
+            KeyStateCoolDown[j][i] = 255;
+          }
+        }
+        else if (KeyState[j][i] == LOW) // if key is up
+        {
+          if (KeyStateCoolDown[j][i] == 255) // if key was previously held down
+          {
+            ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
+
+            KeyStateCoolDown[j][i] = RefreshDelay;
+          }
+        }
+      }
+    }
+    // end of physical key loops
+    // start of countdowns
     for (byte i = 0; i < ROW; i++)
     {
       for (byte j = 0; j < COL; j++)
       {
-        if (KeyStateCountDown[j][i] > 0 && KeyStateCountDown[j][i] != 255)
+        if (KeyStateCoolDown[j][i] > 0 && KeyStateCoolDown[j][i] != 255)
         {
-          KeyStateCountDown[j][i] = KeyStateCountDown[j][i] - 1;
+          KeyStateCoolDown[j][i]--;
         }
       }
     }
+    //end of countdowns
   }
 
   ModLoop();
@@ -347,12 +334,12 @@ void SwitchLayer(boolean increment)
 
 
 /*
-  Rotate to the next layer in bitfield within val.
-  Examples:
-    val=0x3: rotate between layers 0 and 1
-    val=0x7: rotate between layers 0, 1, and 2
-    val=0xF: rotate between layers 0, 1, 2, and 3
-    val=0x11: rotate between layers 0 and 4
+Rotate to the next layer in bitfield within val.
+Examples:
+val=0x3: rotate between layers 0 and 1
+val=0x7: rotate between layers 0, 1, and 2
+val=0xF: rotate between layers 0, 1, 2, and 3
+val=0x11: rotate between layers 0 and 4
 */
 void RotateLayers(byte val)
 {
@@ -366,9 +353,9 @@ void RotateLayers(byte val)
   }
 
   /*
-    Find the next layer within the bitfield.
-    Limit iterations to 10, to ensure no infinite loop.
-   */
+  Find the next layer within the bitfield.
+  Limit iterations to 10, to ensure no infinite loop.
+  */
   for (byte i = 0; i < 10; i++)
   {
     newLayer++;
@@ -411,7 +398,7 @@ void ResetPins()
     for (byte j = 0; j < COL; j++)
     {
       KeyState[j][i] = 0;
-      KeyStateCountDown[j][i] = 0;
+      KeyStateCoolDown[j][i] = 0;
     }
   }
 }

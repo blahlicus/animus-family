@@ -18,7 +18,7 @@ Remeber to change the mod_modname to your mod name
 #define modMethod(str) conca(mod_modname, str)
 
 
-const byte modMethod(TIMER_MULTIPLIER) = 10;
+const byte modMethod(TIMER_MULTIPLIER) = 50;
 const int modMethod(MAX_ADDR) = 842;
 const int modMethod(MIN_ADDR) = 982;
 const byte modMethod(MAX_INDEX) = 20;

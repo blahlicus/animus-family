@@ -22,3 +22,12 @@ E:\blahlicus\Documents\GitHub\animus-family\tools\builder source\AnimusBuilder\A
 E:\blahlicus\Documents\GitHub\animus-family\tools\builder source\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.FmMain.resources
 E:\blahlicus\Documents\GitHub\animus-family\tools\builder source\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.Properties.Resources.resources
 E:\blahlicus\Documents\GitHub\animus-family\tools\builder source\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.csproj.GenerateResource.Cache
+E:\blahlicus\Documents\GitHub\animus-family\animus-2\tools\builder source\AnimusBuilder\AnimusBuilder\bin\Debug\AnimusBuilder.exe
+E:\blahlicus\Documents\GitHub\animus-family\animus-2\tools\builder source\AnimusBuilder\AnimusBuilder\bin\Debug\AnimusBuilder.pdb
+E:\blahlicus\Documents\GitHub\animus-family\animus-2\tools\builder source\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.csprojResolveAssemblyReference.cache
+E:\blahlicus\Documents\GitHub\animus-family\animus-2\tools\builder source\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.FmMain.resources
+E:\blahlicus\Documents\GitHub\animus-family\animus-2\tools\builder source\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.Properties.Resources.resources
+E:\blahlicus\Documents\GitHub\animus-family\animus-2\tools\builder source\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.csproj.GenerateResource.Cache
+E:\blahlicus\Documents\GitHub\animus-family\animus-2\tools\builder source\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.csproj.CoreCompileInputs.cache
+E:\blahlicus\Documents\GitHub\animus-family\animus-2\tools\builder source\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.exe
+E:\blahlicus\Documents\GitHub\animus-family\animus-2\tools\builder source\AnimusBuilder\AnimusBuilder\obj\Debug\AnimusBuilder.pdb

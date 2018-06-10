@@ -7,6 +7,7 @@ BUILDER_REQUIREMENT_END
 */
 
 #define mod_modname I2C
+#define modMethod(str) conca(mod_modname, str)
 
 #define LEDBRIGHTSETTER I2CSetLEDBrightness
 
@@ -52,16 +53,41 @@ void I2CLoop()
   }
   if (slaveExists)
   {
+    byte reX, reY;
     slaveCount = slaveArray[0];
     for (int i = 1; i < slaveCount; i=i+3)
     {
       char cinput = slaveArray[i];
       byte tinput = slaveArray[i+1];
-      if (slaveArray[i+2]>1)
+      byte type = slaveArray[i+2];
+      if (type == 3)
       {
+        reX = cinput;
+        reY = tinput;
+      }
+      else if (type == 2)
+      {
+        ModPrePress(cinput, tinput);
+      }
+      else if (type == 5)
+      {
+        if (TempLayer != I2CTempLayer)
+        {
+          I2CSetTempLayer(TempLayer);
+          I2CTempLayer = TempLayer;
+          Wire.beginTransmission(8);
+          Wire.write(7);    // request updated key press due to layer change
+          Wire.write(reX);
+          Wire.write(reY);
+          Wire.endTransmission();
+          Wire.requestFrom(8, 3);    // request 3 bytes from slave device #8
+          Wire.read();    // discard count; we don't need it
+          cinput = Wire.read();
+          tinput = Wire.read();
+        }
         PressKey(cinput, tinput);
       }
-      else
+      else if (type == 1)
       {
         ReleaseKey(cinput, tinput);
       }
@@ -170,6 +196,7 @@ void I2CSerial(String input)
 4: set EEPROM
 5: set KeyLayer
 6: set brightness
+7: request key press
 */
 void I2CSetKeyLayer(byte input)
 {
@@ -234,6 +261,8 @@ void I2CSetEEPROM(int addr, byte val)
 
 
 
+void modMethod(PressCoord)(byte x, byte y) { }
+void modMethod(PrePress)(char val, byte type) { }
 #undef mod_modname
 #undef modMethod
 // TODO

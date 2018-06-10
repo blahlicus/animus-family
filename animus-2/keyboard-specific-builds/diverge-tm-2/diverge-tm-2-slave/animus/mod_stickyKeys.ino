@@ -145,5 +145,7 @@ void modMethod(Serial)(String input)
 
 }
 
+void modMethod(PressCoord)(byte x, byte y) { }
+void modMethod(PrePress)(char val, byte type) { }
 #undef mod_modname
 #undef modMethod

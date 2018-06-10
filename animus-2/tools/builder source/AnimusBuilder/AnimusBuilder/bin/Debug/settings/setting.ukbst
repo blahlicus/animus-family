@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MdSetting xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <animusPath>E:\blahlicus\Documents\GitHub\animus-family\animus</animusPath>
-  <modPath>E:\blahlicus\Documents\GitHub\animus-family\mods</modPath>
-  <outputPath>E:\blahlicus\Documents\GitHub\animus-family\keyboard-specific-builds</outputPath>
+  <animusPath>E:\blahlicus\Documents\GitHub\animus-family\animus-2\animus</animusPath>
+  <modPath>E:\blahlicus\Documents\GitHub\animus-family\animus-2\mods</modPath>
+  <outputPath>E:\blahlicus\Documents\GitHub\animus-family\animus-2\keyboard-specific-builds</outputPath>
 </MdSetting>

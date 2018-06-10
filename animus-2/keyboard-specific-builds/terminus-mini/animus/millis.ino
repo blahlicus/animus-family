@@ -6,7 +6,8 @@ boolean readyMillis = false;
 void MillisLoop()
 {
   currentMillis = millis();
-  if ((unsigned long)(currentMillis - previousMillis) >= MILLIS_TICK)
+
+  if(currentMillis - previousMillis >= MILLIS_TICK) // this elapses every 1-1.5 ms
   {
     previousMillis = currentMillis;
     readyMillis = true;

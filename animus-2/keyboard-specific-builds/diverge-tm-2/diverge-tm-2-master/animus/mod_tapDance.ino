@@ -18,14 +18,14 @@ Remeber to change the mod_modname to your mod name
 #define modMethod(str) conca(mod_modname, str)
 
 
-const byte modMethod(TIMER_MULTIPLIER) = 10;
+const byte modMethod(TIMER_MULTIPLIER) = 50;
 const int modMethod(MAX_ADDR) = 842;
 const int modMethod(MIN_ADDR) = 982;
 const byte modMethod(MAX_INDEX) = 20;
 const byte modMethod(MAX_KEYS) = 3;
 const byte modMethod(PADDING) = 2;
 
-uint16_t modMethod(PressTimer)[modMethod(MAX_INDEX)];
+int16_t modMethod(PressTimer)[modMethod(MAX_INDEX)];
 byte modMethod(PressCount)[modMethod(MAX_INDEX)];
 boolean modMethod(KeyIsDown)[modMethod(MAX_INDEX)];
 
@@ -62,14 +62,10 @@ void modMethod(Loop)()
           {
             modMethod(PressTimer)[i]--;
           }
-          else
+          else if (modMethod(PressTimer)[i] == 0)
           {
-            PressKey(modMethod(GetKeyVal)(i, modMethod(PressCount)[i] - 1), modMethod(GetKeyType)(i, modMethod(PressCount)[i] - 1));
-            if (modMethod(KeyIsDown)[i])
-            {
-              // do nothing
-            }
-            else
+            modMethod(FireTapDance)(i);
+            if (!modMethod(KeyIsDown)[i])
             {
               modMethod(KeyUp)(i, 19);
             }
@@ -90,19 +86,48 @@ void modMethod(KeyDown)(char val, byte type)
   {
     if (type == 19)
     {
-      // sends the macro sequence with id = val
-      if (modMethod(PressCount)[val] > modMethod(MAX_KEYS))
+      if (modMethod(PressCount)[val] < modMethod(MAX_KEYS))
       {
-        // do nothing
-      }
-      else
-      {
-
-        modMethod(PressCount)[val]++;
+        byte count = ++modMethod(PressCount)[val]; // count gets the *new* count value
         modMethod(PressTimer)[val] = modMethod(GetTimeout)(val) * modMethod(TIMER_MULTIPLIER);
         modMethod(KeyIsDown)[val] = true;
-      }
 
+        if (count == modMethod(MAX_KEYS))
+        {
+          // no more tap dance keys; fire immediately
+          modMethod(FireTapDance)(val);
+        }
+        else
+        {
+          // check the key that would come after this one
+          char tdVal = modMethod(GetKeyVal)(val, count);
+          byte tdType = modMethod(GetKeyType)(val, count);
+
+          if (tdVal == 0 && tdType == 0)
+          {
+            // no more tap dance keys; fire immediately
+            modMethod(FireTapDance)(val);
+          }
+        }
+      }
+    }
+  }
+}
+
+void modMethod(PrePress)(char val, byte type)
+{
+  if (IS_MASTER)
+  {
+    for (byte i = 0; i < modMethod(MAX_INDEX); i++)
+    {
+      if ((type != 19 || val != i) && modMethod(PressTimer)[i] > 0)
+      {
+        modMethod(FireTapDance)(i);
+        if (!modMethod(KeyIsDown)[i])
+        {
+          modMethod(KeyUp)(i, 19);
+        }
+      }
     }
   }
 }
@@ -117,21 +142,18 @@ void modMethod(KeyUp)(char val, byte type)
   {
     if (type == 19)
     {
-      // sends the macro sequence with id = val
-      ReleaseKey(modMethod(GetKeyVal)(val, modMethod(PressCount)[val] - 1), modMethod(GetKeyType)(val, modMethod(PressCount)[val] - 1));
-
-      if (modMethod(KeyIsDown)[val])
+      // if key has been fired
+      if (modMethod(PressTimer)[val] < 0)
       {
-        // do nothing
-      }
-      else
-      {
+        byte count = modMethod(PressCount)[val] - 1;
+        char tdVal = modMethod(GetKeyVal)(val, count);
+        byte tdType = modMethod(GetKeyType)(val, count);
 
+        ReleaseKey(tdVal, tdType);
         modMethod(PressCount)[val] = 0;
         modMethod(PressTimer)[val] = 0;
       }
       modMethod(KeyIsDown)[val] = false;
-
     }
   }
 }
@@ -147,8 +169,6 @@ void modMethod(Serial)(String input)
   }
   else if (input.startsWith("uniqueksettapdance"))
   {
-    byte key, type, state;
-
     input = input.substring(input.indexOf('(')+1);
     byte id = input.substring(0, input.indexOf('(')).toInt();
     input = input.substring(input.indexOf('(')+1);
@@ -199,6 +219,15 @@ void modMethod(Serial)(String input)
     Serial.println(key2type);
   }
 
+}
+
+void modMethod(FireTapDance)(byte id)
+{
+  byte count = modMethod(PressCount)[id] - 1;
+  char val = modMethod(GetKeyVal)(id, count);
+  byte type = modMethod(GetKeyType)(id, count);
+  modMethod(PressTimer)[id] = -1; // signal that the key has fired
+  PressKey(val, type);
 }
 
 byte modMethod(GetLength)(byte id)
@@ -319,5 +348,6 @@ int modMethod(GetStartAddr)(byte id)
 
 // key LL functions stop
 
+void modMethod(PressCoord)(byte x, byte y) { }
 #undef mod_modname
 #undef modMethod
