@@ -5,7 +5,7 @@
 
 
 #define BAUD 19200
-#define DRIVER_VERSION "Animus Janus x3.0"
+#define DRIVER_VERSION "Animus Novus x3.0"
 
 class CAnimus
 {
