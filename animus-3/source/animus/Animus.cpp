@@ -30,7 +30,7 @@ void CAnimus::Loop()
 
     KeyScan(); // physical key layers scanned
     // start of physical key loops
-    for (byte i = 0; i < Global.ROW; i++)
+    for (byte i = 0; i < Global.ROW; i++) // this is placed inside the 1ms delay to slow it down a bit
     {
       for (byte j = 0; j < Global.COL; j++)
       {

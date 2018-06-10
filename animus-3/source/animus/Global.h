@@ -11,7 +11,7 @@ class CGlobal
 private:
 public:
   byte ModCount = 0; // always starts at 0
-  byte RefreshDelay = 5; // default value, overriden on EEPROM load
+  byte RefreshDelay = 10; // default value, overriden on EEPROM load
   byte ROW = DEFAULT_ROW; // default value, overriden on EEPROM load
   byte COL = DEFAULT_COL; // default value, overriden on EEPROM load
   byte LAY = 1; // default value, overriden on EEPROM load
