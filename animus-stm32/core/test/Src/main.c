@@ -52,7 +52,10 @@
 
 /* USER CODE BEGIN Includes */
 #define byte uint8_t
+#define CLICK_REPORT_SIZE 8
+uint8_t click_report[CLICK_REPORT_SIZE] = { 0 };
 
+extern USBD_HandleTypeDef hUsbDeviceFS;
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -140,6 +143,8 @@ int main(void)
 			  if(ledState == 0)
 			  {
 				  ledState = 1;
+				  click_report[2] = 4;  // send button press
+				    USBD_HID_SendReport(&hUsbDeviceFS, click_report, CLICK_REPORT_SIZE);
 			  }
 			  else
 			  {
@@ -152,6 +157,12 @@ int main(void)
 	  }
 	  else
 	  {
+		  if (state == 1)
+		  {
+			  click_report[2] = 4;  // send button release
+USBD_HID_SendReport(&hUsbDeviceFS, click_report, CLICK_REPORT_SIZE);
+			  
+		  }
 		  state = 0;
 	  }
 	  

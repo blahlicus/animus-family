@@ -1,39 +1,12 @@
-﻿  stm32f4xx_it.c
-  stm32f4xx_hal_msp.c
-  main.c
-  system_stm32f4xx.c
-  stm32f4xx_hal.c
-  stm32f4xx_ll_usb.c
-  stm32f4xx_hal_pwr.c
-  stm32f4xx_hal_pwr_ex.c
-  stm32f4xx_hal_i2s.c
-  stm32f4xx_hal_i2s_ex.c
-  stm32f4xx_hal_spi.c
-  stm32f4xx_hal_flash.c
-  stm32f4xx_hal_flash_ex.c
-  stm32f4xx_hal_flash_ramfunc.c
-  stm32f4xx_hal_gpio.c
-  stm32f4xx_hal_rcc.c
-  stm32f4xx_hal_rcc_ex.c
-  stm32f4xx_hal_cortex.c
-  stm32f4xx_hal_tim.c
-  stm32f4xx_hal_tim_ex.c
-  stm32f4xx_hal_dma_ex.c
-  stm32f4xx_hal_dma.c
-  stm32f4xx_hal_i2c.c
-  stm32f4xx_hal_i2c_ex.c
-  startup_stm32f407xx.c
+﻿  main.c
   usb_device.c
-  usbd_conf.c
-  usbd_desc.c
-  stm32f4xx_hal_pcd.c
-  stm32f4xx_hal_pcd_ex.c
-  usbd_core.c
-  usbd_ctlreq.c
-  usbd_ioreq.c
   usbd_hid.c
+  Src/main.c: In function 'main':
+Src\main.c(147,9): warning :  implicit declaration of function 'USBD_HID_SendReport' [-Wimplicit-function-declaration]
+           USBD_HID_SendReport(&hUsbDeviceFS, click_report, CLICK_REPORT_SIZE);
+           ^~~~~~~~~~~~~~~~~~~
   Linking ../VisualGDB/Debug/test...
   ------------------- Memory utilization report -------------------
-  Used FLASH: 27KB out of 1024KB (2%) [-1656]
-  Used SRAM: 2720 bytes out of 128KB (2%) [+648]
+  Used FLASH: 27KB out of 1024KB (2%) [+88]
+  Used SRAM: 2700 bytes out of 128KB (2%) [-20]
   Used CCMRAM: 0 bytes out of 64KB (0%)
