@@ -1,0 +1,193 @@
+VisualGDB/Debug/stm32f4xx_it.o: Src/stm32f4xx_it.c \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ Inc/stm32f4xx_hal_conf.h Inc/main.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
+ Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h \
+ Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h \
+ Drivers/CMSIS/Include/core_cm4.h \
+ c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\7.2.0\include\stdint.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\stdint.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\_default_types.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\features.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\_newlib_version.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_intsup.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_stdint.h \
+ Drivers/CMSIS/Include/core_cmInstr.h Drivers/CMSIS/Include/cmsis_gcc.h \
+ Drivers/CMSIS/Include/core_cmFunc.h Drivers/CMSIS/Include/core_cmSimd.h \
+ Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\stdio.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\_ansi.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\newlib.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\config.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\ieeefp.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\cdefs.h \
+ c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\7.2.0\include\stddef.h \
+ c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\7.2.0\include\stdarg.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\reent.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\_ansi.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_types.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\_types.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\lock.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\types.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\endian.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\_endian.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\select.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_sigset.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_timeval.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\timespec.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_timespec.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_pthreadtypes.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\types.h \
+ c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\stdio.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s_ex.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h \
+ Inc/stm32f4xx_it.h
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
+
+Inc/stm32f4xx_hal_conf.h:
+
+Inc/main.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:
+
+Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:
+
+Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h:
+
+Drivers/CMSIS/Include/core_cm4.h:
+
+c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\7.2.0\include\stdint.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\stdint.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\_default_types.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\features.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\_newlib_version.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_intsup.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_stdint.h:
+
+Drivers/CMSIS/Include/core_cmInstr.h:
+
+Drivers/CMSIS/Include/cmsis_gcc.h:
+
+Drivers/CMSIS/Include/core_cmFunc.h:
+
+Drivers/CMSIS/Include/core_cmSimd.h:
+
+Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\stdio.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\_ansi.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\newlib.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\config.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\ieeefp.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\cdefs.h:
+
+c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\7.2.0\include\stddef.h:
+
+c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\7.2.0\include\stdarg.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\reent.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\_ansi.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_types.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\_types.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\lock.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\types.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\endian.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\_endian.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\select.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_sigset.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_timeval.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\timespec.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_timespec.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\_pthreadtypes.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\machine\types.h:
+
+c:\sysgcc\arm-eabi\arm-eabi\sys-include\sys\stdio.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s_ex.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
+
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h:
+
+Inc/stm32f4xx_it.h:
