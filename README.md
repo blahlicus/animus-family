@@ -23,3 +23,17 @@ This is an Arduino based firmware for use by devices compatible with the Arduino
 * multi-HID emulation
 
 This wiki contains information for both non-programmers and developers alike, check out the side bar for more information.
+
+## Building
+
+### OS X
+
+The contents of the `libraries/` directory must be copied over to `~/Documents/Arduino/libraries/`,
+the `HID-Project/` in particular. You can create a symlink to always ensure your libraries are synced
+with the repo:
+
+```bash
+>>> cd libraries/HID-Project && ln -s `pwd` ~/Documents/Arduino/libraries
+```
+
+If this step wasn't done, this would result on a `Comilation Errror` due to the missing `HID-Project` dependencies.
