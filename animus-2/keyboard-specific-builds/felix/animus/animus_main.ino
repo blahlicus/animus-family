@@ -17,6 +17,9 @@ byte KeyState[COL][ROW];
 byte KeyStateCoolDown[COL][ROW];
 byte LayerState[COL][ROW];
 
+// fn queue
+byte PreviousFN = 0;
+
 // slave states
 boolean IS_MASTER = true;
 
@@ -115,11 +118,19 @@ void PressKey(char val, byte type)
     }
     else if (type == 1)
     {
+      if (PreviousFN = 0)
+      {
+        PreviousFN = val;
+      }
       TempLayer = val;
       //ReleaseAllKey();
     }
     else if (type == 2) // DEPRECIATED
     {
+      if (PreviousFN = 0)
+      {
+        PreviousFN = val;
+      }
       PressedKey = false;
       TempLayer = val;
       //ReleaseAllKey();  // DEPRECIATED END
@@ -215,7 +226,15 @@ void ReleaseKey(char val, byte type)
     }
     else if (type == 1)
     {
-      TempLayer = KeyLayer;
+      if (PreviousFN == TempLayer)
+      {
+        TempLayer = 0;
+        PreviousFN = 0;
+      }
+      else
+      {
+        TempLayer = PreviousFN;
+      }
       //ReleaseAllKey();
     }
     else if (type == 2) //DEPRECIATED
@@ -224,7 +243,15 @@ void ReleaseKey(char val, byte type)
       {
         AnimusKeyboard.write(44);
       }
-      TempLayer = KeyLayer;
+      if (PreviousFN == TempLayer)
+      {
+        TempLayer = 0;
+        PreviousFN = 0;
+      }
+      else
+      {
+        TempLayer = PreviousFN;
+      }
       //ReleaseAllKey(); // DEPRECIATED END
     }
     else if (type == 12)

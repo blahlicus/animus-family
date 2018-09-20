@@ -2,7 +2,7 @@
 #define builder_col 4
 #define builder_kbname "Felix"
 #define builder_kbvariant "Felix typeZERO"
-#define builder_kbdriver "Animus Innova 2.7.0"
+#define builder_kbdriver "Animus Innova x2.7.1"
 #define builder_kbdriver_build "Felix OEM"
 #define builder_vpins 16, 14, 15, A0, A1
 #define builder_hpins 9, 8, 7, 6
