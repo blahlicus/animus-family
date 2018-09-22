@@ -100,7 +100,7 @@ void Remote_::end(void)
 
 void Remote_::increase(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = VOLUME_UP;
   m[1] = 0;
   HID().SendReport(5,m,2);
@@ -108,7 +108,7 @@ void Remote_::increase(void)
 
 void Remote_::decrease(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = VOLUME_DOWN;
   m[1] = 0;
   HID().SendReport(5,m,2);
@@ -116,7 +116,7 @@ void Remote_::decrease(void)
 
 void Remote_::mute(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = VOLUME_MUTE;
   m[1] = 0;
   HID().SendReport(5,m,2);
@@ -124,7 +124,7 @@ void Remote_::mute(void)
 
 void Remote_::play(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = REMOTE_PLAY;
   m[1] = 0;
   HID().SendReport(5,m,2);
@@ -132,7 +132,7 @@ void Remote_::play(void)
 
 void Remote_::pause(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = REMOTE_PAUSE;
   m[1] = 0;
   HID().SendReport(5,m,2);
@@ -140,7 +140,7 @@ void Remote_::pause(void)
 
 void Remote_::stop(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = REMOTE_STOP;
   m[1] = 0;
   HID().SendReport(5,m,2);
@@ -148,7 +148,7 @@ void Remote_::stop(void)
 
 void Remote_::next(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = REMOTE_NEXT;
   m[1] = 0;
   HID().SendReport(5,m,2);
@@ -156,7 +156,7 @@ void Remote_::next(void)
 
 void Remote_::previous(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = REMOTE_PREVIOUS;
   m[1] = 0;
   HID().SendReport(5,m,2);
@@ -164,7 +164,7 @@ void Remote_::previous(void)
 
 void Remote_::forward(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = 0;
   m[1] = REMOTE_FAST_FORWARD >> 8;
   HID().SendReport(5,m,2);
@@ -172,7 +172,7 @@ void Remote_::forward(void)
 
 void Remote_::rewind(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = 0;
   m[1] = REMOTE_REWIND >> 8;
   HID().SendReport(5,m,2);
@@ -180,7 +180,7 @@ void Remote_::rewind(void)
 
 void Remote_::clear(void)
 {
-  u8 m[2];
+  uint8_t m[2];
   m[0] = 0;
   m[1] = 0;
   HID().SendReport(5,m,2);
