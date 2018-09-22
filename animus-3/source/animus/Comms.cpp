@@ -131,19 +131,19 @@ void CSerial::Loop(void)
 
     if (Serial.available()>0)
     {
-      PersMem.SetLayCount((byte)Serial.read());
+      PersMem.SetEEPROM(MEM_LAY_COUNT, (byte)Serial.read());
     }
     if (Serial.available()>0)
     {
-      PersMem.SetNKROType((byte)Serial.read());
+      PersMem.SetEEPROM(MEM_NKRO_MODE, (byte)Serial.read());
     }
     if (Serial.available()>0)
     {
-      PersMem.SetUSBHostType((byte)Serial.read());
+      PersMem.SetEEPROM(MEM_IS_USBHOST, (byte)Serial.read());
     }
     if (Serial.available()>0)
     {
-      PersMem.SetRefreshRate((byte)Serial.read());
+      PersMem.SetEEPROM(MEM_REFRESH_RATE, (byte)Serial.read());
     }
   }
   else if (mode == 255) // idle mode
