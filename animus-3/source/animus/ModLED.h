@@ -1,5 +1,5 @@
-#ifndef ANIMUS_MOD_ModLED
-#define ANIMUS_MOD_ModLED
+#ifndef ANIMUS_MOD_MODLED
+#define ANIMUS_MOD_MODLED
 #include "ModTemplate.h"
 #include "Animus.h"
 

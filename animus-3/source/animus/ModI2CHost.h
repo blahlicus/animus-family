@@ -1,5 +1,5 @@
-#ifndef ANIMUS_MOD_ModI2CHOST
-#define ANIMUS_MOD_ModI2CHOST
+#ifndef ANIMUS_MOD_MODI2CHOST
+#define ANIMUS_MOD_MODI2CHOST
 #include "ModTemplate.h"
 #include "Animus.h"
 #include "Wire.h"
