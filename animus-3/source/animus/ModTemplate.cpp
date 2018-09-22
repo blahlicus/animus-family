@@ -58,7 +58,7 @@ void CModTemplate::PrintMods()
 byte CModTemplate::GetData(short addr)
 {
   byte firstByte = PersMem.GetEEPROM(MEM_DYNAMIC_ADDR + ModNo * 2);
-  byte secondByte = EPersMem.GetEEPROM(MEM_DYNAMIC_ADDR + ModNo * 2 + 1);
+  byte secondByte = PersMem.GetEEPROM(MEM_DYNAMIC_ADDR + ModNo * 2 + 1);
   return PersMem.GetEEPROM(EEPROMAddress + addr);
 }
 
