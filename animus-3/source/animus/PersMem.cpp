@@ -75,6 +75,16 @@ void CMem::SetEEPROMForced(short address, byte data) // this hard rewrites the e
   EEPROM.write(address, data);
 }
 
+void CMem::CommitEEPROM(void)
+{
+  #if defined (ARDUINO_SAMD_ZERO) // only run this if in SAMD21
+  //TODO add functional parts
+
+
+
+  #endif
+}
+
 void CMem::SetKey(byte x, byte y, byte z, byte inputChar, byte inputType)
 {
   SetEEPROM(((x + (y * Global.COL) + (z * Global.COL * Global.ROW)) * 2), inputChar);

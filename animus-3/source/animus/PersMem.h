@@ -132,7 +132,7 @@ public:
   void Loop(void);
   void SetEEPROM(short address, byte data);
   void SetEEPROMForced(short address, byte data);
-  void CommitEEPROM(); // This is used for SAMD21 devices only
+  void CommitEEPROM(void); // This is used for SAMD21 devices only
 
 
   byte GetEEPROM(short address);
