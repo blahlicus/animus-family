@@ -135,15 +135,15 @@ void CSerial::Loop(void)
     }
     if (Serial.available()>0)
     {
-      SetNKROType((byte)Serial.read());
+      PersMem.SetNKROType((byte)Serial.read());
     }
     if (Serial.available()>0)
     {
-      SetUSBHostType((byte)Serial.read());
+      PersMem.SetUSBHostType((byte)Serial.read());
     }
     if (Serial.available()>0)
     {
-      SetRefreshRate((byte)Serial.read());
+      PersMem.SetRefreshRate((byte)Serial.read());
     }
   }
   else if (mode == 255) // idle mode
