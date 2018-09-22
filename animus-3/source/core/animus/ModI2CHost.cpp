@@ -195,9 +195,8 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
 
   if (Global.HasUSB)
   {
-    if (Comms.mode == 6) // write to guest eeprom starting at addr = 0 or 900, ending at first short read from serial
+    if (Comms.mode == 6) // write to guest eeprom starting at addr = 0 or MEM_BOARD_TYPE, ending at first short read from serial
     {
-      PersMem.SetEEPROM(0, 5);
       if (Serial.available()) //TODO I might want to work in a timeout or fail check for this
       {
         if (SerialLoaderByteStatus == 0) // if this is the first time mode 6 has made contact
@@ -238,7 +237,7 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
     else if (Comms.mode == 7) // request read sub EEPROM
     {
       short addr = 0;
-      while(addr < 1024)
+      while(addr < MEM_EEPROM_SIZE)
       {
         GetSubEEPROM(addr);
         Wire.requestFrom(8, 32);

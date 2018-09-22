@@ -74,16 +74,17 @@ void CSerial::Loop(void)
       PersMem.SetEEPROM(loadCounter, (byte)Serial.read());
       loadCounter++;
     }
-    if (loadCounter >= 1024)
+    if (loadCounter >= MEM_EEPROM_SIZE)
     {
       PersMem.LoadData();
       loadCounter = 0;
       mode = 0;
+      PersMem.CommitEEPROM();
     }
   }
   else if (mode == 2) // received RTS to send entire EEPROM
   {
-    for (short i = 0; i < 1024; i++)
+    for (short i = 0; i < MEM_EEPROM_SIZE; i++)
     {
       Serial.write(PersMem.GetEEPROM(i));
     }
@@ -93,7 +94,7 @@ void CSerial::Loop(void)
   {
     // reserved for mod.cpp
   }
-  else if (mode == 4) // load 900 bytes to 0-899 EEPROM for layout and mod data
+  else if (mode == 4) // load MEM_BOARD_TYPE bytes to 0-MEM_BOARD_TYPE EEPROM for layout and mod data
   {
 
     if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
@@ -101,25 +102,27 @@ void CSerial::Loop(void)
       PersMem.SetEEPROM(loadCounter, (byte)Serial.read());
       loadCounter++;
     }
-    if (loadCounter >= 900)
+    if (loadCounter >= MEM_BOARD_TYPE)
     {
       mode = 0;
       loadCounter = 0;
+      PersMem.CommitEEPROM();
     }
   }
-  else if (mode == 5) // load 124 bytes to 900-1023 EEPROM for board data
+  else if (mode == 5) // load 124 bytes to MEM_BOARD_TYPE-MEM_EEPROM_SIZE EEPROM for board data
   {
 
     if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
     {
-      PersMem.SetEEPROM(loadCounter+900, (byte)Serial.read());
+      PersMem.SetEEPROM(loadCounter+MEM_BOARD_TYPE, (byte)Serial.read());
       loadCounter++;
     }
-    if (loadCounter+900 >= 1024)
+    if (loadCounter+MEM_BOARD_TYPE >= MEM_EEPROM_SIZE)
     {
       PersMem.LoadData();
       loadCounter = 0;
       mode = 0;
+      PersMem.CommitEEPROM();
     }
   }
   else if (mode == 6) // reserved for i2i2chost
@@ -145,6 +148,7 @@ void CSerial::Loop(void)
     {
       PersMem.SetEEPROM(MEM_REFRESH_RATE, (byte)Serial.read());
     }
+    PersMem.CommitEEPROM();
   }
   else if (mode == 255) // idle mode
   {
