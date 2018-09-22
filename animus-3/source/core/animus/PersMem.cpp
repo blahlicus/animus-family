@@ -78,10 +78,7 @@ void CMem::SetEEPROMForced(short address, byte data) // this hard rewrites the e
 void CMem::CommitEEPROM(void)
 {
   #if defined (ARDUINO_SAMD_ZERO) // only run this if in SAMD21
-  //TODO add functional parts
-
-
-
+  EEPROM.commit();
   #endif
 }
 
