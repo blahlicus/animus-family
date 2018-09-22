@@ -2,6 +2,7 @@
 #define ANIMUS_MEM
 
 #if defined (ARDUINO_AVR_LEONARDO) // this is running on an Atmega32u4
+#include "EEPROM.h"
 #define MEM_EEPROM_SIZE 1024
 #define MEM_BOARD_TYPE MEM_EEPROM_SIZE - 124
 #define MEM_REFRESH_RATE MEM_EEPROM_SIZE - 123
@@ -56,7 +57,7 @@
 
 // note: because of this bug, the FlashAsEEPROM library is moved to its separate folder
 //TODO create in-house builder for platform specific code
-#include <FlashAsEEPROM.h> //NOTE: The Atmega32u4 version is not supposed to include this, but the Arduino precompiler sucks and it is included anyway
+#include "FlashAsEEPROM.h" //NOTE: The Atmega32u4 version is not supposed to include this, but the Arduino precompiler sucks and it is included anyway
 
 
 #define MEM_EEPROM_SIZE EEPROM_EMULATION_SIZE // retrieved from FlashAsEEPROM

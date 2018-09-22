@@ -5,7 +5,6 @@
 #define ANIMUS_GLOBAL
 #include "Arduino.h"
 
-#include "EEPROM.h"
 class CGlobal
 {
 private:
