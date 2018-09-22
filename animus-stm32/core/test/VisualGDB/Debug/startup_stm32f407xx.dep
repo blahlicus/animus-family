@@ -1,5 +1,0 @@
-VisualGDB/Debug/startup_stm32f407xx.o: \
- C:/Users/blahlicus/AppData/Local/VisualGDB/EmbeddedBSPs/arm-eabi/com.sysprogs.arm.stm32/STM32F4xxxx/StartupFiles/startup_stm32f407xx.c \
- c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\7.2.0\include\stddef.h
-
-c:\sysgcc\arm-eabi\lib\gcc\arm-eabi\7.2.0\include\stddef.h:
