@@ -13,8 +13,8 @@ void CModI2CGuest::Begin(void) //TODO add method to return entire EEPROM to host
   if (!Global.HasUSB) // if no usb
   {
     Wire.begin(8);
-    Wire.onRequest(RequestEvent);
-    Wire.onReceive(ReceiveEvent);
+    Wire.onRequest([] {ModI2CGuest.OnRequest();});
+    Wire.onReceive([] (int numBytes) {ModI2CGuest.OnReceive(numBytes);});
   }
 }
 
@@ -169,7 +169,7 @@ void CModI2CGuest::ReleaseKey(byte val, byte type)
     }
   }
 }
-
+/* TODO: Remove this part when everything is confirmed to work
 static void CModI2CGuest::RequestEvent()
 {
   ModI2CGuest.OnRequest();
@@ -179,7 +179,7 @@ static void CModI2CGuest::ReceiveEvent(int numBytes)
 {
   ModI2CGuest.OnReceive(numBytes);
 }
-
+//*/
 void CModI2CGuest::SerialComms(byte mode)
 {
   CModTemplate::SerialComms(mode);
