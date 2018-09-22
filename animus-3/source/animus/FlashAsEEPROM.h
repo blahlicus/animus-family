@@ -25,7 +25,7 @@
 #include "FlashStorage.h"
 
 #ifndef EEPROM_EMULATION_SIZE
-#define EEPROM_EMULATION_SIZE 1024
+#define EEPROM_EMULATION_SIZE 5120 // modify this to increase emulated EEPROM
 #endif
 
 typedef struct {
