@@ -62,6 +62,7 @@ void CModI2CHost::Loop(void)
 
       if (Wire.available()) // need to put ifs in here so trailing bytes are left out
       {
+        // gets XY coords for pressed key
         byte tempByte = Wire.read();
         keyX[keyIndex] = tempByte & 0x0f; // bitwise structure is YYYYXXXX
         keyY[keyIndex] = tempByte >> 4;
