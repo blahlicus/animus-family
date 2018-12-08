@@ -13,46 +13,49 @@ void CMem::Begin(void)
 void CMem::LoadData(void)
 {
   // loads EEPROM data to SRAM
-  Global.RefreshDelay = GetRefreshRate();
-  Global.ROW = GetRowCount();
   Global.COL = GetColCount();
-  Global.LAY = GetLayCount();
-
-  for(byte i = 0; i < Global.ROW; i++)
+  if (Global.COL != 0) // if the rows and cols are configured, then load further data
   {
-    Global.VPins[i] = GetRowPin(i);
-  }
-  for(byte i = 0; i < Global.COL; i++)
-  {
-    Global.HPins[i] = GetColPin(i);
-  }
+    Global.RefreshDelay = GetRefreshRate();
+    Global.ROW = GetRowCount();
+    Global.LAY = GetLayCount();
 
-  Global.HasUSB = GetUSBHostType();
-
-  Global.RequiresLoadData = true;
-  // loads mod EEPROM addresses to SRAM
-
-
-  // resets pin statuses
-  for (int i = 0; i < Global.ROW; i++)
-  {
-    pinMode(Global.VPins[i], INPUT);
-    digitalWrite(Global.VPins[i], HIGH);
-  }
-
-  for (int i = 0; i < Global.COL; i++)
-  {
-    pinMode(Global.HPins[i], INPUT);
-    digitalWrite(Global.HPins[i], LOW);
-  }
-
-  for (int i = 0; i < Global.ROW; i++)
-  {
-    for (int j = 0; j < Global.COL; j++)
+    for(byte i = 0; i < Global.ROW; i++)
     {
-      Global.KeyState[j][i] = 0;
-      Global.PreviousState[j][i] = 0;
-      Global.KeyStateCoolDown[j][i] = 0;
+      Global.VPins[i] = GetRowPin(i);
+    }
+    for(byte i = 0; i < Global.COL; i++)
+    {
+      Global.HPins[i] = GetColPin(i);
+    }
+
+    Global.HasUSB = GetUSBHostType();
+
+    Global.RequiresLoadData = true;
+    // loads mod EEPROM addresses to SRAM
+
+
+    // resets pin statuses
+    for (int i = 0; i < Global.ROW; i++)
+    {
+      pinMode(Global.VPins[i], INPUT);
+      digitalWrite(Global.VPins[i], HIGH);
+    }
+
+    for (int i = 0; i < Global.COL; i++)
+    {
+      pinMode(Global.HPins[i], INPUT);
+      digitalWrite(Global.HPins[i], LOW);
+    }
+
+    for (int i = 0; i < Global.ROW; i++)
+    {
+      for (int j = 0; j < Global.COL; j++)
+      {
+        Global.KeyState[j][i] = 0;
+        Global.PreviousState[j][i] = 0;
+        Global.KeyStateCoolDown[j][i] = 0;
+      }
     }
   }
 }
