@@ -21,8 +21,9 @@ void CMod::Loop(void)
     Comms.mode == 0; // need this to reset comms back to normal mode
   }
 
-  if (Global.RequiresLoadData = true)
+  if (Global.RequiresLoadData == true)
   {
+    Global.RequiresLoadData = false;
     LoadData();
   }
 
