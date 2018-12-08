@@ -6,7 +6,11 @@
 #define COMM_KEY_2 2
 #define COMM_KEY_3 3
 
-
+#if defined (ARDUINO_SAMD_ZERO) // this is running on SAMD
+#define Serial SerialUSB
+#else
+#error unknown target device
+#endif
 
 class CSerial
 {

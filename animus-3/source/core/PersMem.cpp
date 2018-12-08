@@ -14,50 +14,59 @@ void CMem::LoadData(void)
 {
   // loads EEPROM data to SRAM
   Global.COL = GetColCount();
-  if (Global.COL != 255) // if the rows and cols are configured, then load further data
+  if (Global.COL == 255) // if EEPROM data is not set, then load default values
   {
-    Global.RefreshDelay = GetRefreshRate();
-    Global.ROW = GetRowCount();
-    Global.LAY = GetLayCount();
+    SetColCount(1);
+    SetRefreshRate(1);
+    SetRowCount(1);
+    SetLayCount(1);
+    SetRowPin(0, 24);
+    SetColPin(0, 25);
+    SetUSBHostType(1);
+  }
+  Global.COL = GetColCount();
+  Global.RefreshDelay = GetRefreshRate();
+  Global.ROW = GetRowCount();
+  Global.LAY = GetLayCount();
 
-    for(byte i = 0; i < Global.ROW; i++)
+  for(byte i = 0; i < Global.ROW; i++)
+  {
+    Global.VPins[i] = GetRowPin(i);
+  }
+  for(byte i = 0; i < Global.COL; i++)
+  {
+    Global.HPins[i] = GetColPin(i);
+  }
+
+  Global.HasUSB = GetUSBHostType();
+
+  Global.RequiresLoadData = true;
+  // loads mod EEPROM addresses to SRAM
+
+
+  // resets pin statuses
+  for (int i = 0; i < Global.ROW; i++)
+  {
+    pinMode(Global.VPins[i], INPUT);
+    digitalWrite(Global.VPins[i], HIGH);
+  }
+
+  for (int i = 0; i < Global.COL; i++)
+  {
+    pinMode(Global.HPins[i], INPUT);
+    digitalWrite(Global.HPins[i], LOW);
+  }
+
+  for (int i = 0; i < Global.ROW; i++)
+  {
+    for (int j = 0; j < Global.COL; j++)
     {
-      Global.VPins[i] = GetRowPin(i);
-    }
-    for(byte i = 0; i < Global.COL; i++)
-    {
-      Global.HPins[i] = GetColPin(i);
-    }
-
-    Global.HasUSB = GetUSBHostType();
-
-    Global.RequiresLoadData = true;
-    // loads mod EEPROM addresses to SRAM
-
-
-    // resets pin statuses
-    for (int i = 0; i < Global.ROW; i++)
-    {
-      pinMode(Global.VPins[i], INPUT);
-      digitalWrite(Global.VPins[i], HIGH);
-    }
-
-    for (int i = 0; i < Global.COL; i++)
-    {
-      pinMode(Global.HPins[i], INPUT);
-      digitalWrite(Global.HPins[i], LOW);
-    }
-
-    for (int i = 0; i < Global.ROW; i++)
-    {
-      for (int j = 0; j < Global.COL; j++)
-      {
-        Global.KeyState[j][i] = 0;
-        Global.PreviousState[j][i] = 0;
-        Global.KeyStateCoolDown[j][i] = 0;
-      }
+      Global.KeyState[j][i] = 0;
+      Global.PreviousState[j][i] = 0;
+      Global.KeyStateCoolDown[j][i] = 0;
     }
   }
+
 }
 
 void CMem::Loop(void)
@@ -109,15 +118,15 @@ void CMem::SetLayCount(byte input)
 
 }
 
-void CMem::SetRowPin(byte pinNo, byte rowNo)
+void CMem::SetRowPin(byte rowNo, byte pinNo)
 {
-  SetEEPROM(MEM_ROW_0 + pinNo, rowNo);
+  SetEEPROM(MEM_ROW_0 + rowNo, pinNo);
 
 }
 
-void CMem::SetColPin(byte pinNo, byte colNo)
+void CMem::SetColPin(byte colNo, byte pinNo)
 {
-  SetEEPROM(MEM_COL_0 + pinNo, colNo);
+  SetEEPROM(MEM_COL_0 + colNo, pinNo);
 
 }
 

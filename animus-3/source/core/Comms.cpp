@@ -76,10 +76,10 @@ void CSerial::Loop(void)
     }
     if (loadCounter >= MEM_EEPROM_SIZE)
     {
+      PersMem.CommitEEPROM();
       PersMem.LoadData();
       loadCounter = 0;
       mode = 0;
-      PersMem.CommitEEPROM();
     }
   }
   else if (mode == 2) // entire EEPROM data to serial
@@ -104,9 +104,9 @@ void CSerial::Loop(void)
     }
     if (loadCounter >= MEM_BOARD_TYPE)
     {
+      PersMem.CommitEEPROM();
       mode = 0;
       loadCounter = 0;
-      PersMem.CommitEEPROM();
     }
   }
   else if (mode == 5) // load 124 bytes to MEM_BOARD_TYPE-MEM_EEPROM_SIZE EEPROM for board data
@@ -119,10 +119,10 @@ void CSerial::Loop(void)
     }
     if (loadCounter+MEM_BOARD_TYPE >= MEM_EEPROM_SIZE)
     {
+      PersMem.CommitEEPROM();
       PersMem.LoadData();
       loadCounter = 0;
       mode = 0;
-      PersMem.CommitEEPROM();
     }
   }
   else if (mode == 6) // reserved for i2chost for sending data to the slave
