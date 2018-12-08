@@ -14,7 +14,7 @@ void CMem::LoadData(void)
 {
   // loads EEPROM data to SRAM
   Global.COL = GetColCount();
-  if (Global.COL != 0) // if the rows and cols are configured, then load further data
+  if (Global.COL != 255) // if the rows and cols are configured, then load further data
   {
     Global.RefreshDelay = GetRefreshRate();
     Global.ROW = GetRowCount();
