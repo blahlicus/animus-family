@@ -67,7 +67,7 @@ void CSerial::Loop(void)
     }
   }
 
-  if (mode == 1) // load bytes to eeprom, do not use this, use modes 4 or 5 instead to load layout or board data
+  if (mode == 1) // load bytes to eeprom until end of EEPROM reached
   {
     if (Serial.available()>0)
     {
@@ -82,7 +82,7 @@ void CSerial::Loop(void)
       PersMem.CommitEEPROM();
     }
   }
-  else if (mode == 2) // received RTS to send entire EEPROM
+  else if (mode == 2) // entire EEPROM data to serial
   {
     for (short i = 0; i < MEM_EEPROM_SIZE; i++)
     {
@@ -90,7 +90,7 @@ void CSerial::Loop(void)
     }
     mode = 0;
   }
-  else if (mode == 3) // print mod list in order of mem id
+  else if (mode == 3) // print mod list in order of mem id to serial
   {
     // reserved for mod.cpp
   }
@@ -125,7 +125,7 @@ void CSerial::Loop(void)
       PersMem.CommitEEPROM();
     }
   }
-  else if (mode == 6) // reserved for i2i2chost
+  else if (mode == 6) // reserved for i2chost for sending data to the slave
   {
     // do nothing
   }
