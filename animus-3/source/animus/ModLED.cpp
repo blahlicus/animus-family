@@ -15,6 +15,13 @@ void CModLED::Begin(void)
 
   }
   FastLED.addLeds<NEOPIXEL, LED_PIN>(LEDs, 36);
+
+  for (int i = 0; i < 36; i++)
+  {
+    LEDs[i] = CHSV (LEDHue + (i * 10), 255, 128);
+  }
+  LEDHue = LEDHue + 1;
+  FastLED.show();
 }
 
 void CModLED::LoadData(void)
@@ -30,9 +37,8 @@ void CModLED::LoadData(void)
 void CModLED::Loop(void)
 {
   CModTemplate::Loop();
-  for (int i = 0; i < 36; i++)
+  if (Animus.AsyncRefreshDelay())
   {
-    LEDs[i] = CRGB (100, 100, 100);
   }
 }
 

@@ -1,26 +1,22 @@
-#ifndef ANIMUS_MOD_MODLED
-#define ANIMUS_MOD_MODLED
-#define LED_PIN 11
+#ifndef ANIMUS_MOD_MODMEDIA
+#define ANIMUS_MOD_MODMEDIA
 #include "ModTemplate.h"
+#include "AnimusMedia.h"
 #include "Animus.h"
-#include <FastLED.h>
 
-class CModLED : public CModTemplate
+class CModMedia : public CModTemplate
 {
 private:
-  bool Enabled = true;
-  CRGB LEDs[36]
 public:
-  CModLED(void);
+  CModMedia(void);
   void Begin(void);
   void LoadData(void);
   void Loop(void);
-  void PressCoords(byte x, byte y);
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
   void SerialComms(byte mode);
 };
-extern CModLED ModLED;
+extern CModMedia ModMedia;
 
 #endif

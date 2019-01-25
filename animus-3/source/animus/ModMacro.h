@@ -1,26 +1,25 @@
-#ifndef ANIMUS_MOD_MODLED
-#define ANIMUS_MOD_MODLED
-#define LED_PIN 11
+#ifndef ANIMUS_MOD_MODMACRO
+#define ANIMUS_MOD_MODMACRO
 #include "ModTemplate.h"
 #include "Animus.h"
-#include <FastLED.h>
 
-class CModLED : public CModTemplate
+class CModMacro : public CModTemplate
 {
 private:
-  bool Enabled = true;
-  CRGB LEDs[36]
+  byte MacroCount = 0;
+  byte KeyDelay = 5;
+  void PressMacro(byte id);
+  void ReleaseMacro(byte id);
 public:
-  CModLED(void);
+  CModMacro(void);
   void Begin(void);
   void LoadData(void);
   void Loop(void);
-  void PressCoords(byte x, byte y);
   void PrePress(byte val, byte type);
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
   void SerialComms(byte mode);
 };
-extern CModLED ModLED;
+extern CModMacro ModMacro;
 
 #endif
