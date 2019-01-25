@@ -31,7 +31,7 @@ void CMod::Loop(void)
 
 }
 
-void CMod::LoadData(void)
+void CMod::LoadData(void) // to future self: this is called by the for loop above, search Global.RequiresLoadData, this is jank but oh well
 {
   builder_mod_loaddata
 }
