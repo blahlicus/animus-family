@@ -105,6 +105,7 @@ void CSerial::Loop(void)
     if (loadCounter >= MEM_BOARD_TYPE)
     {
       PersMem.CommitEEPROM();
+      PersMem.LoadData();
       mode = 0;
       loadCounter = 0;
     }
@@ -149,6 +150,8 @@ void CSerial::Loop(void)
       PersMem.SetEEPROM(MEM_REFRESH_RATE, (byte)Serial.read());
     }
     PersMem.CommitEEPROM();
+    PersMem.LoadData();
+
   }
   else if (mode == 8) // upload from STARTBYTE with LENGTH
   {
@@ -186,6 +189,7 @@ void CSerial::Loop(void)
           if (loadCounter >= inputLength)
           {
             PersMem.CommitEEPROM();
+            PersMem.LoadData();
             mode = 0;
             loadCounter = 0;
             startAddress = -2;
