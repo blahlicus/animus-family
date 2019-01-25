@@ -1,7 +1,7 @@
 #ifndef ANIMUS_MOD_MODLED
 #define ANIMUS_MOD_MODLED
-//#define LED_PIN 26
-#define LED_PIN 11
+#define LED_PIN_MEM 0
+#define LED_COUNT_MEM 1
 #include "ModTemplate.h"
 #include "Animus.h"
 #define FASTLED_FORCE_SOFTWARE_SPI
@@ -11,9 +11,8 @@ class CModLED : public CModTemplate
 {
 private:
   bool Enabled = true;
-  CRGB LEDs[36];
-  byte LEDDelay = 0;
-  byte LEDHue = 0;
+  CRGB LEDs[255];
+  uint8_t LEDCount = 0;
 public:
   CModLED(void);
   void Begin(void);
@@ -24,6 +23,10 @@ public:
   void PressKey(byte val, byte type);
   void ReleaseKey(byte val, byte type);
   void SerialComms(byte mode);
+
+  void InitiateLED(void);
+  void RefreshLED(void);
+
 };
 extern CModLED ModLED;
 

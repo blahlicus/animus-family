@@ -14,13 +14,26 @@ void CModLED::Begin(void)
   {
 
   }
-  FastLED.addLeds<NEOPIXEL, LED_PIN>(LEDs, 36);
+  InitiateLED();
+}
 
-  for (int i = 0; i < 36; i++)
+void CModLED::InitiateLED(void) // this should only be called once per boot up
+{
+  ledPin = GetData(LED_PIN_MEM);
+  if (ledPin != 255) // if LED pin is initiated
   {
-    LEDs[i] = CHSV (LEDHue + (i * 10), 255, 128);
+    LEDCount = GetData(LED_COUNT_MEM);
+    FastLED.addLeds<NEOPIXEL, LED_PIN>(LEDs, LEDCount);
+    RefreshLED();
   }
-  LEDHue = LEDHue + 1;
+}
+
+void CModLED::RefreshLED(void)
+{
+  for (short i = 0; i < LEDCount; i++)
+  {
+    LEDs[i] = CHSV (GetData(2 + i * 2), GetData(2 + i * 2 + 1), Global.LEDBrightness);
+  }
   FastLED.show();
 }
 
