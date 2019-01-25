@@ -195,10 +195,6 @@ void CSerial::Loop(void)
       }
     }
   }
-  else if (mode == 9) // reverse upload mode for mod data
-  {
-    //TODO get this done for mod data
-  }
   else if (mode == 255) // idle mode
   {
 
