@@ -45,6 +45,7 @@ void CModLED::LoadData(void)
   {
 
   }
+  RefreshLED();
 }
 
 void CModLED::Loop(void)
@@ -72,6 +73,23 @@ void CModLED::PrePress(byte val, byte type)
 void CModLED::PressKey(byte val, byte type)
 {
   CModTemplate::PressKey(val, type);
+  if (type == 38) // LED brightness adjust
+  {
+    short adjust = val - 127;
+    if (Global.LEDBrightness + adjust < 0)
+    {
+      Global.LEDBrightness = 0;
+    }
+    else if (Global.LEDBrightness + adjust > LED_MAX_BRIGHTNESS)
+    {
+      Global.LEDBrightness = LED_MAX_BRIGHTNESS;
+    }
+    else
+    {
+      Global.LEDBrightness = Global.LEDBrightness + adjust;
+    }
+    RefreshLED;
+  }
 
 }
 void CModLED::ReleaseKey(byte val, byte type)
