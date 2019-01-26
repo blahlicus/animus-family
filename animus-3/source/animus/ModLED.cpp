@@ -19,11 +19,17 @@ void CModLED::Begin(void)
 
 void CModLED::InitiateLED(void) // this should only be called once per boot up
 {
-  ledPin = GetData(LED_PIN_MEM);
-  if (ledPin != 255) // if LED pin is initiated
+  uint8_t ledPin = GetData(LED_PIN_MEM);
+  if (ledPin == 255) // this be janky due to hardware problems
   {
     LEDCount = GetData(LED_COUNT_MEM);
-    FastLED.addLeds<NEOPIXEL, LED_PIN>(LEDs, LEDCount);
+    FastLED.addLeds<NEOPIXEL, 11>(LEDs, LEDCount);
+    RefreshLED();
+  }
+  else
+  {
+    LEDCount = GetData(LED_COUNT_MEM);
+    FastLED.addLeds<NEOPIXEL, 26>(LEDs, LEDCount);
     RefreshLED();
   }
 }
@@ -88,7 +94,7 @@ void CModLED::PressKey(byte val, byte type)
     {
       Global.LEDBrightness = Global.LEDBrightness + adjust;
     }
-    RefreshLED;
+    RefreshLED();
   }
 
 }
