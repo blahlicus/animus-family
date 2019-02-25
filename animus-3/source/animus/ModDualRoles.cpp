@@ -184,7 +184,8 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     if (type == 19) // gui
     {
 
-      GuiDown--;
+      if (GuiDown > 0) GuiDown--;
+
       if (GuiDown == 0) // all mod keys released, release the mod
       {
         Animus.ReleaseKey(ANIMUS_MOD_DUALROLES_LGUI, 0);
@@ -201,8 +202,8 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     else if (type == 20) // ctrl
     {
 
+      if (CtrlDown > 0) CtrlDown--;
 
-      CtrlDown--;
       if (CtrlDown == 0) // all mod keys released, release the mod
       {
         Animus.ReleaseKey(ANIMUS_MOD_DUALROLES_LCTRL, 0);
@@ -219,7 +220,8 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     else if (type == 21) // shift
     {
 
-      ShiftDown--;
+      if (ShiftDown > 0) ShiftDown--;
+
       if (ShiftDown == 0) // all mod keys released, release the mod
       {
         Animus.ReleaseKey(ANIMUS_MOD_DUALROLES_LSHIFT, 0);
@@ -236,7 +238,8 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     else if (type == 22) // alt
     {
 
-      AltDown--;
+      if (AltDown > 0) AltDown--;
+
       if (AltDown == 0) // all mod keys released, release the mod
       {
         Animus.ReleaseKey(ANIMUS_MOD_DUALROLES_LALT, 0);
@@ -253,7 +256,8 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     else if (type == 23) // altgr
     {
 
-      AltgrDown--;
+      if (AltgrDown > 0) AltgrDown--;
+
       if (AltgrDown == 0) // all mod keys released, release the mod
       {
         Animus.ReleaseKey(ANIMUS_MOD_DUALROLES_RALT, 0);
@@ -271,7 +275,8 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     {
       byte fnIndex = type - 24; // behaviour change, 24 is master layer, 25 is layer 1
 
-      FNDown[fnIndex]--;
+      if (FNDown[fnIndex] > 0) FNDown[fnIndex]--;
+
       if (FNDown[fnIndex] == 0) // all mod keys released, release the mod
       {
         Animus.ReleaseKey(fnIndex, 1);
