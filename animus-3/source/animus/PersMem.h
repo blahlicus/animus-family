@@ -61,7 +61,8 @@
 
 
 #define MEM_EEPROM_SIZE EEPROM_EMULATION_SIZE // retrieved from FlashAsEEPROM
-#define MEM_REFRESH_RATE MEM_EEPROM_SIZE - 124
+#define MEM_KEY_UP_DELAY MEM_EEPROM_SIZE - 125
+#define MEM_KEY_DOWN_DELAY MEM_EEPROM_SIZE - 124
 #define MEM_NKRO_MODE MEM_EEPROM_SIZE - 123
 #define MEM_LAY_COUNT MEM_EEPROM_SIZE - 122
 #define MEM_IS_USBHOST MEM_EEPROM_SIZE - 121
@@ -130,7 +131,8 @@ private:
   void SetBoardType(byte input);
   void SetNKROType(byte input);
   void SetUSBHostType(byte input);
-  void SetRefreshRate(byte input);
+  void SetKeyDownDelay(byte input);
+  void SetKeyUpDelay(byte input);
 public:
   CMem(void);
   void Begin(void);
@@ -152,7 +154,8 @@ public:
   byte GetBoardType();
   byte GetNKROType();
   byte GetUSBHostType();
-  byte GetRefreshRate();
+  byte GetKeyUpDelay();
+  byte GetKeyDownDelay();
 
   byte GetModData(short addr, byte modNo);
 

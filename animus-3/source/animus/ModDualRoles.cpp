@@ -184,7 +184,10 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     if (type == 19) // gui
     {
 
-      if (GuiDown > 0) GuiDown--;
+      if (GuiDown > 0)
+      {
+        GuiDown--;
+      }
 
       if (GuiDown == 0) // all mod keys released, release the mod
       {
@@ -202,7 +205,10 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     else if (type == 20) // ctrl
     {
 
-      if (CtrlDown > 0) CtrlDown--;
+      if (CtrlDown > 0)
+      {
+        CtrlDown--;
+      }
 
       if (CtrlDown == 0) // all mod keys released, release the mod
       {
@@ -220,7 +226,10 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     else if (type == 21) // shift
     {
 
-      if (ShiftDown > 0) ShiftDown--;
+      if (ShiftDown > 0)
+      {
+        ShiftDown--;
+      }
 
       if (ShiftDown == 0) // all mod keys released, release the mod
       {
@@ -238,7 +247,10 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     else if (type == 22) // alt
     {
 
-      if (AltDown > 0) AltDown--;
+      if (AltDown > 0)
+      {
+        AltDown--;
+      }
 
       if (AltDown == 0) // all mod keys released, release the mod
       {
@@ -256,7 +268,10 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     else if (type == 23) // altgr
     {
 
-      if (AltgrDown > 0) AltgrDown--;
+      if (AltgrDown > 0)
+      {
+        AltgrDown--;
+      }
 
       if (AltgrDown == 0) // all mod keys released, release the mod
       {
@@ -275,7 +290,10 @@ void CModDualRoles::ReleaseKey(byte val, byte type)
     {
       byte fnIndex = type - 24; // behaviour change, 24 is master layer, 25 is layer 1
 
-      if (FNDown[fnIndex] > 0) FNDown[fnIndex]--;
+      if (FNDown[fnIndex] > 0)
+      {
+        FNDown[fnIndex]--;
+      }
 
       if (FNDown[fnIndex] == 0) // all mod keys released, release the mod
       {

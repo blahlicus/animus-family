@@ -147,7 +147,11 @@ void CSerial::Loop(void)
     }
     if (Serial.available()>0)
     {
-      PersMem.SetEEPROM(MEM_REFRESH_RATE, (byte)Serial.read());
+      PersMem.SetEEPROM(MEM_KEY_DOWN_DELAY, (byte)Serial.read());
+    }
+    if (Serial.available()>0)
+    {
+      PersMem.SetEEPROM(MEM_KEY_UP_DELAY, (byte)Serial.read());
     }
     PersMem.CommitEEPROM();
     PersMem.LoadData();

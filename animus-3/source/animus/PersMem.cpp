@@ -16,7 +16,8 @@ void CMem::LoadData(void)
   Global.COL = GetColCount();
   if (Global.COL == 255) // if EEPROM data is not set, then load default values
   {
-    SetRefreshRate(1);
+    SetKeyDownDelay(10);
+    SetKeyUpDelay(10);
     SetLayCount(1);
 
     //* default
@@ -52,7 +53,8 @@ void CMem::LoadData(void)
     //*/
   }
   Global.COL = GetColCount();
-  Global.RefreshDelay = GetRefreshRate();
+  Global.KeyDownDelay = GetKeyDownDelay();
+  Global.KeyUpDelay = GetKeyUpDelay();
   Global.ROW = GetRowCount();
   Global.LAY = GetLayCount();
 
@@ -174,9 +176,14 @@ void CMem::SetUSBHostType(byte input)
   SetEEPROM(MEM_IS_USBHOST, input);
 }
 
-void CMem::SetRefreshRate(byte input)
+void CMem::SetKeyDownDelay(byte input)
 {
-  SetEEPROM(MEM_REFRESH_RATE, input);
+  SetEEPROM(MEM_KEY_DOWN_DELAY, input);
+}
+
+void CMem::SetKeyUpDelay(byte input)
+{
+  SetEEPROM(MEM_KEY_UP_DELAY, input);
 }
 
 // End of Setters
@@ -242,9 +249,14 @@ byte CMem::GetUSBHostType()
   return GetEEPROM(MEM_IS_USBHOST);
 }
 
-byte CMem::GetRefreshRate()
+byte CMem::GetKeyDownDelay()
 {
-  return GetEEPROM(MEM_REFRESH_RATE);
+  return GetEEPROM(MEM_KEY_DOWN_DELAY);
+}
+
+byte CMem::GetKeyUpDelay()
+{
+  return GetEEPROM(MEM_KEY_UP_DELAY);
 }
 
 

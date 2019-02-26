@@ -47,11 +47,10 @@ void CAnimus::Loop()
         }
         else if (Global.KeyState[j][i] == LOW) // if key is up
         {
-          if (Global.KeyStateCoolDown[j][i] == 255) // if key was previously held down
+          if (Global.KeyStateCoolDown[j][i] == 255 - Global.KeyUpDelay) // if key was previously held down
           {
             ReleaseKey(PersMem.GetKeyData(j, i, Global.LayerState[j][i]), PersMem.GetKeyType(j, i, Global.LayerState[j][i]));
-
-            Global.KeyStateCoolDown[j][i] = Global.RefreshDelay;
+            Global.KeyStateCoolDown[j][i] = Global.KeyDownDelay;
           }
         }
       }
@@ -62,7 +61,7 @@ void CAnimus::Loop()
     {
       for (byte j = 0; j < Global.COL; j++)
       {
-        if (Global.KeyStateCoolDown[j][i] > 0 && Global.KeyStateCoolDown[j][i] != 255)
+        if (Global.KeyStateCoolDown[j][i] > 0 && Global.KeyStateCoolDown[j][i] != 255 - Global.KeyUpDelay)
         {
           Global.KeyStateCoolDown[j][i]--;
         }
@@ -230,10 +229,6 @@ void CAnimus::MillisLoop()
     PreviousMillis = CurrentMillis;
     ReadyMillis = true;
     RefreshCounter++;
-    if (RefreshCounter >= Global.RefreshDelay)
-    {
-      RefreshCounter = 0;
-    }
   }
   else
   {
@@ -244,18 +239,6 @@ void CAnimus::MillisLoop()
 bool CAnimus::Async1MSDelay()
 {
   return ReadyMillis;
-}
-
-bool CAnimus::AsyncRefreshDelay()
-{
-  if (!RefreshCounter)
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
 }
 
 CAnimus Animus;

@@ -24,14 +24,15 @@ private:
   byte EEPROMPacketIndex = 2;
   byte I2CTempLayer = 0;
   byte I2CLEDBrightness = 0;
-  byte I2CRefresh = 0;
+  byte I2CKeyDown = 0;
+  byte I2CKeyUp = 0;
   byte SerialLoaderByteStatus = 0;
   byte EEPROMPacketSize = 0;
   void SetTempLayer(void);
   void SetSubEEPROM(void);
   void SetSubBoardSettings(void);
   void SetSubLEDBrightness(void);
-  void SetSubRefreshRate(void);
+  void SetSubKeyboardDelay(void);
   void GetSubEEPROM(short startAddr);
 
 

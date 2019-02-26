@@ -27,7 +27,6 @@ public:
   void RotateLayer(byte val);
   void KeyScan(void);
   bool Async1MSDelay(void);
-  bool AsyncRefreshDelay(void);
 
 };
 extern CAnimus Animus;
