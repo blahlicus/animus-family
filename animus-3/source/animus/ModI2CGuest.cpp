@@ -45,7 +45,7 @@ void CModI2CGuest::OnReceive(int numBytes)
       byte byteA = Wire.read();
       byte byteB = Wire.read();
       SlaveIndex = 0;
-      for (short i = (byteA << 8) | byteB; i < MEM_EEPROM_SIZE && Wire.available(); i++)
+      for (short i = (byteA << 8) | byteB; i < MEM_EEPROM_SIZE; i++)
       {
         SlaveArray[SlaveIndex] = PersMem.GetEEPROM(i);
         SlaveIndex++;
