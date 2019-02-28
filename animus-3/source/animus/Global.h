@@ -1,5 +1,7 @@
 #define DEFAULT_ROW 12
 #define DEFAULT_COL 12
+#define I2C_HOST_ADDRESS 7
+#define I2C_GUEST_ADDRESS 8
 
 #ifndef ANIMUS_GLOBAL
 #define ANIMUS_GLOBAL
