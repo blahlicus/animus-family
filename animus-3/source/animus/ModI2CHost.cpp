@@ -190,7 +190,8 @@ void CModI2CHost::OnReceive(int numBytes)
 
   for (int i = 0; i < numBytes; i+=4, keyIndex++)
   {
-    keyX[keyIndex]    = buffer[i+0] & 0x0f; // bitwix] = temp[0] >> 4;
+    keyX[keyIndex]    = buffer[i+0] & 0x0f; // bitwise structure is YYYYXXXX
+    keyY[keyIndex]    = buffer[i+0] >> 4;
     keyData[keyIndex] = buffer[i+1];
     keyType[keyIndex] = buffer[i+2];
     keyMode[keyIndex] = buffer[i+3];
