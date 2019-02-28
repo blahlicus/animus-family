@@ -14,7 +14,6 @@ private:
   unsigned long PreviousMillis = 0;
   unsigned long CurrentMillis = 0;
   bool ReadyMillis = false;
-  byte RefreshCounter = 0;
 public:
   CAnimus(void);
   void Begin(void);
