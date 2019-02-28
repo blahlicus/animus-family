@@ -101,8 +101,10 @@ void CModI2CGuest::Loop(void)
 {
   CModTemplate::Loop();
 
-  if (!Global.HasUSB && isMaster) {
-    if (SlaveIndex > 0) {
+  if (!Global.HasUSB && isMaster)
+  {
+    if (SlaveIndex > 0)
+    {
       Wire.beginTransmission(I2C_HOST_ADDRESS);
       Wire.write(SlaveArray, SlaveIndex);
       Wire.endTransmission();
