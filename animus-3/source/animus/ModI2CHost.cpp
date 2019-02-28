@@ -43,10 +43,11 @@ void CModI2CHost::Loop(void)
       SetSubLEDBrightness();
       I2CLEDBrightness = Global.LEDBrightness;
     }
-    if (Global.RefreshDelay != I2CRefresh)
+    if (Global.KeyDownDelay != I2CKeyDown || Global.KeyUpDelay != I2CKeyUp)
     {
-      SetSubRefreshRate();
-      I2CRefresh = Global.RefreshDelay;
+      SetSubKeyboardDelay();
+      I2CKeyUp = Global.KeyDownDelay;
+      I2CKeyDown = Global.KeyUpDelay;
     }
     // gets keystrokes from guest
     Wire.requestFrom(8, 32);
@@ -290,14 +291,14 @@ void CModI2CHost::SetSubLEDBrightness(void)
   Wire.endTransmission();
 }
 
-void CModI2CHost::SetSubRefreshRate(void)
+void CModI2CHost::SetSubKeyboardDelay(void)
 {
   Wire.beginTransmission(8);
   Wire.write(5);
-  Wire.write(Global.RefreshDelay);
+  Wire.write(Global.KeyDownDelay);
+  Wire.write(Global.KeyUpDelay);
   Wire.endTransmission();
 }
-
 
 
 

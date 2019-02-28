@@ -57,9 +57,6 @@ void CModLED::LoadData(void)
 void CModLED::Loop(void)
 {
   CModTemplate::Loop();
-  if (Animus.AsyncRefreshDelay())
-  {
-  }
 }
 
 void CModLED::PressCoords(byte x, byte y)

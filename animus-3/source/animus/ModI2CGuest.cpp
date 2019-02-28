@@ -67,9 +67,10 @@ void CModI2CGuest::OnReceive(int numBytes)
   {
     Global.LEDBrightness = Wire.read();
   }
-  else if (type == 5) // update refresh rate
+  else if (type == 5) // update keyboard delays
   {
-    Global.RefreshDelay = Wire.read();
+    Global.KeyDownDelay = Wire.read();
+    Global.KeyUpDelay = Wire.read();
   }
   else if (type == 6) // resend for erreneous key
   {
