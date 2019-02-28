@@ -228,7 +228,6 @@ void CAnimus::MillisLoop()
   {
     PreviousMillis = CurrentMillis;
     ReadyMillis = true;
-    RefreshCounter++;
   }
   else
   {
