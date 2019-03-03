@@ -28,12 +28,16 @@ private:
   byte I2CKeyUp = 0;
   byte SerialLoaderByteStatus = 0;
   byte EEPROMPacketSize = 0;
+  bool isMaster = false;
+  bool pendingEEPROMUpdate = false;
   void SetTempLayer(void);
   void SetSubEEPROM(void);
   void SetSubBoardSettings(void);
   void SetSubLEDBrightness(void);
   void SetSubKeyboardDelay(void);
   void GetSubEEPROM(short startAddr);
+  void OnReceive(int numBytes);
+  void SetMaster(bool value);
 
 
 public:
