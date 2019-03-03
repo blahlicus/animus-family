@@ -14,6 +14,8 @@ private:
   bool Enabled = true;
   CRGB LEDs[255];
   uint8_t LEDCount = 0;
+  byte LEDPreviousBrightness = 0;
+  short RefreshCounter = 500;
 public:
   CModLED(void);
   void Begin(void);

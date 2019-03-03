@@ -1,5 +1,4 @@
 #include "ModLED.h"
-//TODO this is a dummy mod, remove this once the build system is up
 CModLED::CModLED(void)
 {
   // nothing
@@ -15,6 +14,7 @@ void CModLED::Begin(void)
 
   }
   InitiateLED();
+  LEDPreviousBrightness == Global.LEDBrightness;
 }
 
 void CModLED::InitiateLED(void) // this should only be called once per boot up
@@ -23,13 +23,21 @@ void CModLED::InitiateLED(void) // this should only be called once per boot up
   if (ledPin == 255) // this be janky due to hardware problems
   {
     LEDCount = GetData(LED_COUNT_MEM);
-    FastLED.addLeds<NEOPIXEL, 11>(LEDs, LEDCount);
+    if (LEDCount < 1 || LEDCount == 255)
+    {
+      LEDCount = 36;
+    }
+    FastLED.addLeds<NEOPIXEL, 26>(LEDs, LEDCount);
     RefreshLED();
   }
   else
   {
     LEDCount = GetData(LED_COUNT_MEM);
-    FastLED.addLeds<NEOPIXEL, 26>(LEDs, LEDCount);
+    if (LEDCount < 1 || LEDCount == 255)
+    {
+      LEDCount = 36;
+    }
+    FastLED.addLeds<NEOPIXEL, 11>(LEDs, LEDCount);
     RefreshLED();
   }
 }
@@ -57,6 +65,25 @@ void CModLED::LoadData(void)
 void CModLED::Loop(void)
 {
   CModTemplate::Loop();
+  if (Animus.Async1MSDelay())
+  {
+    if (RefreshCounter > 0)
+    {
+      RefreshCounter--;
+    }
+    else
+    {
+      RefreshCounter = 500;
+      RefreshLED();
+    }
+
+
+    if (Global.LEDBrightness != LEDPreviousBrightness)
+    {
+      LEDPreviousBrightness = Global.LEDBrightness;
+      RefreshLED();
+    }
+  }
 }
 
 void CModLED::PressCoords(byte x, byte y)
@@ -76,22 +103,26 @@ void CModLED::PrePress(byte val, byte type)
 void CModLED::PressKey(byte val, byte type)
 {
   CModTemplate::PressKey(val, type);
-  if (type == 38) // LED brightness adjust
+  if (Global.HasUSB)
   {
-    short adjust = val - 127;
-    if (Global.LEDBrightness + adjust < 0)
+
+    if (type == 38) // LED brightness adjust
     {
-      Global.LEDBrightness = 0;
+      short adjust = val - 127;
+
+      if (Global.LEDBrightness + adjust < 0)
+      {
+        Global.LEDBrightness = 0;
+      }
+      else if (Global.LEDBrightness + adjust > LED_MAX_BRIGHTNESS)
+      {
+        Global.LEDBrightness = LED_MAX_BRIGHTNESS;
+      }
+      else
+      {
+        Global.LEDBrightness = Global.LEDBrightness + adjust;
+      }
     }
-    else if (Global.LEDBrightness + adjust > LED_MAX_BRIGHTNESS)
-    {
-      Global.LEDBrightness = LED_MAX_BRIGHTNESS;
-    }
-    else
-    {
-      Global.LEDBrightness = Global.LEDBrightness + adjust;
-    }
-    RefreshLED();
   }
 
 }
