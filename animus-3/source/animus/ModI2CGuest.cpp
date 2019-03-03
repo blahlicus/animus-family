@@ -39,6 +39,7 @@ void CModI2CGuest::OnReceive(int numBytes)
         PersMem.SetEEPROM(i, Wire.read());
       }
       PersMem.CommitEEPROM();
+      Global.RequiresLoadData = true;
     }
     else if (type == 3) // return part of the EEPROM
     {
