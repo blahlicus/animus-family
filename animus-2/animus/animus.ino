@@ -8,6 +8,8 @@
 #define builder_hpins A3, A2, A1, A0, 15, 14, 16, 10
 #define builder_refresh 10
 #define builder_keyup_delay 5
+#define I2C_HOST_ADDRESS 7
+#define I2C_GUEST_ADDRESS 8
 #include "EEPROM.h"
 #include "KeyboardInterface.h"
 
