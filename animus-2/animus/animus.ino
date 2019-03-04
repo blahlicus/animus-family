@@ -1,12 +1,13 @@
 #define builder_row 5
 #define builder_col 8
 #define builder_kbname "Test Build"
-#define builder_kbvariant "Test Vuild V"
-#define builder_kbdriver "Animus Innova x2.7.1"
+#define builder_kbvariant "Test Vuild VI"
+#define builder_kbdriver "Animus Innova x2.8"
 #define builder_kbdriver_build "Test Build OEM"
 #define builder_vpins 5, 6, 7, 8, 9
 #define builder_hpins A3, A2, A1, A0, 15, 14, 16, 10
 #define builder_refresh 10
+#define builder_keyup_delay 5
 #include "EEPROM.h"
 #include "KeyboardInterface.h"
 
@@ -18,3 +19,4 @@ byte VPins[ROW] = {builder_vpins};
 byte HPins[COL] = {builder_hpins};
 
 byte RefreshDelay = builder_refresh;
+byte KeyUpDelay = builder_keyup_delay;

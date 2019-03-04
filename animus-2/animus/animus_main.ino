@@ -76,7 +76,7 @@ void loop()
         }
         else if (KeyState[j][i] == LOW) // if key is up
         {
-          if (KeyStateCoolDown[j][i] == 255) // if key was previously held down
+          if (KeyStateCoolDown[j][i] == 255 - KeyUpDelay) // if key was previously held down
           {
             ReleaseKey(GetValEEPROM(j, i, LayerState[j][i]), GetTypeEEPROM(j, i, LayerState[j][i]));
 
@@ -91,7 +91,7 @@ void loop()
     {
       for (byte j = 0; j < COL; j++)
       {
-        if (KeyStateCoolDown[j][i] > 0 && KeyStateCoolDown[j][i] != 255)
+        if (KeyStateCoolDown[j][i] > 0 && KeyStateCoolDown[j][i] != 255 - KeyUpDelay)
         {
           KeyStateCoolDown[j][i]--;
         }
