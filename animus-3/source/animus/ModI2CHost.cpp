@@ -105,7 +105,7 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
             EEPROMPacketIndex++;
             EEPROMPacketSize--;
           }
-          if (EEPROMPacketSize <= 0)
+          if (EEPROMPacketSize <= 0 && pendingEEPROMUpdate == false)
           {
             pendingEEPROMUpdate = true;
             Comms.mode = 0;
