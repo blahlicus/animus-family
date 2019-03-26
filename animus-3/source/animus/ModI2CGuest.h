@@ -4,7 +4,7 @@
 #include "Animus.h"
 #include "Wire.h"
 
-#define PULL_RATE 50
+#define DEFAULT_I2C_PULL_RATE 50
 
 class CModI2CGuest : public CModTemplate
 {
@@ -13,6 +13,7 @@ private:
   byte SlaveIndex = 0;
   bool isMaster = false;
   byte pullTimeout = 0;
+  byte pullRate = DEFAULT_I2C_PULL_RATE;
 public:
   CModI2CGuest(void);
   void Begin(void);

@@ -34,12 +34,22 @@ void CModI2CGuest::OnReceive(int numBytes)
     {
       byte byteA = Wire.read();
       byte byteB = Wire.read();
+      byte packetSize = 0;
       for (short i = (byteA << 8) | byteB; i < MEM_EEPROM_SIZE && Wire.available(); i++)
       {
         PersMem.SetEEPROM(i, Wire.read());
+        packetSize++; // gets total size of packet (Arduino i2c buffer count is not accurate)
       }
-      PersMem.CommitEEPROM();
-      Global.RequiresLoadData = true;
+      if (packetSize >= I2C_PACKET_SIZE -2) // if packet size is at max size indicating there's another trailing packet
+      {
+        pullRate = 1; // then set refresh rate to 1 so that the next packet is retrieved as quickly as possible
+      }
+      else if (packetSize ) // if packet size is not at max size, then this is the last packet
+      {
+        pullRate = DEFAULT_I2C_PULL_RATE; // lowers the pull rate
+        PersMem.CommitEEPROM(); // commits EEPROM
+        Global.RequiresLoadData = true; // reloads persistent data to SRAM
+      }
     }
     else if (type == 3) // return part of the EEPROM
     {
@@ -115,7 +125,7 @@ void CModI2CGuest::Loop(void)
     else if (Animus.Async1MSDelay())
     {
       pullTimeout++;
-      if (pullTimeout >= PULL_RATE) // Send an empty message to pull updates from the host
+      if (pullTimeout >= pullRate) // Send an empty message to pull updates from the host
       {
         Wire.beginTransmission(I2C_HOST_ADDRESS);
         Wire.endTransmission();

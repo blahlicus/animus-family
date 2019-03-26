@@ -4,6 +4,7 @@
 #include "Animus.h"
 #include "Wire.h"
 
+#define I2C_PACKET_SIZE 31
 
 
 
@@ -20,7 +21,7 @@ below are types of i2c transmissions from the host to guest
 class CModI2CHost : public CModTemplate
 {
 private:
-  byte EEPROMPacket[31]; // these are not local variables for faster access
+  byte EEPROMPacket[I2C_PACKET_SIZE]; // these are not local variables for faster access
   byte EEPROMPacketIndex = 2;
   byte I2CTempLayer = 0;
   byte I2CLEDBrightness = 0;
