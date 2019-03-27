@@ -34,17 +34,16 @@ void CModI2CGuest::OnReceive(int numBytes)
     {
       byte byteA = Wire.read();
       byte byteB = Wire.read();
-      byte packetSize = 0;
-      for (short i = (byteA << 8) | byteB; i < MEM_EEPROM_SIZE && Wire.available(); i++)
+      byte packetSize = (byteA << 8) | byteB; i < MEM_EEPROM_SIZE;
+      for (short i = packetSize && Wire.available(); i++)
       {
         PersMem.SetEEPROM(i, Wire.read());
-        packetSize++; // gets total size of packet (Arduino i2c buffer count is not accurate)
       }
       if (packetSize >= I2C_PACKET_SIZE -2) // if packet size is at max size indicating there's another trailing packet
       {
         pullRate = 1; // then set refresh rate to 1 so that the next packet is retrieved as quickly as possible
       }
-      else if (packetSize ) // if packet size is not at max size, then this is the last packet
+      else // if packet size is not at max size, then this is the last packet
       {
         pullRate = DEFAULT_I2C_PULL_RATE; // lowers the pull rate
         PersMem.CommitEEPROM(); // commits EEPROM
