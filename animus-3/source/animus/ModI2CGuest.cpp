@@ -34,18 +34,8 @@ void CModI2CGuest::OnReceive(int numBytes)
     {
       byte byteA = Wire.read();
       byte byteB = Wire.read();
-      byte packetSize = (byteA << 8) | byteB; i < MEM_EEPROM_SIZE;
-      bool isLastPacket = false;
-      if (packetSize >= 200) // last packet size is 2XX where XX is actual size of packet, non-last packets are 0XX
-      {
-        packetSize = packetSize - 200;
-        isLastPacket = true;
-      }
-      for (short i = packetSize && Wire.available(); i++)
-      {
-        PersMem.SetEEPROM(i, Wire.read());
-      }
-      if (isLastPacket)
+      short startAddr = (byteA << 8) | byteB; i < MEM_EEPROM_SIZE;
+      if (startAddr == 65535) // this is end of packets signal
       {
         pullRate = DEFAULT_I2C_PULL_RATE; // lowers the pull rate
         PersMem.CommitEEPROM(); // commits EEPROM
@@ -54,7 +44,12 @@ void CModI2CGuest::OnReceive(int numBytes)
       else
       {
         pullRate = 1;
+        for (short i = startAddr && Wire.available(); i++)
+        {
+          PersMem.SetEEPROM(i, Wire.read());
+        }
       }
+
     }
     else if (type == 3) // return part of the EEPROM
     {
@@ -202,12 +197,12 @@ void CModI2CGuest::ReleaseKey(byte val, byte type)
 /* TODO: Remove this part when everything is confirmed to work
 static void CModI2CGuest::RequestEvent()
 {
-  ModI2CGuest.OnRequest();
+ModI2CGuest.OnRequest();
 }
 
 static void CModI2CGuest::ReceiveEvent(int numBytes)
 {
-  ModI2CGuest.OnReceive(numBytes);
+ModI2CGuest.OnReceive(numBytes);
 }
 //*/
 void CModI2CGuest::SerialComms(byte mode)

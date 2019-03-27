@@ -82,18 +82,18 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
       {
         if (SerialLoaderByteStatus == 0) // if this is the first time mode 6 has made contact
         {
-          EEPROMPacket[0] = (byte)Serial.read();
+          EEPROMPacket[0] = (byte)Serial.read(); // writes first half of starting address
           SerialLoaderByteStatus = 1;
         }
         else if (SerialLoaderByteStatus == 1) // if this is the second time mode 6 has made contact
         {
-          EEPROMPacket[1] = (byte)Serial.read();
+          EEPROMPacket[1] = (byte)Serial.read(); // writes second half of starting address
           SerialLoaderByteStatus = 2;
 
         }
         else if (SerialLoaderByteStatus == 2) // if status is 2, get packet size
         {
-          EEPROMPacketSize = (byte)Serial.read();
+          EEPROMPacketSize = (byte)Serial.read(); // writes length of packet
           SerialLoaderByteStatus = 3;
 
         }
