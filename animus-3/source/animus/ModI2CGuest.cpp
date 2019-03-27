@@ -34,7 +34,7 @@ void CModI2CGuest::OnReceive(int numBytes)
     {
       byte byteA = Wire.read();
       byte byteB = Wire.read();
-      short startAddr = (byteA << 8) | byteB; i < MEM_EEPROM_SIZE;
+      short startAddr = (byteA << 8) | byteB;
       if (startAddr == 65535) // this is end of packets signal
       {
         pullRate = DEFAULT_I2C_PULL_RATE; // lowers the pull rate
@@ -44,7 +44,7 @@ void CModI2CGuest::OnReceive(int numBytes)
       else
       {
         pullRate = 1;
-        for (short i = startAddr && Wire.available(); i++)
+        for (short i = startAddr; i < MEM_EEPROM_SIZE && Wire.available(); i++)
         {
           PersMem.SetEEPROM(i, Wire.read());
         }
