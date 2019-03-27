@@ -35,19 +35,25 @@ void CModI2CGuest::OnReceive(int numBytes)
       byte byteA = Wire.read();
       byte byteB = Wire.read();
       byte packetSize = (byteA << 8) | byteB; i < MEM_EEPROM_SIZE;
+      bool isLastPacket = false;
+      if (packetSize >= 200) // last packet size is 2XX where XX is actual size of packet, non-last packets are 0XX
+      {
+        packetSize = packetSize - 200;
+        isLastPacket = true;
+      }
       for (short i = packetSize && Wire.available(); i++)
       {
         PersMem.SetEEPROM(i, Wire.read());
       }
-      if (packetSize >= I2C_PACKET_SIZE -2) // if packet size is at max size indicating there's another trailing packet
-      {
-        pullRate = 1; // then set refresh rate to 1 so that the next packet is retrieved as quickly as possible
-      }
-      else // if packet size is not at max size, then this is the last packet
+      if (isLastPacket)
       {
         pullRate = DEFAULT_I2C_PULL_RATE; // lowers the pull rate
         PersMem.CommitEEPROM(); // commits EEPROM
         Global.RequiresLoadData = true; // reloads persistent data to SRAM
+      }
+      else
+      {
+        pullRate = 1;
       }
     }
     else if (type == 3) // return part of the EEPROM
