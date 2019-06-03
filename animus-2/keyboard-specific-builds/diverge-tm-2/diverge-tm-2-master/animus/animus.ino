@@ -6,7 +6,7 @@
 #define builder_kbdriver_build "OEM"
 #define builder_vpins 6, 7, 8, 9
 #define builder_hpins A1, A0, 15, 14, 16, 10
-#define builder_refresh 1
+#define builder_refresh 5
 #define builder_keyup_delay 5
 #include "EEPROM.h"
 #include "KeyboardInterface.h"
