@@ -47,7 +47,7 @@ void CAnimus::Loop()
         }
         else if (Global.KeyState[j][i] == LOW) // if key is up
         {
-          if (Global.KeyStateCoolDown[j][i] == 255 - Global.KeyUpDelay) // if key was previously held down
+          if (Global.KeyStateCoolDown[j][i] == 255 - Global.KeyUpDelay) // if key was previously held down AND is currently up after KeyUpDelay amount of time
           {
             ReleaseKey(PersMem.GetKeyData(j, i, Global.LayerState[j][i]), PersMem.GetKeyType(j, i, Global.LayerState[j][i]));
             Global.KeyStateCoolDown[j][i] = Global.KeyDownDelay;
@@ -61,9 +61,10 @@ void CAnimus::Loop()
     {
       for (byte j = 0; j < Global.COL; j++)
       {
+        // what we did here saved 16 bits per key
         if (Global.KeyStateCoolDown[j][i] > 0 && Global.KeyStateCoolDown[j][i] != 255 - Global.KeyUpDelay)
         {
-          Global.KeyStateCoolDown[j][i]--;
+          Global.KeyStateCoolDown[j][i]--; // decrement KeyStateCoolDown if the key is being held down or if it was released, thus activating the keyup and keydown cooldowns
         }
       }
     }
