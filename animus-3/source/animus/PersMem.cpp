@@ -13,64 +13,19 @@ void CMem::Begin(void)
 void CMem::LoadData(void)
 {
   // loads EEPROM data to SRAM
-  Global.COL = GetColCount();
-  if (Global.COL == 255) // if EEPROM data is not set, then load default values
+  Global.LAY = GetLayCount();
+  if (Global.LAY == 255) // if EEPROM data is not set, then load default values
   {
-    SetKeyDownDelay(10);
-    SetKeyUpDelay(10);
     SetLayCount(1);
 
     //* default
-    SetRowCount(1);
-    SetColCount(1);
-
-    SetColPin(0, 24);
-
-    SetRowPin(0, 25);
-    SetUSBHostType(1);
-
-    //*/
-    /* Diverge 4 left
-    SetRowCount(6);
-    SetColCount(7);
-
-    SetColPin(0, 5);
-    SetColPin(1, 4);
-    SetColPin(2, 9);
-    SetColPin(3, 28);
-    SetColPin(4, 26);
-    SetColPin(5, 12);
-    SetColPin(6, 29);
-
-    SetRowPin(0, 6);
-    SetRowPin(1, 18);
-    SetRowPin(2, 8);
-    SetRowPin(3, 27);
-    SetRowPin(4, 25);
-    SetRowPin(5, 24);
-    SetUSBHostType(1);
-
-    //*/
+    SetUSBHostType(1); // set mode to USB host
+    SetNKROType(0); // set KRO mode to 6KRO
   }
-  Global.COL = GetColCount();
-  Global.KeyDownDelay = GetKeyDownDelay();
-  Global.KeyUpDelay = GetKeyUpDelay();
-  Global.ROW = GetRowCount();
-  Global.LAY = GetLayCount();
-
-  for(byte i = 0; i < Global.ROW; i++)
-  {
-    Global.VPins[i] = GetRowPin(i);
-  }
-  for(byte i = 0; i < Global.COL; i++)
-  {
-    Global.HPins[i] = GetColPin(i);
-  }
-
   Global.HasUSB = GetUSBHostType();
+  // TODO add NKRO switching over here
 
-  Global.RequiresLoadData = true;
-  // loads mod EEPROM addresses to SRAM
+  Global.RequiresLoadData = true; // loads mod EEPROM addresses to SRAM
 
 
   // resets pin statuses
@@ -129,39 +84,9 @@ void CMem::SetKey(byte x, byte y, byte z, byte inputChar, byte inputType)
   SetEEPROM(((x + (y * Global.COL) + (z * Global.COL * Global.ROW)) * 2) + 1, inputType);
 }
 
-void CMem::SetRowCount(byte input)
-{
-  SetEEPROM(MEM_ROW_COUNT, input);
-
-}
-
-void CMem::SetColCount(byte input)
-{
-  SetEEPROM(MEM_COL_COUNT, input);
-
-}
-
 void CMem::SetLayCount(byte input)
 {
   SetEEPROM(MEM_LAY_COUNT, input);
-
-}
-
-void CMem::SetRowPin(byte rowNo, byte pinNo)
-{
-  SetEEPROM(MEM_ROW_0 + rowNo, pinNo);
-
-}
-
-void CMem::SetColPin(byte colNo, byte pinNo)
-{
-  SetEEPROM(MEM_COL_0 + colNo, pinNo);
-
-}
-
-void CMem::SetBoardType(byte input)
-{
-  SetEEPROM(MEM_BOARD_TYPE, input);
 
 }
 
@@ -174,16 +99,6 @@ void CMem::SetNKROType(byte input)
 void CMem::SetUSBHostType(byte input)
 {
   SetEEPROM(MEM_IS_USBHOST, input);
-}
-
-void CMem::SetKeyDownDelay(byte input)
-{
-  SetEEPROM(MEM_KEY_DOWN_DELAY, input);
-}
-
-void CMem::SetKeyUpDelay(byte input)
-{
-  SetEEPROM(MEM_KEY_UP_DELAY, input);
 }
 
 // End of Setters
@@ -208,35 +123,9 @@ byte CMem::GetKeyType(byte x, byte y, byte z)
 
 }
 
-byte CMem::GetRowCount()
-{
-  return GetEEPROM(MEM_ROW_COUNT);
-}
-
-byte CMem::GetColCount()
-{
-  return GetEEPROM(MEM_COL_COUNT);
-}
-
 byte CMem::GetLayCount()
 {
   return GetEEPROM(MEM_LAY_COUNT);
-}
-
-byte CMem::GetRowPin(byte rowNo)
-{
-  return GetEEPROM(MEM_ROW_0 + rowNo);
-}
-
-byte CMem::GetColPin(byte colNo)
-{
-  return GetEEPROM(MEM_COL_0 + colNo);
-
-}
-
-byte CMem::GetBoardType()
-{
-  return GetEEPROM(MEM_BOARD_TYPE);
 }
 
 byte CMem::GetNKROType()
@@ -248,19 +137,6 @@ byte CMem::GetUSBHostType()
 {
   return GetEEPROM(MEM_IS_USBHOST);
 }
-
-byte CMem::GetKeyDownDelay()
-{
-  return GetEEPROM(MEM_KEY_DOWN_DELAY);
-}
-
-byte CMem::GetKeyUpDelay()
-{
-  return GetEEPROM(MEM_KEY_UP_DELAY);
-}
-
-
-
 // End of Getters
 
 

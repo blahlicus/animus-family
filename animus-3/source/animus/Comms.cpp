@@ -93,73 +93,13 @@ void CSerial::Loop(void)
   else if (mode == 3) // print mod list in order of mem id to serial
   {
     // reserved for mod.cpp
-  }
-  else if (mode == 4) // load MEM_BOARD_TYPE bytes to 0-MEM_BOARD_TYPE EEPROM for layout and mod data
-  {
-
-    if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
-    {
-      PersMem.SetEEPROM(loadCounter, (byte)Serial.read());
-      loadCounter++;
-    }
-    if (loadCounter >= MEM_BOARD_TYPE)
-    {
-      PersMem.CommitEEPROM();
-      PersMem.LoadData();
-      mode = 0;
-      loadCounter = 0;
-    }
-  }
-  else if (mode == 5) // load 124 bytes to MEM_BOARD_TYPE-MEM_EEPROM_SIZE EEPROM for board data
-  {
-
-    if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
-    {
-      PersMem.SetEEPROM(loadCounter+MEM_BOARD_TYPE, (byte)Serial.read());
-      loadCounter++;
-    }
-    if (loadCounter+MEM_BOARD_TYPE >= MEM_EEPROM_SIZE)
-    {
-      PersMem.CommitEEPROM();
-      PersMem.LoadData();
-      loadCounter = 0;
-      mode = 0;
-    }
-  }
+  } // mode 4, 5 removed because configs are no longer dynamically saved in EEPROM
   else if (mode == 6) // reserved for i2chost for sending data to the slave
   {
     // do nothing
-  }
-  else if (mode == 7) // update basic info
-  {
-
-    if (Serial.available()>0)
-    {
-      PersMem.SetEEPROM(MEM_LAY_COUNT, (byte)Serial.read());
-    }
-    if (Serial.available()>0)
-    {
-      PersMem.SetEEPROM(MEM_NKRO_MODE, (byte)Serial.read());
-    }
-    if (Serial.available()>0)
-    {
-      PersMem.SetEEPROM(MEM_IS_USBHOST, (byte)Serial.read());
-    }
-    if (Serial.available()>0)
-    {
-      PersMem.SetEEPROM(MEM_KEY_DOWN_DELAY, (byte)Serial.read());
-    }
-    if (Serial.available()>0)
-    {
-      PersMem.SetEEPROM(MEM_KEY_UP_DELAY, (byte)Serial.read());
-    }
-    PersMem.CommitEEPROM();
-    PersMem.LoadData();
-
-  }
+  } // mode 7 removed because configs are no longer dynamically saved in EEPROM
   else if (mode == 8) // upload from STARTBYTE with LENGTH
   {
-    //TODO test this code
     if (Serial.available()>0) //TODO I might want to work in a timeout or fail check for this
     {
       if (startAddress == -2) // mode 8 has not started yet
