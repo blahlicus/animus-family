@@ -11,6 +11,7 @@
 #define BUILDER_COL 7
 #define BUILDER_VPIN 6, 22, 8, 17, 15, 14
 #define BUILDER_HPIN 5, 2, 9, 18, 16, 12, 19
+
 #define BUILDER_PRESS_COOLDOWN 5
 #define BUILDER_RELEASE_COOLDOWN 2
 
@@ -36,8 +37,8 @@ public:
   byte COL = BUILDER_COL; // configured from #define
   byte LAY = 1; // default value, overriden on EEPROM load
 
-  byte VPins[BUILDER_ROW]; // configured from #define
-  byte HPins[BUILDER_COL]; // configured from #define
+  byte VPins[BUILDER_ROW] = {BUILDER_VPIN}; // configured from #define
+  byte HPins[BUILDER_COL] = {BUILDER_HPIN}; // configured from #define
 
 
   byte KeyLayer = 0;
