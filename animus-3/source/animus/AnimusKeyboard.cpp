@@ -24,11 +24,11 @@ void IKeyboard::Press(byte k)
 {
   if (Global.NKROMode == 0)
   {
-    BootKeyboard.press(k)
+    BootKeyboard.press(k);
   }
   else
   {
-    NKROKeyboard.press(k)
+    NKROKeyboard.press(k);
   }
   KeyState[k] = true;
 }
@@ -36,11 +36,11 @@ void IKeyboard::Release(byte k)
 {
   if (Global.NKROMode == 0)
   {
-    BootKeyboard.release(k)
+    BootKeyboard.release(k);
   }
   else
   {
-    NKROKeyboard.release(k)
+    NKROKeyboard.release(k);
   }
   KeyState[k] = true;
 

@@ -142,7 +142,7 @@ void CAnimus::PressKey(byte val, byte type)
         }
         else if (Global.NKROMode == 1)
         {
-          Global.NKROMode = 0
+          Global.NKROMode = 0;
         }
       }
       PersMem.SetNKROType(Global.NKROMode);
