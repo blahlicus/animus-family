@@ -5,10 +5,10 @@
 #if defined (ARDUINO_AVR_LEONARDO) // this is running on an Atmega32u4
 #include "EEPROM.h"
 #define MEM_EEPROM_SIZE 1024
+#define MEM_LAY_COUNT 0 // the first byte of EEPROM indicates the number of layers
 #define MEM_NKRO_MODE MEM_EEPROM_SIZE - 124
-#define MEM_LAY_COUNT MEM_EEPROM_SIZE - 123
-#define MEM_IS_USBHOST MEM_EEPROM_SIZE - 122
-#define MEM_DYNAMIC_ADDR MEM_EEPROM_SIZE - 121
+#define MEM_IS_USBHOST MEM_EEPROM_SIZE - 123
+#define MEM_DYNAMIC_ADDR MEM_EEPROM_SIZE - 122
 
 #elif defined (ARDUINO_SAMD_ZERO) // this is running on SAMD
 
@@ -18,10 +18,10 @@
 
 
 #define MEM_EEPROM_SIZE EEPROM_EMULATION_SIZE // retrieved from FlashAsEEPROM
+#define MEM_LAY_COUNT 0 // the first byte of EEPROM indicates the number of layers
 #define MEM_NKRO_MODE MEM_EEPROM_SIZE - 124
-#define MEM_LAY_COUNT MEM_EEPROM_SIZE - 123
-#define MEM_IS_USBHOST MEM_EEPROM_SIZE - 122
-#define MEM_DYNAMIC_ADDR MEM_EEPROM_SIZE - 121
+#define MEM_IS_USBHOST MEM_EEPROM_SIZE - 123
+#define MEM_DYNAMIC_ADDR MEM_EEPROM_SIZE - 122
 
 #else
 #error unknown target device
@@ -53,7 +53,7 @@ public:
   byte GetUSBHostType();
 
   byte GetModData(short addr, byte modNo);
-  
+
   void SetLayCount(byte input);
   void SetNKROType(byte input);
   void SetUSBHostType(byte input);
