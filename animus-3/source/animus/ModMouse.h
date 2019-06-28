@@ -6,7 +6,6 @@
 // from nicehood
 #include "HID.h"
 #include "HID-Project.h"
-#include "HID-Settings.h"
 
 
 class CModMouse : public CModTemplate
