@@ -35,9 +35,6 @@ class CMem
 private:
   //TODO remove these private methods when it is confirmed that these aren't used elsewhere
   void SetKey(byte x, byte y, byte z, byte inputChar, byte inputType);
-  void SetLayCount(byte input);
-  void SetNKROType(byte input);
-  void SetUSBHostType(byte input);
 public:
   CMem(void);
   void Begin(void);
@@ -56,6 +53,10 @@ public:
   byte GetUSBHostType();
 
   byte GetModData(short addr, byte modNo);
+  
+  void SetLayCount(byte input);
+  void SetNKROType(byte input);
+  void SetUSBHostType(byte input);
 
   void End(void);
 };
