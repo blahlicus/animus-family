@@ -23,8 +23,7 @@ void CMem::LoadData(void)
     SetNKROType(0); // set KRO mode to 6KRO
   }
   Global.HasUSB = GetUSBHostType();
-  // TODO add NKRO switching over here
-
+  Global.NKROMode = GetNKROType();
   Global.RequiresLoadData = true; // loads mod EEPROM addresses to SRAM
 
 

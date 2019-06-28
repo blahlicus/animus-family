@@ -53,7 +53,7 @@ public:
   bool HasUSB = false; // default state of USB comms, used to differentiate between the host and guest for split keyboards
   bool RequiresLoadData = false; // I am soo sorry for the spaghetti
 
-
+  byte NKROMode = 0; // default state as 6KRO, will load from EEPROM
   byte LEDBrightness = 127;
   CGlobal(void);
 };

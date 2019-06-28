@@ -124,6 +124,29 @@ void CAnimus::PressKey(byte val, byte type)
         Global.TempLayer = val;
       }
     }
+    else if (type == 6) // change NKRO
+    {
+      if (val == 0) // set 6KRO
+      {
+        Global.NKROMode = 0;
+      }
+      else if (val == 1) // setNKRO
+      {
+        Global.NKROMode = 1;
+      }
+      else if (val == 2) // toggle NKRO
+      {
+        if (Global.NKROMode == 0)
+        {
+          Global.NKROMode = 1;
+        }
+        else if (Global.NKROMode == 1)
+        {
+          Global.NKROMode = 0
+        }
+      }
+      PersMem.SetNKROType(Global.NKROMode);
+    }
   }
 
   // for other key types, use a mod
