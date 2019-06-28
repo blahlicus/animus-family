@@ -1,8 +1,5 @@
 #include "AnimusKeyboard.h"
 
-#define HID_CUSTOM_LAYOUT
-#define LAYOUT_HID_SCANCODE
-#include "HID.h"
 #include "HID-Project.h"
 // this is for the modified arduino HID
 IKeyboard::IKeyboard(void)
@@ -24,11 +21,11 @@ void IKeyboard::Press(byte k)
 {
   if (Global.NKROMode == 0)
   {
-    BootKeyboard.press(k);
+    BootKeyboard.press((KeyboardKeycode)k);
   }
   else
   {
-    NKROKeyboard.press(k);
+    NKROKeyboard.press((KeyboardKeycode)k);
   }
   KeyState[k] = true;
 }
@@ -36,11 +33,11 @@ void IKeyboard::Release(byte k)
 {
   if (Global.NKROMode == 0)
   {
-    BootKeyboard.release(k);
+    BootKeyboard.release((KeyboardKeycode)k);
   }
   else
   {
-    NKROKeyboard.release(k);
+    NKROKeyboard.release((KeyboardKeycode)k);
   }
   KeyState[k] = true;
 
@@ -49,13 +46,13 @@ void IKeyboard::Write(byte k)
 {
   if (Global.NKROMode == 0)
   {
-    BootKeyboard.press(k);
-    BootKeyboard.release(k);
+    BootKeyboard.press((KeyboardKeycode)k);
+    BootKeyboard.release((KeyboardKeycode)k);
   }
   else
   {
-    NKROKeyboard.press(k);
-    NKROKeyboard.release(k);
+    NKROKeyboard.press((KeyboardKeycode)k);
+    NKROKeyboard.release((KeyboardKeycode)k);
   }
 }
 void IKeyboard::ReleaseAll(void)
