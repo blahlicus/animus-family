@@ -79,8 +79,8 @@ void CMem::CommitEEPROM(void)
 
 void CMem::SetKey(byte x, byte y, byte z, byte inputChar, byte inputType)
 {
-  SetEEPROM(((x + (y * Global.COL) + (z * Global.COL * Global.ROW)) * 2), inputChar);
-  SetEEPROM(((x + (y * Global.COL) + (z * Global.COL * Global.ROW)) * 2) + 1, inputType);
+  SetEEPROM(((x + (y * Global.COL) + (z * Global.COL * Global.ROW)) * 2) +1, inputChar);
+  SetEEPROM(((x + (y * Global.COL) + (z * Global.COL * Global.ROW)) * 2) + 2, inputType);
 }
 
 void CMem::SetLayCount(byte input)
@@ -112,12 +112,12 @@ byte CMem::GetEEPROM(short address)
 
 byte CMem::GetKeyData(byte x, byte y, byte z)
 {
-  return GetEEPROM(((x + (y * Global.COL) + (z * Global.COL * Global.ROW)) * 2));
+  return GetEEPROM(((x + (y * Global.COL) + (z * Global.COL * Global.ROW)) * 2) + 1);
 }
 
 byte CMem::GetKeyType(byte x, byte y, byte z)
 {
-  return GetEEPROM(((x + (y * Global.COL) + (z * Global.COL * Global.ROW)) * 2) + 1);
+  return GetEEPROM(((x + (y * Global.COL) + (z * Global.COL * Global.ROW)) * 2) + 2);
 
 
 }
