@@ -17,7 +17,7 @@ void CMem::LoadData(void)
   if (Global.LAY == 255) // if EEPROM data is not set, then load default values
   {
     SetLayCount(1);
-
+    Global.LAY = GetLayCount();
     //* default
     SetUSBHostType(1); // set mode to USB host
     SetNKROType(0); // set KRO mode to 6KRO
