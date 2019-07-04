@@ -7,6 +7,7 @@
     <string>tapDance</string>
     <string>mouseKeys</string>
     <string>stickyKeys</string>
+    <string>shifted</string>
   </mods>
   <vpins>
     <string>10</string>
@@ -29,5 +30,5 @@
   <bp_name>diverge-right</bp_name>
   <variant>Diverge</variant>
   <driver_build>OEM</driver_build>
-  <refresh>1</refresh>
+  <refresh>5</refresh>
 </ClBuildProfile>

@@ -8,6 +8,7 @@
     <string>dualRoles</string>
     <string>tapDance</string>
     <string>mouseKeys</string>
+    <string>shifted</string>
   </mods>
   <vpins>
     <string>16</string>
@@ -26,5 +27,5 @@
   <bp_name>felix</bp_name>
   <variant>Felix typeZERO</variant>
   <driver_build>Felix OEM</driver_build>
-  <refresh>1</refresh>
+  <refresh>5</refresh>
 </ClBuildProfile>

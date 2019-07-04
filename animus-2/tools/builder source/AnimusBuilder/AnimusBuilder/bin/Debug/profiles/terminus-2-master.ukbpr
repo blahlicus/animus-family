@@ -9,6 +9,7 @@
     <string>tapDance</string>
     <string>stickyKeys</string>
     <string>mouseKeys</string>
+    <string>shifted</string>
   </mods>
   <vpins>
     <string>4</string>
@@ -30,5 +31,5 @@
   <bp_name>terminus-2-master</bp_name>
   <variant>Terminus 2 Master</variant>
   <driver_build>Terminus 2 OEM</driver_build>
-  <refresh>1</refresh>
+  <refresh>5</refresh>
 </ClBuildProfile>
