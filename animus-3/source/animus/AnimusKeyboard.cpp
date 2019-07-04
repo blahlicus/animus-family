@@ -9,23 +9,23 @@ IKeyboard::IKeyboard(void)
 
 void IKeyboard::Begin(void)
 {
-  BootKeyboard.begin();
-  NKROKeyboard.begin();
+  Keyboard.begin();
+  //NKROKeyboard.begin();
 }
 void IKeyboard::End(void)
 {
-  BootKeyboard.end();
-  NKROKeyboard.end();
+  Keyboard.end();
+  //NKROKeyboard.end();
 }
 void IKeyboard::Press(byte k)
 {
   if (Global.NKROMode == 0)
   {
-    BootKeyboard.press((KeyboardKeycode)k);
+    Keyboard.press((KeyboardKeycode)k);
   }
   else
   {
-    NKROKeyboard.press((KeyboardKeycode)k);
+    //NKROKeyboard.press((KeyboardKeycode)k);
   }
   KeyState[k] = true;
 }
@@ -33,11 +33,11 @@ void IKeyboard::Release(byte k)
 {
   if (Global.NKROMode == 0)
   {
-    BootKeyboard.release((KeyboardKeycode)k);
+    Keyboard.release((KeyboardKeycode)k);
   }
   else
   {
-    NKROKeyboard.release((KeyboardKeycode)k);
+    //NKROKeyboard.release((KeyboardKeycode)k);
   }
   KeyState[k] = true;
 
@@ -46,19 +46,19 @@ void IKeyboard::Write(byte k)
 {
   if (Global.NKROMode == 0)
   {
-    BootKeyboard.press((KeyboardKeycode)k);
-    BootKeyboard.release((KeyboardKeycode)k);
+    Keyboard.press((KeyboardKeycode)k);
+    Keyboard.release((KeyboardKeycode)k);
   }
   else
   {
-    NKROKeyboard.press((KeyboardKeycode)k);
-    NKROKeyboard.release((KeyboardKeycode)k);
+    //NKROKeyboard.press((KeyboardKeycode)k);
+    //NKROKeyboard.release((KeyboardKeycode)k);
   }
 }
 void IKeyboard::ReleaseAll(void)
 {
-  BootKeyboard.releaseAll();
-  NKROKeyboard.releaseAll();
+  Keyboard.releaseAll();
+  //NKROKeyboard.releaseAll();
   for (short i = 0; i < 256; i++)
   {
     KeyState[i] = false;

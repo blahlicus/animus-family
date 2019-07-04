@@ -132,18 +132,11 @@ void CAnimus::PressKey(byte val, byte type)
       }
       else if (val == 1) // setNKRO
       {
-        Global.NKROMode = 1;
+        //Global.NKROMode = 1;
       }
-      else if (val == 2) // toggle NKRO
+      else if (val == 2)
       {
-        if (Global.NKROMode == 0)
-        {
-          Global.NKROMode = 1;
-        }
-        else if (Global.NKROMode == 1)
-        {
-          Global.NKROMode = 0;
-        }
+        //TODO add support for third mode
       }
       PersMem.SetNKROType(Global.NKROMode);
     }
