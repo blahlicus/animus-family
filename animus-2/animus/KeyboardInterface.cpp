@@ -41,11 +41,11 @@ size_t KeyboardInterface::press(uint8_t k)
 {
   if (KeyboardMode == 1)
   {
-    NKROKeyboard.press(k);
+    NKROKeyboard.press((KeyboardKeycode)k);
   }
   else
   {
-    BootKeyboard.press(k);
+    BootKeyboard.press((KeyboardKeycode)k);
   }
 }
 
@@ -56,11 +56,11 @@ size_t KeyboardInterface::release(uint8_t k)
 {
   if (KeyboardMode == 1)
   {
-    NKROKeyboard.release(k);
+    NKROKeyboard.release((KeyboardKeycode)k);
   }
   else
   {
-    BootKeyboard.release(k);
+    BootKeyboard.release((KeyboardKeycode)k);
   }
 }
 
@@ -99,11 +99,11 @@ size_t KeyboardInterface::write(uint8_t c)
 {
   if (KeyboardMode == 1)
   {
-    NKROKeyboard.write(c);
+    NKROKeyboard.write((KeyboardKeycode)c);
   }
   else
   {
-    BootKeyboard.write(c);
+    BootKeyboard.write((KeyboardKeycode)c);
   }
 }
 
