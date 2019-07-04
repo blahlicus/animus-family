@@ -61,9 +61,23 @@ void CSerial::Loop(void)
       }
       else if (keyMode == 4) // all key checks passed, setting mode
       {
+        TimeoutMillis = Global.CurrentMillis;
         mode = keyByte;
         keyMode = 0;
       }
+    }
+  }
+
+  if (mode != 0) // start timeout counter if mode is not zero
+  {
+    if (Global.CurrentMillis - TimeoutMillis >= COMM_TIMEOUT) // timeout has elapse
+    {
+      // load eeprom and reset comms
+      TimeoutMillis = Global.CurrentMillis;
+      PersMem.CommitEEPROM();
+      PersMem.LoadData();
+      loadCounter = 0;
+      mode = 0;
     }
   }
 
@@ -72,10 +86,12 @@ void CSerial::Loop(void)
     if (Serial.available()>0)
     {
       PersMem.SetEEPROM(loadCounter, (byte)Serial.read());
+      TimeoutMillis = Global.CurrentMillis;
       loadCounter++;
     }
     if (loadCounter >= MEM_EEPROM_SIZE)
     {
+      TimeoutMillis = Global.CurrentMillis;
       PersMem.CommitEEPROM();
       PersMem.LoadData();
       loadCounter = 0;
@@ -88,6 +104,7 @@ void CSerial::Loop(void)
     {
       Serial.write(PersMem.GetEEPROM(i));
     }
+    TimeoutMillis = Global.CurrentMillis;
     mode = 0;
   }
   else if (mode == 3) // print mod list in order of mem id to serial
@@ -129,11 +146,13 @@ void CSerial::Loop(void)
           // write to EEPROM
           PersMem.SetEEPROM(loadCounter, (byte)Serial.read());
           loadCounter++;
+          TimeoutMillis = Global.CurrentMillis;
 
           if (loadCounter >= inputLength)
           {
             PersMem.CommitEEPROM();
             PersMem.LoadData();
+            TimeoutMillis = Global.CurrentMillis;
             mode = 0;
             loadCounter = 0;
             startAddress = -2;

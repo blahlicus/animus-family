@@ -15,7 +15,7 @@ void CAnimus::Begin()
 
 void CAnimus::Loop()
 {
-  MillisLoop(); // checks pseudoRTOS status
+  Global.MillisLoop(); // checks pseudoRTOS status
 
   // start of pseudo rtos code
   if (Async1MSDelay()) // should run once every 1 to 1.5ms
@@ -237,24 +237,9 @@ void CAnimus::KeyScan()
 
 
 
-void CAnimus::MillisLoop()
-{
-  CurrentMillis = millis();
-
-  if(CurrentMillis - PreviousMillis >= 1) // this elapses every 1-1.5 ms
-  {
-    PreviousMillis = CurrentMillis;
-    ReadyMillis = true;
-  }
-  else
-  {
-    ReadyMillis = false;
-  }
-}
-
 bool CAnimus::Async1MSDelay()
 {
-  return ReadyMillis;
+  return Global.ReadyMillis;
 }
 
 CAnimus Animus;

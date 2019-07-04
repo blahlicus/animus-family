@@ -17,6 +17,7 @@ void CMod::Loop(void)
   builder_mod_loop
   if (Comms.mode == 3) // print mod guid list
   {
+    Comms.TimeoutMillis = Global.CurrentMillis;
     PrintMods();
     Comms.mode == 0; // need this to reset comms back to normal mode
   }

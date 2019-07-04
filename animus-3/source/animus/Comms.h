@@ -1,10 +1,12 @@
 #ifndef ANIMUS_SERIAL
 #define ANIMUS_SERIAL
 #include "PersMem.h"
+
 #define COMM_KEY_0 0
 #define COMM_KEY_1 1
 #define COMM_KEY_2 2
 #define COMM_KEY_3 3
+#define COMM_TIMEOUT 5000 // timeout for comms to reset itself after x milliseconds
 
 #if defined (ARDUINO_SAMD_ZERO) // this is running on SAMD
 #define Serial SerialUSB
@@ -22,6 +24,8 @@ private:
   short startAddress = -2;
   short inputLength = -2;
   byte startByte = 0;
+
+
 public:
   byte mode;
 
@@ -29,6 +33,8 @@ public:
   void Begin(int baud);
   void Loop(void);
   void End(void);
+
+  unsigned long TimeoutMillis = 0;
 };
 extern CSerial Comms;
 

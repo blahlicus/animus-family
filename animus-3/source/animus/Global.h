@@ -55,6 +55,13 @@ public:
 
   byte NKROMode = 0; // default state as 6KRO, will load from EEPROM
   byte LEDBrightness = 127;
+
+
+  unsigned long PreviousMillis = 0;
+  unsigned long CurrentMillis = 0;
+  bool ReadyMillis = false;
+  void MillisLoop(void);
+
   CGlobal(void);
 };
 extern CGlobal Global;

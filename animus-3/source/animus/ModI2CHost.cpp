@@ -104,10 +104,12 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
             EEPROMPacket[EEPROMPacketIndex] = (byte)Serial.read();
             EEPROMPacketIndex++;
             EEPROMPacketSize--;
+            Comms.TimeoutMillis = Global.CurrentMillis;
           }
           if (EEPROMPacketSize <= 0 && pendingEEPROMUpdate == false)
           {
             pendingEEPROMUpdate = true;
+            Comms.TimeoutMillis = Global.CurrentMillis;
             Comms.mode = 0;
           }
         }
@@ -116,9 +118,10 @@ void CModI2CHost::SerialComms(byte mode) // holy shit this is complicated
     else if (Comms.mode == 7) // request read sub EEPROM
     {
       short addr = 0;
+      Comms.TimeoutMillis = Global.CurrentMillis;
       while (addr < MEM_EEPROM_SIZE)
       {
-        GetSubEEPROM(addr); // TODO
+        GetSubEEPROM(addr);
         Wire.requestFrom(I2C_GUEST_ADDRESS, 32);
         while(Wire.available())
         {
