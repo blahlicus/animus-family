@@ -2,7 +2,7 @@
 #define ANIMUS_MOD_MODLED
 #define LED_PIN_MEM 0
 #define LED_COUNT_MEM 1
-#define LED_MAX_BRIGHTNESS 200
+#define LED_MAX_BRIGHTNESS 180
 #include "ModTemplate.h"
 #include "Animus.h"
 #define FASTLED_FORCE_SOFTWARE_SPI
