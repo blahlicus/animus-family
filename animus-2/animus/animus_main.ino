@@ -71,8 +71,8 @@ void loop()
             LayerState[j][i] = TempLayer;
             ModPrePress(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
             PressKey(GetValEEPROM(j, i, TempLayer), GetTypeEEPROM(j, i, TempLayer));
-            KeyStateCoolDown[j][i] = 255;
           }
+          KeyStateCoolDown[j][i] = 255;
         }
         else if (KeyState[j][i] == LOW) // if key is up
         {
