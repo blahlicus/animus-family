@@ -1,11 +1,11 @@
-#define builder_row 8
-#define builder_col 5
+#define builder_row 5
+#define builder_col 8
 #define builder_kbname "Diverge Left"
 #define builder_kbvariant "Diverge"
 #define builder_kbdriver "Animus Innova v2.8"
 #define builder_kbdriver_build "OEM"
-#define builder_vpins 10, 16, 14, 15, A0, A1, A2, A3
-#define builder_hpins 9, 8, 7, 6, 5
+#define builder_hpins 10, 16, 14, 15, A0, A1, A2, A3
+#define builder_vpins 9, 8, 7, 6, 5
 #define builder_refresh 5
 #define builder_keyup_delay 5
 #define I2C_HOST_ADDRESS 7

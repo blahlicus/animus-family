@@ -17,6 +17,11 @@ void TestSerial()
     {
       SerialCommand(inputData);
       inputData = "";
+      inputByte = "";
+      // Clear Serial Buffer
+      while (Serial.available() > 0) {
+        Serial.read();
+      }
     }
 
     if (inputData.length() > 100)
@@ -48,7 +53,7 @@ void SerialCommand(String input)
   {
     Serial.println(builder_kbdriver_build);
   }
-  else if (input.startsWith("uniqueksetkey"))
+  else if (input.startsWith("uniqueksetsubkey"))
   {
     input = input.substring(input.indexOf('(')+1);
     byte x = input.substring(0, input.indexOf('(')).toInt();

@@ -17,6 +17,11 @@ void TestSerial()
     {
       SerialCommand(inputData);
       inputData = "";
+      inputByte = "";
+      // Clear Serial Buffer
+      while (Serial.available() > 0) {
+        Serial.read();
+      }
     }
 
     if (inputData.length() > 100)
